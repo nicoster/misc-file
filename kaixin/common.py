@@ -53,6 +53,7 @@ def getUserData(cookies):
     javascript = javascript.replace('\n', '').replace('\r', '')
 
     fd, fn = tempfile.mkstemp('.js')
+    #~ print fn
     fh = os.fdopen(fd, 'w')
     fh.write(javascript)
     fh.close()
@@ -61,8 +62,9 @@ def getUserData(cookies):
     result = os.popen('cscript.exe /nologo ' + fn)
  #   status = result.status()
     acc = result.read()
-    os.remove(fn)
-    print "ACC: ", acc
+    #~ print "ACC: ", acc
+	os.remove(fn)
+
     #~ if status != 0:
         #~ logging.info('Cannot execute "js", plz install spidermonkey first')
    #     sys.exit(2)
@@ -97,8 +99,8 @@ def parkCar(cookies, carid, first_fee_parking, neighbor, park_uid, parkid, verif
             'acc':acc,
             }
     result = curl.getUrlEx(url, data, cookies)
-    logging.debug('For parking, post:' + str(data))
-    logging.debug('kaixin returns:' + str(result))
+    #~ logging.debug('For parking, post:' + str(data))
+    #~ logging.debug('kaixin returns:' + str(result))
     return json.read(result)
 
 def getFriendEmptyParking(cookies, friends, verify):
@@ -125,25 +127,20 @@ def getFriendEmptyParking(cookies, friends, verify):
         #~ print '==================================================='
         #~ print data[v['uid']]
 
+    parking_spaces = []
+    for (uid, user_parking) in data.items():
+        parking_space = {}
+        for park_info in user_parking['parking']:
+            if park_info['car_uid'] == 0 and not (int(park_info['parkid']) >> 16 & 255):
+                if not parking_space.has_key('parking'):
+                    parking_space['parking'] = []
+                parking_space['parking'].append(park_info)
+        if parking_space:
+            parking_space['user'] = user_parking['user']
+        parking_spaces.append(parking_space)
 
-
-    empty = {}
-    for (k,v) in data.items():
-        for vv in v['parking']:
-            #  is_free_parking_space = parkid >> 16 & 255
-            if vv['car_uid'] == 0 and not (int(vv['parkid']) >> 16 & 255):
-                if not empty.has_key(k):
-                    empty[k] = {}
-                if not empty[k].has_key('parking'):
-                    empty[k]['parking'] = []
-
-                empty[k]['parking'].append(vv)
-
-        if empty.has_key(k):
-            empty[k]['user'] = v['user']
-
-    #logging.debug('empty:' + str(empty))
-    return empty
+    #~ print parking_spaces
+    return parking_spaces
 
 def showUserInfo(user, cars):
     if not user:
@@ -166,12 +163,19 @@ def parking2(cookies, user, cars, friends, verify, acc):
     print 'start parking..'
     total_money = 0
     parking_spaces = getFriendEmptyParking(cookies, friends, verify)
+
     #~ return
     if not parking_spaces:
         print 'oops..no parking space left.'
         return total_money
     retried = 0
-    for (uid, parking_space_group) in parking_spaces.items():
+    #~ for (uid, parking_space_group) in parking_spaces.items():
+    for parking_space_group in parking_spaces:
+        uid = parking_space_group['user']['uid']
+        # for dbg 
+        #~ print parking_space_group['user']['real_name']
+        #~ continue
+        
         try:
             friend = parking_space_group['user'];
             for parking_space in parking_space_group['parking']:
@@ -189,11 +193,11 @@ def parking2(cookies, user, cars, friends, verify, acc):
                         print 'No more cars to park.'
                         if not retried:
                             retried = 1
-                            print 'no cars to park to', park_uname, '. Try another friend\'s parking space to see if', park_uname, 'has car to park'
+                            print 'no cars to park to', park_uname, '. Try another friend\'s parking space to see if any car parked at', park_uname, 'can be repacked.'
                             raise Exception('')
                         return total_money
                     print 'Try to park', car['car_name'], '...'
-                    time.sleep(11)
+                    time.sleep(7)
                     ret = parkCar(cookies, car['carid'], first_fee_parking, neighbor, park_uid, parkid, verify, acc)
                     if ret['errno'] == 0:
                         print '  car', car['car_name'], 'from', car['park_real_name'], 'to', park_uname, 'got', car['park_profit'], 'RMB'

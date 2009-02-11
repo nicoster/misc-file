@@ -58,6 +58,9 @@ def main(argv):
         total_money = parking2(cookies, user, car, friends, verify, acc)
         if total_money:
             print 'Congrats! You got', total_money, 'RMB.'
-
+        return total_money
+    
+    return 0
+    
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    sys.exit(main(sys.argv[1:]))
