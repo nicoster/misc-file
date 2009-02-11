@@ -63,7 +63,7 @@ def getUserData(cookies):
  #   status = result.status()
     acc = result.read()
     #~ print "ACC: ", acc
-	os.remove(fn)
+    os.remove(fn)
 
     #~ if status != 0:
         #~ logging.info('Cannot execute "js", plz install spidermonkey first')
