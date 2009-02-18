@@ -3,7 +3,7 @@ import sys
 import getopt
 import logging
 
-from curl import login
+from curl import login, getUrlEx
 from common import usage, getUserData, showUserInfo, parking2
 from park_algo import getNextToPark
 
@@ -26,7 +26,7 @@ def main(argv):
         #print "Error: set your username & password plz"
         #usage()
         #sys.exit(2)
-        user='titan5010@163.com'
+        user='titan5011@163.com'
         passwd='123456'
         
     cookies = login(user, passwd)
@@ -52,12 +52,20 @@ def main(argv):
         acc = data['acc']
         showUserInfo(user, car)
         
-        
-        
     if opt.has_key('-t'):
         total_money = parking2(cookies, user, car, friends, verify, acc)
         if total_money:
             print 'Congrats! You got', total_money, 'RMB.'
+        
+        # send text to twitter of kaixin
+        getUrlEx('http://www.kaixin001.com/record/submit.php',
+            {   
+                'verify':verify, 
+                'word':'You got ' + str(total_money) + ' RMB in this round.',
+                'privacy':1,
+                'noticefriend':1,
+            },
+            cookies)
         return total_money
     
     return 0

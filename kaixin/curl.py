@@ -15,13 +15,7 @@ def login(user, passwd):
             'password':passwd,
             'remeber':0, #remember?
             'url':'/'}
-    return getLoginUrlEx(url, data)
-
-def getLoginUrlEx(url, data = False):
     return getLoginUrl(url, data)
-
-def getUrlEx(url, data = False, cookies = ''):
-    return getUrl(url, data, cookies)
 
 def getLoginUrl(url, data):
     headers = {
@@ -55,7 +49,7 @@ def getLoginUrl(url, data):
 
     return cookiestr
 
-def getUrl(url, data, cookies = ''):
+def getUrlEx(url, data, cookies = ''):
     headers = {
         'Host':' www.kaixin001.com',
         'User-Agent':'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1 Gecko/2008072820 Firefox/3.0.1)',
