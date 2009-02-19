@@ -139,7 +139,7 @@ def getFriendEmptyParking(cookies, friends, verify):
             parking_space['user'] = user_parking['user']
         parking_spaces.append(parking_space)
 
-    print parking_spaces
+    #~ print parking_spaces
     return parking_spaces
 
 def showUserInfo(user, cars):
@@ -173,7 +173,7 @@ def parking2(cookies, user, cars, friends, verify, acc):
     for parking_space_group in parking_spaces:
         uid = parking_space_group['user']['uid']
         # for dbg 
-        print parking_space_group['user']['real_name']
+        #~ print parking_space_group['user']['real_name']
         #~ continue
         
         try:
