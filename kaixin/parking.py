@@ -63,7 +63,7 @@ def main(argv):
                 'verify':verify, 
                 'word':'Got ' + str(total_money) + ' points in this turn.',
                 'privacy':1,
-                'noticefriend':1,
+                'noticefriend':0,
             },
             cookies)
         return total_money
