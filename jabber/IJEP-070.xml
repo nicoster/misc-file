@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="ijep.xsl"?>
 <!DOCTYPE jep SYSTEM 'ijep.dtd' [
     <!ENTITY % ents SYSTEM "ijep.ent">
     %ents;
@@ -15,7 +16,7 @@
   <!-- uncomment the following line to view the XML file in a browser
   <legal>Copyright 2000 - 2008 by Cisco Systems, Inc. The information contained in this document is proprietary to Cisco Systems, Inc. This information is considered CISCO CONFIDENTIAL and is not to be disclosed to any outside parties without the express written consent of Cisco Systems, Inc. This document is provided for informational purposes only, and the information herein is subject to change without notice.  Cisco Systems, Inc. does not provide any warranties covering and specifically disclaims any liability in connection with this document.</legal>
   -->
-  <number>000</number>
+  <number>070</number>
   <status>Experimental</status>
   <type>Standards Track</type>
   <jig>Cisco Systems, Inc.</jig>
@@ -248,7 +249,7 @@ The server returns:
 </iq>
 		]]></example>
 		</section3>
-		<section3 topic='Failover handling'>
+		<section3 topic='Failover Handling'>
 			<p>When connection server receives a directed presence from a client for activating the subscriptions, CS registers a last will and testament with the JSM. (IJEP-19, section 6.5)</p>
 			<example caption='Client directs presence'><![CDATA[
 <presence to="cs.example.com" from="joe@example.com/home"/>
