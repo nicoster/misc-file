@@ -33,6 +33,11 @@
     <initials>The group presence was introduced in Connect C6.</initials>
     <remark>Initial version.</remark>
   </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2009-03-04</date>
+    <remark>Add some error cases handling. Add node deletion notification example.</remark>
+  </revision>
 </header>
 <section1 topic='Introduction'>
 	<p>The WebEx Connect product enables user to subscribe/unsubscribe LDAP group from Group Server , thus get the members and their presences under the groups. This document defines how the client communicates with the Group Server</p>
@@ -114,7 +119,7 @@
   </pubsub> 
 </iq>
 
-The server returns:
+The server returns when success:
 <iq type='result' 
     from='cs.example.com' 
     id='sub1'> 
@@ -128,6 +133,7 @@ The server returns:
 </iq>
 			]]></example>
 			<p>The user specifies bare JID for the subscription, which means this subscription is long-lived, It would only need to be done once, and could be stored by the Group Server. </p>
+            <p>Refer to &xep0060; section 6.1.3 for the error cases.</p>
 			<p>Then, according to &xep0060; section 6.1.7, the server automatically pushes *all* of the current information for the group.  The server MAY decide how many stanzas to generate, containing however many items makes sense.</p>
 			<example caption='Server Pushes Group Info'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
@@ -187,6 +193,14 @@ The server returns:
   </event> 
 </message>
 		]]></example>
+        <p>If a group has been deleted, the service MUST send notification of node deletion to all subscribers. &xep0060; section 8.4.2</p>
+			<example caption='Subscribers are notified of node deletion'><![CDATA[
+<message from='cs.example.com' to='joe@webex.com/home' > 
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <delete node='GROUPID1'/>
+  </event>
+</message>
+		]]></example>
 		</section3>
 		<section3 topic='Activate subscriptions'>
 			<p>After sign in, to activate all of the subscriptions, the client SHOULD direct a presence stanza to the CS on startup:</p>
@@ -219,6 +233,7 @@ The server returns:
     to='joe@example.com/home'
     id='unsub1'/>
 			]]></example>
+            <p>Refer to &xep0060; section 6.2.3 for the error cases.</p>
 		</section3>
 		<section3 topic='Retrieve Subscriptions'>
 			<p>After sign in, the client MAY query all the subscribed groups from group server.</p>
@@ -248,6 +263,18 @@ The server returns:
   </pubsub>
 </iq>
 		]]></example>
+        <p>If there's no subscription, server returns an empty <subscriptions/> element:</p>
+			<example caption='No subscriptions'><![CDATA[
+<iq type='result'
+    from='pubsub.shakespeare.lit'
+    to='francisco@denmark.lit/barracks'
+    id='subscriptions1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <subscriptions/>
+  </pubsub>
+</iq>
+		]]></example>
+
 		</section3>
 		<section3 topic='Failover Handling'>
 			<p>When connection server receives a directed presence from a client for activating the subscriptions, CS registers a last will and testament with the JSM. (IJEP-19, section 6.5)</p>
@@ -549,10 +576,17 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-
-<!-- <example caption=''><![CDATA[
+          <p>If there are no matching directory entries, the service MUST return an empty <query/> element:</p>
+<example caption='Service Informs User that No Records Match'><![CDATA[
+<iq type='result'
+    to='juliet@example.com/balcony'
+    from='cs.example.com'
+    id='search4'
+    xml:lang='en'>
+  <query xmlns='jabber:iq:search' />
+</iq>
 ]]></example>
-<example caption=''><![CDATA[
+<!-- <example caption=''><![CDATA[
 ]]></example>
 <example caption=''><![CDATA[
 ]]></example> -->
