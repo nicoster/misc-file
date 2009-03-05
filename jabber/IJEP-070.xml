@@ -138,7 +138,7 @@ The server returns when success:
 			<example caption='Server Pushes Group Info'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
-    <items node='GROUPID1'> 
+    <items node='GROUPID1' name='GROUPNAME'> 
       <item id='ID1'> 
         <member xmlns="http://webex.com/connect/cs" 
                 displayname="DISPLAYNAME1" 
@@ -194,6 +194,27 @@ The server returns when success:
 </message>
 		]]></example>
         <p>If a group has been deleted, the service MUST send notification of node deletion to all subscribers. &xep0060; section 8.4.2</p>
+        
+        <p>Server MAY merge different updates into one stanza for performance consideration.</p>
+			<example caption='Server Pushes Group Info Hybrid Updates'><![CDATA[
+<message from='cs.example.com' to='joe@webex.com/home' > 
+  <event xmlns='http://jabber.org/protocol/pubsub#event'> 
+    <items node='GROUPID1'> 
+      <item id='ID2'> 
+        <member xmlns="http://webex.com/connect/cs" 
+                displayname="DISPLAYNAME2 - New" 
+                username="USERNAME2" 
+                jobtitle="JOBTITLE2" 
+                phone="PHONE2" 
+                email="EMAIL2" 
+                ssoid="SSOID2"/> 
+      </item> 
+      <retract id='ID1'/> 
+   </items> 
+  </event> 
+  <seq xmlns='urn:xmpp:tmp:seq' num='306'/> 
+</message>
+		]]></example>        
 			<example caption='Subscribers are notified of node deletion'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'>
