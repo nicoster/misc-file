@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<?xml-stylesheet type="text/xsl" href="ijep.xsl"?>
 <!DOCTYPE jep SYSTEM 'ijep.dtd' [
     <!ENTITY % ents SYSTEM "ijep.ent">
     %ents;
@@ -40,32 +39,43 @@
   </revision>
 </header>
 <section1 topic='Introduction'>
-	<p>The WebEx Connect product enables user to subscribe/unsubscribe LDAP group from Group Server , thus get the members and their presences under the groups. This document defines how the client communicates with the Group Server</p>
-	<section2 topic='Terminology'>
-		<p>Group Server:</p>
-		<p>A component for Jabber Server which retrieves the LDAP info from LDAP server and sends the LDAP group/member info to clients via Connection Server, and retrieves the presence info from Jabber Server and sends it to clients.</p>
-		<p>Connection Server:</p>
-		<p>A component which forwards stanzas from Group Server to clients.</p>
-		<p>Connection Server Manager</p>
-		<p>A service which provides the closest Connection Server available to the client upon a request of disco#items &xep0030;</p>
-	</section2>
+  <p>The WebEx Connect product enables user to subscribe/unsubscribe
+  to an LDAP group from a Group Server, thus get the members and their
+  presences under the groups. This document defines how the client
+  communicates with the Group Server</p>
+
+  <section2 topic='Terminology'>
+    <ul>
+      <li><strong>Group Server</strong>: A component for Jabber Server
+      which retrieves the LDAP info from LDAP server and sends the
+      LDAP group/member info to clients via Connection Server, and
+      retrieves the presence info from Jabber Server and sends it to
+      clients.</li>
+      <li><strong>Connection Server</strong>:A component which forwards stanzas from Group Server to clients.</li>
+      <li><strong>Connection Server Manager</strong>: A service which
+      provides the closest Connection Server available to the client
+      upon a request of disco#items &xep0030;.</li>
+      </ul>
+   </section2>
 </section1>
 
 <section1 topic='Protocol'>
-	<section2 topic='Protocol Overview'>
-	</section2>
-	<section2 topic='Protocol Flows'>
-		<section3 topic='Discover Connection Server'>
-			<p>Client sends a disco#items &xep0030; to get the list of server component, then a disco#info to each one to get their features. The one with the feature of "http://webex.com/connect/cs" is Connection Server. </p>
-			<example caption='client sends a disco#items'><![CDATA[
+  <section2 topic='Protocol Overview'>
+  </section2>
+  <section2 topic='Protocol Flows'>
+    <section3 topic='Discover Connection Server'>
+      <p>Client sends a disco#items &xep0030; to get the list of server components, 
+      then a disco#info to each one to get their features. The one with the feature of 
+      "http://webex.com/connect/cs" is the Connection Server.</p>
+      <example caption='client sends a disco#items'><![CDATA[
 <iq type='get'
     from='joe@example.com/home'
     id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'/>
 </iq>
-			]]></example>
+]]></example>
 
-			<example caption='The server returns the list of component'><![CDATA[
+      <example caption='The server returns the list of component'><![CDATA[
 <iq type='result'
     from='example.com'
     to='joe@example.com/home'
@@ -74,21 +84,21 @@
     <item jid='csmgr.example.com'
           name='Connection Server Manager'/>
     <item jid='conference.example.com'
-          name='Chatrooms' />
+          name='Chatrooms'/>
   </query>
 </iq>
-			]]></example>
+]]></example>
 
-			<example caption='The client sends a disco#info'><![CDATA[
+      <example caption='The client sends a disco#info'><![CDATA[
 <iq type='get'
     from='joe@example.com/home'
     to='csmgr.example.com'
     id='info1'>
   <query xmlns='http://jabber.org/protocol/disco#info'/>
 </iq>
-			]]></example>
+]]></example>
 
-			<example caption='The server return'><![CDATA[
+      <example caption='The server return'><![CDATA[
 <iq type='result'
     from='csmgr.example.com'
     from='joe@example.com/home'
@@ -103,12 +113,15 @@
     <feature var='http://webex.com/connect/cs'/>
   </query>
 </iq>
-			]]></example>
+]]></example>
 
-	</section3>
-		<section3 topic='Subscribe Group / Push Group Info'>
-			<p>When a user got the group id ("GROUPID1") via a group search, the user subscribes to the "GROUPID1" group for the first time (&xep0060;, section 6.1.1):</p>
-			<example caption='Subscribe Group'><![CDATA[
+    </section3>
+    <section3 topic='Subscribe Group / Push Group Info'>
+      <p>When a user got the group id ("GROUPID1") via a group search,
+      the user subscribes to the "GROUPID1" group for the first time
+      (&xep0060;, section 6.1.1):</p>
+
+      <example caption='Subscribe Group'><![CDATA[
 <iq type='set' 
     to='cs.example.com' 
     id='sub1'> 
@@ -119,23 +132,31 @@
   </pubsub> 
 </iq>
 
-The server returns when success:
+The server returns:
 <iq type='result' 
     from='cs.example.com' 
     id='sub1'> 
   <pubsub xmlns='http://jabber.org/protocol/pubsub'> 
     <subscription 
         node='GROUPID1' 
-        jid=' joe@webex.com' 
+        jid='joe@webex.com' 
         subid='ba49252aaa4f5d320c24d3766f0bdcade78c78d3' 
         subscription='subscribed'/> 
   </pubsub> 
 </iq>
-			]]></example>
-			<p>The user specifies bare JID for the subscription, which means this subscription is long-lived, It would only need to be done once, and could be stored by the Group Server. </p>
-            <p>Refer to &xep0060; section 6.1.3 for the error cases.</p>
-			<p>Then, according to &xep0060; section 6.1.7, the server automatically pushes *all* of the current information for the group.  The server MAY decide how many stanzas to generate, containing however many items makes sense.</p>
-			<example caption='Server Pushes Group Info'><![CDATA[
+]]></example>
+      <p>The user specifies bare JID for the subscription, which means
+      this subscription is long-lived, It would only need to be done
+      once, and could be stored by the Group Server. </p>
+            
+      <p>Refer to &xep0060; section 6.1.3 for the error cases.</p>
+
+      <p>Then, according to &xep0060; section 6.1.7, the server
+      automatically pushes *all* of the current information for the
+      group.  The server MAY decide how many stanzas to generate,
+      containing however many items makes sense.</p>
+
+      <example caption='Server Pushes Group Info'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
     <items node='GROUPID1' name='GROUPNAME'> 
@@ -162,9 +183,11 @@ The server returns when success:
   <delay xmlns='urn:xmpp:delay' stamp='2003-12-13T23:58:37Z'/> 
   <seq xmlns='urn:xmpp:tmp:seq' num='305'/> 
 </message>
-			]]></example>
-			<p>If there is a change to the group membership, the server SHOULD send updates.</p>
-			<example caption='Server Pushes Group Info Updates'><![CDATA[
+]]></example>
+
+      <p>If there is a change to the group membership, the server
+      SHOULD send updates.</p>
+      <example caption='Server Pushes Group Info Updates'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
     <items node='GROUPID1'> 
@@ -181,10 +204,12 @@ The server returns when success:
   </event> 
   <seq xmlns='urn:xmpp:tmp:seq' num='306'/> 
 </message>
-		]]></example>
-		<p>Each update has a new sequence number.  New notifications do not have a delay stamp.</p>
-		<p>Delete notifications are specified in section 7.2.2.1 of &xep0060;:</p>
-			<example caption='Server Pushes Group Info Updates (alt)'><![CDATA[
+]]></example>
+
+      <p>Each update has a new sequence number.  New notifications do not have a delay stamp.</p>
+
+      <p>Delete notifications are specified in section 7.2.2.1 of &xep0060;:</p>
+      <example caption='Server Pushes Group Info Updates (alt)'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
     <items node='GROUPID1'> 
@@ -192,11 +217,11 @@ The server returns when success:
     </items> 
   </event> 
 </message>
-		]]></example>
-        <p>If a group has been deleted, the service MUST send notification of node deletion to all subscribers. &xep0060; section 8.4.2</p>
+]]></example>
+      <p>If a group has been deleted, the service MUST send notification of node deletion to all subscribers. &xep0060; section 8.4.2</p>
         
-        <p>Server MAY merge different updates into one stanza for performance consideration.</p>
-			<example caption='Server Pushes Group Info Hybrid Updates'><![CDATA[
+      <p>Server MAY merge different updates into one stanza for performance consideration.</p>
+      <example caption='Server Pushes Group Info Hybrid Updates'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
     <items node='GROUPID1'> 
@@ -214,29 +239,55 @@ The server returns when success:
   </event> 
   <seq xmlns='urn:xmpp:tmp:seq' num='306'/> 
 </message>
-		]]></example>        
-			<example caption='Subscribers are notified of node deletion'><![CDATA[
+]]></example>        
+	<example caption='Subscribers are notified of node deletion'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'>
     <delete node='GROUPID1'/>
   </event>
 </message>
-		]]></example>
-		</section3>
-		<section3 topic='Activate subscriptions'>
-			<p>After sign in, to activate all of the subscriptions, the client SHOULD direct a presence stanza to the CS on startup:</p>
-			<example caption='Activate all Subscriptions'><![CDATA[
+]]></example>
+    </section3>
+
+    <section3 topic='Activate subscriptions'>
+      <p>After sign in, to activate all of the subscriptions, the
+      client SHOULD direct a presence stanza to the CS on startup:</p>
+
+      <example caption='Activate all Subscriptions'><![CDATA[
 <presence to='cs.example.com'
           from='joe@webex.com/home'>
-  <x xmlns='http://webex.com/connect/cs' type='initial' />
-  <delay xmlns='urn:xmpp:delay' stamp='2002-09-10T23:08:25Z'> </presence>
-			]]></example>
-			<p>The 'x' tag with the xmlns of 'http://webex.com/connect/cs' indicates that this presence stanza is to activate subscriptions. the attribute of 'type' has two possible values: initial, failover. 'initial' means this presence is directed after client signing on, while 'failover' means client directs a presence after the notification of the last will of a failovered CS. (2.2.6 Failover Handling)</p>
-			<p>The delay tag is &xep0203; (the new and correct date/time format).  The datetime is the last time the client logged off, in UTC, as reported by the client operating system.  It signals that the client is maintaining a cache of published presence through a restart.  It should only be added if that cache is being maintained, and if you've been offline less than N hours(for example, less than 24, and more than 1). The server sends all of the current presence notifications to the client for all of its subscriptions that have come in since the delay stamp specified by the client minus about 5 minutes to account for clock skew between the client and server.</p>
-			<p>If client directs a presence without a delay tag, server SHOULD send all groups infos to client.</p>
-		</section3>
-		<section3 topic='Unsubscribe Group'>
-			<example caption='Unsubscribe Group'><![CDATA[
+  <x xmlns='http://webex.com/connect/cs' type='initial'/>
+  <delay xmlns='urn:xmpp:delay' stamp='2002-09-10T23:08:25Z'> 
+</presence>
+]]></example>
+
+      <p>The 'x' tag with the xmlns of 'http://webex.com/connect/cs'
+      indicates that this presence stanza is to activate
+      subscriptions. the attribute of 'type' has two possible values:
+      initial, failover. 'initial' means this presence is directed
+      after client signing on, while 'failover' means client directs a
+      presence after the notification of the last will of a failovered
+      CS. (2.2.6 Failover Handling)</p>
+
+      <p>The delay tag is &xep0203; (the new and correct date/time
+      format).  The datetime is the last time the client logged off,
+      in UTC, as reported by the client operating system.  It signals
+      that the client is maintaining a cache of published presence
+      through a restart.  It should only be added if that cache is
+      being maintained, and if you've been offline less than N
+      hours (for example, less than 24, and more than 1). The server
+      sends all of the current presence notifications to the client
+      for all of its subscriptions that have come in since the delay
+      stamp specified by the client minus about 5 minutes to account
+      for clock skew between the client and server.</p>
+
+      <p>If client directs a presence without a delay tag, server
+      SHOULD send all info for all of the currently subscribed groups
+      to client.</p>
+    </section3>
+
+    <section3 topic='Unsubscribe Group'>
+      <example caption='Unsubscribe Group'><![CDATA[
 <iq type='set'
     from='joe@example.com/home'
     to='cs.example.com'
@@ -247,18 +298,21 @@ The server returns when success:
          jid='joe@example.com'/>
   </pubsub>
 </iq>
-			]]></example>			
-			<example caption='Service replies with success'><![CDATA[
+]]></example>           
+
+      <example caption='Service replies with success'><![CDATA[
 <iq type='result'
     from='cs.example.com'
     to='joe@example.com/home'
     id='unsub1'/>
-			]]></example>
-            <p>Refer to &xep0060; section 6.2.3 for the error cases.</p>
-		</section3>
-		<section3 topic='Retrieve Subscriptions'>
-			<p>After sign in, the client MAY query all the subscribed groups from group server.</p>
-			<example caption='Entity requests all current subscriptions'><![CDATA[
+]]></example>
+      <p>Refer to &xep0060; section 6.2.3 for the error cases.</p>
+    </section3>
+    <section3 topic='Retrieve Subscriptions'>
+      <p>After sign in, the client MAY query all the subscribed groups
+      from group server.</p>
+
+      <example caption='Entity requests all current subscriptions'><![CDATA[
 The client sends:
 <iq type='get'
     from='juliet@example.com/home'
@@ -283,8 +337,8 @@ The server returns:
     </subscriptions>
   </pubsub>
 </iq>
-		]]></example>
-        <p>If there's no subscription, server returns an empty <subscriptions/> element:</p>
+]]></example>
+      <p>If there's no subscription, server returns an empty <subscriptions/> element:</p>
 			<example caption='No subscriptions'><![CDATA[
 <iq type='result'
     from='pubsub.shakespeare.lit'
@@ -294,15 +348,19 @@ The server returns:
     <subscriptions/>
   </pubsub>
 </iq>
-		]]></example>
+]]></example>
 
-		</section3>
-		<section3 topic='Failover Handling'>
-			<p>When connection server receives a directed presence from a client for activating the subscriptions, CS registers a last will and testament with the JSM. (IJEP-19, section 6.5)</p>
-			<example caption='Client directs presence'><![CDATA[
+    </section3>
+    <section3 topic='Failover Handling'>
+      <p>When connection server receives a directed presence from a
+      client for activating the subscriptions, CS registers a last
+      will and testament with the JSM. (&ijep019;, section 6.5)</p>
+
+      <example caption='Client directs presence'><![CDATA[
 <presence to="cs.example.com" from="joe@example.com/home"/>
-		]]></example>
-		<example caption='Service Registers Last Will and Testament'><![CDATA[
+]]></example>
+
+      <example caption='Service Registers Last Will and Testament'><![CDATA[
 <route to="joe@example.com/home' from="cs.router1" type="internal" id="c8">
   <internal type="fire-forget" command="lwat-register">
     <presence to="joe@example.com/home" from="cs.example.com" type="error">
@@ -312,36 +370,55 @@ The server returns:
     </presence>
   </internal>
 </route>
-		]]></example>
-			<p>At some time in the feature, when CS goes down unexpectedly, JSM willl send the registered packet to the client. (IJEP-19, section 6.5.2)</p>
-			<example caption='JSM sends the Last Will to Client'><![CDATA[
+]]></example>
+      
+      <p>At some time in the feature, when CS goes down unexpectedly,
+      JSM willl send the registered packet to the client. (IJEP-19,
+      section 6.5.2)</p>
+
+      <example caption='JSM sends the Last Will to Client'><![CDATA[
 <presence to="joe@example.com/home" from="cs.example.com" type="error">
-	<error type='cancel'>
-		<service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
-	</error>
+    <error type='cancel'>
+        <service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    </error>
 </presence>
-			]]></example>
-			<p>When the client gets notified of the unavailability of the connection server, it directs a presence to the connection server to activate subscriptions again. Usually there's a cluster for connection server, the presence will be redirected to a new connection server in the cluster. After the directed presenct, client SHOULD clear the local cache of group data, get ready to receive the group data pushed by the new connection server (although with the same JID, 'cs.example.com' in this case)</p>
-			<example caption='Activate Subscriptions in the New CS'><![CDATA[
+]]></example>
+
+      <p>When the client gets notified of the unavailability of the
+      connection server, it directs a presence to the connection
+      server to activate subscriptions again. Usually there's a
+      cluster for connection server, the presence will be redirected
+      to a new connection server in the cluster. After the directed
+      presenct, client SHOULD clear the local cache of group data, get
+      ready to receive the group data pushed by the new connection
+      server (although with the same JID, 'cs.example.com' in this
+      case)</p>
+      <example caption='Activate Subscriptions in the New CS'><![CDATA[
 <presence to='cs.example.com'
           from='joe@webex.com/home'>
-  <x xmlns='http://webex.com/connect/cs' type='failover' />
+  <x xmlns='http://webex.com/connect/cs' type='failover'/>
 </presence>
-			]]></example>		
-			<p>The 'x' tag with the xmlns of 'http://webex.com/connect/cs' indicates this is a directed presence to activate subscriptions. The type of 'failover' indicates this presence is directed after failover.</p>
-		</section3>
-		<section3 topic='Search Group / Group Name Lookup / Search Buddy / Buddy Name Lookup'>
-			<p>Client use &xep0055; to do searching or Lookup.</p>
-			<example caption='Client Request Search Fields from Service'><![CDATA[
+]]></example>       
+
+      <p>The 'x' tag with the xmlns of 'http://webex.com/connect/cs'
+      indicates this is a directed presence to activate
+      subscriptions. The type of 'failover' indicates this presence is
+      directed after failover.</p>
+
+    </section3>
+    <section3 topic='Search Group / Group Name Lookup / Search Buddy / Buddy Name Lookup'>
+      <p>Client use &xep0055; to do searching or Lookup.</p>
+      <example caption='Client Request Search Fields from Service'><![CDATA[
 <iq type='get'
-	from='juliet@example.com/balcony'
-	to='cs.example.com'
-	id='search3'
-	xml:lang='en'>
-	<query xmlns='jabber:iq:search'/>
+    from='juliet@example.com/balcony'
+    to='cs.example.com'
+    id='search3'
+    xml:lang='en'>
+    <query xmlns='jabber:iq:search'/>
 </iq>
-				]]></example>
-			<example caption='Service Returns Search From to Client'><![CDATA[
+]]></example>
+
+      <example caption='Service Returns Search From to Client'><![CDATA[
 <iq type='result'
   from='cs.example.com'
   to='juliet@example.com/balcony'
@@ -364,33 +441,37 @@ infomation to search for groups.</instructions>
         </x>
       </query>
 </iq>
-				]]></example>
-			<p>The field of 'groupname' and 'count' is to search group. The count defines the maximum number of results.</p>
-			<p>The field of 'username' and 'count' is to search user.</p>
-			<p>The field of 'groupid' is to do group name lookup.</p>
-			<p>The field of 'ssoid' and 'email' is to do user name lookup.</p>
-			<example caption='Client Submits Search Form to Search Group'><![CDATA[
+]]></example>
+
+      <p>The 'count' field defines the maximum number of results.</p>
+      <p>The fields of 'groupname' and 'count' is to search group. </p>
+      <p>The fields of 'username' and 'count' is to search user.</p>
+      <p>The field of 'groupid' is to do group name lookup.</p>
+      <p>The fields of 'ssoid' and 'email' is to do user name lookup.</p>
+
+      <example caption='Client Submits Search Form to Search Group'><![CDATA[
 <iq type='set'
-	from='juliet@example.com/balcony'
-	to='cs.example.com'
-	id='search4'
-	xml:lang='en'>
-	<query xmlns='jabber:iq:search'>
-		<x xmlns='jabber:x:data' type='submit'>
-			<field type='hidden' var='FORM_TYPE'>
-				<value>http://webex.com/connect/cs</value>
-			</field>
-			<field var='groupname'>
-				<value>GROUPNAME</value>
-			</field>
-			<field var='count'>
-				<value>300</value>
-			</field>
-		</x>
-	</query>
+    from='juliet@example.com/balcony'
+    to='cs.example.com'
+    id='search4'
+    xml:lang='en'>
+    <query xmlns='jabber:iq:search'>
+        <x xmlns='jabber:x:data' type='submit'>
+            <field type='hidden' var='FORM_TYPE'>
+                <value>http://webex.com/connect/cs</value>
+            </field>
+            <field var='groupname'>
+                <value>GROUPNAME</value>
+            </field>
+            <field var='count'>
+                <value>300</value>
+            </field>
+        </x>
+    </query>
 </iq>
 ]]></example>
-<example caption='Service Returns Search Results for Group'><![CDATA[
+
+      <example caption='Service Returns Search Results for Group'><![CDATA[
 <iq type='result'
   to='juliet@example.com/balcony'
   from='cs.example.com'
@@ -417,7 +498,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Entity Submits Search Form to Search User'><![CDATA[
+
+      <example caption='Entity Submits Search Form to Search User'><![CDATA[
 <iq type='set'
     from='juliet@example.com/balcony'
     to='cs.example.com'
@@ -438,9 +520,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Service Returns Search Results for User
 
-'><![CDATA[
+      <example caption='Service Returns Search Results for User'><![CDATA[
 <iq type='result'
     to='juliet@example.com/balcony'
     from='cs.example.com'
@@ -488,7 +569,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Entity Submits Search Form to Do Group Name Lookup'><![CDATA[
+
+      <example caption='Entity Submits Search Form to Do Group Name Lookup'><![CDATA[
 <iq type='set'
     from='juliet@example.com/balcony'
     to='cs.example.com'
@@ -507,7 +589,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Service Returns Search Results for Group Name Lookup'><![CDATA[
+
+      <example caption='Service Returns Search Results for Group Name Lookup'><![CDATA[
 <iq type='result'
     to='juliet@example.com/balcony'
     from='cs.example.com'
@@ -534,7 +617,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Entity Submits Search Form to Do User Name Lookup'><![CDATA[
+
+      <example caption='Entity Submits Search Form to Do User Name Lookup'><![CDATA[
 <iq type='set'
     from='juliet@example.com/balcony'
     to='cs.example.com'
@@ -557,7 +641,8 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-<example caption='Service Returns Search Results for User Name Lookup'><![CDATA[
+
+      <example caption='Service Returns Search Results for User Name Lookup'><![CDATA[
 <iq type='result'
     to='juliet@example.com/balcony'
     from='cs.example.com'
@@ -597,7 +682,7 @@ infomation to search for groups.</instructions>
   </query>
 </iq>
 ]]></example>
-          <p>If there are no matching directory entries, the service MUST return an empty <query/> element:</p>
+       <p>If there are no matching directory entries, the service MUST return an empty <query/> element:</p>
 <example caption='Service Informs User that No Records Match'><![CDATA[
 <iq type='result'
     to='juliet@example.com/balcony'
@@ -607,21 +692,19 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search' />
 </iq>
 ]]></example>
-<!-- <example caption=''><![CDATA[
-]]></example>
-<example caption=''><![CDATA[
-]]></example> -->
-		</section3>
+       </section3>
 
-	</section2>
+    </section2>
 </section1>
 
 <section1 topic='Security Considerations'>
-  <p>There are no security features or concerns related to this proposal.</p>
+  <p>The connection server will trust the JID of the sending user.</p>
 </section1>
+
 <section1 topic='IANA Considerations'>
   <p>There are no IANA considerations for this protocol.</p>
 </section1>
+
 <section1 topic='Jabber Registrar Considerations'>
   <p>There are no Jabber Registrar considerations for this protocol.</p>
 </section1>
