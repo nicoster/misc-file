@@ -10,6 +10,8 @@
 #include "dbghelp.h"
 #pragma comment( lib, "dbghelp.lib" )
 
+#include <TLHELP32.H>
+
 #include <stdio.h>
 
 void OpenUrl(TCHAR* szUrl);
@@ -61,7 +63,7 @@ void OpenUrl(TCHAR* szUrl)
 	BOOL bRet = InternetReadFile(hFile, buf, BUFLEN - 1, &len);
 	if (bRet)
 	{
-			printf( "%s \n", buf); 
+			_tprintf( "%s \n", buf); 
 	}
 
 	InternetCloseHandle(hFile);
@@ -85,7 +87,40 @@ BOOL InitFuncPtrs(void)
 		return FALSE; 
 	}
 
-	BOOL bRet = ::SymInitialize ( 
+	MODULEENTRY32	me32        = {0};
+	bool found = false;
+	HANDLE hModuleSnap = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, GetCurrentProcessId());
+	if (hModuleSnap == INVALID_HANDLE_VALUE) 
+	{
+		return FALSE;
+	}
+
+	me32.dwSize = sizeof(MODULEENTRY32);
+
+	BOOL bRet = Module32First(hModuleSnap, &me32);
+	while (bRet) 
+	{
+		if (_tcsicmp(_T("wininet.dll"), me32.szModule) == 0) 
+		{
+			found = true;
+			break;
+		}
+
+		ZeroMemory(&me32, sizeof(MODULEENTRY32));
+		me32.dwSize = sizeof(MODULEENTRY32);
+		
+		bRet = Module32Next(hModuleSnap, &me32);
+	}
+	CloseHandle (hModuleSnap);
+
+	if (! found)
+	{
+		_tprintf(_T("Error: wininet.dll not found! \n"));
+		return FALSE;
+	}
+
+
+	bRet = ::SymInitialize ( 
 	            GetCurrentProcess(),  // Process handle of the current process 
 	            _T("SRV*c:\\*http://msdl.microsoft.com/download/symbols"),                 // No user-defined search path -> use default 
 	            FALSE                 // Do not load symbols for modules in the current process 
@@ -97,18 +132,6 @@ BOOL InitFuncPtrs(void)
 		return FALSE; 
 	}
 
-	hModule = LoadLibrary(_T("wininet.dll"));
-	if (! hModule)
-	{
-		_tprintf(_T("Error: LoadLibrary(wininet.dll) failed. Error code: %u \n"), ::GetLastError());
-		return FALSE;
-	}
-
-	TCHAR buf[MAX_PATH];
-	ZeroMemory(buf, MAX_PATH);
-	GetModuleFileName(hModule, buf, MAX_PATH - 1);
-	_tprintf(_T("%s\n"), buf);
-	
 	// Load symbols for the module 
 
 	_tprintf( _T("Loading symbols for wininet ... \n")); 
@@ -116,9 +139,9 @@ BOOL InitFuncPtrs(void)
 	DWORD64 ModBase = ::SymLoadModule64 ( 
 							GetCurrentProcess(), // Process handle of the current process 
 							NULL,                // Handle to the module's image file (not needed)
-							buf,           // Path/name of the file 
+							me32.szExePath,           // Path/name of the file 
 							NULL,                // User-defined short name of the module (it can be NULL) 
-							0,            // Base address of the module (cannot be NULL if .PDB file is used, otherwise it can be NULL) 
+							(DWORD)me32.modBaseAddr,            // Base address of the module (cannot be NULL if .PDB file is used, otherwise it can be NULL) 
 							0             // Size of the file (cannot be NULL if .PDB file is used, otherwise it can be NULL) 
 						); 
 
