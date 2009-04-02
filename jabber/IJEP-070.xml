@@ -185,9 +185,19 @@ The server returns:
 </message>
 ]]></example>
 
+      <p>If there's a change to the group name, the server SHOULD send updates.</p>
+      
+      <example caption='Server Pushes Group Info Updates'><![CDATA[
+<message from='cs.example.com' to='joe@webex.com/home' > 
+  <event xmlns='http://jabber.org/protocol/pubsub#event'> 
+    <items node='GROUPID1' name='NEW-GROUPNAME' /> 
+  </event> 
+</message>
+]]></example>
+      
       <p>If there is a change to the group membership, the server
       SHOULD send updates.</p>
-      <example caption='Server Pushes Group Info Updates'><![CDATA[
+      <example caption='Server Pushes Group Info Updates(alt)'><![CDATA[
 <message from='cs.example.com' to='joe@webex.com/home' > 
   <event xmlns='http://jabber.org/protocol/pubsub#event'> 
     <items node='GROUPID1'> 
