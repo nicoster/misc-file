@@ -454,7 +454,8 @@ infomation to search for groups.</instructions>
           <field type='text-single' label='Count' var='count'/>
           <field type='text-multi' label='Group Id' var='groupid'/>
           <field type='text-single' label='User Name' var='username'/>
-          <field type='text-multi' label='SSO ID' var='ssoid'/>
+          <field type='text-single' label='SSO ID' var='ssoid_searchuser'/>
+          <field type='text-multi' label='SSO ID' var='ssoid_lookupuser'/>
           <field type='text-multi' label='Email' var='email'/>
           <field type='text-multi' label='Phone Number' var='phonenum'/>
         </x>
@@ -464,9 +465,9 @@ infomation to search for groups.</instructions>
 
       <p>The 'count' field defines the maximum number of results.</p>
       <p>The fields of 'groupname' and 'count' is to search group. </p>
-      <p>The fields of 'username', 'ssoid' and 'count' is to search user.</p>
+      <p>The fields of 'username', 'ssoid_searchuser' and 'count' is to search user.</p>
       <p>The field of 'groupid' is to do group name lookup.</p>
-      <p>The fields of 'ssoid', 'phonenum' and 'email' is to do user name lookup.</p>
+      <p>The fields of 'ssoid_lookupuser', 'phonenum' and 'email' is to do user name lookup.</p>
 
       <example caption='Client Submits Search Form to Search Group'><![CDATA[
 <iq type='set'
@@ -477,7 +478,7 @@ infomation to search for groups.</instructions>
     <query xmlns='jabber:iq:search'>
         <x xmlns='jabber:x:data' type='submit'>
             <field type='hidden' var='FORM_TYPE'>
-                <value>http://webex.com/connect/cs/searchgroup</value>
+                <value>http://webex.com/connect/cs</value>
             </field>
             <field var='groupname'>
                 <value>GROUPNAME</value>
@@ -499,7 +500,7 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='result'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/searchgroup</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <reported>
         <field var='groupid' label='Group ID' type='text-single'/>
@@ -527,12 +528,12 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='submit'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/searchuser</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <field var='username'>
         <value>USERNAME1</value>
       </field>
-      <field var='ssoid' >
+      <field var='ssoid_searchuser' >
         <value>SSOID2</value>
       </field>
       <field var='count'>
@@ -552,7 +553,7 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='result'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/searchuser</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <reported>
         <field var='groupid' label='Group ID' type='text-single'/>
@@ -601,7 +602,7 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='submit'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/lookupgroup</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <field var='groupid'>
         <value>GROUPID1</value>
@@ -621,7 +622,7 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='result'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/lookupgroup</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <reported>
         <field var='groupid' label='Group ID' type='text-single'/>
@@ -649,9 +650,9 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='submit'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/lookupuser</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
-      <field var='ssoid' >
+      <field var='ssoid_lookupuser' >
         <value>SSOID1</value>
         <value>SSOID2</value>
       </field>
@@ -678,7 +679,7 @@ infomation to search for groups.</instructions>
   <query xmlns='jabber:iq:search'>
     <x xmlns='jabber:x:data' type='result'>
       <field type='hidden' var='FORM_TYPE'>
-        <value>http://webex.com/connect/cs/lookupuser</value>
+        <value>http://webex.com/connect/cs</value>
       </field>
       <reported>
         <field var='email' label='Email' type='text-single'/>
