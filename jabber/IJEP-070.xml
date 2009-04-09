@@ -454,6 +454,8 @@ infomation to search for groups.</instructions>
           <field type='text-single' label='Count' var='count'/>
           <field type='text-multi' label='Group Id' var='groupid'/>
           <field type='text-single' label='User Name' var='username'/>
+          <field type='text-single' label='First Name' var='firstname'/>
+          <field type='text-single' label='Last Name' var='lastname'/>
           <field type='text-single' label='SSO ID' var='ssoid_searchuser'/>
           <field type='text-multi' label='SSO ID' var='ssoid_lookupuser'/>
           <field type='text-multi' label='Email' var='email'/>
@@ -465,7 +467,7 @@ infomation to search for groups.</instructions>
 
       <p>The 'count' field defines the maximum number of results.</p>
       <p>The fields of 'groupname' and 'count' is to search group. </p>
-      <p>The fields of 'username', 'ssoid_searchuser' and 'count' is to search user.</p>
+      <p>The fields of 'username', 'firstname', 'lastname', 'ssoid_searchuser' and 'count' is to search user.</p>
       <p>The field of 'groupid' is to do group name lookup.</p>
       <p>The fields of 'ssoid_lookupuser', 'phonenum' and 'email' is to do user name lookup.</p>
 
@@ -519,7 +521,7 @@ infomation to search for groups.</instructions>
 </iq>
 ]]></example>
 
-      <example caption='Entity Submits Search Form to Search User'><![CDATA[
+      <example caption='Entity Submits Username or SsoID to Search User'><![CDATA[
 <iq type='set'
     from='juliet@example.com/balcony'
     to='cs.example.com'
@@ -593,6 +595,33 @@ infomation to search for groups.</instructions>
 </iq>
 ]]></example>
 
+      <example caption='Entity Submits Firstname/Lastname to Search User'><![CDATA[
+<iq type='set'
+    from='juliet@example.com/balcony'
+    to='cs.example.com'
+    id='search4'
+    xml:lang='en'>
+  <query xmlns='jabber:iq:search'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field type='hidden' var='FORM_TYPE'>
+        <value>http://webex.com/connect/cs</value>
+      </field>
+      <field var='firstname'>
+        <value>FIRSTNAME1</value>
+      </field>
+      <field var='lastname' >
+        <value>LASTNAME1</value>
+      </field>
+      <field var='count'>
+        <value>300</value>
+      </field>
+    </x>
+  </query>
+</iq>
+]]></example>      
+
+      <p>Client may submit firstname and/or lastname to search user. If both firstname and lastname are specified, server SHOULD do an exact match to obtain the search result. In all other cases, such as only firstname or lastname is present, or only username / ssoid is specified, server SHOULD do a partial match to get the result.</p>
+      
       <example caption='Entity Submits Search Form to Do Group Name Lookup'><![CDATA[
 <iq type='set'
     from='juliet@example.com/balcony'
