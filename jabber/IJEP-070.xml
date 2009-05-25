@@ -716,9 +716,10 @@ infomation to search for groups.</instructions>
         <field var='displayname' label='Display Name' type='text-single'/>
         <field var='firstname' label='First Name' type='text-single'/>
         <field var='lastname' label='Last Name' type='text-single'/>
-        <field var='phonenum_home' label='Phone Number' type='text-single'/>
-        <field var='phonenum_mobile' label='Phone Number' type='text-single'/>
-        <field var='phonenum_office' label='Phone Number' type='text-single'/>
+        <field var='phonenum_home' label='Phone Number (home)' type='text-single'/>
+        <field var='phonenum_mobile' label='Phone Number (mobile)' type='text-single'/>
+        <field var='phonenum_office' label='Phone Number (office)' type='text-single'/>
+        <field var='phonenum_csf' label='Phone Number (csf)' type='text-single'/>
       </reported>
       <item>
         <field var='email'><value>mail1@example.com</value></field>
@@ -729,6 +730,7 @@ infomation to search for groups.</instructions>
         <field var='phonenum_home'><value>1234567</value></field>
         <field var='phonenum_mobile'><value>1234567</value></field>
         <field var='phonenum_office'><value>1234567</value></field>
+        <field var='phonenum_csf'><value>1234567</value></field>
         </field>
       </item>
       <item>
@@ -740,6 +742,7 @@ infomation to search for groups.</instructions>
         <field var='phonenum_home'><value>1234567</value></field>
         <field var='phonenum_mobile'><value>1234567</value></field>
         <field var='phonenum_office'><value>1234567</value></field>
+        <field var='phonenum_csf'><value>1234567</value></field>
       </item>
       <item>
         <field var='email'><value>mail3@example.com</value></field>
@@ -750,6 +753,7 @@ infomation to search for groups.</instructions>
         <field var='phonenum_home'><value>1234567</value></field>
         <field var='phonenum_mobile'><value>1234567</value></field>
         <field var='phonenum_office'><value>1234567</value></field>
+        <field var='phonenum_csf'><value>1234567</value></field>
       </item>
       <item>
         <field var='email'><value>mail4@example.com</value></field>
@@ -760,6 +764,7 @@ infomation to search for groups.</instructions>
         <field var='phonenum_home'><value>1234567</value></field>
         <field var='phonenum_mobile'><value>1234567</value></field>
         <field var='phonenum_office'><value>1234567</value></field>
+        <field var='phonenum_csf'><value>1234567</value></field>
       </item>
     </x>
   </query>
