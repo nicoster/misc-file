@@ -716,7 +716,9 @@ infomation to search for groups.</instructions>
         <field var='displayname' label='Display Name' type='text-single'/>
         <field var='firstname' label='First Name' type='text-single'/>
         <field var='lastname' label='Last Name' type='text-single'/>
-        <field var='phonenum' label='Phone Number' type='text-multi'/>
+        <field var='phonenum_home' label='Phone Number' type='text-single'/>
+        <field var='phonenum_mobile' label='Phone Number' type='text-single'/>
+        <field var='phonenum_office' label='Phone Number' type='text-single'/>
       </reported>
       <item>
         <field var='email'><value>mail1@example.com</value></field>
@@ -724,10 +726,9 @@ infomation to search for groups.</instructions>
         <field var='displayname'><value>DISPLAYNAME1</value></field>
         <field var='firstname'><value>FIRSTNAME1</value></field>
         <field var='lastname'><value>LASTNAME1</value></field>
-        <field var='phonenum'>
-          <value desc='HOME'>1234567</value>
-          <value desc='MOBILE'>1234567</value>
-          <value desc='OFFICE'>1234567</value>
+        <field var='phonenum_home'><value>1234567</value></field>
+        <field var='phonenum_mobile'><value>1234567</value></field>
+        <field var='phonenum_office'><value>1234567</value></field>
         </field>
       </item>
       <item>
@@ -736,11 +737,9 @@ infomation to search for groups.</instructions>
         <field var='displayname'><value>DISPLAYNAME2</value></field>
         <field var='firstname'><value>FIRSTNAME2</value></field>
         <field var='lastname'><value>LASTNAME2</value></field>
-        <field var='phonenum'>
-          <value desc='HOME'>1234567</value>
-          <value desc='MOBILE'>1234567</value>
-          <value desc='OFFICE'>1234567</value>
-        </field>
+        <field var='phonenum_home'><value>1234567</value></field>
+        <field var='phonenum_mobile'><value>1234567</value></field>
+        <field var='phonenum_office'><value>1234567</value></field>
       </item>
       <item>
         <field var='email'><value>mail3@example.com</value></field>
@@ -748,11 +747,9 @@ infomation to search for groups.</instructions>
         <field var='displayname'><value>DISPLAYNAME3</value></field>
         <field var='firstname'><value>FIRSTNAME3</value></field>
         <field var='lastname'><value>LASTNAME3</value></field>
-        <field var='phonenum'>
-          <value desc='HOME'>1234567</value>
-          <value desc='MOBILE'>1234567</value>
-          <value desc='OFFICE'>1234567</value>
-        </field>
+        <field var='phonenum_home'><value>1234567</value></field>
+        <field var='phonenum_mobile'><value>1234567</value></field>
+        <field var='phonenum_office'><value>1234567</value></field>
       </item>
       <item>
         <field var='email'><value>mail4@example.com</value></field>
@@ -760,11 +757,9 @@ infomation to search for groups.</instructions>
         <field var='displayname'><value>DISPLAYNAME4</value></field>
         <field var='firstname'><value>FIRSTNAME4</value></field>
         <field var='lastname'><value>LASTNAME4</value></field>
-        <field var='phonenum'>
-          <value desc='HOME'>1234567</value>
-          <value desc='MOBILE'>1234567</value>
-          <value desc='OFFICE'>1234567</value>
-        </field>
+        <field var='phonenum_home'><value>1234567</value></field>
+        <field var='phonenum_mobile'><value>1234567</value></field>
+        <field var='phonenum_office'><value>1234567</value></field>
       </item>
     </x>
   </query>
