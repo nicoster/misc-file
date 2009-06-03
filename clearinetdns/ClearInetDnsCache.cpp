@@ -21,6 +21,8 @@ typedef void (__stdcall*  FlushResolverCacheProc)(void);
 FlushResolverCacheProc FlushResolverCache = 0, FlushSystemResolverCache = 0;
 typedef void (__stdcall* PurgeServerInfoListProc)(BOOL);
 PurgeServerInfoListProc PurgeServerInfoList = 0;
+PLIST_ENTRY GlobalServerInfoList = 0;
+BOOL ShowServerInfoList();
 
 int main(int argc, char* argv[])
 {
@@ -28,7 +30,10 @@ int main(int argc, char* argv[])
 	
 	_tprintf(_T("Navigate www.baidu.com...\n===========================================\n"));
 	OpenUrl(_T("http://www.baidu.com"));
+	OpenUrl(_T("http://www.kaixin001.com"));
 	
+	ShowServerInfoList();
+
 	_tprintf(_T("\n\nNow you can modify hosts file to redirect www.baidu.com to somewhere else. \nPress Enter to continue...\n\n"));
 	getchar();
 	
@@ -40,6 +45,27 @@ int main(int argc, char* argv[])
 	OpenUrl(_T("http://www.baidu.com"));
 
 	return 0;
+}
+
+BOOL ShowServerInfoList()
+{
+	if(! GlobalServerInfoList) return FALSE;
+	try
+	{
+		for (PLIST_ENTRY cur = GlobalServerInfoList->Flink; cur != GlobalServerInfoList && cur != 0; cur = cur->Flink)
+		{
+			char* name = *(char**)((char*)cur + 0x14);
+			int refcount = *(int*)((char*)cur + 0x10);
+			_tprintf( _T("%08x, %s, %d \n"),  cur, name, refcount); 
+		}
+	}
+	catch(...)
+	{
+		printf("error when walkthrough server info list");
+		return FALSE;
+	}
+
+	return TRUE;
 }
 
 void OpenUrl(TCHAR* szUrl)
@@ -204,5 +230,26 @@ BOOL InitFuncPtrs(void)
 		_tprintf( _T("PurgeServerInfoList: %08x \n"), sip.si.Address ); 
 	}
 
+	bRet = ::SymFromName( 
+							GetCurrentProcess(), // Process handle of the current process 
+							_T("GlobalServerInfoList"),            // Symbol name 
+							&sip.si              // Address of the SYMBOL_INFO structure (inside "sip" object) 
+						);
+
+	if( !bRet ) 
+	{
+		_tprintf( _T("Error: SymFromName() failed. Error code: %u \n"), ::GetLastError() ); 
+		if (::GetLastError() == 126)
+		{
+			_tprintf( _T("The error may occur if symsrv.dll/dbghelp.dll are absent. \n")); 
+		}
+		return FALSE;
+	}
+	else 
+	{
+		GlobalServerInfoList = (PLIST_ENTRY)(void*)sip.si.Address;
+		_tprintf( _T("GlobalServerInfoList: %08x \n"), sip.si.Address ); 
+	}
+	
 	return TRUE;
 }
