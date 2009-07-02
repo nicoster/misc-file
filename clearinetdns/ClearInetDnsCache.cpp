@@ -29,8 +29,8 @@ int main(int argc, char* argv[])
 	if (!InitFuncPtrs()) return 1;
 	
 	_tprintf(_T("Navigate www.baidu.com...\n===========================================\n"));
-	OpenUrl(_T("http://www.baidu.com"));
-	OpenUrl(_T("http://www.kaixin001.com"));
+	OpenUrl(_T("https://hzswapi.qa.webex.com/wbxconnect/op.do"));
+//	OpenUrl(_T("http://www.kaixin001.com"));
 	
 	ShowServerInfoList();
 
@@ -70,7 +70,12 @@ BOOL ShowServerInfoList()
 
 void OpenUrl(TCHAR* szUrl)
 {
-	HINTERNET hinet = InternetOpen(_T("ClearInetDnsCache"), INTERNET_OPEN_TYPE_DIRECT, 0, 0, 0);
+	char* proxies = "1.1.1.1:2345 10.224.104.179:9090 10.224.170.11:8080";
+//	char* proxies = "ftp=http://10.224.104.179:2345 http=http://10.224.104.179:9090 gopher=http://10.224.170.11:8080";
+//	char* proxies = L"10.224.104.179:9090";
+
+//	HINTERNET hinet = InternetOpen(_T("ClearInetDnsCache"), INTERNET_OPEN_TYPE_PROXY, proxies, 0, 0);
+	HINTERNET hinet = InternetOpen(_T("ClearInetDnsCache"), INTERNET_OPEN_TYPE_PRECONFIG, 0, 0, 0);
 	if (!hinet)
 	{
 			_tprintf( _T("Error: InternetOpen() failed. Error code: %u \n"), ::GetLastError() ); 
