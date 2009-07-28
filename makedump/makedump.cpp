@@ -166,7 +166,8 @@ int main(int argc, char** argv)
 	HANDLE hProcessSnap = ::OpenProcess(PROCESS_ALL_ACCESS, TRUE, dwProcessID);
 	if (!hProcessSnap)
 	{
-		cout << "OpenProcess failed. Invalid PID?";
+        DWORD dw = GetLastError();
+		cout << "OpenProcess failed. err:" << dw;
 		return 2;
 	}
     

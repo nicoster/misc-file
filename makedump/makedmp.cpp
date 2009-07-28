@@ -16,7 +16,7 @@ HWND g_hwndTaskmgr = 0, g_hwndProcess = 0;
 WNDPROC g_fnOriginProcessesTab = 0;
 char g_szPath[MAX_PATH] = {0};
 
-#ifndef _DEBUG
+#ifdef _DEBUG
 class logstream : public ostream
 {
 public:
@@ -83,7 +83,7 @@ LRESULT CALLBACK ProcessesTabWndProc(
             DWORD dwProcess = *((DWORD*)lvi.lParam + 2);
             log << "pid:" << dwProcess;
             char szCmdline[MAX_PATH] = {0};
-            sprintf(szCmdline, "/c \"(\"%s\\makedump\" %d %%SystemDrive%%\\%s%s||echo.)&&pause\"", g_szPath, dwProcess, szImageName, wParam == ID_MAKEDUMP_FULL ? " /f" : "");
+            sprintf(szCmdline, "/c \"title %s.exe:%d - Make Dump&&(\"%s\\makedump\" %d %%SystemDrive%%\\%s%s||echo.)&&pause\"", szImageName, dwProcess, g_szPath, dwProcess, szImageName, wParam == ID_MAKEDUMP_FULL ? " /f" : "");
             log << szCmdline;
             ShellExecute(NULL, "open", "cmd.exe", szCmdline, NULL, SW_SHOW);
 
@@ -98,8 +98,8 @@ LRESULT CALLBACK ProcessesTabWndProc(
         if ( GetMenuItemID(hMenu, 0 ) == /*TASKMGR_END_PROCESS_CMD*/40028)
         {
             InsertMenu( hMenu, 0, MF_BYPOSITION | MF_SEPARATOR, 0, 0);
-            InsertMenu( hMenu, 0, MF_BYPOSITION, ID_MAKEDUMP_FULL, "M&ake Detailed Dump" );
-            InsertMenu( hMenu, 0, MF_BYPOSITION, ID_MAKEDUMP_MINI, "Make &Brief Dump" );
+            InsertMenu( hMenu, 0, MF_BYPOSITION, ID_MAKEDUMP_MINI, "Create &Brief Dump File" );
+            InsertMenu( hMenu, 0, MF_BYPOSITION, ID_MAKEDUMP_FULL, "C&reate Detailed Dump File" );
         }
         break;
     }
