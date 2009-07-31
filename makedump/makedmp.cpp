@@ -83,7 +83,7 @@ LRESULT CALLBACK ProcessesTabWndProc(
             DWORD dwProcess = *((DWORD*)lvi.lParam + 2);
             log << "pid:" << dwProcess;
             char szCmdline[MAX_PATH] = {0};
-            sprintf(szCmdline, "/c \"title %s.exe:%d - Make Dump&&(\"%s\\makedump\" %d %%SystemDrive%%\\%s%s||echo.)&&pause\"", szImageName, dwProcess, g_szPath, dwProcess, szImageName, wParam == ID_MAKEDUMP_FULL ? " /f" : "");
+            sprintf(szCmdline, "/c \"title %s.exe:%d - Make Dump&&(\"%s\\makedump\" %d \"%%SystemDrive%%\\%s.%%time::=%%\"%s||echo.)&&pause\"", szImageName, dwProcess, g_szPath, dwProcess, szImageName, wParam == ID_MAKEDUMP_FULL ? " /f" : "");
             log << szCmdline;
             ShellExecute(NULL, "open", "cmd.exe", szCmdline, NULL, SW_SHOW);
 
