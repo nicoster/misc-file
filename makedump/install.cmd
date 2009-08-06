@@ -25,9 +25,12 @@ echo.>>%reg%
 echo [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\taskmgr.exe]>>%reg%
 echo "debugger"="%dst:\=\\%\\taskmgrex.exe">>%reg%
 echo.>>%reg%
-regedit %reg%
+reg import %reg%
+if errorlevel 1 echo unable to import registry. you have to start the %dst%\taskmgrex.exe to generate the dump.
+
+:REG ADD "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Runonce" /v "Make Dump Setup" /t reg_sz /d "cmd /c reg import %reg%" /f
 
 :start readme.htm
-start taskmgr
+start "" "%dst%\taskmgrex.exe"
 :thend
 pause

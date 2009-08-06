@@ -15,6 +15,7 @@ enum {ID_TASKMGR_BASE = 30500, ID_MAKEDUMP_MINI, ID_MAKEDUMP_FULL};
 HWND g_hwndTaskmgr = 0, g_hwndProcess = 0;
 WNDPROC g_fnOriginProcessesTab = 0;
 char g_szPath[MAX_PATH] = {0};
+char g_szCaption[MAX_PATH] = {0};
 
 #ifdef _DEBUG
 class logstream : public ostream
@@ -47,6 +48,7 @@ struct logstream{template <class T> logstream& operator << (T const& whatever){r
 #define err log << "err, "
 
 #define CHK_RET(x) do{if (!(x)) {err << #x; return;}}while(0)
+#define CHK_RET_FALSE(x) do{if (!(x)) {err << #x; return FALSE;}}while(0)
 #define CHK_BREAK(x) if (!(x)) {err << #x; break;}
 
 LRESULT CALLBACK ProcessesTabWndProc(
@@ -133,11 +135,7 @@ void CALLBACK OnInit(HWND hWnd, UINT nMsg, UINT nIDEvent, DWORD dwTime)
     *pos = '\0';
     log << g_szPath;
     
-    TCHAR szCaption[0x100] = {0};
-    LoadString(0, 10003/*TASKMGR_IDS_WINDOW_CAPTION*/, szCaption, 0x100 );
-    CHK_RET(strlen(szCaption));
-    log << szCaption;
-    g_hwndTaskmgr = FindWindow( (LPCTSTR)32770, szCaption );
+    g_hwndTaskmgr = FindWindow( (LPCTSTR)32770, g_szCaption );
     CHK_RET(g_hwndTaskmgr);
     EnumChildWindows(g_hwndTaskmgr, EnumChildProc, 0);
     CHK_RET(g_hwndProcess);
@@ -156,6 +154,14 @@ _declspec(dllexport) BOOL WINAPI DllMain(HINSTANCE hinst, DWORD dwReason, LPVOID
         log << "DllMain";
         GetModuleFileName(hinst, g_szPath, MAX_PATH - 1);
         log << g_szPath;
+        
+        LoadString(0, 10003/*TASKMGR_IDS_WINDOW_CAPTION*/, g_szCaption, MAX_PATH );
+        CHK_RET_FALSE(strlen(g_szCaption));
+        log << g_szCaption;
+        
+        //~ HWND hwndTaskmgr = FindWindow( (LPCTSTR)32770, g_szCaption );
+        //~ PostMessage(hwndTaskmgr, WM_QUIT, 0, 0);
+        
         SetTimer(0, 1, 500, OnInit);
     }
 
