@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?> 
+  <LoginResponse>
+  <response>
+	<result>SUCCESS</result>
+  </response> 
+  <returnmsg>
+  <username>test@webex.com</username>
+
+<token>9d1909143217320b13484578177b13151314782400241e7821100d462f48411d2d2f51397e0e1b1d1b3634273e12171d2611280739517a427b4b5b5c657b6374671e1d426f352f5a616e7f5e55564647030a417d7110090c535459525f5b5b5a5f040c0b2a32065e5541471604004a354211100d717c3b3547091a57524c5c1a652151431714121267000608030e0a1e1a11052a414b3b0b4574445c3a161a134c07084703</token>
+   <serviceurl>localhost:8080</serviceurl>
+   <timetolive>1209600</timetolive>
+  </returnmsg>
+  </LoginResponse>

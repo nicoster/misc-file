@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?> 
+  <LoginResponse>
+  <response>
+	<result>FAILURE</result>
+	<exceptionID>AS0001</exceptionID>
+	<reason>Authentication Service Error.</reason>
+	<exceptions>
+	</exceptions>
+  </response> 
+  <returnmsg>
+  </returnmsg>
+  </LoginResponse>
