@@ -18,7 +18,7 @@
 	{
 		alert(1);
 		var xml = resp.responseXML;
-		var url = xml.selectSingleNode('//item/link').firstChild.nodeValue;
+		var url = xml.selectSingleNode('//item/link').text;
 		alert(url);
 		window.open(url,'_blank','status=no,resizable=yes,width=350,height=250,left=250,top=130');
 	}
