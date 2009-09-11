@@ -7,6 +7,7 @@
 	if (el.tagName == 'A')
 		url = el.href;
 		
+	url = 'http://localhost/';
 	if (url != '') 
 	{
 		var myAjax = new Ajax.Request( 
@@ -16,10 +17,15 @@
 	}
 	function onSink(resp)
 	{
-		alert(1);
+//		alert(resp.responseText);
 		var xml = resp.responseXML;
+<<<<<<< .mine
+		var url = xml.selectSingleNode('/root/FilmList/film').attributes[0].value;
+=======
 		var url = xml.selectSingleNode('//item/link').text;
+>>>>>>> .r61
 		alert(url);
-		window.open(url,'_blank','status=no,resizable=yes,width=350,height=250,left=250,top=130');
+		external.menuArguments.location = url;
+//		window.open(url,'_blank','status=no,resizable=yes,width=750,height=250,left=150,top=130');
 	}
 </script>

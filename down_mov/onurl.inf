@@ -1,0 +1,13 @@
+[Version]
+Signature="$CHICAGO$"
+Provider=nick,2007
+
+[DefaultInstall]
+AddReg=AddReg_
+
+[AddReg_]
+hkcu,%REG_PATH%,,,"""%01%\onurl.htm"""
+hkcu,%REG_PATH%,"contexts",0x00010001,0x22
+
+[Strings]
+REG_PATH="Software\Microsoft\Internet Explorer\MenuExt\&Download3 Movie"
