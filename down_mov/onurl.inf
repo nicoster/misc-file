@@ -10,4 +10,4 @@ hkcu,%REG_PATH%,,,"""%01%\onurl.htm"""
 hkcu,%REG_PATH%,"contexts",0x00010001,0x22
 
 [Strings]
-REG_PATH="Software\Microsoft\Internet Explorer\MenuExt\&Download3 Movie"
+REG_PATH="Software\Microsoft\Internet Explorer\MenuExt\Do&wnload Movie"

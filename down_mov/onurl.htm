@@ -6,7 +6,7 @@
 		url = el.parentElement.href;
 	if (el.tagName == 'A')
 		url = el.href;
-		
+
 	url = 'http://localhost/';
 	if (url != '') 
 	{
@@ -19,13 +19,16 @@
 	{
 //		alert(resp.responseText);
 		var xml = resp.responseXML;
-<<<<<<< .mine
-		var url = xml.selectSingleNode('/root/FilmList/film').attributes[0].value;
-=======
-		var url = xml.selectSingleNode('//item/link').text;
->>>>>>> .r61
-		alert(url);
-		external.menuArguments.location = url;
-//		window.open(url,'_blank','status=no,resizable=yes,width=750,height=250,left=150,top=130');
+		var urls = xml.selectNodes('/root/FilmList/film');
+		var index = 0;
+		for (; index < urls.length; index ++)
+		{
+			var url = urls[index].attributes[0].value
+//			alert(url);
+			if (index + 1 == urls.length)
+				external.menuArguments.location = url;
+			else
+				window.open(url,'_blank','status=no,resizable=no,width=150,height=20,left=150,top=130');
+		}
 	}
 </script>
