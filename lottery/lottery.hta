@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Lottery</title>
+<hta:application    
+caption = "no"    
+windowState = "maximize" 
+showintaskbar = "yes"    
+border = "thick"    
+contextmenu = "yes"    
+icon = "path_to_icon.ico"    
+innerborder = "no"    
+scroll = "no"    
+singleinstance = "yes"     
+resizable = "yes"    
+> 
+		
+        <style type="text/css">
+		a{color:#c00;
+		TEXT-DECORATION: none;}
+          div{border : 1px solid rgb(255,50,0);}
+            .hidden{
+                display: none;
+            }
+        	.buddyListStyle {
+			font-size:30px;
+			
+			position:absolute;
+			color:white;
+			font-family:verdana;
+			text-align:left;
+		  }
+        	.LuckListStyle {
+			font-size:50px;
+			
+			top:82%;
+			color:#0b0;
+			position:absolute;
+			font-family:verdana;
+			text-align:left;
+			font-weight:bold;
+		  }
+        	.buddyStyle {
+			width:100%;
+			font-size:100px;
+			
+			top:55%;
+			color:white;
+			position:absolute;
+			font-family:verdana;
+			text-align:center;
+			font-weight:bold;
+		  }
+		  .flashStyle{
+			width:100%;
+			font-size:100px;
+			color:#0c0;
+			
+			top:55%;
+			position:absolute;
+			font-family:verdana;
+			text-align:center;
+			font-weight:bold;
+			}
+		  body{
+			background-size: 100%;
+			background-color:#fff;
+			background-image: url("back.png"); 
+		  }
+        </style>
+   
+     
+    </head>
+	<SCRIPT LANGUAGE="VBScript">
+    Sub ExitProgram
+        window.close()
+    End Sub
+</SCRIPT>
+    <body scroll="no" style="font-family:verdana;font-weight:bold"> 
+	    <a href="#" onClick="ExitProgram" style="float:right;font-weight:bold;">x</a>
+		<div style="font-size:80px;width:100%;text-align:center;color:yellow">唐延国际中心地下室分配方案<br/>抽取仪式
+</div>
+		<hr/>
+		
+		<div class='buddyListStyle'>待选号码:<div id='buddyList' align='center'></div></div>
+ 		<div id='buddyName' align='center' class='buddyStyle'></div>
+		
+		<div class='LuckListStyle'><hr/>已选号码:<div id='luckList' align='center' >回车键开始 空格键停止</div></div>
+		
+    </body>
+<script language=JScript src="ini.js"></script>
+   <script type="text/javascript">
+	 var cfg = new IniCtrl();
+			cfg.Open("lottery.ini");
+			cfg.select("config");
+			var cadidate = cfg.getAttribute("cadidate");
+			var luckerTotalCount = cfg.getAttribute("luckercount");
+			cfg.Close();
+			
+			if (!luckerTotalCount) 
+				alert("请设置摇号个数");
+			
+			var buddyList = cadidate.split(' ');
+//			['1a', '2b', '3c', '4d', '5e', '6f', '7g'];
+//			['Emma Wu','Jimmy Zeng','Lena Wang','Ella Liu','Christine Zhang','Jing Chen','Nelson Chai','Chenney Chen','Lucy Lu','Rain Zhao','James Ouyang','Winkle Xia','Carolyn Chen','William Hua'];
+			
+			var buddySpan = document.getElementById('buddyName');
+			var buddyListSpan = document.getElementById('buddyList');
+			var luckListSpan = document.getElementById('luckList');
+			
+			var countTimeout;
+			var flashTimeout;
+			var i=0;
+			var luckList = [];
+			var rolling = 0;
+			var current_index;
+			var luckerCount = 0;
+			buddyListSpan.innerHTML = toString2(buddyList);
+			
+			document.onkeydown = function()
+  			  {
+   			  var oEvent = window.event;
+			if (buddyList.length == 0) return;
+			if (luckerCount >= luckerTotalCount) return;
+					
+    			  if (oEvent.keyCode == 13 && rolling == 0) {
+					rolling = 1;
+   			   changeBuddy();
+   			  }
+			  else if (oEvent.keyCode == 32 && rolling != 0) {
+				  rolling = 0;
+   			   stop();
+   			  }
+   			 }
+			 
+			 function stop()
+			 {
+				clearTimeout(countTimeout);
+				luckList.push(buddyList[current_index]);
+				luckListSpan.innerHTML = luckList.toString();
+				flashBuddy(true);
+				buddyList.splice(current_index, 1);
+				buddyListSpan.innerHTML = toString2(buddyList);
+				luckerCount ++;
+				if (luckerCount == luckerTotalCount)
+				{
+					buddySpan.innerHTML = buddySpan.innerHTML + "<br/>选取完毕";
+					cfg.Open("lottery.ini");
+					cfg.select("result");
+					cfg.setAttribute("lucky", luckList.toString());
+					cfg.save();
+					cfg.Close();
+				}
+			 }
+			function changeBuddy(buddy){	
+				if(!buddy){
+					buddy = buddyList[i%buddyList.length];
+					buddySpan.className = 'buddyStyle';
+				}
+
+				clearTimeout(countTimeout);
+				clearTimeout(flashTimeout);
+				current_index = i;
+//				if (!buddy) buddy = i;
+ 				buddySpan.innerHTML = buddy;
+				do{
+					i=Math.random()* buddyList.length;
+					i=Math.round(i)
+				}while(!(0<=i&&i<buddyList.length));
+				buddy = buddyList[i%buddyList.length];
+				
+				countTimeout = setTimeout('changeBuddy("' + buddy + '")',15);
+					  
+			}
+
+			function flashBuddy(flag){
+				if(flag==true){
+					buddySpan.className = 'flashStyle';
+					flag=false;
+				}else{
+					buddySpan.className = 'buddyStyle';
+					flag=true;
+				}
+				flashTimeout = setTimeout('flashBuddy('+flag+')',500);
+			
+			}
+        </script>
+</html>
