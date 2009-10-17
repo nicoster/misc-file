@@ -1,0 +1,1 @@
+start lottery.hta lottery.2-2.ini 2บลยฅ2ตฅิช

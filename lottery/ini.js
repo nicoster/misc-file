@@ -11,6 +11,17 @@ String.prototype.rTrim = function()
     return this.replace(/([\\s]*$)/g, "");
 } 
 
+Array.prototype.toString2 = function()
+{
+    var str = "";
+    var i = 0;
+    var len = this.length;
+    for (i= 0; i < len; ++i)
+      str += this[i] + " ";
+      
+    return str;
+}
+
 function toString2(array)
 {
     var str = "";

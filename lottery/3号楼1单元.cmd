@@ -1,0 +1,1 @@
+start lottery.hta lottery.3-1.ini 3บลยฅ1ตฅิช

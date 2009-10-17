@@ -2,9 +2,10 @@
 <html>
     <head>
         <title>Lottery</title>
-<hta:application    
-caption = "no"    
+<hta:application   
+id='lotteryapp'
 windowState = "maximize" 
+caption = "no"    
 showintaskbar = "yes"    
 border = "thick"    
 contextmenu = "yes"    
@@ -33,8 +34,8 @@ resizable = "yes"
         	.LuckListStyle {
 			font-size:50px;
 			
-			top:82%;
-			color:#0b0;
+			top:72%;
+			color:white;
 			position:absolute;
 			font-family:verdana;
 			text-align:left;
@@ -44,7 +45,7 @@ resizable = "yes"
 			width:100%;
 			font-size:100px;
 			
-			top:55%;
+			top:40%;
 			color:white;
 			position:absolute;
 			font-family:verdana;
@@ -56,7 +57,7 @@ resizable = "yes"
 			font-size:100px;
 			color:#0c0;
 			
-			top:55%;
+			top:40%;
 			position:absolute;
 			font-family:verdana;
 			text-align:center;
@@ -64,9 +65,9 @@ resizable = "yes"
 			}
 		  body{
 			background-size: 100%;
-			background-color:#fff;
-			background-image: url("back.png"); 
+			background-color:#000;
 		  }
+			background-image: url("back.png"); 
         </style>
    
      
@@ -78,20 +79,27 @@ resizable = "yes"
 </SCRIPT>
     <body scroll="no" style="font-family:verdana;font-weight:bold"> 
 	    <a href="#" onClick="ExitProgram" style="float:right;font-weight:bold;">x</a>
-		<div style="font-size:80px;width:100%;text-align:center;color:yellow">唐延国际中心地下室分配方案<br/>抽取仪式
-</div>
+		<div style="font-size:70px;width:100%;text-align:center;color:yellow">唐延国际公寓地下室抽号系统</div>
+		<div id='subtitle' style="font-size:30px;width:100%;text-align:right;color:white;" ></div>
 		<hr/>
 		
-		<div class='buddyListStyle'>待选号码:<div id='buddyList' align='center'></div></div>
+		<div class='buddyListStyle'>待选号码:<div id='buddyList' ></div></div>
  		<div id='buddyName' align='center' class='buddyStyle'></div>
 		
-		<div class='LuckListStyle'><hr/>已选号码:<div id='luckList' align='center' >回车键开始 空格键停止</div></div>
+		
+		<div class='LuckListStyle'><div id='pagination' style="font-size:30px;width:100%;text-align:right;" ></div><hr/>已选号码:<div id='luckList' align='center' >回车键开始 空格键停止</div></div>
 		
     </body>
 <script language=JScript src="ini.js"></script>
    <script type="text/javascript">
-	 var cfg = new IniCtrl();
-			cfg.Open("lottery.ini");
+			var argv = lotteryapp.commandLine.split(" ");
+			var cfgfile = argv[argv.length - 2];
+			var subtitle = argv[argv.length - 1];
+//			var cfgfile = 'lottery.2-1.ini';
+//			var subtitle = '2 号楼 1 单元';
+			
+			 var cfg = new IniCtrl();
+			cfg.Open(cfgfile);
 			cfg.select("config");
 			var cadidate = cfg.getAttribute("cadidate");
 			var luckerTotalCount = cfg.getAttribute("luckercount");
@@ -107,6 +115,7 @@ resizable = "yes"
 			var buddySpan = document.getElementById('buddyName');
 			var buddyListSpan = document.getElementById('buddyList');
 			var luckListSpan = document.getElementById('luckList');
+			var pagination = document.getElementById('pagination');
 			
 			var countTimeout;
 			var flashTimeout;
@@ -115,7 +124,9 @@ resizable = "yes"
 			var rolling = 0;
 			var current_index;
 			var luckerCount = 0;
-			buddyListSpan.innerHTML = toString2(buddyList);
+			buddyListSpan.innerHTML = buddyList.toString2();
+			pagination.innerHTML = '总计 ' + luckerTotalCount + ' 个,已选定 ' + luckerCount + ' 个, 余 ' + (luckerTotalCount - luckerCount) + ' 个';
+			document.getElementById('subtitle').innerHTML = '[' +subtitle + ']&nbsp;&nbsp;&nbsp;&nbsp;';
 			
 			document.onkeydown = function()
   			  {
@@ -137,17 +148,18 @@ resizable = "yes"
 			 {
 				clearTimeout(countTimeout);
 				luckList.push(buddyList[current_index]);
-				luckListSpan.innerHTML = luckList.toString();
+				luckListSpan.innerHTML = luckList.toString2();
 				flashBuddy(true);
 				buddyList.splice(current_index, 1);
 				buddyListSpan.innerHTML = toString2(buddyList);
 				luckerCount ++;
+				pagination.innerHTML = '总计 ' + luckerTotalCount + ' 个,已选定 ' + luckerCount + ' 个, 余 ' + (luckerTotalCount - luckerCount) + ' 个';
 				if (luckerCount == luckerTotalCount)
 				{
 					buddySpan.innerHTML = buddySpan.innerHTML + "<br/>选取完毕";
-					cfg.Open("lottery.ini");
+					cfg.Open(cfgfile);
 					cfg.select("result");
-					cfg.setAttribute("lucky", luckList.toString());
+					cfg.setAttribute("lucky", luckList.toString2());
 					cfg.save();
 					cfg.Close();
 				}
@@ -169,7 +181,7 @@ resizable = "yes"
 				}while(!(0<=i&&i<buddyList.length));
 				buddy = buddyList[i%buddyList.length];
 				
-				countTimeout = setTimeout('changeBuddy("' + buddy + '")',15);
+				countTimeout = setTimeout('changeBuddy("' + buddy + '")',2);
 					  
 			}
 
