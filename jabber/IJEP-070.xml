@@ -507,14 +507,17 @@ infomation to search for groups.</instructions>
       <reported>
         <field var='groupid' label='Group ID' type='text-single'/>
         <field var='groupname' label='Group Name' type='text-single'/>
+        <field var='count' label='Member Count' type='text-single'/>
       </reported>
       <item>
         <field var='groupid'><value>GROUPID1</value></field>
         <field var='groupname'><value>GROUPNAME1</value></field>
+        <field var='count'><value>100</value></field>
       </item>
       <item>
         <field var='groupid'><value>GROUPID2</value></field>
         <field var='groupname'><value>GROUPNAME2</value></field>
+        <field var='count'><value>200</value></field>
       </item>
     </x>
   </query>
