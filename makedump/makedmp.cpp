@@ -9,7 +9,7 @@ using namespace std;
 /*
 cl.exe /LD /nologo /MD /W3 /GX /Gm /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /I../include /I"D:\MY HEADER COLLECTION\XP SDK INCLUDE" makedmp.cpp /link kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /subsystem:windows /incremental:yes /pdb:makedmp.pdb /debug /machine:I386 /out:"makedmp.dll" /align:16 /opt:ref
 */
-
+///
 enum {ID_TASKMGR_BASE = 30500, ID_MAKEDUMP_MINI, ID_MAKEDUMP_FULL};
 
 HWND g_hwndTaskmgr = 0, g_hwndProcess = 0;

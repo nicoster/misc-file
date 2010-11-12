@@ -25,7 +25,8 @@ bool IsDataSectionNeeded( const WCHAR* pModuleName )
             L"ntdll",
         };
 
-    if ( pModuleName == 0 )
+        //
+    if ( pModuleName == 0 )asdfasdf
     {
 // 		cout << "Parameter is null.";
         return false;
