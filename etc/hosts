@@ -32,7 +32,60 @@
 10.224.90.174 hfdevcas.qa.webex.com
 10.224.90.175 hfdswapi.qa.webex.com
 10.224.105.243   sm.szcnct.com
-10.224.119.75 c65devcas2.qa.webex.com
-10.224.119.76 c65devwapi2.qa.webex.com
+74.208.10.249 gs.apple.com
 
-10.224.90.162 hfdsslgwcm.qa.webex.com
+优酷屏蔽： 
+127.0.0.1 atm.youku.com
+127.0.0.1 Fvid.atm.youku.com
+127.0.0.1 html.atm.youku.com
+127.0.0.1 valb.atm.youku.com
+127.0.0.1 valf.atm.youku.com
+127.0.0.1 valo.atm.youku.com
+127.0.0.1 valp.atm.youku.com
+127.0.0.1 lstat.youku.com
+127.0.0.1 speed.lstat.youku.com
+127.0.0.1 urchin.lstat.youku.com
+127.0.0.1 stat.youku.com
+搜狐屏蔽： 
+127.0.0.1 images.sohu.com 
+土豆屏蔽： 
+127.0.0.1 *.p2v.tudou.com* 
+127.0.0.1 adplay.tudou.com 
+127.0.0.1 adcontrol.tudou.com 
+127.0.0.1 stat.tudou.com 
+酷6屏蔽： 
+127.0.0.1 v2.stat.ku6.com 
+127.0.0.1 v3.stat.ku6.com 
+127.0.0.1 v0.stat.ku6.com 
+127.0.0.1 v1.stat.ku6.com 
+127.0.0.1 st.vq.ku6.cn 
+127.0.0.1 stat2.888.ku6.com 
+127.0.0.1 pq.stat.ku6.com 
+迅雷看看屏蔽： 
+127.0.0.1 mcfg.sandai.net 
+127.0.0.1 biz5.sandai.net 
+127.0.0.1 server1.adpolestar.net 
+127.0.0.1 advstat.xunlei.com 
+127.0.0.1 mpv.sandai.net 
+百度： 
+127.0.0.1 a.baidu.com 
+127.0.0.1 baidutv.baidu.com 
+127.0.0.1 bar.baidu.com 
+127.0.0.1 c.baidu.com 
+127.0.0.1 cjhq.baidu.com 
+127.0.0.1 cpro.baidu.com 
+127.0.0.1 drmcmm.baidu.com 
+127.0.0.1 e.baidu.com 
+127.0.0.1 eiv.baidu.com 
+127.0.0.1 hc.baidu.com 
+127.0.0.1 hm.baidu.com 
+127.0.0.1 ma.baidu.com 
+127.0.0.1 nsclick.baidu.com 
+127.0.0.1 spcode.baidu.com 
+127.0.0.1 tk.baidu.com 
+127.0.0.1 union.baidu.com 
+127.0.0.1 ucstat.baidu.com 
+127.0.0.1 utility.baidu.com 
+127.0.0.1 utk.baidu.com 
+127.0.0.1 focusbaiduafp.allyes.com
+
