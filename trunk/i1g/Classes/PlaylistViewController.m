@@ -22,7 +22,7 @@
 
 
 @implementation PlaylistViewController
-@synthesize player, playCtrl;
+@synthesize playCtrl;
 
 - (void)songDidLoad:(NSNotification *)notification;
 {
@@ -44,7 +44,6 @@
 	self.navigationItem.titleView = playCtrl.view;
 	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	
-	
 	[[NX1GClient shared1GClient] listSongsByType: SLT_GIVEN];
 }
 
@@ -52,30 +51,6 @@
 {
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"SONG_LOADED" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
-	
-}
-
-- (void) play: (NSString*) aUrl
-{
-	if ([aUrl length])
-	{
-		NSURL *url = [NSURL URLWithString:aUrl];
-		
-		[player stop];
-		self.player = [[[AudioStreamer alloc] initWithURL:url] autorelease];
-		[player start];
-	}
-	else 
-	{
-		[player pause];	// pause will handle play/pause
-	}
-	
-}
-
-- (void) playNext
-{
-	[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
-	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection:0]];
 	
 }
 
@@ -124,7 +99,7 @@
 
 - (void)playerStateDidChange:(NSNotification *)notification;
 {
-	if (player.state == AS_STOPPED || player.state == AS_INITIALIZED) 
+	if (playCtrl.player.state == AS_STOPPED || playCtrl.player.state == AS_INITIALIZED) 
 	{
 		[self performSelector:@selector(playNext) withObject: nil afterDelay: 1];
 	}
@@ -143,7 +118,7 @@
 	NSString *url = [[song.urls objectAtIndex:0] url];		
 	NSLog(@"as, song:%@", url);	
 	
-	[self play:url];
+	[playCtrl play:url];
 	
 	if (indexPath.row) {
 		NSRange range = NSMakeRange(0, indexPath.row);
@@ -159,9 +134,6 @@
 			[cellsToInsert addObject: [NSIndexPath indexPathForRow: [[[NX1GClient shared1GClient] playList] count] - indexPath.row + i inSection: indexPath.section]];
 		}
 		
-		
-		
-		
 		//filtering animation and presentation model update
 		[self.tableView beginUpdates];
 		{
@@ -172,11 +144,18 @@
 	}	
 }
 
+
+- (void) playNext
+{
+	[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection:0]];
+	
+}
+
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	self.playCtrl = nil;
-	self.player = nil;
 	[super dealloc];
 }
 

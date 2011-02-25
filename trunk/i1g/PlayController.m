@@ -15,7 +15,7 @@
 @implementation PlayController
 
 
-@synthesize loadingIndicator, playlistView;
+@synthesize loadingIndicator, playlistView, player;
 
 
 - (id) initWithPlaylistView: (id) aPlaylistView
@@ -32,8 +32,8 @@
 
 - (void)playerStateDidChange:(NSNotification *)notification;
 {
-	NSLog(@"as, state:%d", self.playlistView.player.state);
-	[self.playlistView.player isWaiting] ? [self.loadingIndicator startAnimating] : [self.loadingIndicator stopAnimating];
+	NSLog(@"as, state:%d", player.state);
+	[player isWaiting] ? [self.loadingIndicator startAnimating] : [self.loadingIndicator stopAnimating];
 
 }
 
@@ -42,28 +42,46 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
 	self.playlistView = nil;
+	self.player = nil;
 	[super dealloc];
 }
 
-- (IBAction) play: (id)sender
+- (IBAction) playPressed: (id)sender
 {
-	AudioStreamer* player = self.playlistView.player;
 	if ([player isPaused] || [player isPlaying]) {
-		[self.playlistView play:nil];
+		[self play:nil];
 	}
 	else {
 		[self.playlistView.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
 
 		NXSong *song = [[[NX1GClient shared1GClient] playList] objectAtIndex: 0];
 		NSString *url = [[song.urls objectAtIndex:0] url];		
-		[self.playlistView play:url];
+		[self play:url];
 	}
 
 }
 
-- (IBAction) next: (id)sender
+- (IBAction) nextPressed: (id)sender
 {
 	[self.playlistView playNext];
+}
+
+
+- (void) play: (NSString*) aUrl
+{
+	if ([aUrl length])
+	{
+		NSURL *url = [NSURL URLWithString:aUrl];
+		
+		[player stop];
+		self.player = [[[AudioStreamer alloc] initWithURL:url] autorelease];
+		[player start];
+	}
+	else 
+	{
+		[player pause];	// pause will handle play/pause
+	}
+	
 }
 
 
