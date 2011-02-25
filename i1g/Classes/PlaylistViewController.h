@@ -8,13 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class AudioStreamer;
 
-@interface PlaylistViewController : UITableViewController {
-	AudioStreamer *player;
+@interface PlaylistViewController : UITableViewController 
+{
+
 }
-@property (nonatomic, retain, readwrite) AudioStreamer *player;
-- (void) play: (NSString*) url;
+
 - (void) playNext;
 
 @end
