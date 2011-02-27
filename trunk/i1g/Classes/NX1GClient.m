@@ -19,7 +19,7 @@
 NSString* URL_LISTSONG = @"http://www.1g1g.com/list/load.jsp?type=%@";
 NSString* DATA_GIVENSONGS = @"givenids=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
 NSString* DATA_NEXTSONGS = @"preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
-NSString* DATA_SEARCHSONGS = @"username=&query=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
+NSString* DATA_SEARCHSONGS = @"username=nickx&query=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=130&encoding=utf8&magic=%@";
 NSString* URL_LOGIN = @"http://www.1g1g.com/user/account.jsp";
 NSString* URL_LYRIC = @"http://www.1g1g.com/list/lyric.jsp";
 NSString* URL_COMMENT = @"http://www.1g1g.com/report/getComment.jsp";
@@ -85,12 +85,12 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 @property (nonatomic, assign, readonly) NXHttpClient* httpClient;
 @property (nonatomic, retain, readwrite) NSString* magic;
 @property (nonatomic, retain, readwrite) NSArray* givenIds;
-@property (nonatomic, retain, readwrite) NSMutableArray* songs;
+@property (nonatomic, retain, readwrite) NSMutableArray* songs, *searchResults;
 @end
 
 @implementation NX1GClient
 
-@synthesize magic, givenIds, songs, playList;
+@synthesize magic, givenIds, songs, playList, searchResults;
 
 + (NX1GClient*) shared1GClient
 {
@@ -103,16 +103,30 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	return client;
 }
 
+- (id)init
+{
+	self = [super init];
+	self.magic = @"";
+	return self;
+}
+
+- (void)dealloc
+{
+	magic = nil;
+	givenIds = songs = playList = nil;
+	[super dealloc];
+}
+
 - (NXHttpClient*) httpClient {
 	return [NXHttpClient sharedHttpClient];
 }	
 
-- (void) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria {
+- (int) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria {
 	if ([criteria length] == 0 && type == SLT_SEARCH) {
 		NSLog(@"try to search nothing, ignored.");
-		return;
+		return 0;
 	}
-	if ([self.givenIds count] == 0) {
+	if ([self.givenIds count] == 0 && type == SLT_GIVEN) {
 		type = SLT_NEXT;
 	}
 	static NSString* types[] = {@"given", @"next", @"pool"};
@@ -133,7 +147,8 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			break;
 	}
 	
-	[self.httpClient connect: url withDelegate:self andPostData: data andUserData: [NSNumber numberWithInt: CT_LISTSONG + type]];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LISTSONG + type], criteria, nil];
+	return (int)[self.httpClient connect: url withDelegate:self andPostData: data andUserData: userData];
 }
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd {
 }
@@ -165,11 +180,59 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	return [NSString stringWithFormat:@"%d", loc3];
 }
 
-
+- (NSMutableArray*) parseSongList: (GDataXMLDocument*) doc
+{
+	NSMutableArray* array = nil;
+	NSArray * items = [doc nodesForXPath:@"/info/songlist/song" error:nil];
+	for (GDataXMLElement *item in items) {
+		NXSong *song = [[NXSong alloc] init];
+		
+		song.title = [item stringForName:@"name"];
+		song.singer = [item stringForName:@"singer"];
+		song.uploader = [item stringForName:@"uploadinguser"];
+		song.collector = [item stringForName:@"collectinguser"];
+		song.album = [item stringForName:@"album"];
+		song.songId = [item stringForName:@"id"];
+		
+		NSArray* srcs = [item elementsForName:@"source"];
+		for (GDataXMLElement* src in srcs) {
+			NSArray *urls = [src elementsForName:@"link"];
+			for (GDataXMLElement* url in urls) {
+				NXSongUrl *aUrl = [[NXSongUrl alloc] init];
+				aUrl.format = [[url attributeForName:@"format"] stringValue];
+				aUrl.urlId = [[url attributeForName:@"id"] stringValue];
+				aUrl.url = url.stringValue;
+				aUrl.size = [[[url attributeForName:@"filesize"] stringValue] intValue];
+				if (song.urls)
+					[song.urls addObject: aUrl];
+				else {
+					song.urls = [NSMutableArray arrayWithObject:aUrl];
+				}
+				
+				[aUrl release];
+			}
+			break;
+			
+		}
+		if (array) {
+			[array addObject: song];
+		}
+		else {
+			array = [NSMutableArray arrayWithObject: song];
+		}
+		
+		[song release];
+		
+	}
+	
+	return array;
+}
 	
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData {
-	int type = [(NSNumber*)userData intValue];
+	int type = [(NSNumber*)[userData objectAtIndex:0] intValue];
+	NSString *criteria = [userData objectAtIndex:1];
+	
 	if (error != nil)
 	{
 		NSLog(@"http, type:%d, err:%@", type, [error localizedDescription]);
@@ -196,7 +259,7 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			break;
 		}
 		
-		[self listSongsByType:type];	// retry to list songs
+		[self listSongsByType:type withCriteria:criteria];	// retry to list songs
 		return;
 	}
 	
@@ -204,73 +267,76 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 		case CT_LISTSONG + SLT_GIVEN:
 		case CT_LISTSONG + SLT_NEXT:
 		{	
-			NSArray * items = [doc nodesForXPath:@"/info/songlist/song" error:nil];
-			for (GDataXMLElement *item in items) {
-				NXSong *song = [[NXSong alloc] init];
-				
-				song.title = [item stringForName:@"name"];
-				song.singer = [item stringForName:@"singer"];
-				song.uploader = [item stringForName:@"uploadinguser"];
-				song.collector = [item stringForName:@"collectinguser"];
-				song.album = [item stringForName:@"album"];
-				song.songId = [item stringForName:@"id"];
-				
-				NSArray* srcs = [item elementsForName:@"source"];
-				for (GDataXMLElement* src in srcs) {
-					NSArray *urls = [src elementsForName:@"link"];
-					for (GDataXMLElement* url in urls) {
-						NXSongUrl *aUrl = [[NXSongUrl alloc] init];
-						aUrl.format = [[url attributeForName:@"format"] stringValue];
-						aUrl.urlId = [[url attributeForName:@"id"] stringValue];
-						aUrl.url = url.stringValue;
-						aUrl.size = [[[url attributeForName:@"filesize"] stringValue] intValue];
-						if (song.urls)
-							[song.urls addObject: aUrl];
-						else {
-							song.urls = [NSMutableArray arrayWithObject:aUrl];
-						}
-
-						[aUrl release];
-					}
-					break;
-					
-				}
-				if ([self.playList count] < PLAYLISTSIZE)
-				{
-					if (self.playList) {
-						[self.playList addObject: song];
-					}
-					else {
-						self.playList = [NSMutableArray arrayWithObject: song];
-					}
-					
-				}
-				else
-				{
-					if (self.songs)
-					{
-						[self.songs addObject: song];
-					}
-					else {
-						self.songs = [NSMutableArray arrayWithObject:song];
-					}
-				}
-
-				[song release];
+//			NSArray * items = [doc nodesForXPath:@"/info/songlist/song" error:nil];
+//			for (GDataXMLElement *item in items) {
+//				NXSong *song = [[NXSong alloc] init];
+//				
+//				song.title = [item stringForName:@"name"];
+//				song.singer = [item stringForName:@"singer"];
+//				song.uploader = [item stringForName:@"uploadinguser"];
+//				song.collector = [item stringForName:@"collectinguser"];
+//				song.album = [item stringForName:@"album"];
+//				song.songId = [item stringForName:@"id"];
+//				
+//				NSArray* srcs = [item elementsForName:@"source"];
+//				for (GDataXMLElement* src in srcs) {
+//					NSArray *urls = [src elementsForName:@"link"];
+//					for (GDataXMLElement* url in urls) {
+//						NXSongUrl *aUrl = [[NXSongUrl alloc] init];
+//						aUrl.format = [[url attributeForName:@"format"] stringValue];
+//						aUrl.urlId = [[url attributeForName:@"id"] stringValue];
+//						aUrl.url = url.stringValue;
+//						aUrl.size = [[[url attributeForName:@"filesize"] stringValue] intValue];
+//						if (song.urls)
+//							[song.urls addObject: aUrl];
+//						else {
+//							song.urls = [NSMutableArray arrayWithObject:aUrl];
+//						}
+//
+//						[aUrl release];
+//					}
+//					break;
+//					
+//				}
+//				if ([self.playList count] < PLAYLISTSIZE)
+//				{
+//					if (self.playList) {
+//						[self.playList addObject: song];
+//					}
+//					else {
+//						self.playList = [NSMutableArray arrayWithObject: song];
+//					}
+//					
+//				}
+//				else
+//				{
+//					if (self.songs)
+//					{
+//						[self.songs addObject: song];
+//					}
+//					else {
+//						self.songs = [NSMutableArray arrayWithObject:song];
+//					}
+//				}
+//
+//				[song release];
+//			
+//			}
 			
-			}
+			NSArray *array = [self parseSongList:doc];
+			self.playList = [NSMutableArray arrayWithArray: [array subarrayWithRange: NSMakeRange(0, PLAYLISTSIZE)]];
+			self.songs = [NSMutableArray arrayWithArray: [array subarrayWithRange: NSMakeRange(PLAYLISTSIZE, [array count] - PLAYLISTSIZE)]];
 			
-			for (int i = 0; i < PLAYLISTSIZE; i ++) {
-
-			}
-			
-			[[NSNotificationCenter defaultCenter] postNotificationName:@"SONG_LOADED" object:nil];
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSongDidLoad" object:nil];
 			[doc release];
 			
 			break;
 		}
 		case CT_LISTSONG + SLT_SEARCH:
 		{
+			self.searchResults = [self parseSongList:doc];
+			
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSearchDidFinish" object:nil];
 			break;
 		}
 		default:

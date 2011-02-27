@@ -1461,7 +1461,7 @@ cleanup:
 
 - (void)handle1SecondTimer: (NSTimer*) theTimer
 {	
-	NSLog(@"as, handle1SecondTimer");
+//	NSLog(@"as, handle1SecondTimer");
 	NSTimeInterval interval = waitInterval;
 	
 	if (self.startPoint) {

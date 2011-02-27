@@ -33,6 +33,7 @@
 		70E0FD7B13199C9D0087B877 /* playlist.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FD7813199C9D0087B877 /* playlist.png */; };
 		70E0FE37131A1D7B0087B877 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E0FE35131A1D7B0087B877 /* SearchResultViewController.m */; };
 		70E0FE38131A1D7B0087B877 /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FE36131A1D7B0087B877 /* SearchResultViewController.xib */; };
+		70E0FF27131A423F0087B877 /* memo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FF26131A423F0087B877 /* memo.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		70E0FE34131A1D7B0087B877 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		70E0FE35131A1D7B0087B877 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		70E0FE36131A1D7B0087B877 /* SearchResultViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SearchResultViewController.xib; path = Classes/SearchResultViewController.xib; sourceTree = "<group>"; };
+		70E0FF26131A423F0087B877 /* memo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = memo.txt; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* i1G-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "i1G-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,6 +140,7 @@
 			children = (
 				28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				70E0FF26131A423F0087B877 /* memo.txt */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				70E0FD7A13199C9D0087B877 /* setting.png in Resources */,
 				70E0FD7B13199C9D0087B877 /* playlist.png in Resources */,
 				70E0FE38131A1D7B0087B877 /* SearchResultViewController.xib in Resources */,
+				70E0FF27131A423F0087B877 /* memo.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

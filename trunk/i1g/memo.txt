@@ -1,0 +1,6 @@
+1g1g search pattern:
+
+username	signed-in	what	url&data
+N	N	xxx	search.1g1g.com/search?<NO USERNAME>
+N	N	@xxx	www.1g1g.com/list?<NO USERNAME>
+Y	N	
