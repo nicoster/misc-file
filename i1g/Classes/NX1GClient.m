@@ -12,7 +12,6 @@
 
 #include "GDataXMLNode.h"
 
-#define PLAYLISTSIZE 10
 
 
 
@@ -84,13 +83,11 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 @interface NX1GClient()
 @property (nonatomic, assign, readonly) NXHttpClient* httpClient;
 @property (nonatomic, retain, readwrite) NSString* magic;
-@property (nonatomic, retain, readwrite) NSArray* givenIds;
-@property (nonatomic, retain, readwrite) NSMutableArray* songs, *searchResults;
 @end
 
 @implementation NX1GClient
 
-@synthesize magic, givenIds, songs, playList, searchResults;
+@synthesize magic, songs, playList, searchResults, history;
 
 + (NX1GClient*) shared1GClient
 {
@@ -107,13 +104,15 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 {
 	self = [super init];
 	self.magic = @"";
+	self.playList = [NSMutableArray arrayWithCapacity:PLAYLISTSIZE];
+	self.songs = [NSMutableArray arrayWithCapacity:PLAYLISTSIZE * 3];
 	return self;
 }
 
 - (void)dealloc
 {
 	magic = nil;
-	givenIds = songs = playList = nil;
+	songs = playList = nil;
 	[super dealloc];
 }
 
@@ -121,13 +120,42 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	return [NXHttpClient sharedHttpClient];
 }	
 
+- (void) saveGivenIds
+{
+	NSMutableString * givenIds = nil;
+	for (NXSong *song in self.playList) {
+		if (givenIds) {
+			[givenIds appendFormat:@",%@", song.songId];
+		}
+		else {
+			givenIds = [NSMutableString stringWithString:song.songId];
+		}
+	}
+	
+	for (NXSong *song in self.songs) {
+		if (givenIds) {
+			[givenIds appendFormat:@",%@", song.songId];
+		}
+		else {
+			givenIds = [NSMutableString stringWithString:song.songId];
+		}
+	}
+	
+	[[NSUserDefaults standardUserDefaults] setObject:givenIds forKey:@"kNX1GClientGivenIds"];
+}
+
 - (int) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria {
 	if ([criteria length] == 0 && type == SLT_SEARCH) {
 		NSLog(@"try to search nothing, ignored.");
 		return 0;
 	}
-	if ([self.givenIds count] == 0 && type == SLT_GIVEN) {
-		type = SLT_NEXT;
+	
+	NSMutableString * givenIds = nil;
+	if (type == SLT_GIVEN) {
+		givenIds = [[NSUserDefaults standardUserDefaults] objectForKey:@"kNX1GClientGivenIds"];
+
+		if ([givenIds length] == 0)
+			type = SLT_NEXT;
 	}
 	static NSString* types[] = {@"given", @"next", @"pool"};
 	NSString* theType = types[type];
@@ -136,7 +164,7 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	
 	switch (type) {
 		case SLT_GIVEN:
-			data = [NSString stringWithFormat: DATA_GIVENSONGS, @"", arc4random() * 0xffffffff, theType, magic];
+			data = [NSString stringWithFormat: DATA_GIVENSONGS, givenIds, arc4random() * 0xffffffff, theType, magic];
 			break;
 		case SLT_NEXT:
 			data = [NSString stringWithFormat: DATA_NEXTSONGS, arc4random() * 0xffffffff, theType, magic];
@@ -242,7 +270,7 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	NSLog(@"http, done, %@", string);
 	
-	GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:data options:0 error:nil];
+	GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:data options:0 error:nil] autorelease];
 	NSString *resultCode = nil;
 	NSArray *items = [doc nodesForXPath:@"/info/result" error:nil];
 	for (GDataXMLElement *item in items) {
@@ -267,68 +295,22 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 		case CT_LISTSONG + SLT_GIVEN:
 		case CT_LISTSONG + SLT_NEXT:
 		{	
-//			NSArray * items = [doc nodesForXPath:@"/info/songlist/song" error:nil];
-//			for (GDataXMLElement *item in items) {
-//				NXSong *song = [[NXSong alloc] init];
-//				
-//				song.title = [item stringForName:@"name"];
-//				song.singer = [item stringForName:@"singer"];
-//				song.uploader = [item stringForName:@"uploadinguser"];
-//				song.collector = [item stringForName:@"collectinguser"];
-//				song.album = [item stringForName:@"album"];
-//				song.songId = [item stringForName:@"id"];
-//				
-//				NSArray* srcs = [item elementsForName:@"source"];
-//				for (GDataXMLElement* src in srcs) {
-//					NSArray *urls = [src elementsForName:@"link"];
-//					for (GDataXMLElement* url in urls) {
-//						NXSongUrl *aUrl = [[NXSongUrl alloc] init];
-//						aUrl.format = [[url attributeForName:@"format"] stringValue];
-//						aUrl.urlId = [[url attributeForName:@"id"] stringValue];
-//						aUrl.url = url.stringValue;
-//						aUrl.size = [[[url attributeForName:@"filesize"] stringValue] intValue];
-//						if (song.urls)
-//							[song.urls addObject: aUrl];
-//						else {
-//							song.urls = [NSMutableArray arrayWithObject:aUrl];
-//						}
-//
-//						[aUrl release];
-//					}
-//					break;
-//					
-//				}
-//				if ([self.playList count] < PLAYLISTSIZE)
-//				{
-//					if (self.playList) {
-//						[self.playList addObject: song];
-//					}
-//					else {
-//						self.playList = [NSMutableArray arrayWithObject: song];
-//					}
-//					
-//				}
-//				else
-//				{
-//					if (self.songs)
-//					{
-//						[self.songs addObject: song];
-//					}
-//					else {
-//						self.songs = [NSMutableArray arrayWithObject:song];
-//					}
-//				}
-//
-//				[song release];
-//			
-//			}
-			
 			NSArray *array = [self parseSongList:doc];
-			self.playList = [NSMutableArray arrayWithArray: [array subarrayWithRange: NSMakeRange(0, PLAYLISTSIZE)]];
-			self.songs = [NSMutableArray arrayWithArray: [array subarrayWithRange: NSMakeRange(PLAYLISTSIZE, [array count] - PLAYLISTSIZE)]];
-			
+
+			if ([self.playList count] < PLAYLISTSIZE) {
+				int addcount = PLAYLISTSIZE - [self.playList count];
+				if (addcount > [array count]) {
+					addcount = [array count];
+				}
+				[self.playList addObjectsFromArray: [array subarrayWithRange: NSMakeRange(0, addcount)]];
+				[self.songs addObjectsFromArray: [array subarrayWithRange: NSMakeRange(addcount, [array count] - addcount)]];
+				[self saveGivenIds];
+			}
+			else {
+				[self.songs addObjectsFromArray: array];
+			}
+
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSongDidLoad" object:nil];
-			[doc release];
 			
 			break;
 		}

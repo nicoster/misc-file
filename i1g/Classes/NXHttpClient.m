@@ -215,8 +215,6 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 		hid = [self nextHttpConnectionId];
 		data.params = params;
 		data.connection = connection;
-//		data.delegate = delegate;
-//		data.userData = userData;
 		data.hid = hid;
 		[self.connections setObject: data forKey: [self keyWithHttpConnectionId: hid]];
 	}
@@ -236,37 +234,6 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 								 userData, kNXHttpClientUserData, nil];
 	
 	return [self connectWithParams: dict andHttpConnectionId: 0];
-/*	
-	NSLog(@"http, url:%@", urlstring);
-	NSURL *url = [NSURL URLWithString:urlstring];
-	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-	[request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
-	[request setHTTPMethod:@"POST"];
-//	[request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-	dataToPost = [dataToPost stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
-	NSLog(@"http, %@", dataToPost);
-	[request setHTTPBody:[dataToPost dataUsingEncoding:NSUTF8StringEncoding]];
-						  
-	NXHttpClientData* data = [[[NXHttpClientData alloc] init] autorelease];
-//	NSLog(@"http, NXHttpClientData:%d retain:%d", data, [data retainCount]);
-	
-    NSURLConnection* connection = [[[NSURLConnection alloc] initWithRequest:request delegate:data] autorelease];
-    if (connection) {
-//		NSLog(@"http, connections retain:%d, count:%d, conn:%d", [self.connections retainCount], [self.connections count], connection);
-		
-		data.connection = connection;
-		data.delegate = delegate;
-		data.userData = userData;
-		NSValue *key = [self keyWithURLConnection: connection];
-		[self.connections setObject: data forKey: key];
-	}
-	else {
-		NSLog(@"http, failed:NSURLConnection initWithRequest:%@", url);
-    }
-	
-	return connection;
- */
 }
 
 - (bool)isConnectionValid: (HttpConnectionId) connection

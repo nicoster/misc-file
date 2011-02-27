@@ -46,7 +46,7 @@
 				[tableview.tabBarItem initWithTitle:nil image:imgPlaylist tag:0];
 				break;
 			case 1:
-				tableview = [[SearchResultViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+				tableview = [[SearchResultViewController alloc] initWithStyle:UITableViewStyleGrouped];
 				[tableview.tabBarItem initWithTitle:nil image:imgSearch tag:0];
 				break;
 			case 2:

@@ -7,14 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NXHttpClient.h"
 
 @class PlayController;
 
 @interface PlaylistViewController : UITableViewController 
 {
 	PlayController* playCtrl;
+	HttpConnectionId hidListNext;
 }
 
++ (PlaylistViewController*) sharedPlaylistViewCtrlr;
 - (void) playNext;
 
 @end
