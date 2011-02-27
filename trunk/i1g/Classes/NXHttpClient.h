@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NSURLConnection* HttpConnectionId;
+typedef int HttpConnectionId;
 
 @protocol NXHttpClientDelegate <NSObject>
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
@@ -16,14 +16,16 @@ typedef NSURLConnection* HttpConnectionId;
 
 @interface NXHttpClientData : NSObject
 {
+	NSDictionary *parameters;
+	HttpConnectionId hid;
     NSURLConnection *connection;
     NSURLResponse *connectionResponse;
     NSMutableData *connectionData;
-	id<NXHttpClientDelegate> delegate;
-	id userData;
+//	id<NXHttpClientDelegate> delegate;
+//	id userData;
 }
 
-@property (nonatomic, retain) id<NXHttpClientDelegate> delegate;
+//@property (nonatomic, retain) id<NXHttpClientDelegate> delegate;
 
 @end
 

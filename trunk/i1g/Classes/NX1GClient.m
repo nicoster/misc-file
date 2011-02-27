@@ -231,7 +231,7 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData {
 	int type = [(NSNumber*)[userData objectAtIndex:0] intValue];
-	NSString *criteria = [userData objectAtIndex:1];
+	NSString *criteria = [userData count] > 1 ? [userData objectAtIndex:1] : nil;
 	
 	if (error != nil)
 	{

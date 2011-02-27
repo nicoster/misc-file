@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class PlayController;
 
 @interface PlaylistViewController : UITableViewController 
 {
+	PlayController* playCtrl;
 }
 
 - (void) playNext;
