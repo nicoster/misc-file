@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "NXHttpClient.h"
 
+
+#define PLAYLISTSIZE 10
+
 typedef enum _SongListType {
 	SLT_GIVEN,
 	SLT_NEXT,
@@ -56,14 +59,15 @@ typedef enum _CallType
 
 @interface NX1GClient : NSObject<NXHttpClientDelegate> {
 	
-	NSMutableArray *songs, *givenIds, *playList, *searchResults;
+	NSMutableArray *songs, *playList, *searchResults, *history;
 	NSString *magic;
 }
 
-@property (nonatomic, retain, readonly) NSMutableArray *songs, *searchResults;
-@property (nonatomic, retain, readwrite) NSMutableArray *playList;
+@property (nonatomic, retain, readwrite) NSMutableArray *songs, *searchResults, *history, *playList;
 
 + (NX1GClient*) shared1GClient;
+
+- (void) saveGivenIds;
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
 
