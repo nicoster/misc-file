@@ -13,10 +13,13 @@
 @interface i1GAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
+	UIImage *imgSearch, *imgSetting, *imgPlaylist;
+
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) UIImage *imgSearch, *imgSetting, *imgPlaylist;
 
 
 

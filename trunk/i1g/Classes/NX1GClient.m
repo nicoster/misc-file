@@ -17,7 +17,9 @@
 
 
 NSString* URL_LISTSONG = @"http://www.1g1g.com/list/load.jsp?type=%@";
-NSString* DATA_LISTSONG = @"givenids=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
+NSString* DATA_GIVENSONGS = @"givenids=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
+NSString* DATA_NEXTSONGS = @"preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
+NSString* DATA_SEARCHSONGS = @"username=&query=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
 NSString* URL_LOGIN = @"http://www.1g1g.com/user/account.jsp";
 NSString* URL_LYRIC = @"http://www.1g1g.com/list/lyric.jsp";
 NSString* URL_COMMENT = @"http://www.1g1g.com/report/getComment.jsp";
@@ -55,6 +57,20 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 
 @synthesize title, songId, singer, album, remark, uploader, collector, urls;
 
+- (NSArray*) urlArray
+{
+	if ([urls count] == 0) {
+		return nil;
+	}
+	
+	NSMutableArray* array = [NSMutableArray array];
+	for (NXSongUrl* url in urls)
+	{
+		[array addObject:[url url]];
+	}
+	return array;
+}
+
 @end
 
 @implementation NXSongUrl
@@ -91,15 +107,31 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	return [NXHttpClient sharedHttpClient];
 }	
 
-- (void) listSongsByType: (SongListType) type {
+- (void) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria {
+	if ([criteria length] == 0 && type == SLT_SEARCH) {
+		NSLog(@"try to search nothing, ignored.");
+		return;
+	}
 	if ([self.givenIds count] == 0) {
 		type = SLT_NEXT;
 	}
-	static NSString* types[] = {@"given", @"next", @"search"};
-	NSString* typestr = types[type];
-	NSString* url = [NSString stringWithFormat:URL_LISTSONG, typestr];
+	static NSString* types[] = {@"given", @"next", @"pool"};
+	NSString* theType = types[type];
+	NSString* url = [NSString stringWithFormat:URL_LISTSONG, theType];
+	NSString* data = nil;
 	
-	NSString* data = [NSString stringWithFormat: DATA_LISTSONG, @"", arc4random() * 0xffffffff, typestr, magic];
+	switch (type) {
+		case SLT_GIVEN:
+			data = [NSString stringWithFormat: DATA_GIVENSONGS, @"", arc4random() * 0xffffffff, theType, magic];
+			break;
+		case SLT_NEXT:
+			data = [NSString stringWithFormat: DATA_NEXTSONGS, arc4random() * 0xffffffff, theType, magic];
+			break;
+		case SLT_SEARCH:
+			data = [NSString stringWithFormat: DATA_SEARCHSONGS, criteria, arc4random() * 0xffffffff, theType, magic];
+		default:
+			break;
+	}
 	
 	[self.httpClient connect: url withDelegate:self andPostData: data andUserData: [NSNumber numberWithInt: CT_LISTSONG + type]];
 }

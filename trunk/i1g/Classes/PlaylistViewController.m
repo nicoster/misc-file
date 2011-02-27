@@ -40,7 +40,7 @@
 	
 	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];
 	
-	[[[NSBundle mainBundle] loadNibNamed:@"navtitle" owner:self.playCtrl options:nil] lastObject];
+	[[[NSBundle mainBundle] loadNibNamed:@"PlayCtrl" owner:self.playCtrl options:nil] lastObject];
 	self.navigationItem.titleView = playCtrl.view;
 	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	
@@ -114,12 +114,10 @@
 	NXSong *song = [[[NX1GClient shared1GClient] playList] objectAtIndex: indexPath.row];
 	
 	//	[MAINLABEL setText:song.title];
+		
+	[playCtrl play:[song urlArray]];
 	
-	NSString *url = [[song.urls objectAtIndex:0] url];		
-	NSLog(@"as, song:%@", url);	
-	
-	[playCtrl play:url];
-	
+	// animation for remove/append items
 	if (indexPath.row) {
 		NSRange range = NSMakeRange(0, indexPath.row);
 		[[[NX1GClient shared1GClient] playList] removeObjectsInRange: range];

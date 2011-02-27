@@ -11,6 +11,7 @@
 #import "AudioStreamer.h"
 #import "PlayController.h"
 #import "PlaylistViewController.h"
+#import "SearchResultViewController.h"
 
 #define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
@@ -19,7 +20,7 @@
 @implementation i1GAppDelegate
 
 @synthesize window;
-@synthesize tabBarController;
+@synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
 
 
 
@@ -28,22 +29,38 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
+	self.imgSearch = [UIImage imageNamed:@"search.png"];
+	self.imgSetting = [UIImage imageNamed:@"setting.png"];
+	self.imgPlaylist = [UIImage imageNamed:@"playlist.png"];
+	
     // Override point for customization after application launch.
 	NSMutableArray *ctrls = [NSMutableArray array];
 	
 	
 	for (int i = 0; i < [TABS count]; i ++) {
 		UITableViewController *tableview = nil;
-		if ( i == 0) {
-			tableview = [[PlaylistViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+		UINavigationController *nav = nil;
+		switch (i) {
+			case 0:
+				tableview = [[PlaylistViewController alloc] initWithStyle:UITableViewStyleGrouped];
+				[tableview.tabBarItem initWithTitle:nil image:imgPlaylist tag:0];
+				break;
+			case 1:
+				tableview = [[SearchResultViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+				[tableview.tabBarItem initWithTitle:nil image:imgSearch tag:0];
+				break;
+			case 2:
+				tableview = [[UITableViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+				[tableview.tabBarItem initWithTitle:nil image:imgSetting tag:0];
+				nav = [[UINavigationController alloc] initWithRootViewController:tableview];
+				break;
+			default:		
+				NSAssert(NO, @"too many tabs");
+				break;
 		}
-		else
-			tableview = [[UITableViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
 		
 		tableview.title = [TABS objectAtIndex:i];
-//		tableview.tableView.style = UITableViewStyleGrouped;
-		
-		UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:tableview];
+		nav = [[UINavigationController alloc] initWithRootViewController:tableview];		
 
 		[ctrls addObject: nav];
 		[tableview release];
@@ -130,6 +147,7 @@
 
 - (void)dealloc {
     [tabBarController release];
+	imgSearch = imgSetting = imgPlaylist = nil;
     [window release];
     [super dealloc];
 }

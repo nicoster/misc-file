@@ -79,6 +79,8 @@ typedef enum
 	AS_FILE_STREAM_PARSE_BYTES_FAILED,
 	AS_FILE_STREAM_OPEN_FAILED,
 	AS_FILE_STREAM_CLOSE_FAILED,
+	AS_FILE_STREAM_OPEN_TIMEOUT,		// added by nick x.
+	AS_WAIT_FOR_TOO_LONG,
 	AS_AUDIO_DATA_NOT_FOUND,
 	AS_AUDIO_QUEUE_CREATION_FAILED,
 	AS_AUDIO_QUEUE_BUFFER_ALLOCATION_FAILED,
@@ -101,6 +103,10 @@ extern NSString * const ASStatusChangedNotification;
 @interface AudioStreamer : NSObject
 {
 	NSURL *url;
+	NSMutableArray* urls;
+	NSTimer* readTimer;
+	NSDate* startPoint;
+	NSTimeInterval waitInterval;
 
 	//
 	// Special threading consideration:
