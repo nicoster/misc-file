@@ -8,12 +8,24 @@
 
 #import "NXHttpClient.h"
 
+
+NSString * const kNXHttpClientURL = @"kNXHttpClientURL";
+NSString * const kNXHttpClientDelegate = @"kNXHttpClientDelegate";
+NSString * const kNXHttpClientData = @"kNXHttpClientData";
+NSString * const kNXHttpClientUserData = @"kNXHttpClientUserData";
+NSString * const kNXHttpClientConnection = @"kNXHttpClientConnection";
+NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
+
+
+
 @interface NXHttpClientData()
 
 
 @property (nonatomic, retain, readwrite) NSMutableData* connectionData;
 @property (nonatomic, retain, readwrite) NSURLConnection* connection;
-@property (nonatomic, retain, readwrite) id userData;
+@property (nonatomic, retain, readwrite) id params;
+@property (nonatomic, assign) HttpConnectionId hid;
+
 
 
 /* NSURLConnection Delegate Methods */
@@ -33,7 +45,7 @@
 
 @implementation NXHttpClientData
 
-@synthesize delegate, connectionData, connection, userData;
+@synthesize connectionData, connection, hid, params = parameters;
 
 - (id) init {
 	self = [super init];
@@ -42,7 +54,7 @@
 	self.connection = nil;
 	self.connectionData = [[NSMutableData alloc] init];
 	connectionResponse = nil;
-	self.delegate = nil;
+	self.params = nil;
 	return self;
 }
 
@@ -59,8 +71,10 @@
 {
 	self.connectionData = nil;
 	self.connection = nil;
-	self.delegate = nil;
-	self.userData = nil;
+	[connectionResponse release];
+	connectionResponse = nil;
+	self.params = nil;
+	self.hid = 0;
 	[super dealloc];
 }
 
@@ -68,8 +82,9 @@
 #pragma mark NSURLConnection Delegate Methods 
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+	[response retain];
     [connectionResponse release];
-    connectionResponse = [response retain];
+    connectionResponse = response;
     [connectionData setLength:0];
 }
 
@@ -78,21 +93,28 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)aConnection {
-	if ([self.delegate respondsToSelector:@selector(connection:didFinishWithData:andError:andUserData:)]) {
-		[self.delegate connection: aConnection didFinishWithData: connectionData andError: nil andUserData: self.userData];
+	id<NXHttpClientDelegate> theDelegate = (id<NXHttpClientDelegate>)[self.params objectForKey:kNXHttpClientDelegate];
+	id theUserData = [self.params objectForKey:kNXHttpClientUserData];
+	
+	if ([theDelegate respondsToSelector:@selector(connection:didFinishWithData:andError:andUserData:)]) {
+
+		[theDelegate connection: self.hid didFinishWithData: connectionData andError: nil andUserData: theUserData];
 	}
 		
-	[[NXHttpClient sharedHttpClient] endConnection: aConnection];
+	[[NXHttpClient sharedHttpClient] endConnection: self.hid];
 }
 
 - (void)connection:(NSURLConnection *)aConnection didFailWithError:(NSError *)error {
-	if ([self.delegate respondsToSelector:@selector(connection:didFinishWithData:andError:andUserData:)]) {
-		[self.delegate connection: aConnection didFinishWithData: connectionData andError: error andUserData: self.userData];
+	id<NXHttpClientDelegate> theDelegate = (id<NXHttpClientDelegate>)[self.params objectForKey:kNXHttpClientDelegate];
+	id theUserData = [self.params objectForKey:kNXHttpClientUserData];
+	
+	if ([theDelegate respondsToSelector:@selector(connection:didFinishWithData:andError:andUserData:)]) {
+		[theDelegate connection: self.hid didFinishWithData: connectionData andError: error andUserData: theUserData];
 	}
 	
 	NSLog(@"http, connection failed. %@", [error localizedDescription]);
 	
-	[[NXHttpClient sharedHttpClient] endConnection: connection];
+	[[NXHttpClient sharedHttpClient] endConnection: self.hid];
 }
 
 - (NSCachedURLResponse *)connection:(NSURLConnection *)connection willCacheResponse:(NSCachedURLResponse *)cachedResponse {
@@ -121,14 +143,34 @@
 	return hc;
 }
 
+- (HttpConnectionId) nextHttpConnectionId {
+	@synchronized(self)
+	{
+		static int i = 1;
+		return i ++;
+	}
+}
 
-- (NSValue*) keyWithURLConnection: (NSURLConnection*) connection {
-	return [NSValue valueWithNonretainedObject: connection];
+- (NXHttpClientData*) httpDataByConnection: (NSURLConnection*) connection
+{
+	NSEnumerator *e = [connections objectEnumerator];
+	NXHttpClientData* data = nil;
+	
+	while (data = [e nextObject]) {
+		if (data.connection == connection) {
+			return data;
+		}
+	}
+	return nil;
+}
+
+
+- (NSValue*) keyWithHttpConnectionId: (HttpConnectionId) anId {
+	return [NSNumber numberWithInt: anId];
 }
 
 - (id) init
 {
-//	NSAssert(self == nil, @"NXHttpClient has already been initialized.");
 	self = [super init];
 	if (self == nil) return nil;
 	
@@ -138,20 +180,63 @@
 
 - (void) endConnection: (HttpConnectionId) connection
 {
-	NSLog(@"http, end:%d, retain:%d", connection, [connection retainCount]);
-	[self.connections removeObjectForKey: [self keyWithURLConnection: connection]];
-	NSLog(@"http, ~end:%d, retain:%d", connection, [connection retainCount]);
+//	NSLog(@"http, end:%d, retain:%d", connection, [connection retainCount]);
+	NXHttpClientData *data = [self httpDataByConnection: (NSURLConnection*)connection];
+	[self.connections removeObjectForKey: [self keyWithHttpConnectionId: data.hid]];
+//	NSLog(@"http, ~end:%d, retain:%d", connection, [connection retainCount]);
 }
 
 - (void) dealloc
 {
-	[super dealloc];
 	self.connections = nil;
+	[super dealloc];
 }
 
+- (HttpConnectionId)connectWithParams: (NSDictionary*) params andHttpConnectionId: (HttpConnectionId) hid
+{
+	
+	NSURL *url = [NSURL URLWithString:[params objectForKey:kNXHttpClientURL]];
+	
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+	[request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+	[request setHTTPMethod:@"POST"];
+	//[request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+	NSString *dataToPost = [[params objectForKey:kNXHttpClientData] stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+	NSLog(@"http, %@", dataToPost);
+	[request setHTTPBody:[dataToPost dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	NXHttpClientData* data = [[[NXHttpClientData alloc] init] autorelease];
+	//	NSLog(@"http, NXHttpClientData:%d retain:%d", data, [data retainCount]);
+	
+    NSURLConnection* connection = [[[NSURLConnection alloc] initWithRequest:request delegate:data] autorelease];
+    if (connection) {
+		NSLog(@"http, connections retain:%d, count:%d, conn:%d", [self.connections retainCount], [self.connections count], connection);
+		
+		hid = [self nextHttpConnectionId];
+		data.params = params;
+		data.connection = connection;
+//		data.delegate = delegate;
+//		data.userData = userData;
+		data.hid = hid;
+		[self.connections setObject: data forKey: [self keyWithHttpConnectionId: hid]];
+	}
+	else {
+		NSLog(@"http, failed:NSURLConnection initWithRequest:%@", url);
+    }
+	
+	return hid;
+	
+}
 
 - (HttpConnectionId)connect: (NSString *)urlstring withDelegate: (id<NXHttpClientDelegate>) delegate andPostData: (NSString*) dataToPost andUserData: (id) userData {
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+								 urlstring, kNXHttpClientURL,
+								 delegate, kNXHttpClientDelegate,
+								 dataToPost, kNXHttpClientData,
+								 userData, kNXHttpClientUserData, nil];
 	
+	return [self connectWithParams: dict andHttpConnectionId: 0];
+/*	
 	NSLog(@"http, url:%@", urlstring);
 	NSURL *url = [NSURL URLWithString:urlstring];
 	
@@ -168,7 +253,7 @@
 	
     NSURLConnection* connection = [[[NSURLConnection alloc] initWithRequest:request delegate:data] autorelease];
     if (connection) {
-		NSLog(@"http, connections retain:%d, count:%d, conn:%d", [self.connections retainCount], [self.connections count], connection);
+//		NSLog(@"http, connections retain:%d, count:%d, conn:%d", [self.connections retainCount], [self.connections count], connection);
 		
 		data.connection = connection;
 		data.delegate = delegate;
@@ -181,11 +266,12 @@
     }
 	
 	return connection;
+ */
 }
 
 - (bool)isConnectionValid: (HttpConnectionId) connection
 {
-	NSValue *key = [self keyWithURLConnection: connection];
+	NSValue *key = [self keyWithHttpConnectionId: connection];
 	id data = [connections objectForKey:key];
 	return data != nil;
 }
