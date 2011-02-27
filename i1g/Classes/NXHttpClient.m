@@ -57,11 +57,11 @@
 
 - (void) dealloc
 {
-	[super dealloc];
 	self.connectionData = nil;
 	self.connection = nil;
 	self.delegate = nil;
 	self.userData = nil;
+	[super dealloc];
 }
 
 #pragma mark -

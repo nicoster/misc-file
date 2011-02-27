@@ -11,7 +11,6 @@
 
 @interface PlaylistViewController : UITableViewController 
 {
-
 }
 
 - (void) playNext;

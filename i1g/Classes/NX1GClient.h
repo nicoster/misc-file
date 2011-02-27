@@ -19,7 +19,7 @@ typedef enum _SongListType {
 typedef enum _CallType
 {
 	CT_LISTSONG,
-	CT_LOGIN = SLT_MAX,
+	CT_LOGIN = SLT_MAX - SLT_GIVEN,
 	CT_LYRIC,
 	CT_COMMENT,
 	CT_CLIENTINFO,
@@ -49,6 +49,8 @@ typedef enum _CallType
 @property (nonatomic, retain, readwrite) NSString *title, *songId, *singer, *album, *remark, *uploader, *collector;
 @property (nonatomic, retain, readwrite) NSMutableArray *urls;
 
+- (NSArray*) urlArray;
+
 @end
 
 
@@ -65,7 +67,7 @@ typedef enum _CallType
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
 
-- (void) listSongsByType: (SongListType) type;
+- (void) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria;
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
 - (void) loadLyricWithId: (int) songId;
 - (void) loadCommentWithTitle: (NSString*) title;

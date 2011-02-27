@@ -15,7 +15,7 @@
 @implementation PlayController
 
 
-@synthesize loadingIndicator, playlistView, player;
+@synthesize loadingIndicator, playlistView, player, btnPlay, btnNext, imgPlay, imgPause;
 
 
 - (id) initWithPlaylistView: (id) aPlaylistView
@@ -24,6 +24,11 @@
 	if (self == nil) return nil;
 	
 	self.playlistView = aPlaylistView;
+	self.imgPlay = [UIImage imageNamed:@"play.png"];
+	self.imgPause = [UIImage imageNamed:@"pause.png"];
+
+//	btnPlayState = YES;
+//	[btnPlay setBackgroundImage:imgPlay forState:UIControlStateNormal];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
 
@@ -41,6 +46,10 @@
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver: self];
+	btnPlay = nil;
+	btnNext = nil;
+	imgPlay = nil;
+	imgPause = nil;
 	self.playlistView = nil;
 	self.player = nil;
 	[super dealloc];
@@ -48,15 +57,15 @@
 
 - (IBAction) playPressed: (id)sender
 {
+//	[btnPlay setBackgroundImage:(btnPlayState = !btnPlayState) ? imgPlay : imgPause forState:UIControlStateNormal];
 	if ([player isPaused] || [player isPlaying]) {
 		[self play:nil];
 	}
 	else {
 		[self.playlistView.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
 
-		NXSong *song = [[[NX1GClient shared1GClient] playList] objectAtIndex: 0];
-		NSString *url = [[song.urls objectAtIndex:0] url];		
-		[self play:url];
+		NXSong *song = [[[NX1GClient shared1GClient] playList] objectAtIndex: 0];	
+		[self play:[song urlArray]];
 	}
 
 }
@@ -67,14 +76,12 @@
 }
 
 
-- (void) play: (NSString*) aUrl
-{
-	if ([aUrl length])
+- (void) play: (NSArray*) urls
+{	
+	if ([urls count])
 	{
-		NSURL *url = [NSURL URLWithString:aUrl];
-		
 		[player stop];
-		self.player = [[[AudioStreamer alloc] initWithURL:url] autorelease];
+		self.player = [[[AudioStreamer alloc] initWithURLs:urls] autorelease];
 		[player start];
 	}
 	else 
