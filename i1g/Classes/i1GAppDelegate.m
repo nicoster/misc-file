@@ -13,7 +13,7 @@
 #import "PlaylistViewController.h"
 #import "SearchResultViewController.h"
 
-#define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
+#define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
 
 

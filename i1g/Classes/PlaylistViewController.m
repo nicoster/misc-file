@@ -44,12 +44,12 @@
 	self.navigationItem.titleView = playCtrl.view;
 	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	
-	[[NX1GClient shared1GClient] listSongsByType: SLT_GIVEN];
+	[[NX1GClient shared1GClient] listSongsByType: SLT_GIVEN withCriteria: nil];
 }
 
 - (void) viewDidLoad
 {
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"SONG_LOADED" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
 	
 }

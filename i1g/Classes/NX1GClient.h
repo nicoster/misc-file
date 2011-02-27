@@ -56,18 +56,18 @@ typedef enum _CallType
 
 @interface NX1GClient : NSObject<NXHttpClientDelegate> {
 	
-	NSMutableArray *songs, *givenIds, *playList;
+	NSMutableArray *songs, *givenIds, *playList, *searchResults;
 	NSString *magic;
 }
 
-@property (nonatomic, retain, readonly) NSMutableArray* songs;
+@property (nonatomic, retain, readonly) NSMutableArray *songs, *searchResults;
 @property (nonatomic, retain, readwrite) NSMutableArray *playList;
 
 + (NX1GClient*) shared1GClient;
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
 
-- (void) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria;
+- (int) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria;
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
 - (void) loadLyricWithId: (int) songId;
 - (void) loadCommentWithTitle: (NSString*) title;
