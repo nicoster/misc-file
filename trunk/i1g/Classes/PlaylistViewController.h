@@ -17,6 +17,8 @@
 	HttpConnectionId hidListNext;
 }
 
+@property (nonatomic, retain, readwrite) PlayController* playCtrl;
+
 + (PlaylistViewController*) sharedPlaylistViewCtrlr;
 - (void) playNext;
 

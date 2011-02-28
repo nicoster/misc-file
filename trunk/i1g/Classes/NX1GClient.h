@@ -15,6 +15,8 @@
 typedef enum _SongListType {
 	SLT_GIVEN,
 	SLT_NEXT,
+	SLT_POOL,
+	SLT_TAG,
 	SLT_SEARCH,
 	SLT_MAX,
 }SongListType;
@@ -71,7 +73,7 @@ typedef enum _CallType
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
 
-- (int) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria;
+- (int) songsByType: (SongListType) type withCriteria: (NSString*) criteria;
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
 - (void) loadLyricWithId: (int) songId;
 - (void) loadCommentWithTitle: (NSString*) title;
