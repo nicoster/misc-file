@@ -12,6 +12,7 @@
 #import "PlayController.h"
 #import "PlaylistViewController.h"
 #import "SearchResultViewController.h"
+#import "PreferenceViewController.h"
 
 #define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
@@ -50,7 +51,7 @@
 				[tableview.tabBarItem initWithTitle:nil image:imgSearch tag:0];
 				break;
 			case 2:
-				tableview = [[UITableViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+				tableview = [[PreferenceViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
 				[tableview.tabBarItem initWithTitle:nil image:imgSetting tag:0];
 				nav = [[UINavigationController alloc] initWithRootViewController:tableview];
 				break;
