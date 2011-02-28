@@ -182,12 +182,12 @@
 	
 	NXSong *song = [[self.httpClient searchResults] objectAtIndex: indexPath.row];
 	
-	[self.httpClient.playList insertObject: song atIndex: 0];
+	[self.httpClient.playList insertObject: song atIndex: [self.httpClient.playList count] ? 1 : 0];
 	
 	[self.httpClient saveGivenIds];
 	
 	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
-	[[PlaylistViewController sharedPlaylistViewCtrlr].playCtrl play:[song urlArray]];
+	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];
 	
 }
 
