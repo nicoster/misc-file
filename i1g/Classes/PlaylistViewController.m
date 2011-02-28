@@ -11,6 +11,7 @@
 #import "NX1GClient.h"
 #import "AudioStreamer.h"
 #import "PlayController.h"
+#import "SongDetailViewController.h"
 
 #define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
@@ -20,7 +21,6 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 @interface PlaylistViewController()
 
 
-@property (nonatomic, retain, readwrite) PlayController* playCtrl;
 @property (nonatomic, assign, readonly) NX1GClient* httpClient;
 @end
 
@@ -63,12 +63,12 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];
 	
-	[[[NSBundle mainBundle] loadNibNamed:@"PlayCtrl" owner:self.playCtrl options:nil] lastObject];
+//	[[[NSBundle mainBundle] loadNibNamed:@"PlayCtrl" owner:self.playCtrl options:nil] lastObject];
 	self.navigationItem.titleView = playCtrl.view;
 	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 		
 	hidListNext = 0;
-	[self.httpClient listSongsByType: SLT_GIVEN withCriteria: nil];
+	[self.httpClient songsByType: SLT_GIVEN withCriteria: nil];
 }
 
 - (void) viewDidLoad
@@ -102,7 +102,12 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 // Respond to accessory button taps
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-	//	[self.tableView reloadData];
+
+	SongDetailViewController *detailview = [[[SongDetailViewController alloc] initWithIndexPath: indexPath] autorelease];
+//	[[[NSBundle mainBundle] loadNibNamed:@"SongDetailView" owner:detailview options:nil] lastObject];
+	[self.navigationController pushViewController:detailview animated:YES];
+	
+	/*
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[UIView beginAnimations:nil context:context];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -118,7 +123,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	//	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
 	[UIView commitAnimations];	
-	
+	*/
 }
 
 - (void)playerStateDidChange:(NSNotification *)notification;
@@ -177,15 +182,17 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		{
 			[self.tableView deleteRowsAtIndexPaths:cellsToDelete withRowAnimation:UITableViewRowAnimationTop];
 			[self.tableView insertRowsAtIndexPaths:cellsToInsert withRowAnimation:UITableViewRowAnimationBottom];
+
 		}
 		[self.tableView endUpdates];
+		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 		
 		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
 		
 	}
 	
 	if (hidListNext == 0 && [[self.httpClient songs] count] < PLAYLISTSIZE) {
-		hidListNext = [self.httpClient listSongsByType:SLT_NEXT withCriteria:nil];
+		hidListNext = [self.httpClient songsByType:SLT_NEXT withCriteria:nil];
 	}
 }
 

@@ -15,10 +15,13 @@
 
 
 
-NSString* URL_LISTSONG = @"http://www.1g1g.com/list/load.jsp?type=%@";
-NSString* DATA_GIVENSONGS = @"givenids=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
-NSString* DATA_NEXTSONGS = @"preferredstore=2&start=0&uniqueCode=%d&type=%@&number=50&encoding=utf8&magic=%@";
-NSString* DATA_SEARCHSONGS = @"username=nickx&query=%@&preferredstore=2&start=0&uniqueCode=%d&type=%@&number=130&encoding=utf8&magic=%@";
+NSString* URL_LIST = @"http://www.1g1g.com/list/load.jsp?type=%@";
+NSString* URL_SEARCH = @"http://search.1g1g.com/search/load.jsp";
+NSString* DATA_GIVEN = @"givenids=%@&preferredstore=3&start=0&uniqueCode=%d&type=given&number=50&encoding=utf8&magic=%@";
+NSString* DATA_NEXT = @"preferredstore=3&start=0&uniqueCode=%d&type=next&number=50&encoding=utf8&magic=%@";
+NSString* DATA_POOL = @"username=%@&query=@%@&uniqueCode=%d&type=pool&number=130&encoding=utf8&magic=%@&start=0&preferredstore=3";
+NSString* DATA_TAG = @"username=&preferredstore=3&type=tagged&number=130&encoding=utf8&magic=%@&start=0&tag=%@&query=#%@&uniqueCode=%d";
+NSString* DATA_SEARCH = @"uniqueCode=%d&type=search&number=130&encoding=utf8&magic=%@&start=0&preferredstore=3&query=%@";
 NSString* URL_LOGIN = @"http://www.1g1g.com/user/account.jsp";
 NSString* URL_LYRIC = @"http://www.1g1g.com/list/lyric.jsp";
 NSString* URL_COMMENT = @"http://www.1g1g.com/report/getComment.jsp";
@@ -144,33 +147,72 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	[[NSUserDefaults standardUserDefaults] setObject:givenIds forKey:@"kNX1GClientGivenIds"];
 }
 
-- (int) listSongsByType: (SongListType) type withCriteria: (NSString*) criteria {
-	if ([criteria length] == 0 && type == SLT_SEARCH) {
-		NSLog(@"try to search nothing, ignored.");
-		return 0;
+- (int) songsByType: (SongListType) type withCriteria: (NSString*) criteria {
+
+	criteria = [criteria stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+	if (type == SLT_SEARCH) {
+		if ([criteria length] == 0) {
+			NSLog(@"1g, try to search nothing, ignored.");
+			return 0;
+		}
+		
+		if ([criteria hasPrefix:@"@"]) {
+			criteria = [criteria substringFromIndex:1];
+			type = SLT_POOL;
+		}
+		else if ([criteria hasPrefix:@"#"]) {
+			criteria = [criteria substringFromIndex:1];
+			type = SLT_TAG;
+		}
+	}
+	
+	if (type == SLT_POOL) {
+		if ([criteria length] == 0) {
+			NSLog(@"1g, try to search nobody, ignored.");
+			return 0;
+		}		
+	}
+	
+	if (type == SLT_TAG) {
+		if ([criteria length] == 0) {
+			NSLog(@"1g, try to search empty category, ignored.");
+			return 0;
+		}		
 	}
 	
 	NSMutableString * givenIds = nil;
 	if (type == SLT_GIVEN) {
+		NSAssert([criteria length] == 0, @"criteria is not needed for GIVEN search.");
 		givenIds = [[NSUserDefaults standardUserDefaults] objectForKey:@"kNX1GClientGivenIds"];
 
 		if ([givenIds length] == 0)
 			type = SLT_NEXT;
 	}
-	static NSString* types[] = {@"given", @"next", @"pool"};
+	
+	static NSString* types[] = {@"given", @"next", @"pool", @"tagged", @"dummy(search)"};
+	NSAssert(type < 5, @"invalid list type.");
 	NSString* theType = types[type];
-	NSString* url = [NSString stringWithFormat:URL_LISTSONG, theType];
+	NSString* url = [NSString stringWithFormat:URL_LIST, theType];
 	NSString* data = nil;
 	
 	switch (type) {
 		case SLT_GIVEN:
-			data = [NSString stringWithFormat: DATA_GIVENSONGS, givenIds, arc4random() * 0xffffffff, theType, magic];
+			data = [NSString stringWithFormat: DATA_GIVEN, givenIds, arc4random() * 0xffffffff, magic];
 			break;
 		case SLT_NEXT:
-			data = [NSString stringWithFormat: DATA_NEXTSONGS, arc4random() * 0xffffffff, theType, magic];
+			data = [NSString stringWithFormat: DATA_NEXT, arc4random() * 0xffffffff, magic];
+			break;
+		case SLT_POOL:
+			data = [NSString stringWithFormat: DATA_POOL, criteria, criteria, arc4random() * 0xffffffff, magic];
+			break;
+		case SLT_TAG:
+			data = [NSString stringWithFormat: DATA_TAG, magic, criteria, criteria, arc4random() * 0xffffffff];
 			break;
 		case SLT_SEARCH:
-			data = [NSString stringWithFormat: DATA_SEARCHSONGS, criteria, arc4random() * 0xffffffff, theType, magic];
+			url = URL_SEARCH;
+			data = [NSString stringWithFormat: DATA_SEARCH, arc4random() * 0xffffffff, magic, criteria];
+			break;
 		default:
 			break;
 	}
@@ -205,7 +247,9 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	 {
 	 loc3 = -((~loc3 + 1) & 0xFFFFFFFF);
 	 }*/
-	return [NSString stringWithFormat:@"%d", loc3];
+	NSString *m = [NSString stringWithFormat:@"%d", loc3];
+	NSLog(@"seed:%@, magic:%@", seed, m);
+	return m;
 }
 
 - (NSMutableArray*) parseSongList: (GDataXMLDocument*) doc
@@ -287,7 +331,7 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			break;
 		}
 		
-		[self listSongsByType:type withCriteria:criteria];	// retry to list songs
+		[self songsByType:type withCriteria:criteria];	// retry to list songs
 		return;
 	}
 	
@@ -314,6 +358,8 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			
 			break;
 		}
+		case CT_LISTSONG + SLT_POOL:
+		case CT_LISTSONG + SLT_TAG:
 		case CT_LISTSONG + SLT_SEARCH:
 		{
 			self.searchResults = [self parseSongList:doc];
