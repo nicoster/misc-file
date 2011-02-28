@@ -13,6 +13,22 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
 		28AD73880D9D96C1002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD73870D9D96C1002E5188 /* MainWindow.xib */; };
+		700E32C0131BEE3200903159 /* PreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32BE131BEE3200903159 /* PreferenceViewController.m */; };
+		700E32C2131BEF9400903159 /* PreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700E32C1131BEF9400903159 /* PreferenceViewController.xib */; };
+		700E32EB131BF01B00903159 /* ColorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32CF131BF01B00903159 /* ColorHelper.m */; };
+		700E32EC131BF01B00903159 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D1131BF01B00903159 /* LlamaSettings.m */; };
+		700E32ED131BF01B00903159 /* LlamaSettingsNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */; };
+		700E32EE131BF01B00903159 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D5131BF01B00903159 /* ButtonCell.m */; };
+		700E32EF131BF01B00903159 /* CellFullWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D7131BF01B00903159 /* CellFullWide.m */; };
+		700E32F0131BF01B00903159 /* CellTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D9131BF01B00903159 /* CellTextField.m */; };
+		700E32F1131BF01B00903159 /* CellTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32DB131BF01B00903159 /* CellTextView.m */; };
+		700E32F2131BF01B00903159 /* DisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32DD131BF01B00903159 /* DisplayCell.m */; };
+		700E32F3131BF01B00903159 /* EditableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32DF131BF01B00903159 /* EditableTableViewCell.m */; };
+		700E32F4131BF01B00903159 /* SourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E1131BF01B00903159 /* SourceCell.m */; };
+		700E32F5131BF01B00903159 /* ColorBoxPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E4131BF01B00903159 /* ColorBoxPicker.m */; };
+		700E32F6131BF01B00903159 /* ColorTouchPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E6131BF01B00903159 /* ColorTouchPicker.m */; };
+		700E32F7131BF01B00903159 /* LSColorDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E8131BF01B00903159 /* LSColorDisplay.m */; };
+		700E32F8131BF01B00903159 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32EA131BF01B00903159 /* WebViewController.m */; };
 		702E05C213168B93002A3AF1 /* PlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702E05C113168B93002A3AF1 /* PlayController.xib */; };
 		702E05E613169500002A3AF1 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702E05E513169500002A3AF1 /* PlayController.m */; };
 		702EFDC413142A2E002A3AF1 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 702EFDBD13142A2E002A3AF1 /* GDataXMLNode.m */; };
@@ -23,6 +39,7 @@
 		702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */; };
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
+		70BE9C18131BF1D100F392ED /* mySettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* mySettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
 		70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E0018B131AB5610087B877 /* SongDetailViewController.m */; };
 		70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E00191131AB58C0087B877 /* SongDetailViewController.xib */; };
@@ -48,6 +65,37 @@
 		28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i1G_Prefix.pch; sourceTree = "<group>"; };
 		28AD73870D9D96C1002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		700E32BE131BEE3200903159 /* PreferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferenceViewController.m; path = ../PreferenceViewController.m; sourceTree = "<group>"; };
+		700E32BF131BEE3200903159 /* PreferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferenceViewController.h; path = ../PreferenceViewController.h; sourceTree = "<group>"; };
+		700E32C1131BEF9400903159 /* PreferenceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreferenceViewController.xib; sourceTree = "<group>"; };
+		700E32CC131BF01B00903159 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		700E32CE131BF01B00903159 /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
+		700E32CF131BF01B00903159 /* ColorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorHelper.m; sourceTree = "<group>"; };
+		700E32D0131BF01B00903159 /* LlamaSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LlamaSettings.h; sourceTree = "<group>"; };
+		700E32D1131BF01B00903159 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = "<group>"; };
+		700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LlamaSettingsNotes.txt; sourceTree = "<group>"; };
+		700E32D4131BF01B00903159 /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
+		700E32D5131BF01B00903159 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
+		700E32D6131BF01B00903159 /* CellFullWide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellFullWide.h; sourceTree = "<group>"; };
+		700E32D7131BF01B00903159 /* CellFullWide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellFullWide.m; sourceTree = "<group>"; };
+		700E32D8131BF01B00903159 /* CellTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellTextField.h; sourceTree = "<group>"; };
+		700E32D9131BF01B00903159 /* CellTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellTextField.m; sourceTree = "<group>"; };
+		700E32DA131BF01B00903159 /* CellTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellTextView.h; sourceTree = "<group>"; };
+		700E32DB131BF01B00903159 /* CellTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellTextView.m; sourceTree = "<group>"; };
+		700E32DC131BF01B00903159 /* DisplayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayCell.h; sourceTree = "<group>"; };
+		700E32DD131BF01B00903159 /* DisplayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayCell.m; sourceTree = "<group>"; };
+		700E32DE131BF01B00903159 /* EditableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditableTableViewCell.h; sourceTree = "<group>"; };
+		700E32DF131BF01B00903159 /* EditableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditableTableViewCell.m; sourceTree = "<group>"; };
+		700E32E0131BF01B00903159 /* SourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SourceCell.h; sourceTree = "<group>"; };
+		700E32E1131BF01B00903159 /* SourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceCell.m; sourceTree = "<group>"; };
+		700E32E3131BF01B00903159 /* ColorBoxPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBoxPicker.h; sourceTree = "<group>"; };
+		700E32E4131BF01B00903159 /* ColorBoxPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBoxPicker.m; sourceTree = "<group>"; };
+		700E32E5131BF01B00903159 /* ColorTouchPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorTouchPicker.h; sourceTree = "<group>"; };
+		700E32E6131BF01B00903159 /* ColorTouchPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorTouchPicker.m; sourceTree = "<group>"; };
+		700E32E7131BF01B00903159 /* LSColorDisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSColorDisplay.h; sourceTree = "<group>"; };
+		700E32E8131BF01B00903159 /* LSColorDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSColorDisplay.m; sourceTree = "<group>"; };
+		700E32E9131BF01B00903159 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		700E32EA131BF01B00903159 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		702E05C113168B93002A3AF1 /* PlayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayController.xib; sourceTree = "<group>"; };
 		702E05E413169500002A3AF1 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = ../PlayController.h; sourceTree = "<group>"; };
 		702E05E513169500002A3AF1 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = ../PlayController.m; sourceTree = "<group>"; };
@@ -63,6 +111,7 @@
 		702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		702EFE3113142AD6002A3AF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		70BE9C17131BF1D100F392ED /* mySettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mySettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		70BF88111317914E00A4EC65 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 		70E0018A131AB5610087B877 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongDetailViewController.h; path = ../SongDetailViewController.h; sourceTree = "<group>"; };
@@ -118,6 +167,8 @@
 				70E0FE35131A1D7B0087B877 /* SearchResultViewController.m */,
 				70E0018A131AB5610087B877 /* SongDetailViewController.h */,
 				70E0018B131AB5610087B877 /* SongDetailViewController.m */,
+				700E32BE131BEE3200903159 /* PreferenceViewController.m */,
+				700E32BF131BEE3200903159 /* PreferenceViewController.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -133,6 +184,7 @@
 		29B97314FDCFA39411CA2CEA /* i1G */ = {
 			isa = PBXGroup;
 			children = (
+				700E32CB131BF01B00903159 /* LlamaSettings */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -146,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */,
+				70BE9C17131BF1D100F392ED /* mySettings.plist */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				70E0FF26131A423F0087B877 /* memo.txt */,
 			);
@@ -156,6 +209,7 @@
 			isa = PBXGroup;
 			children = (
 				70E00193131AB59C0087B877 /* images */,
+				700E32C1131BEF9400903159 /* PreferenceViewController.xib */,
 				70E00191131AB58C0087B877 /* SongDetailViewController.xib */,
 				70E0FE36131A1D7B0087B877 /* SearchResultViewController.xib */,
 				702E05C113168B93002A3AF1 /* PlayController.xib */,
@@ -177,6 +231,65 @@
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		700E32CB131BF01B00903159 /* LlamaSettings */ = {
+			isa = PBXGroup;
+			children = (
+				700E32CC131BF01B00903159 /* Constants.h */,
+				700E32CD131BF01B00903159 /* Helpers */,
+				700E32D0131BF01B00903159 /* LlamaSettings.h */,
+				700E32D1131BF01B00903159 /* LlamaSettings.m */,
+				700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */,
+				700E32D3131BF01B00903159 /* TableCells */,
+				700E32E2131BF01B00903159 /* Views */,
+			);
+			path = LlamaSettings;
+			sourceTree = "<group>";
+		};
+		700E32CD131BF01B00903159 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				700E32CE131BF01B00903159 /* ColorHelper.h */,
+				700E32CF131BF01B00903159 /* ColorHelper.m */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		700E32D3131BF01B00903159 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				700E32D4131BF01B00903159 /* ButtonCell.h */,
+				700E32D5131BF01B00903159 /* ButtonCell.m */,
+				700E32D6131BF01B00903159 /* CellFullWide.h */,
+				700E32D7131BF01B00903159 /* CellFullWide.m */,
+				700E32D8131BF01B00903159 /* CellTextField.h */,
+				700E32D9131BF01B00903159 /* CellTextField.m */,
+				700E32DA131BF01B00903159 /* CellTextView.h */,
+				700E32DB131BF01B00903159 /* CellTextView.m */,
+				700E32DC131BF01B00903159 /* DisplayCell.h */,
+				700E32DD131BF01B00903159 /* DisplayCell.m */,
+				700E32DE131BF01B00903159 /* EditableTableViewCell.h */,
+				700E32DF131BF01B00903159 /* EditableTableViewCell.m */,
+				700E32E0131BF01B00903159 /* SourceCell.h */,
+				700E32E1131BF01B00903159 /* SourceCell.m */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
+		700E32E2131BF01B00903159 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				700E32E3131BF01B00903159 /* ColorBoxPicker.h */,
+				700E32E4131BF01B00903159 /* ColorBoxPicker.m */,
+				700E32E5131BF01B00903159 /* ColorTouchPicker.h */,
+				700E32E6131BF01B00903159 /* ColorTouchPicker.m */,
+				700E32E7131BF01B00903159 /* LSColorDisplay.h */,
+				700E32E8131BF01B00903159 /* LSColorDisplay.m */,
+				700E32E9131BF01B00903159 /* WebViewController.h */,
+				700E32EA131BF01B00903159 /* WebViewController.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		70E00193131AB59C0087B877 /* images */ = {
@@ -265,6 +378,9 @@
 				70E0FE38131A1D7B0087B877 /* SearchResultViewController.xib in Resources */,
 				70E0FF27131A423F0087B877 /* memo.txt in Resources */,
 				70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */,
+				700E32C2131BEF9400903159 /* PreferenceViewController.xib in Resources */,
+				700E32ED131BF01B00903159 /* LlamaSettingsNotes.txt in Resources */,
+				70BE9C18131BF1D100F392ED /* mySettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +401,20 @@
 				70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */,
 				70E0FE37131A1D7B0087B877 /* SearchResultViewController.m in Sources */,
 				70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */,
+				700E32C0131BEE3200903159 /* PreferenceViewController.m in Sources */,
+				700E32EB131BF01B00903159 /* ColorHelper.m in Sources */,
+				700E32EC131BF01B00903159 /* LlamaSettings.m in Sources */,
+				700E32EE131BF01B00903159 /* ButtonCell.m in Sources */,
+				700E32EF131BF01B00903159 /* CellFullWide.m in Sources */,
+				700E32F0131BF01B00903159 /* CellTextField.m in Sources */,
+				700E32F1131BF01B00903159 /* CellTextView.m in Sources */,
+				700E32F2131BF01B00903159 /* DisplayCell.m in Sources */,
+				700E32F3131BF01B00903159 /* EditableTableViewCell.m in Sources */,
+				700E32F4131BF01B00903159 /* SourceCell.m in Sources */,
+				700E32F5131BF01B00903159 /* ColorBoxPicker.m in Sources */,
+				700E32F6131BF01B00903159 /* ColorTouchPicker.m in Sources */,
+				700E32F7131BF01B00903159 /* LSColorDisplay.m in Sources */,
+				700E32F8131BF01B00903159 /* WebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
