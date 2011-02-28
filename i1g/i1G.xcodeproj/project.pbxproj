@@ -39,7 +39,8 @@
 		702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */; };
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
-		70BE9C18131BF1D100F392ED /* mySettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* mySettings.plist */; };
+		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
+		70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C93131C085200F392ED /* PreferenceSettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
 		70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E0018B131AB5610087B877 /* SongDetailViewController.m */; };
 		70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E00191131AB58C0087B877 /* SongDetailViewController.xib */; };
@@ -111,7 +112,8 @@
 		702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		702EFE3113142AD6002A3AF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
-		70BE9C17131BF1D100F392ED /* mySettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = mySettings.plist; sourceTree = "<group>"; };
+		70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceLogin.plist; sourceTree = "<group>"; };
+		70BE9C93131C085200F392ED /* PreferenceSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceSettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		70BF88111317914E00A4EC65 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
 		70E0018A131AB5610087B877 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongDetailViewController.h; path = ../SongDetailViewController.h; sourceTree = "<group>"; };
@@ -167,8 +169,8 @@
 				70E0FE35131A1D7B0087B877 /* SearchResultViewController.m */,
 				70E0018A131AB5610087B877 /* SongDetailViewController.h */,
 				70E0018B131AB5610087B877 /* SongDetailViewController.m */,
-				700E32BE131BEE3200903159 /* PreferenceViewController.m */,
 				700E32BF131BEE3200903159 /* PreferenceViewController.h */,
+				700E32BE131BEE3200903159 /* PreferenceViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -198,7 +200,8 @@
 			isa = PBXGroup;
 			children = (
 				28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */,
-				70BE9C17131BF1D100F392ED /* mySettings.plist */,
+				70BE9C93131C085200F392ED /* PreferenceSettings.plist */,
+				70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				70E0FF26131A423F0087B877 /* memo.txt */,
 			);
@@ -380,7 +383,8 @@
 				70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */,
 				700E32C2131BEF9400903159 /* PreferenceViewController.xib in Resources */,
 				700E32ED131BF01B00903159 /* LlamaSettingsNotes.txt in Resources */,
-				70BE9C18131BF1D100F392ED /* mySettings.plist in Resources */,
+				70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */,
+				70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

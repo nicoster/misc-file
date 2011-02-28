@@ -10,7 +10,8 @@
 #import "LlamaSettings.h"
 
 @interface PreferenceViewController : UIViewController <LlamaSettingsDelegate> {
-	LlamaSettings *settings;
+	LlamaSettings *settings, *login;
 }
-@property (retain) LlamaSettings *settings;
+@property (retain) LlamaSettings *settings, *login;
+@property (retain) IBOutlet UITableView *viewLogin, *viewSettings;
 @end

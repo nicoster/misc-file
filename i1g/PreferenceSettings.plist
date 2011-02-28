@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Title</key>
+	<string>Example Content</string>
+	<key>StringsTable</key>
+	<string>mySettings</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>General</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Share My Favorite</string>
+			<key>Key</key>
+			<string>kPreferenceAllowOthersSeeMyFavorite</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>BLFullButtonSpecifier</string>
+			<key>Title</key>
+			<string>Sign out</string>
+			<key>Key</key>
+			<string>pButton</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Contact Us</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>BLURLButtonSpecifier</string>
+			<key>Title</key>
+			<string>Website</string>
+			<key>Key</key>
+			<string>http://tieba.baidu.com/f?kw=%D2%E0%B8%E8</string>
+			<key>ExternalLaunch</key>
+			<true/>
+			<key>Restrictive</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>BLURLButtonSpecifier</string>
+			<key>Title</key>
+			<string>Say Thanks to Developers</string>
+			<key>Key</key>
+			<string>mailto:nicoster@gmail.com</string>
+			<key>ExternalLaunch</key>
+			<true/>
+			<key>Restrictive</key>
+			<true/>
+		</dict>
+	</array>
+</dict>
+</plist>
