@@ -43,7 +43,7 @@
 		UINavigationController *nav = nil;
 		switch (i) {
 			case 0:
-				tableview = [[PlaylistViewController alloc] initWithStyle:UITableViewStyleGrouped];
+				tableview = [[PlaylistViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
 				[tableview.tabBarItem initWithTitle:nil image:imgPlaylist tag:0];
 				break;
 			case 1:

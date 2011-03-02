@@ -42,6 +42,7 @@
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
 		70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C93131C085200F392ED /* PreferenceSettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
+		70D723D1131DFFD4007FC8DF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D723D0131DFFD4007FC8DF /* icon.png */; };
 		70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E0018B131AB5610087B877 /* SongDetailViewController.m */; };
 		70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E00191131AB58C0087B877 /* SongDetailViewController.xib */; };
 		70E0FCB8131988FB0087B877 /* note_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FCB7131988FB0087B877 /* note_48.png */; };
@@ -116,6 +117,7 @@
 		70BE9C93131C085200F392ED /* PreferenceSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceSettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
 		70BF88111317914E00A4EC65 /* PlaylistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaylistViewController.m; sourceTree = "<group>"; };
+		70D723D0131DFFD4007FC8DF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = Classes/icon.png; sourceTree = "<group>"; };
 		70E0018A131AB5610087B877 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongDetailViewController.h; path = ../SongDetailViewController.h; sourceTree = "<group>"; };
 		70E0018B131AB5610087B877 /* SongDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongDetailViewController.m; path = ../SongDetailViewController.m; sourceTree = "<group>"; };
 		70E00191131AB58C0087B877 /* SongDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongDetailViewController.xib; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 		70E00193131AB59C0087B877 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				70D723D0131DFFD4007FC8DF /* icon.png */,
 				70E0FD7613199C9D0087B877 /* search.png */,
 				70E0FD7713199C9D0087B877 /* setting.png */,
 				70E0FD7813199C9D0087B877 /* playlist.png */,
@@ -385,6 +388,7 @@
 				700E32ED131BF01B00903159 /* LlamaSettingsNotes.txt in Resources */,
 				70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */,
 				70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */,
+				70D723D1131DFFD4007FC8DF /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -438,6 +443,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = i1G;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
 		};
@@ -445,6 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = i1G_Prefix.pch;
@@ -452,6 +459,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = i1G;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

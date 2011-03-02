@@ -99,6 +99,19 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row == 0) {
+		return 60.0f;
+	}
+	else {
+		return 44.0f;
+	}
+
+	
+}
+
+
 // Respond to accessory button taps
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
