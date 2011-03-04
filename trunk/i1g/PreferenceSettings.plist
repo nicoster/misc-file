@@ -16,16 +16,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Share My Favorite</string>
-			<key>Key</key>
-			<string>kPreferenceAllowOthersSeeMyFavorite</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>BLFullButtonSpecifier</string>
 			<key>Title</key>
 			<string>Sign out</string>

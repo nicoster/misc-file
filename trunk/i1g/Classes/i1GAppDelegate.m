@@ -29,7 +29,9 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
+
+    application.applicationSupportsShakeToEdit = YES;
+	
 	self.imgSearch = [UIImage imageNamed:@"search.png"];
 	self.imgSetting = [UIImage imageNamed:@"setting.png"];
 	self.imgPlaylist = [UIImage imageNamed:@"playlist.png"];
@@ -77,7 +79,6 @@
 
     return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
