@@ -19,10 +19,11 @@ NSString* URL_LIST = @"http://www.1g1g.com/list/load.jsp?type=%@";
 NSString* URL_SEARCH = @"http://search.1g1g.com/search/load.jsp";
 NSString* DATA_GIVEN = @"givenids=%@&preferredstore=3&start=0&uniqueCode=%d&type=given&number=50&encoding=utf8&magic=%@";
 NSString* DATA_NEXT = @"preferredstore=3&start=0&uniqueCode=%d&type=next&number=50&encoding=utf8&magic=%@";
-NSString* DATA_POOL = @"username=%@&query=@%@&uniqueCode=%d&type=pool&number=130&encoding=utf8&magic=%@&start=0&preferredstore=3";
-NSString* DATA_TAG = @"username=&preferredstore=3&type=tagged&number=130&encoding=utf8&magic=%@&start=0&tag=%@&query=#%@&uniqueCode=%d";
-NSString* DATA_SEARCH = @"uniqueCode=%d&type=search&number=130&encoding=utf8&magic=%@&start=0&preferredstore=3&query=%@";
+NSString* DATA_POOL = @"username=%@&query=@%@&uniqueCode=%d&type=pool&number=130&encoding=utf8&start=0&preferredstore=3&magic=%@";
+NSString* DATA_TAG = @"username=&preferredstore=3&type=tagged&number=130&encoding=utf8&start=0&tag=%@&query=#%@&uniqueCode=%d&magic=%@";
+NSString* DATA_SEARCH = @"uniqueCode=%d&type=search&number=130&encoding=utf8&start=0&preferredstore=3&query=%@&magic=%@";
 NSString* URL_LOGIN = @"http://www.1g1g.com/user/account.jsp";
+NSString* DATA_LOGIN = @"password=%@&encoding=utf8&type=login&uniqueCode=%d&preferredstore=3&identifier=%@&magic=%@";
 NSString* URL_LYRIC = @"http://www.1g1g.com/list/lyric.jsp";
 NSString* URL_COMMENT = @"http://www.1g1g.com/report/getComment.jsp";
 NSString* URL_CLIENTINFO = @"http://www.1g1g.com/info/clientinfo.jsp";
@@ -207,21 +208,27 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			data = [NSString stringWithFormat: DATA_POOL, criteria, criteria, arc4random() * 0xffffffff, magic];
 			break;
 		case SLT_TAG:
-			data = [NSString stringWithFormat: DATA_TAG, magic, criteria, criteria, arc4random() * 0xffffffff];
+			data = [NSString stringWithFormat: DATA_TAG, criteria, criteria, arc4random() * 0xffffffff, magic];
 			break;
 		case SLT_SEARCH:
 			url = URL_SEARCH;
-			data = [NSString stringWithFormat: DATA_SEARCH, arc4random() * 0xffffffff, magic, criteria];
+			data = [NSString stringWithFormat: DATA_SEARCH, arc4random() * 0xffffffff, criteria, magic];
 			break;
 		default:
 			break;
 	}
 	
-	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LISTSONG + type], criteria, nil];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LISTSONG + type], nil];
 	return (int)[self.httpClient connect: url withDelegate:self andPostData: data andUserData: userData];
 }
+
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd {
+	
+	NSString *data = [NSString stringWithFormat:DATA_LOGIN, passwd, arc4random() * 0xffffffff, user, magic];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LOGIN], nil];
+	[self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
 }
+
 - (void) loadLyricWithId: (int) songId {
 }
 - (void) loadCommentWithTitle: (NSString*) title {
@@ -303,7 +310,6 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData {
 	int type = [(NSNumber*)[userData objectAtIndex:0] intValue];
-	NSString *criteria = [userData count] > 1 ? [userData objectAtIndex:1] : nil;
 	
 	if (error != nil)
 	{
@@ -331,7 +337,16 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			break;
 		}
 		
-		[self songsByType:type withCriteria:criteria];	// retry to list songs
+		NSString *data = [[NXHttpClient sharedHttpClient] dataToPostForConnection:connection];
+		NSAssert(data, @"No post data found");
+		NSRange range = [data rangeOfString:@"&magic="];
+		NSAssert(range.location, @"No magic in post data found");
+		data = [NSString stringWithFormat:@"%@&magic=%@", [data substringToIndex:range.location], self.magic];
+		[[NXHttpClient sharedHttpClient] setDataToPost:data forConnection:connection];
+		
+		[[NXHttpClient sharedHttpClient] connectWithParams:nil andHttpConnectionId:connection];
+		
+//		[self songsByType:type withCriteria:criteria];	// retry to list songs
 		return;
 	}
 	
@@ -365,6 +380,11 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 			self.searchResults = [self parseSongList:doc];
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSearchDidFinish" object:nil];
+			break;
+		}
+		case CT_LOGIN:
+		{
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kLoginDidFinish" object:resultCode];
 			break;
 		}
 		default:

@@ -6,35 +6,35 @@
 //
 
 #import "PreferenceViewController.h"
+#import "NX1GClient.h"
 
 @implementation PreferenceViewController
 @synthesize settings, login, viewLogin, viewSettings;
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
-  
-	// LLAMASETTINGS 3:  Make the connections to and from it
-	settings = [[LlamaSettings alloc] initWithPlist:@"PreferenceSettings.plist"];
-	[settings setDelegate:self];
-	[viewSettings setDataSource:settings];
-	[viewSettings setDelegate:settings];
-//	viewSettings.hidden = YES;
-	
-	login = [[LlamaSettings alloc] initWithPlist:@"PreferenceLogin.plist"];
-	[login setDelegate:self];
-	[viewLogin setDataSource:login];
-	[viewLogin setDelegate:login];
-//	viewLogin.hidden = YES;
-}
-
-- (void) settingsChanged:(LlamaSettings *)ls
-{
-}
-
-- (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
+- (void)loginDidFinish:(NSNotification *)notification;
 {
 	
+	NSString* ret = [notification object];
+	
+	if (![ret isEqualToString:@"0000"])
+	{
+		UIAlertView *alert = [
+							  [[UIAlertView alloc]
+							   initWithTitle:@"1G1G"
+							   message:@"Unable to sign in."
+							   delegate:self
+							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
+							   otherButtonTitles: nil]
+							  autorelease];
+		[alert
+		 performSelector:@selector(show)
+		 onThread:[NSThread mainThread]
+		 withObject:nil
+		 waitUntilDone:NO];
+		return;
+	}
+	
+	// flip the view
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[UIView beginAnimations:nil context:context];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -49,13 +49,54 @@
 	//	
 	//	[UIView setAnimationDelegate:self];
 	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
-	[UIView commitAnimations];	
-	 	
+	[UIView commitAnimations];
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+
+	// LLAMASETTINGS 3:  Make the connections to and from it
+	self.settings = [[LlamaSettings alloc] initWithPlist:@"PreferenceSettings.plist"];
+	[settings setDelegate:self];
+	[viewSettings setDataSource:settings];
+	[viewSettings setDelegate:settings];
+	//	viewSettings.hidden = YES;
+	
+	self.login = [[LlamaSettings alloc] initWithPlist:@"PreferenceLogin.plist"];
+	[login setDelegate:self];
+	[viewLogin setDataSource:login];
+	[viewLogin setDelegate:login];
+//	viewLogin.hidden = YES;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidFinish:) name:@"kLoginDidFinish" object:nil];
+
+}
+
+- (void) settingsChanged:(LlamaSettings *)ls
+{
+}
+
+- (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
+{
+	
+	if ([buttonKey isEqualToString:@"kPreferenceButtonLogin"]) {
+		[[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
+									   andPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferencePasswd"]];
+	}	 	
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 }
 
 - (void) dealloc
 {
-	settings = nil;
+	self.settings = nil;
+	self.login = nil;
 	[super dealloc];
 }
 

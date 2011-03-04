@@ -23,7 +23,7 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 
 @property (nonatomic, retain, readwrite) NSMutableData* connectionData;
 @property (nonatomic, retain, readwrite) NSURLConnection* connection;
-@property (nonatomic, retain, readwrite) id params;
+@property (nonatomic, retain, readwrite) NSDictionary* params;
 @property (nonatomic, assign) HttpConnectionId hid;
 
 
@@ -192,8 +192,40 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 	[super dealloc];
 }
 
+- (NSString*) dataToPostForConnection: (HttpConnectionId) hid
+{
+	NSValue *key = [self keyWithHttpConnectionId: hid];
+	NXHttpClientData *internalData = [connections objectForKey:key];
+	if (internalData == nil) {
+		return nil;
+	}
+	
+	return [internalData.params valueForKey:@"kNXHttpClientData"];
+}
+
+- (bool)setDataToPost: (NSString*) data forConnection: (HttpConnectionId) hid
+{
+	NSValue *key = [self keyWithHttpConnectionId: hid];
+	NXHttpClientData *internalData = [connections objectForKey:key];
+	if (internalData == nil) {
+		return NO;
+	}
+	
+	[internalData.params setValue:data forKey:@"kNXHttpClientData"];
+	return YES;
+}
+
 - (HttpConnectionId)connectWithParams: (NSDictionary*) params andHttpConnectionId: (HttpConnectionId) hid
 {
+	if (params == nil) {
+		NSValue *key = [self keyWithHttpConnectionId: hid];
+		NXHttpClientData *internalData = [connections objectForKey:key];
+		if (internalData == nil) {
+			return 0;
+		}
+		
+		params = internalData.params;
+	}
 	
 	NSURL *url = [NSURL URLWithString:[params objectForKey:kNXHttpClientURL]];
 	

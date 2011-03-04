@@ -35,5 +35,8 @@ typedef int HttpConnectionId;
 
 + (NXHttpClient*) sharedHttpClient;
 - (HttpConnectionId) connect: (NSString*) url withDelegate: (id<NXHttpClientDelegate>) delegate andPostData: (NSString*) data andUserData: (id) userData;
+- (NSString*) dataToPostForConnection: (HttpConnectionId) hid;
+- (bool)setDataToPost: (NSString*) data forConnection: (HttpConnectionId) hid;
+- (HttpConnectionId)connectWithParams: (NSDictionary*) params andHttpConnectionId: (HttpConnectionId) hid;
 
 @end
