@@ -15,6 +15,8 @@
 {
 	PlayController* playCtrl;
 	HttpConnectionId hidListNext;
+	@public
+	IBOutlet UIView *overlay;
 }
 
 @property (nonatomic, retain, readwrite) PlayController* playCtrl;

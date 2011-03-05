@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-
+@class PlaylistViewController;
 
 @interface i1GAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
     UITabBarController *tabBarController;
 	UIImage *imgSearch, *imgSetting, *imgPlaylist;
-
+	IBOutlet PlaylistViewController *playlistController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
