@@ -16,22 +16,55 @@
 
 #define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
-#define SYSBARBUTTON(ITEM, SELECTOR) [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:ITEM target:self action:SELECTOR] autorelease]
 
 
 @implementation i1GAppDelegate
 
-@synthesize window;
+@synthesize window, captionBar, searchController, playlistController, mainViewController;
 @synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
 
+static i1GAppDelegate* theAppDelegate;
 
++ (i1GAppDelegate*) sharedAppDelegate
+{
+	return theAppDelegate;
+}
+
+- (void) showSearchView: (id) sender
+{
+	[captionBar pushViewController:searchController animated:YES];
+}
+
+- (void) showPlaylistView: (id) sender
+{
+	[captionBar pushViewController:mainViewController animated:YES];
+}
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-
+	theAppDelegate = self;
     application.applicationSupportsShakeToEdit = YES;
+	
+	{
+		PreferenceViewController *pref = [[PreferenceViewController alloc] init];
+				
+		pref.title = @"Settings";
+		mainViewController.title = @"亦歌";
+		searchController.title = @"Playlists";
+	
+		captionBar = [[UINavigationController alloc] initWithRootViewController: pref];
+		pref.navigationItem.rightBarButtonItem = BARBUTTON(mainViewController.title,@selector (showPlaylistView:));
+		
+		[captionBar pushViewController:mainViewController animated:NO];
+		mainViewController.navigationItem.rightBarButtonItem = BARBUTTON(searchController.title,@selector (showSearchView:));
+		
+		[self.window addSubview:captionBar.view];
+		[self.window makeKeyAndVisible];
+		
+		return YES;
+	}
 	
 	self.imgSearch = [UIImage imageNamed:@"search.png"];
 	self.imgSetting = [UIImage imageNamed:@"setting.png"];
@@ -82,7 +115,6 @@
 			case 2:
 				rootview = [[PreferenceViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
 				[rootview.tabBarItem initWithTitle:nil image:imgSetting tag:0];
-				nav = [[UINavigationController alloc] initWithRootViewController:rootview];
 				break;
 			default:		
 				NSAssert(NO, @"too many tabs");
