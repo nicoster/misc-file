@@ -39,6 +39,10 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		hidListNext = 0;
 	}
 	
+	[overlay removeFromSuperview];
+	[overlay release];
+	overlay = nil;
+	
 	[self.tableView reloadData];
 }
 
@@ -47,9 +51,11 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	return [NX1GClient shared1GClient];
 }
 
-- (void) loadView
+
+- (void) viewDidLoad
 {
-	[super loadView];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
 	
 	NSAssert(sharedPlaylistViewController == nil, @"sharedPlaylistViewController isn't nil!");
 	sharedPlaylistViewController = self;
@@ -61,21 +67,12 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	////	[MAINLABEL setFont: [UIFont fontWithName:@"Helvetica" size:19.0]];
 	//	[MAINLABEL setTextAlignment:UITextAlignmentCenter];
 	
-	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];
+	//	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
+	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
+	//	self.navigationItem.titleView = playCtrl.view;
 	
-//	[[[NSBundle mainBundle] loadNibNamed:@"PlayCtrl" owner:self.playCtrl options:nil] lastObject];
-	self.navigationItem.titleView = playCtrl.view;
-	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
-		
 	hidListNext = 0;
 	[self.httpClient songsByType: SLT_GIVEN withCriteria: nil];
-}
-
-- (void) viewDidLoad
-{
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
-	
 }
 
 
