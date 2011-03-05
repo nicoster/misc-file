@@ -26,7 +26,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 
 @implementation PlaylistViewController
-@synthesize playCtrl;
+//@synthesize playCtrl;
+@synthesize player;
 
 + (PlaylistViewController*) sharedPlaylistViewCtrlr
 {
@@ -60,16 +61,37 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	NSAssert(sharedPlaylistViewController == nil, @"sharedPlaylistViewController isn't nil!");
 	sharedPlaylistViewController = self;
 	[sharedPlaylistViewController retain];
-	
-	//	self.navigationItem.titleView = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 200.0f, 30.0f)] autorelease];
-	//	[MAINLABEL setBackgroundColor:[UIColor clearColor]];
-	//	[MAINLABEL setTextColor:[UIColor whiteColor]];
-	////	[MAINLABEL setFont: [UIFont fontWithName:@"Helvetica" size:19.0]];
-	//	[MAINLABEL setTextAlignment:UITextAlignmentCenter];
-	
+		
 	//	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
 	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	//	self.navigationItem.titleView = playCtrl.view;
+
+	self.view.frame = CGRectMake(0, 0, 320, 400);
+	// build a toolbar
+	{
+		UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 356.0f, 320.0f, 60.0f)];
+		NSMutableArray *tbitems = [NSMutableArray array];
+		
+		UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+		bbi.width = 95.0f;
+		[tbitems addObject:bbi];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(action))];
+		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+		bbi.width = 20.0f;
+		[tbitems addObject:bbi];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(action))];
+		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+		bbi.width = 20.0f;
+		[tbitems addObject:bbi];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(action))];
+		
+		tb.items = tbitems;
+		
+		[mainView addSubview: self.view];
+		[mainView addSubview: tb];
+		[mainView addSubview: overlay];
+	}
+	
 	
 	hidListNext = 0;
 	[self.httpClient songsByType: SLT_GIVEN withCriteria: nil];
@@ -138,7 +160,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 - (void)playerStateDidChange:(NSNotification *)notification;
 {
-	if (playCtrl.player.state == AS_STOPPED || playCtrl.player.state == AS_INITIALIZED) 
+	if (self.player.state == AS_STOPPED || self.player.state == AS_INITIALIZED) 
 	{
 		if ([self.httpClient.playList count]) {
 			[self.httpClient.history addObject: [self.httpClient.playList objectAtIndex:0]];
@@ -158,7 +180,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	//	[MAINLABEL setText:song.title];
 		
-	[playCtrl play:[song urlArray]];
+	[self play:[song urlArray]];
 	
 	// animation for remove/append items
 	if (indexPath.row) {
@@ -206,6 +228,20 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	}
 }
 
+- (void) play: (NSArray*) urls
+{	
+	if ([urls count])
+	{
+		[player stop];
+		self.player = [[[AudioStreamer alloc] initWithURLs:urls] autorelease];
+		[player start];
+	}
+	else 
+	{
+		[player pause];	// pause will handle play/pause
+	}
+	
+}
 
 - (void) playNext
 {
@@ -222,7 +258,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	self.playCtrl = nil;
+//	self.playCtrl = nil;
 	[sharedPlaylistViewController release];
 	sharedPlaylistViewController = nil;
 	[super dealloc];
@@ -259,16 +295,16 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event {
 	switch (event.subtype) {
 		case UIEventSubtypeRemoteControlTogglePlayPause:
-			[self.playCtrl.player pause];
+			[self.player pause];
 			break;
 		case UIEventSubtypeRemoteControlPlay:
-			[self.playCtrl.player start];
+			[self.player start];
 			break;
 		case UIEventSubtypeRemoteControlPause:
-			[self.playCtrl.player pause];
+			[self.player pause];
 			break;
 		case UIEventSubtypeRemoteControlStop:
-			[self.playCtrl.player stop];
+			[self.player stop];
 			break;
 		default:
 			break;

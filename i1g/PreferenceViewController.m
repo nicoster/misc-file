@@ -7,6 +7,8 @@
 
 #import "PreferenceViewController.h"
 #import "NX1GClient.h"
+#import "i1GAppDelegate.h"
+#import "PlaylistViewController.h"
 
 @implementation PreferenceViewController
 @synthesize settings, login, viewLogin, viewSettings;
@@ -91,6 +93,18 @@
 	[super viewDidUnload];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+}
+
+
+
+- (void) showPlaylistView: (id) sender
+{
+	[[[i1GAppDelegate sharedAppDelegate] captionBar] pushViewController:[[i1GAppDelegate sharedAppDelegate] playlistController] animated:YES];
+}
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+//	self.navigationItem.rightBarButtonItem = BARBUTTON(@"亦歌",@selector (showPlaylistView:));
 }
 
 - (void) dealloc

@@ -10,18 +10,22 @@
 #import "NXHttpClient.h"
 
 @class PlayController;
+@class AudioStreamer;
 
 @interface PlaylistViewController : UITableViewController 
 {
 	PlayController* playCtrl;
+	AudioStreamer *player;
+
 	HttpConnectionId hidListNext;
 	@public
-	IBOutlet UIView *overlay;
+	IBOutlet UIView *overlay, *mainView;
 }
 
-@property (nonatomic, retain, readwrite) PlayController* playCtrl;
+//@property (nonatomic, retain, readwrite) PlayController* playCtrl;
+@property (nonatomic, retain) AudioStreamer *player;
 
 + (PlaylistViewController*) sharedPlaylistViewCtrlr;
 - (void) playNext;
-
+- (void) play: (NSArray*) urls;
 @end
