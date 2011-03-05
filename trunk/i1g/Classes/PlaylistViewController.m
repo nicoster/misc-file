@@ -246,6 +246,9 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+	UIApplication *application = [UIApplication sharedApplication];
+	if([application respondsToSelector:@selector(beginReceivingRemoteControlEvents)])
+		[application beginReceivingRemoteControlEvents];
     [self becomeFirstResponder];
 }
 
@@ -253,5 +256,27 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
     [self resignFirstResponder];
     [super viewWillDisappear:animated];
 }
+
+#pragma mark Remote Control Events
+/* The iPod controls will send these events when the app is in the background */
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+	switch (event.subtype) {
+		case UIEventSubtypeRemoteControlTogglePlayPause:
+			[self.playCtrl.player pause];
+			break;
+		case UIEventSubtypeRemoteControlPlay:
+			[self.playCtrl.player start];
+			break;
+		case UIEventSubtypeRemoteControlPause:
+			[self.playCtrl.player pause];
+			break;
+		case UIEventSubtypeRemoteControlStop:
+			[self.playCtrl.player stop];
+			break;
+		default:
+			break;
+	}
+}
+
 @end
 

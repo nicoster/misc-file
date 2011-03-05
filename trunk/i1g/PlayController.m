@@ -38,8 +38,8 @@
 - (void)playerStateDidChange:(NSNotification *)notification;
 {
 	NSLog(@"as, state:%d", player.state);
-	[player isWaiting] ? [self.loadingIndicator startAnimating] : [self.loadingIndicator stopAnimating];
-
+//	[player isWaiting] ? [self.loadingIndicator startAnimating] : [self.loadingIndicator stopAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = [player isWaiting];
 }
 
 
