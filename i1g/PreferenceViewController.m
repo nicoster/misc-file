@@ -10,8 +10,29 @@
 #import "i1GAppDelegate.h"
 #import "PlaylistViewController.h"
 
+
+
 @implementation PreferenceViewController
 @synthesize settings, login, viewLogin, viewSettings;
+
+- (void)flipViews
+{
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:1.0];
+	
+	[UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
+	NSInteger indexLogin = [[self.view subviews] indexOfObject: self.viewLogin];
+	NSInteger indexSettings = [[self.view subviews] indexOfObject: self.viewSettings];
+	//	NSInteger purple = [[whiteBackdrop subviews] indexOfObject:[whiteBackdrop viewWithTag:999]];
+	//	NSInteger maroon = [[whiteBackdrop subviews] indexOfObject:[whiteBackdrop viewWithTag:998]];
+	[self.view exchangeSubviewAtIndex:indexLogin withSubviewAtIndex:indexSettings];
+	//	
+	//	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
+	[UIView commitAnimations];	
+}
 
 - (void)loginDidFinish:(NSNotification *)notification;
 {
@@ -36,24 +57,40 @@
 		return;
 	}
 	
-	// flip the view
-	CGContextRef context = UIGraphicsGetCurrentContext();
-	[UIView beginAnimations:nil context:context];
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDuration:1.0];
-	
-	[UIView setAnimationTransition: UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
-	NSInteger indexLogin = [[self.view subviews] indexOfObject: self.viewLogin];
-	NSInteger indexSettings = [[self.view subviews] indexOfObject: self.viewSettings];
-	//	NSInteger purple = [[whiteBackdrop subviews] indexOfObject:[whiteBackdrop viewWithTag:999]];
-	//	NSInteger maroon = [[whiteBackdrop subviews] indexOfObject:[whiteBackdrop viewWithTag:998]];
-	[self.view exchangeSubviewAtIndex:indexLogin withSubviewAtIndex:indexSettings];
-	//	
-	//	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
-	[UIView commitAnimations];
+	[self flipViews];
 }
 
+- (void)logoutDidFinish:(NSNotification *)notification;
+{
+	
+	NSString* ret = [notification object];
+	
+	if (![ret isEqualToString:@"0000"])
+	{
+		UIAlertView *alert = [
+							  [[UIAlertView alloc]
+							   initWithTitle:@"1G1G"
+							   message:@"Unable to sign out."
+							   delegate:self
+							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
+							   otherButtonTitles: nil]
+							  autorelease];
+		[alert
+		 performSelector:@selector(show)
+		 onThread:[NSThread mainThread]
+		 withObject:nil
+		 waitUntilDone:NO];
+		return;
+	}
+	
+
+	[self flipViews];
+}
+
+- (void)songDidLoad:(NSNotification *)notification;
+{
+	[self buttonPressed:@"kPreferenceSignin" inSettings:self.login];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,15 +101,15 @@
 	[settings setDelegate:self];
 	[viewSettings setDataSource:settings];
 	[viewSettings setDelegate:settings];
-	//	viewSettings.hidden = YES;
 	
 	self.login = [[LlamaSettings alloc] initWithPlist:@"PreferenceLogin.plist"];
 	[login setDelegate:self];
 	[viewLogin setDataSource:login];
 	[viewLogin setDelegate:login];
-//	viewLogin.hidden = YES;
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginDidFinish:) name:@"kLoginDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logoutDidFinish:) name:@"kLogoutDidFinish" object:nil];
 
 }
 
@@ -83,10 +120,13 @@
 - (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
 {
 	
-	if ([buttonKey isEqualToString:@"kPreferenceButtonLogin"]) {
+	if ([buttonKey isEqualToString:@"kPreferenceSignin"]) {
 		[[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
 									   andPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferencePasswd"]];
-	}	 	
+	}
+	else if ([buttonKey isEqualToString:@"kPreferenceSignout"]) {
+		[[NX1GClient shared1GClient] logout];
+	}
 }
 
 - (void)viewDidUnload {

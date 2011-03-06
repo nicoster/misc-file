@@ -10,6 +10,7 @@
 #import "NX1GClient.h"
 #import "PlaylistViewController.h"
 #import "PlayController.h"
+#import "PlaylistCell.h"
 
 @interface SearchResultViewController()
 
@@ -33,29 +34,60 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-- (void) loadView
-{
-	[super loadView];
-	
-	self.searchBar = [[[UISearchBar alloc] initWithFrame:
-					   CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
-	
-//	searchBar.showsCancelButton = YES;
-	[searchBar setBackgroundColor: [UIColor clearColor]];
-	searchBar.delegate = self;
-	self.navigationItem.titleView = searchBar;
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDidFinish:) name:@"kSearchDidFinish" object:nil];
-}
-
-/*
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
+	
+	hidSearch = 0;
 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	 self.searchBar = [[[UISearchBar alloc] initWithFrame:
+	 CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
+	 
+	 //	searchBar.showsCancelButton = YES;
+	 [searchBar setBackgroundColor: [UIColor clearColor]];
+	 searchBar.delegate = self;
+//	 self.navigationItem.titleView = searchBar;
+	self.tableView.tableHeaderView = searchBar;
+
+	NSArray *buttonNames = [NSArray arrayWithObjects:@"我的收藏", @"播放历史", @"手气不错", nil];
+	UISegmentedControl* segmentedControl = [[UISegmentedControl alloc] initWithItems:buttonNames];
+	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar; 
+	[segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+	segmentedControl.momentary = YES;
+	self.navigationItem.titleView = segmentedControl;	
+	
+	
+//	UISearchDisplayController *searchDC = nil;
+//	searchDC = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+//	searchDC.searchResultsDataSource = self;
+//	searchDC.searchResultsDelegate = self;
+	
+	 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDidFinish:) name:@"kSearchDidFinish" object:nil];
 }
-*/
+ 
+
+-(void) segmentAction: (UISegmentedControl *) sender
+{
+	// Update the label with the segment number
+//	[label setText:[NSString stringWithFormat:@"%0d", sender.selectedSegmentIndex + 1]];
+	switch (sender.selectedSegmentIndex) {
+		case 0:
+		{
+			[searchBar resignFirstResponder];
+			searchBar.text = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
+			hidSearch = [[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: searchBar.text];
+			[self.tableView reloadData];
+			break;
+		}
+		case 1:
+		{
+			[NX1GClient shared1GClient].searchResults = [NX1GClient shared1GClient].history;
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSearchDidFinish" object:nil];
+			break;
+		}
+		default:
+			break;
+	}
+}
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -89,6 +121,8 @@
 
 - (void)searchDidFinish:(NSNotification *)notification;
 {
+	hidSearch = 0;
+
 	[self.tableView reloadData];
 }
 
@@ -103,25 +137,55 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (hidSearch) {
+		return 1;
+	}
+	
     // Return the number of rows in the section.
     return [[[NX1GClient shared1GClient] searchResults] count];
 }
 
 
 // Customize the appearance of table view cells.
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (hidSearch) {
+		return 500.f;
+	}
+	return 48.0f;
+}	
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
- 	NXSong *song = [[[NX1GClient shared1GClient] searchResults] objectAtIndex: indexPath.row];
-	cell.textLabel.text = [song title];
-	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-	cell.editingAccessoryType = UITableViewCellAccessoryNone;
+
+	PlaylistCell *cell = (PlaylistCell*)[tableView dequeueReusableCellWithIdentifier:@"SearchResultCell"];
+	if (!cell) 
+	{
+		cell = [[[NSBundle mainBundle] loadNibNamed:@"PlaylistCell" owner:self options:nil] lastObject];
+		cell.reuseIdentifier = @"SearchResultCell";
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	
+	[cell updatePlayProgress:NO];
+	
+	if (hidSearch) {
+		cell.title.alpha = 0.7;
+		cell.btnAdd.hidden = YES;
+		cell.title.textAlignment = UITextAlignmentCenter;
+		cell.title.text = @"Searching..";
+		
+		cell.subtitle.text = @"";
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	}
+	else {
+		cell.title.alpha = 1;
+		cell.btnAdd.hidden = NO;
+		cell.title.textAlignment = UITextAlignmentLeft;
+		NXSong *song = [[[NX1GClient shared1GClient] searchResults] objectAtIndex: indexPath.row];
+		cell.title.text = [song title];
+		cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song singer], [song album]];;
+		
+	}
+
 	
     return cell;
 }
@@ -199,7 +263,8 @@
 {
 	[self.searchBar resignFirstResponder];
 	
-	[[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria:theSearchBar.text];
+	hidSearch = [[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria:theSearchBar.text];
+	[self.tableView reloadData];
 }
 
 // called when cancel button pressed
@@ -237,10 +302,12 @@
 	
 	// release and set to nil
 	self.searchBar = nil;
+
 }
 
 
 - (void)dealloc {
+	hidSearch = 0;
 	self.searchBar = nil;
     [super dealloc];
 }
