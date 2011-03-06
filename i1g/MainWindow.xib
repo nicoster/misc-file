@@ -12,11 +12,6 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="106"/>
-			<integer value="2"/>
-			<integer value="140"/>
-			<integer value="130"/>
-			<integer value="151"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -45,14 +40,13 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIWindow" id="380026005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 480}</string>
-				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
+				<object class="NSColor" key="IBUIBackgroundColor" id="903609173">
 					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MSAxIDEAA</bytes>
+					<bytes key="NSRGB">MCAwIDAAA</bytes>
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -62,15 +56,36 @@
 			</object>
 			<object class="IBUIViewController" id="832650911">
 				<object class="IBUIView" key="IBUIView" id="374113029">
+					<reference key="NSNextResponder"/>
+					<int key="NSvFlags">274</int>
+					<string key="NSFrameSize">{320, 460}</string>
+					<reference key="NSSuperview"/>
+					<reference key="NSWindow"/>
+					<object class="NSColor" key="IBUIBackgroundColor">
+						<int key="NSColorSpace">3</int>
+						<bytes key="NSWhite">MQA</bytes>
+						<object class="NSColorSpace" key="NSCustomColorSpace" id="924873679">
+							<int key="NSID">2</int>
+						</object>
+					</object>
+					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				</object>
+				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="interfaceOrientation">1</int>
+				</object>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<bool key="IBUIHorizontal">NO</bool>
+			</object>
+			<object class="IBUIViewController" id="250296588">
+				<object class="IBUIView" key="IBUIView" id="255160299">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<string key="NSFrameSize">{320, 460}</string>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MQA</bytes>
-						<object class="NSColorSpace" key="NSCustomColorSpace">
-							<int key="NSID">2</int>
-						</object>
+						<reference key="NSCustomColorSpace" ref="924873679"/>
 					</object>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				</object>
@@ -96,7 +111,7 @@
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{129, 330}, {163, 49}}</string>
-					<object class="NSColor" key="IBUIBackgroundColor" id="852621922">
+					<object class="NSColor" key="IBUIBackgroundColor" id="156647326">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MCAwAA</bytes>
 					</object>
@@ -105,7 +120,7 @@
 				</object>
 			</object>
 			<object class="IBUIView" id="172022367">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -148,7 +163,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{358, 494}</string>
-				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC4zMjE0Mjg2IDAuMzIxNDI4NiAwLjMyMTQyODYgMC41AA</bytes>
@@ -188,10 +202,9 @@
 			</object>
 			<object class="IBUITableViewController" id="387866176">
 				<object class="IBUITableView" key="IBUIView" id="407014251">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">274</int>
 					<string key="NSFrameSize">{320, 460}</string>
-					<reference key="NSSuperview"/>
 					<reference key="IBUIBackgroundColor" ref="19886381"/>
 					<bool key="IBUIOpaque">NO</bool>
 					<bool key="IBUIClipsSubviews">YES</bool>
@@ -212,17 +225,17 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<bool key="IBUIHorizontal">NO</bool>
 			</object>
-			<object class="IBUIView" id="1022663329">
-				<reference key="NSNextResponder"/>
+			<object class="IBUIView" id="485836409">
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUILabel" id="796907716">
-						<reference key="NSNextResponder" ref="1022663329"/>
+					<object class="IBUILabel" id="282007087">
+						<reference key="NSNextResponder" ref="485836409"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrameSize">{320, 24}</string>
-						<reference key="NSSuperview" ref="1022663329"/>
-						<reference key="IBUIBackgroundColor" ref="852621922"/>
+						<reference key="NSSuperview" ref="485836409"/>
+						<reference key="IBUIBackgroundColor" ref="156647326"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
@@ -234,10 +247,7 @@
 							<double key="NSSize">14</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<object class="NSColor" key="IBUITextColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MCAwIDAAA</bytes>
-						</object>
+						<reference key="IBUITextColor" ref="903609173"/>
 						<reference key="IBUIHighlightedColor" ref="19886381"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">10</float>
@@ -245,7 +255,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 24}</string>
-				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MC42OTkxODI3OTg5IDAuNzgxNjcxMzg1IDAuOTA3NjA4Njk1NwA</bytes>
@@ -339,14 +348,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">mainViewController</string>
-						<reference key="source" ref="664661524"/>
-						<reference key="destination" ref="832650911"/>
-					</object>
-					<int key="connectionID">147</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">mainView</string>
 						<reference key="source" ref="650824219"/>
 						<reference key="destination" ref="374113029"/>
@@ -357,9 +358,33 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">promptBar</string>
 						<reference key="source" ref="664661524"/>
-						<reference key="destination" ref="796907716"/>
+						<reference key="destination" ref="282007087"/>
 					</object>
 					<int key="connectionID">154</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">searchViewContainer</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="250296588"/>
+					</object>
+					<int key="connectionID">160</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">playlistViewContainer</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="832650911"/>
+					</object>
+					<int key="connectionID">161</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">searchContainer</string>
+						<reference key="source" ref="387866176"/>
+						<reference key="destination" ref="250296588"/>
+					</object>
+					<int key="connectionID">163</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -473,18 +498,32 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">151</int>
-						<reference key="object" ref="1022663329"/>
+						<reference key="object" ref="485836409"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="796907716"/>
+							<reference ref="282007087"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Prompt Bar</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">153</int>
-						<reference key="object" ref="796907716"/>
-						<reference key="parent" ref="1022663329"/>
+						<reference key="object" ref="282007087"/>
+						<reference key="parent" ref="485836409"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">156</int>
+						<reference key="object" ref="250296588"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="255160299"/>
+						</object>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">157</int>
+						<reference key="object" ref="255160299"/>
+						<reference key="parent" ref="250296588"/>
 					</object>
 				</object>
 			</object>
@@ -516,6 +555,9 @@
 					<string>151.IBPluginDependency</string>
 					<string>153.IBPluginDependency</string>
 					<string>153.IBViewBoundsToFrameTransform</string>
+					<string>156.IBEditorWindowLastContentRect</string>
+					<string>156.IBPluginDependency</string>
+					<string>157.IBPluginDependency</string>
 					<string>2.IBAttributePlaceholdersKey</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
@@ -550,6 +592,9 @@
 					<object class="NSAffineTransform">
 						<bytes key="NSTransformStruct">P4AAAL+AAABDbwAAweAAAA</bytes>
 					</object>
+					<string>{{42, 458}, {320, 480}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSMutableDictionary">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<reference key="dict.sortedKeys" ref="0"/>
@@ -579,7 +624,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">154</int>
+			<int key="maxID">163</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -627,6 +672,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">SearchResultViewController</string>
 					<string key="superclassName">UITableViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">searchContainer</string>
+						<string key="NS.object.0">UIViewController</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">searchContainer</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">searchContainer</string>
+							<string key="candidateClassName">UIViewController</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/SearchResultViewController.h</string>
@@ -647,19 +703,21 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mainViewController</string>
 							<string>playlistController</string>
+							<string>playlistViewContainer</string>
 							<string>promptBar</string>
 							<string>searchController</string>
+							<string>searchViewContainer</string>
 							<string>tabBarController</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIViewController</string>
 							<string>PlaylistViewController</string>
+							<string>UIViewController</string>
 							<string>UILabel</string>
 							<string>SearchResultViewController</string>
+							<string>UIViewController</string>
 							<string>UITabBarController</string>
 							<string>UIWindow</string>
 						</object>
@@ -668,22 +726,23 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>mainViewController</string>
 							<string>playlistController</string>
+							<string>playlistViewContainer</string>
 							<string>promptBar</string>
 							<string>searchController</string>
+							<string>searchViewContainer</string>
 							<string>tabBarController</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBToOneOutletInfo">
-								<string key="name">mainViewController</string>
-								<string key="candidateClassName">UIViewController</string>
-							</object>
-							<object class="IBToOneOutletInfo">
 								<string key="name">playlistController</string>
 								<string key="candidateClassName">PlaylistViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">playlistViewContainer</string>
+								<string key="candidateClassName">UIViewController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">promptBar</string>
@@ -692,6 +751,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">searchController</string>
 								<string key="candidateClassName">SearchResultViewController</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">searchViewContainer</string>
+								<string key="candidateClassName">UIViewController</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">tabBarController</string>

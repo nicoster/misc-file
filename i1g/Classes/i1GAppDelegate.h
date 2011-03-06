@@ -20,8 +20,6 @@
 	UIImage *imgSearch, *imgSetting, *imgPlaylist;
 	IBOutlet PlaylistViewController *playlistController;
 	
-	UIViewController *mainViewController;
-	
 	UINavigationController *captionBar;
 	SearchResultViewController *searchController;
 }
@@ -33,7 +31,8 @@
 @property (nonatomic, retain) UINavigationController *captionBar;
 @property (nonatomic, retain) IBOutlet SearchResultViewController *searchController;
 @property (nonatomic, retain) IBOutlet PlaylistViewController *playlistController;
-@property (nonatomic, retain) IBOutlet UIViewController *mainViewController;
+@property (nonatomic, retain) IBOutlet UIViewController *playlistViewContainer;
+@property (nonatomic, retain) IBOutlet UIViewController *searchViewContainer;
 @property (nonatomic, retain) IBOutlet UILabel *promptBar;
 
 - (void) forView: (UIView*) parent showPrompt: (NSString*) formatString, ...;

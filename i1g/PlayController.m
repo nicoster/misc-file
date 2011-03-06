@@ -15,7 +15,7 @@
 @implementation PlayController
 
 
-@synthesize loadingIndicator, playlistView, player, btnPlay, btnNext, imgPlay, imgPause;
+@synthesize playlistView, player, btnPlay, btnNext, imgPlay, imgPause;
 
 
 - (id) initWithPlaylistView: (id) aPlaylistView

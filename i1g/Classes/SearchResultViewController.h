@@ -15,4 +15,5 @@
 	HttpConnectionId hidSearch;
 }
 
+@property (nonatomic, retain) IBOutlet UIViewController *searchContainer;
 @end

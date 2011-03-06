@@ -25,7 +25,7 @@
 
 @implementation SearchResultViewController
 
-@synthesize searchBar;
+@synthesize searchBar, searchContainer;
 
 - (NX1GClient*) httpClient
 {
@@ -37,11 +37,13 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+	[searchContainer.view addSubview:self.view];
+	self.view.frame = CGRectMake(0, 0, 320, 460);
+
 	hidSearch = 0;
 
-	 self.searchBar = [[[UISearchBar alloc] initWithFrame:
-	 CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
+	self.searchBar = [[[UISearchBar alloc] initWithFrame:
+						CGRectMake(0.0, 0.0, self.view.bounds.size.width, 44.0)] autorelease];
 	 
 	 //	searchBar.showsCancelButton = YES;
 	 [searchBar setBackgroundColor: [UIColor clearColor]];
@@ -54,7 +56,7 @@
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar; 
 	[segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 	segmentedControl.momentary = YES;
-	self.navigationItem.titleView = segmentedControl;	
+	searchContainer.navigationItem.titleView = segmentedControl;	
 	
 	
 //	UISearchDisplayController *searchDC = nil;

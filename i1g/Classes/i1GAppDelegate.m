@@ -20,7 +20,7 @@
 
 @implementation i1GAppDelegate
 
-@synthesize window, captionBar, searchController, playlistController, mainViewController, promptBar;
+@synthesize window, captionBar, searchController, playlistController, playlistViewContainer, searchViewContainer, promptBar;
 @synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
 
 static i1GAppDelegate* theAppDelegate;
@@ -32,12 +32,12 @@ static i1GAppDelegate* theAppDelegate;
 
 - (void) showSearchView: (id) sender
 {
-	[captionBar pushViewController:searchController animated:YES];
+	[captionBar pushViewController:searchViewContainer animated:YES];
 }
 
 - (void) showPlaylistView: (id) sender
 {
-	[captionBar pushViewController:mainViewController animated:YES];
+	[captionBar pushViewController:playlistViewContainer animated:YES];
 }
 
 - (void) hidePrompt: (NSTimer*) timer
@@ -78,7 +78,7 @@ static i1GAppDelegate* theAppDelegate;
 //	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
 	[UIView commitAnimations];
 		
-	[NSTimer scheduledTimerWithTimeInterval:1.6 target:self selector:@selector(hidePrompt:) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(hidePrompt:) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
@@ -92,14 +92,15 @@ static i1GAppDelegate* theAppDelegate;
 		PreferenceViewController *pref = [[PreferenceViewController alloc] init];
 		pref.view;		
 		pref.title = @"Settings";
-		mainViewController.title = @"亦歌";
-		searchController.title = @"Playlists";
+		playlistViewContainer.title = @"亦歌";
+		searchViewContainer.title = @"Playlists";
+		searchController.view;
 	
 		captionBar = [[UINavigationController alloc] initWithRootViewController: pref];
-		pref.navigationItem.rightBarButtonItem = BARBUTTON(mainViewController.title,@selector (showPlaylistView:));
+		pref.navigationItem.rightBarButtonItem = BARBUTTON(playlistViewContainer.title,@selector (showPlaylistView:));
 		
-		[captionBar pushViewController:mainViewController animated:NO];
-		mainViewController.navigationItem.rightBarButtonItem = BARBUTTON(searchController.title,@selector (showSearchView:));
+		[captionBar pushViewController:playlistViewContainer animated:NO];
+		playlistViewContainer.navigationItem.rightBarButtonItem = BARBUTTON(searchViewContainer.title,@selector (showSearchView:));
 		
 		[self.window addSubview:captionBar.view];
 		[self.window makeKeyAndVisible];
