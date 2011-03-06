@@ -42,22 +42,12 @@
 	if (![ret isEqualToString:@"0000"])
 	{
 		[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"Unable to sign in"];
-//		UIAlertView *alert = [
-//							  [[UIAlertView alloc]
-//							   initWithTitle:@"1G1G"
-//							   message:@"Unable to sign in."
-//							   delegate:self
-//							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
-//							   otherButtonTitles: nil]
-//							  autorelease];
-//		[alert
-//		 performSelector:@selector(show)
-//		 onThread:[NSThread mainThread]
-//		 withObject:nil
-//		 waitUntilDone:NO];
 		return;
 	}
 	
+	[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"Welcome, %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]] 
+											  forKey:@"title4section0"];
+	[self.viewSettings reloadData];
 	[self flipViews];
 }
 
@@ -85,7 +75,10 @@
 		return;
 	}
 	
-
+	[[NSUserDefaults standardUserDefaults] setObject:nil
+											  forKey:@"title4section0"];
+	[self.viewLogin reloadData];
+	
 	[self flipViews];
 }
 
@@ -122,7 +115,11 @@
 - (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
 {
 	if ([buttonKey isEqualToString:@"kPreferenceSignin"]) {
-		[self.viewLogin resignFirstResponder];
+		UIView* textfield = [self.viewLogin viewWithTag:1001];
+		[textfield resignFirstResponder];
+		textfield = [self.viewLogin viewWithTag:1002];
+		[textfield resignFirstResponder];
+		
 		[[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
 									   andPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferencePasswd"]];
 	}

@@ -48,6 +48,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	overlay = nil;
 	
 	[self.tableView reloadData];
+	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
+
 }
 
 - (NX1GClient*) httpClient
@@ -70,20 +72,20 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	//	self.navigationItem.titleView = playCtrl.view;
 //	[self.view addSubview: playCtrl.view];
 
-	self.view.frame = CGRectMake(0, 0, 320, 400);
+	self.view.frame = CGRectMake(0, 0, 320, 416);
 	// build a toolbar
 	{
-		UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 356.0f, 320.0f, 60.0f)];
+		UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 372.0f, 320.0f, 44.0f)];
 		NSMutableArray *tbitems = [NSMutableArray array];
 		
 		UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
-		bbi.width = 95.0f;
+		bbi.width = 120.0f;
 		[tbitems addObject:bbi];
 		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playPressed:))];
-		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
-		bbi.width = 20.0f;
-		[tbitems addObject:bbi];
-		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(playPressed:))];
+//		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//		bbi.width = 20.0f;
+//		[tbitems addObject:bbi];
+//		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(playPressed:))];
 		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 		bbi.width = 20.0f;
 		[tbitems addObject:bbi];

@@ -20,7 +20,6 @@
 }
 
 @property (nonatomic, retain, readwrite) AudioStreamer *player;
-@property (nonatomic, retain) IBOutlet UIActivityIndicatorView* loadingIndicator; 
 @property (nonatomic, retain) PlaylistViewController* playlistView;
 @property (nonatomic, retain) IBOutlet UIButton* btnPlay, *btnNext;
 @property (nonatomic, retain) UIImage *imgPlay, *imgPause;
