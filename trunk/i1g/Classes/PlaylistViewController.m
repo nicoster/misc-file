@@ -213,7 +213,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		
 	[self play:[song urlArray]];
 	
-	[[i1GAppDelegate sharedAppDelegate] forView:self.view.superview showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
+	[[i1GAppDelegate sharedAppDelegate] forView:[i1GAppDelegate sharedAppDelegate].captionBar.visibleViewController.view showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
 	
 	PlaylistCell *cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 	[cell updatePlayProgress:NO];

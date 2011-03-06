@@ -255,7 +255,7 @@
 	
 	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
 	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];
-	[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
+//	[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
 	
 }
 
