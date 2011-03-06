@@ -41,19 +41,20 @@
 	
 	if (![ret isEqualToString:@"0000"])
 	{
-		UIAlertView *alert = [
-							  [[UIAlertView alloc]
-							   initWithTitle:@"1G1G"
-							   message:@"Unable to sign in."
-							   delegate:self
-							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
-							   otherButtonTitles: nil]
-							  autorelease];
-		[alert
-		 performSelector:@selector(show)
-		 onThread:[NSThread mainThread]
-		 withObject:nil
-		 waitUntilDone:NO];
+		[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"Unable to sign in"];
+//		UIAlertView *alert = [
+//							  [[UIAlertView alloc]
+//							   initWithTitle:@"1G1G"
+//							   message:@"Unable to sign in."
+//							   delegate:self
+//							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
+//							   otherButtonTitles: nil]
+//							  autorelease];
+//		[alert
+//		 performSelector:@selector(show)
+//		 onThread:[NSThread mainThread]
+//		 withObject:nil
+//		 waitUntilDone:NO];
 		return;
 	}
 	
@@ -67,19 +68,20 @@
 	
 	if (![ret isEqualToString:@"0000"])
 	{
-		UIAlertView *alert = [
-							  [[UIAlertView alloc]
-							   initWithTitle:@"1G1G"
-							   message:@"Unable to sign out."
-							   delegate:self
-							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
-							   otherButtonTitles: nil]
-							  autorelease];
-		[alert
-		 performSelector:@selector(show)
-		 onThread:[NSThread mainThread]
-		 withObject:nil
-		 waitUntilDone:NO];
+		[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"Unable to sign out"];
+//		UIAlertView *alert = [
+//							  [[UIAlertView alloc]
+//							   initWithTitle:@"1G1G"
+//							   message:@"Unable to sign out."
+//							   delegate:self
+//							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
+//							   otherButtonTitles: nil]
+//							  autorelease];
+//		[alert
+//		 performSelector:@selector(show)
+//		 onThread:[NSThread mainThread]
+//		 withObject:nil
+//		 waitUntilDone:NO];
 		return;
 	}
 	
@@ -119,8 +121,8 @@
 
 - (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
 {
-	
 	if ([buttonKey isEqualToString:@"kPreferenceSignin"]) {
+		[self.viewLogin resignFirstResponder];
 		[[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
 									   andPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferencePasswd"]];
 	}

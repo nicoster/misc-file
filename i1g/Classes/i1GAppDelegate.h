@@ -34,6 +34,8 @@
 @property (nonatomic, retain) IBOutlet SearchResultViewController *searchController;
 @property (nonatomic, retain) IBOutlet PlaylistViewController *playlistController;
 @property (nonatomic, retain) IBOutlet UIViewController *mainViewController;
+@property (nonatomic, retain) IBOutlet UILabel *promptBar;
 
+- (void) forView: (UIView*) parent showPrompt: (NSString*) formatString, ...;
 
 @end

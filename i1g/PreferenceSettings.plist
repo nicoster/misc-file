@@ -32,7 +32,7 @@
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>Website</string>
+			<string>Go to Forum..</string>
 			<key>Key</key>
 			<string>http://tieba.baidu.com/f?kw=%D2%E0%B8%E8</string>
 			<key>ExternalLaunch</key>
@@ -44,7 +44,7 @@
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>Say Thanks to Developers</string>
+			<string>Write to Developers</string>
 			<key>Key</key>
 			<string>mailto:nicoster@gmail.com</string>
 			<key>ExternalLaunch</key>
