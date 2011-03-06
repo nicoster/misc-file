@@ -49,7 +49,7 @@ static i1GAppDelegate* theAppDelegate;
 	
 	{
 		PreferenceViewController *pref = [[PreferenceViewController alloc] init];
-				
+		pref.view;		
 		pref.title = @"Settings";
 		mainViewController.title = @"亦歌";
 		searchController.title = @"Playlists";

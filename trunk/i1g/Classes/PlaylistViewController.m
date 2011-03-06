@@ -12,6 +12,7 @@
 #import "AudioStreamer.h"
 #import "PlayController.h"
 #import "SongDetailViewController.h"
+#import "PlaylistCell.h"
 
 #define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
@@ -20,6 +21,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 @interface PlaylistViewController()
 
+- (IBAction) playPressed: (id)sender;
+- (IBAction) nextPressed: (id)sender;
 
 @property (nonatomic, assign, readonly) NX1GClient* httpClient;
 @end
@@ -75,15 +78,15 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 		bbi.width = 95.0f;
 		[tbitems addObject:bbi];
-		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(action))];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playPressed:))];
 		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 		bbi.width = 20.0f;
 		[tbitems addObject:bbi];
-		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(action))];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(playPressed:))];
 		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 		bbi.width = 20.0f;
 		[tbitems addObject:bbi];
-		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(action))];
+		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(nextPressed:))];
 		
 		tb.items = tbitems;
 		
@@ -105,21 +108,32 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCellStyle style =  UITableViewCellStyleDefault;
-	UITableViewCell *cell = [tView dequeueReusableCellWithIdentifier:@"BaseCell"];
+//	UITableViewCellStyle style =  UITableViewCellStyleDefault;
+	PlaylistCell *cell = (PlaylistCell*)[tView dequeueReusableCellWithIdentifier:@"PlaylistCell"];
+//	if (!cell) 
+//		cell = [[[PlaylistCell alloc] initWithStyle:style reuseIdentifier:@"BaseCell"] autorelease];
 	if (!cell) 
-		cell = [[[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"BaseCell"] autorelease];
+	{
+		cell = [[[NSBundle mainBundle] loadNibNamed:@"PlaylistCell" owner:self options:nil] lastObject];
+		cell.reuseIdentifier = @"PlaylistCell";
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
+	
+	[cell updatePlayProgress:NO];
+	
 	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
-	cell.textLabel.text = [song title];
-	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-	cell.editingAccessoryType = UITableViewCellAccessoryNone;
+	cell.title.text = [song title];
+	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song singer], [song album]];
+//	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+//	cell.editingAccessoryType = UITableViewCellAccessoryNone;
+
 	
-	
-	return cell;
+	return (UITableViewCell*)cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+	return 48.0f;
 	if (indexPath.row == 0) {
 		return 60.0f;
 	}
@@ -172,15 +186,32 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		[NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(playNext) object:nil];
 	}
 	
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = [player isWaiting];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 	
-	//	[MAINLABEL setText:song.title];
+	if (self.player.progress > 60) {
+		NXSong *playing = [[self.httpClient playList] objectAtIndex: 0];
+		if (playing) {
+			if (self.httpClient.history) {
+				[self.httpClient.history addObject:playing];
+			} else {
+				self.httpClient.history = [NSMutableArray arrayWithObject:playing];
+			}
+
+		}
+	}
 		
 	[self play:[song urlArray]];
+	
+	PlaylistCell *cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+	[cell updatePlayProgress:NO];
+	
+	cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:indexPath];
+	[cell updatePlayProgress:YES];
 	
 	// animation for remove/append items
 	if (indexPath.row) {
@@ -226,6 +257,25 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	if (hidListNext == 0 && [[self.httpClient songs] count] < PLAYLISTSIZE) {
 		hidListNext = [self.httpClient songsByType:SLT_NEXT withCriteria:nil];
 	}
+}
+
+- (IBAction) playPressed: (id)sender
+{
+	if ([player isPaused] || [player isPlaying]) {
+		[self play:nil];
+	}
+	else {
+		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
+		
+		NXSong *song = [[[NX1GClient shared1GClient] playList] objectAtIndex: 0];	
+		[self play:[song urlArray]];
+	}
+	
+}
+
+- (IBAction) nextPressed: (id)sender
+{
+	[self playNext];
 }
 
 - (void) play: (NSArray*) urls

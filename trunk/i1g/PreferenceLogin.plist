@@ -54,7 +54,7 @@
 			<key>Title</key>
 			<string>Sign In</string>
 			<key>Key</key>
-			<string>kPreferenceButtonLogin</string>
+			<string>kPreferenceSignin</string>
 		</dict>
 	</array>
 </dict>

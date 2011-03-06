@@ -30,6 +30,8 @@ typedef enum _CallType
 	CT_CLIENTINFO,
 	CT_TRACK,
 	CT_LOADSHOW,
+	CT_FAV,
+	CT_LOGOUT,
 }CallType;
 
 @interface NXSongUrl : NSObject
@@ -75,7 +77,9 @@ typedef enum _CallType
 
 - (int) songsByType: (SongListType) type withCriteria: (NSString*) criteria;
 - (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
-- (void) loadLyricWithId: (int) songId;
+- (void) loadLyricWithId: (NSString*) songId;
 - (void) loadCommentWithTitle: (NSString*) title;
+- (void) addFavById: (NSString*) songId;
+- (void) logout;
 
 @end

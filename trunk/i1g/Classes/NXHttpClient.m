@@ -100,6 +100,7 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 
 		[theDelegate connection: self.hid didFinishWithData: connectionData andError: nil andUserData: theUserData];
 	}
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 		
 	[[NXHttpClient sharedHttpClient] endConnection: self.hid];
 }
@@ -111,7 +112,9 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 	if ([theDelegate respondsToSelector:@selector(connection:didFinishWithData:andError:andUserData:)]) {
 		[theDelegate connection: self.hid didFinishWithData: connectionData andError: error andUserData: theUserData];
 	}
-	
+
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
 	NSLog(@"http, connection failed. %@", [error localizedDescription]);
 	
 	[[NXHttpClient sharedHttpClient] endConnection: self.hid];
@@ -249,6 +252,8 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 		data.connection = connection;
 		data.hid = hid;
 		[self.connections setObject: data forKey: [self keyWithHttpConnectionId: hid]];
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
 	}
 	else {
 		NSLog(@"http, failed:NSURLConnection initWithRequest:%@", url);

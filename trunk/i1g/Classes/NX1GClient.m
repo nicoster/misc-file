@@ -24,11 +24,14 @@ NSString* DATA_TAG = @"username=&preferredstore=3&type=tagged&number=130&encodin
 NSString* DATA_SEARCH = @"uniqueCode=%d&type=search&number=130&encoding=utf8&start=0&preferredstore=3&query=%@&magic=%@";
 NSString* URL_LOGIN = @"http://www.1g1g.com/user/account.jsp";
 NSString* DATA_LOGIN = @"password=%@&encoding=utf8&type=login&uniqueCode=%d&preferredstore=3&identifier=%@&magic=%@";
+NSString* DATA_LOGOUT = @"encoding=utf8&type=logout&uniqueCode=%d&preferredstore=3&magic=%@";
 NSString* URL_LYRIC = @"http://www.1g1g.com/list/lyric.jsp";
 NSString* URL_COMMENT = @"http://www.1g1g.com/report/getComment.jsp";
 NSString* URL_CLIENTINFO = @"http://www.1g1g.com/info/clientinfo.jsp";
 NSString* URL_TRACK = @"http://www.1g1g.com/report/track.jsp";
 NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
+NSString* URL_FAV = @"http://www.1g1g.com/user/pooloperate.jsp";
+NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstore=3&magic=%@";
 
 @interface GDataXMLElement(NX)
 - (NSString*) stringForName: (NSString*) key;
@@ -229,7 +232,23 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 	[self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
 }
 
-- (void) loadLyricWithId: (int) songId {
+- (void) logout {
+	
+	NSString *data = [NSString stringWithFormat:DATA_LOGOUT, arc4random() * 0xffffffff, magic];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LOGOUT], nil];
+	[self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
+}
+
+- (void) addFavById: (NSString*) songId
+{
+	
+	NSString *data = [NSString stringWithFormat:DATA_FAV, arc4random() * 0xffffffff, songId, magic];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_FAV], nil];
+	[self.httpClient connect:URL_FAV withDelegate: self andPostData:data andUserData:userData];
+	
+}
+
+- (void) loadLyricWithId: (NSString*) songId {
 }
 - (void) loadCommentWithTitle: (NSString*) title {
 	
@@ -385,6 +404,16 @@ NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 		case CT_LOGIN:
 		{
 			[[NSNotificationCenter defaultCenter] postNotificationName:@"kLoginDidFinish" object:resultCode];
+			break;
+		}
+		case CT_FAV:
+		{
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kFavAddDidFinish" object:resultCode];
+			break;
+		}
+		case CT_LOGOUT:
+		{
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kLogoutDidFinish" object:resultCode];
 			break;
 		}
 		default:

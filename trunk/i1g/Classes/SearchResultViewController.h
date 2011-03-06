@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NXHttpClient.h"
 
 
 @interface SearchResultViewController : UITableViewController<UISearchBarDelegate> {
 	UISearchBar *searchBar;
+	HttpConnectionId hidSearch;
 }
 
 @end
