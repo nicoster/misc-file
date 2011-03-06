@@ -65,9 +65,10 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	sharedPlaylistViewController = self;
 	[sharedPlaylistViewController retain];
 		
-	//	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
+//	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
 	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	//	self.navigationItem.titleView = playCtrl.view;
+//	[self.view addSubview: playCtrl.view];
 
 	self.view.frame = CGRectMake(0, 0, 320, 400);
 	// build a toolbar
@@ -191,7 +192,10 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
+	
 	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
+	
+	
 	
 	if (self.player.progress > 60) {
 		NXSong *playing = [[self.httpClient playList] objectAtIndex: 0];
@@ -206,6 +210,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	}
 		
 	[self play:[song urlArray]];
+	
+	[[i1GAppDelegate sharedAppDelegate] forView:self.view.superview showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
 	
 	PlaylistCell *cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 	[cell updatePlayProgress:NO];

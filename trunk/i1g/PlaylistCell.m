@@ -34,6 +34,8 @@
 		NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 
 		[self.httpClient addFavById:song.songId];
+		[[i1GAppDelegate sharedAppDelegate] forView:self.superview showPrompt:@"收藏 %@ - %@", song.title, song.singer];
+
 		
 	}else {
 		NSMutableArray *pl = [self.httpClient playList];
@@ -41,6 +43,7 @@
 		 		
 		[pl insertObject: song atIndex: [pl count] ? 1 : 0];
 		[[[[i1GAppDelegate sharedAppDelegate] playlistController] tableView] reloadData];
+		[[i1GAppDelegate sharedAppDelegate] forView:self.superview showPrompt:@"添加 %@ - %@", song.title, song.singer];
 	}
 
 }

@@ -349,7 +349,7 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 	}
 
 	// 3240 3241, magic number is wrong
-	if ([resultCode hasPrefix: @"324"]) {
+	if ([resultCode isEqualToString: @"3240"] || [resultCode isEqualToString: @"3241"] ) {
 		NSArray *items = [doc nodesForXPath:@"/info/seed" error:nil];
 		for (GDataXMLElement *item in items) {
 			self.magic = [self calculateMagic: item.stringValue];

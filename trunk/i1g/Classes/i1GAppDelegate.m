@@ -20,7 +20,7 @@
 
 @implementation i1GAppDelegate
 
-@synthesize window, captionBar, searchController, playlistController, mainViewController;
+@synthesize window, captionBar, searchController, playlistController, mainViewController, promptBar;
 @synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
 
 static i1GAppDelegate* theAppDelegate;
@@ -38,6 +38,47 @@ static i1GAppDelegate* theAppDelegate;
 - (void) showPlaylistView: (id) sender
 {
 	[captionBar pushViewController:mainViewController animated:YES];
+}
+
+- (void) hidePrompt: (NSTimer*) timer
+{
+	[timer invalidate];
+	timer = nil;
+		
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:0.8];
+	
+	self.promptBar.superview.center = CGPointMake(160, -12);
+	
+	[UIView commitAnimations];
+}
+
+- (void) forView: (UIView*) parent showPrompt: (NSString*) formatString, ...
+{
+    va_list args;
+    va_start(args, formatString);
+    NSString *prompt = [[NSString alloc] initWithFormat:formatString arguments:args];
+    va_end(args);
+	
+	[self.promptBar.superview removeFromSuperview];
+	
+	self.promptBar.text = prompt;
+	[parent addSubview: self.promptBar.superview];	
+	self.promptBar.superview.center = CGPointMake(160, -12);
+	
+	CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:0.8];
+	
+	self.promptBar.superview.center = CGPointMake(160, 10);
+	
+//	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
+	[UIView commitAnimations];
+		
+	[NSTimer scheduledTimerWithTimeInterval:1.6 target:self selector:@selector(hidePrompt:) userInfo:nil repeats:NO];
 }
 
 #pragma mark -

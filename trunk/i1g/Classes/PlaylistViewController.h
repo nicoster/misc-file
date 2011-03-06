@@ -14,7 +14,7 @@
 
 @interface PlaylistViewController : UITableViewController 
 {
-	PlayController* playCtrl;
+//	PlayController* playCtrl;
 	AudioStreamer *player;
 
 	HttpConnectionId hidListNext;
