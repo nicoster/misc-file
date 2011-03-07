@@ -30,6 +30,8 @@
 		700E32F6131BF01B00903159 /* ColorTouchPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E6131BF01B00903159 /* ColorTouchPicker.m */; };
 		700E32F7131BF01B00903159 /* LSColorDisplay.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32E8131BF01B00903159 /* LSColorDisplay.m */; };
 		700E32F8131BF01B00903159 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32EA131BF01B00903159 /* WebViewController.m */; };
+		7021D81A1325197700F9B3EB /* CSIAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = 7021D8191325197700F9B3EB /* CSIAnalytics.m */; };
+		7021D84A13252F7800F9B3EB /* UIDevice+CSIExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7021D84913252F7800F9B3EB /* UIDevice+CSIExtensions.m */; };
 		702E05C213168B93002A3AF1 /* PlayController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 702E05C113168B93002A3AF1 /* PlayController.xib */; };
 		702E05E613169500002A3AF1 /* PlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 702E05E513169500002A3AF1 /* PlayController.m */; };
 		702EFDC413142A2E002A3AF1 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 702EFDBD13142A2E002A3AF1 /* GDataXMLNode.m */; };
@@ -103,6 +105,10 @@
 		700E32E8131BF01B00903159 /* LSColorDisplay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSColorDisplay.m; sourceTree = "<group>"; };
 		700E32E9131BF01B00903159 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		700E32EA131BF01B00903159 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		7021D8181325197700F9B3EB /* CSIAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSIAnalytics.h; sourceTree = "<group>"; };
+		7021D8191325197700F9B3EB /* CSIAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSIAnalytics.m; sourceTree = "<group>"; };
+		7021D84813252F7800F9B3EB /* UIDevice+CSIExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+CSIExtensions.h"; sourceTree = "<group>"; };
+		7021D84913252F7800F9B3EB /* UIDevice+CSIExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+CSIExtensions.m"; sourceTree = "<group>"; };
 		702E05C113168B93002A3AF1 /* PlayController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayController.xib; sourceTree = "<group>"; };
 		702E05E413169500002A3AF1 /* PlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayController.h; path = ../PlayController.h; sourceTree = "<group>"; };
 		702E05E513169500002A3AF1 /* PlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayController.m; path = ../PlayController.m; sourceTree = "<group>"; };
@@ -328,6 +334,10 @@
 		70E0FA781317EA450087B877 /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				7021D8181325197700F9B3EB /* CSIAnalytics.h */,
+				7021D8191325197700F9B3EB /* CSIAnalytics.m */,
+				7021D84813252F7800F9B3EB /* UIDevice+CSIExtensions.h */,
+				7021D84913252F7800F9B3EB /* UIDevice+CSIExtensions.m */,
 				702EFDBC13142A2E002A3AF1 /* GDataXMLNode.h */,
 				702EFDBD13142A2E002A3AF1 /* GDataXMLNode.m */,
 				702EFDBF13142A2E002A3AF1 /* AudioStreamer.h */,
@@ -439,6 +449,8 @@
 				700A32A8132343360051F50A /* PlaylistCell.m in Sources */,
 				706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */,
 				7067850B132495370077CC44 /* LlamaSettings.m in Sources */,
+				7021D81A1325197700F9B3EB /* CSIAnalytics.m in Sources */,
+				7021D84A13252F7800F9B3EB /* UIDevice+CSIExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

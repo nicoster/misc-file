@@ -14,6 +14,8 @@
 #import "SearchResultViewController.h"
 #import "PreferenceViewController.h"
 
+#import "CSIAnalytics.h"
+
 #define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
 
@@ -99,6 +101,10 @@ static i1GAppDelegate* theAppDelegate;
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+	
+	[[CSIAnalytics sharedAnalytics] startAnalyticsWithAccountName:nil];
+	[[CSIAnalytics sharedAnalytics] trackEventForCategory:@"launch" action:@"start" label:nil value:nil];
+	
 	theAppDelegate = self;
 	application.applicationSupportsShakeToEdit = YES;
 	
