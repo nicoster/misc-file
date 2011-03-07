@@ -449,7 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -459,7 +459,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69A26404-6860-415D-B682-6456A6337A72";
 			};
 			name = Debug;
 		};
@@ -467,7 +467,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = i1G_Prefix.pch;
@@ -475,7 +475,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69A26404-6860-415D-B682-6456A6337A72";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

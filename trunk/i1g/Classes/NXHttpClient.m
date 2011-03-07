@@ -236,7 +236,7 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 	[request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
 	[request setHTTPMethod:@"POST"];
 	//[request setValue:@"application/xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-	NSString *dataToPost = [[params objectForKey:kNXHttpClientData] stringByAddingPercentEscapesUsingEncoding: NSASCIIStringEncoding];
+	NSString *dataToPost = [[params objectForKey:kNXHttpClientData] stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 	NSLog(@"http, %@", dataToPost);
 	[request setHTTPBody:[dataToPost dataUsingEncoding:NSUTF8StringEncoding]];
 	
