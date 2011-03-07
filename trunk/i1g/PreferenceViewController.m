@@ -95,6 +95,7 @@
 
 - (void)songDidLoad:(NSNotification *)notification;
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[self buttonPressed:@"kPreferenceSignin" inSettings:self.login];
 }
 
@@ -144,7 +145,6 @@
 	}
 	
 	[self.view addSubview:[PlaylistViewController sharedPlaylistViewCtrlr].overlay];
-	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.userInteractionEnabled = YES;
 }
 
 - (void)viewDidUnload {
