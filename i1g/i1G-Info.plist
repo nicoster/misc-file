@@ -34,5 +34,7 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>CSIAnalyticsAccount</key>
+	<string>UA-21831418-2</string>
 </dict>
 </plist>
