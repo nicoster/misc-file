@@ -21,7 +21,21 @@
 @implementation i1GAppDelegate
 
 @synthesize window, captionBar, searchController, playlistController, playlistViewContainer, searchViewContainer, promptBar;
-@synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
+//@synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
+
+- (void)dealloc {
+//    [tabBarController release];
+//	self.imgSearch = self.imgSetting = self.imgPlaylist = nil;
+	self.window = nil;
+	self.captionBar = nil;
+	self.searchController = nil;
+	self.playlistController = nil;
+	self.playlistViewContainer = nil;
+	self.searchViewContainer = nil;
+	self.promptBar = nil;
+    [window release];
+    [super dealloc];
+}
 
 static i1GAppDelegate* theAppDelegate;
 
@@ -108,78 +122,78 @@ static i1GAppDelegate* theAppDelegate;
 		return YES;
 	}
 	
-	self.imgSearch = [UIImage imageNamed:@"search.png"];
-	self.imgSetting = [UIImage imageNamed:@"setting.png"];
-	self.imgPlaylist = [UIImage imageNamed:@"playlist.png"];
-	
-    // Override point for customization after application launch.
-	NSMutableArray *ctrls = [NSMutableArray array];
-	
-	
-	for (int i = 0; i < [TABS count]; i ++) {
-		UIViewController *rootview = nil;
-		UINavigationController *nav = nil;
-		switch (i) {
-			case 0:
-			{
-				rootview = [[UIViewController alloc] init];
-//				UITableViewController *tableview = [[[PlaylistViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/] autorelease];
-				playlistController.view.frame = CGRectMake(0, 0, 320, 386);
-				
-//				PlayController *play = [[PlayController alloc] initWithPlaylistView: playlistController];	
-//				play.view.frame = CGRectMake(0, 292, 320, 75);
-				
-				UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 292.0f, 320.0f, 75.0f)];
-//				tb.center = CGPointMake(160.0f, 200.0f);
-				NSMutableArray *tbitems = [NSMutableArray array];
-				
-				UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
-				bbi.width = 20.0f;
-				[tbitems addObject:bbi];
-				[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(action))];
-				bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
-				bbi.width = 20.0f;
-				[tbitems addObject:bbi];
-				[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(action))];
-				
-				tb.items = tbitems;
-				
-				[rootview.view addSubview: playlistController.view];
-				[rootview.view addSubview: tb];
-				[rootview.view addSubview: playlistController->overlay];
-				[rootview.tabBarItem initWithTitle:nil image:imgPlaylist tag:0];
-				break;
-			}
-			case 1:
-				rootview = [[SearchResultViewController alloc] initWithStyle:UITableViewStyleGrouped];
-				[rootview.tabBarItem initWithTitle:nil image:imgSearch tag:0];
-				break;
-			case 2:
-				rootview = [[PreferenceViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
-				[rootview.tabBarItem initWithTitle:nil image:imgSetting tag:0];
-				break;
-			default:		
-				NSAssert(NO, @"too many tabs");
-				break;
-		}
-		
-		rootview.title = [TABS objectAtIndex:i];
-		nav = [[UINavigationController alloc] initWithRootViewController:rootview];	
-
-		
-		[ctrls addObject: nav];
-		[rootview release];
-		[nav release];
-	}
-	
-	tabBarController.viewControllers = ctrls;
-	tabBarController.delegate = self;
-	
-    // Add the tab bar controller's view to the window and display.
-    [self.window addSubview:tabBarController.view];
-    [self.window makeKeyAndVisible];
-	
-    return YES;
+//	self.imgSearch = [UIImage imageNamed:@"search.png"];
+//	self.imgSetting = [UIImage imageNamed:@"setting.png"];
+//	self.imgPlaylist = [UIImage imageNamed:@"playlist.png"];
+//	
+//    // Override point for customization after application launch.
+//	NSMutableArray *ctrls = [NSMutableArray array];
+//	
+//	
+//	for (int i = 0; i < [TABS count]; i ++) {
+//		UIViewController *rootview = nil;
+//		UINavigationController *nav = nil;
+//		switch (i) {
+//			case 0:
+//			{
+//				rootview = [[UIViewController alloc] init];
+////				UITableViewController *tableview = [[[PlaylistViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/] autorelease];
+//				playlistController.view.frame = CGRectMake(0, 0, 320, 386);
+//				
+////				PlayController *play = [[PlayController alloc] initWithPlaylistView: playlistController];	
+////				play.view.frame = CGRectMake(0, 292, 320, 75);
+//				
+//				UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 292.0f, 320.0f, 75.0f)];
+////				tb.center = CGPointMake(160.0f, 200.0f);
+//				NSMutableArray *tbitems = [NSMutableArray array];
+//				
+//				UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//				bbi.width = 20.0f;
+//				[tbitems addObject:bbi];
+//				[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(action))];
+//				bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//				bbi.width = 20.0f;
+//				[tbitems addObject:bbi];
+//				[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(action))];
+//				
+//				tb.items = tbitems;
+//				
+//				[rootview.view addSubview: playlistController.view];
+//				[rootview.view addSubview: tb];
+//				[rootview.view addSubview: playlistController->overlay];
+//				[rootview.tabBarItem initWithTitle:nil image:imgPlaylist tag:0];
+//				break;
+//			}
+//			case 1:
+//				rootview = [[SearchResultViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//				[rootview.tabBarItem initWithTitle:nil image:imgSearch tag:0];
+//				break;
+//			case 2:
+//				rootview = [[PreferenceViewController alloc] init/*WithStyle:UITableViewStyleGrouped*/];
+//				[rootview.tabBarItem initWithTitle:nil image:imgSetting tag:0];
+//				break;
+//			default:		
+//				NSAssert(NO, @"too many tabs");
+//				break;
+//		}
+//		
+//		rootview.title = [TABS objectAtIndex:i];
+//		nav = [[UINavigationController alloc] initWithRootViewController:rootview];	
+//
+//		
+//		[ctrls addObject: nav];
+//		[rootview release];
+//		[nav release];
+//	}
+//	
+//	tabBarController.viewControllers = ctrls;
+//	tabBarController.delegate = self;
+//	
+//    // Add the tab bar controller's view to the window and display.
+//    [self.window addSubview:tabBarController.view];
+//    [self.window makeKeyAndVisible];
+//	
+//    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -250,12 +264,6 @@ static i1GAppDelegate* theAppDelegate;
 }
 
 
-- (void)dealloc {
-    [tabBarController release];
-	imgSearch = imgSetting = imgPlaylist = nil;
-    [window release];
-    [super dealloc];
-}
 
 @end
 

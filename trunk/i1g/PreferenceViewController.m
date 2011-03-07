@@ -15,6 +15,15 @@
 @implementation PreferenceViewController
 @synthesize settings, login, viewLogin, viewSettings;
 
+- (void) dealloc
+{
+	self.settings = nil;
+	self.login = nil;
+	self.viewLogin = nil;
+	self.viewSettings = nil;
+	[super dealloc];
+}
+
 - (void)flipViews
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
@@ -36,7 +45,8 @@
 
 - (void)loginDidFinish:(NSNotification *)notification;
 {
-	
+	hid = 0;
+	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];
 	NSString* ret = [notification object];
 	
 	if (![ret isEqualToString:@"0000"])
@@ -53,7 +63,8 @@
 
 - (void)logoutDidFinish:(NSNotification *)notification;
 {
-	
+	hid = 0;
+	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];
 	NSString* ret = [notification object];
 	
 	if (![ret isEqualToString:@"0000"])
@@ -89,7 +100,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
+	hid = 0;
+
+//	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 
 	// LLAMASETTINGS 3:  Make the connections to and from it
 	self.settings = [[LlamaSettings alloc] initWithPlist:@"PreferenceSettings.plist"];
@@ -114,18 +127,24 @@
 
 - (void) buttonPressed:(NSString *)buttonKey inSettings:(LlamaSettings *)ls
 {
+	if (hid) {
+		return;
+	}
 	if ([buttonKey isEqualToString:@"kPreferenceSignin"]) {
 		UIView* textfield = [self.viewLogin viewWithTag:1001];
 		[textfield resignFirstResponder];
 		textfield = [self.viewLogin viewWithTag:1002];
 		[textfield resignFirstResponder];
 		
-		[[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
+		hid = [[NX1GClient shared1GClient] loginWithUser:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"] 
 									   andPassword:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferencePasswd"]];
 	}
 	else if ([buttonKey isEqualToString:@"kPreferenceSignout"]) {
-		[[NX1GClient shared1GClient] logout];
+		hid = [[NX1GClient shared1GClient] logout];
 	}
+	
+	[self.view addSubview:[PlaylistViewController sharedPlaylistViewCtrlr].overlay];
+	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.userInteractionEnabled = YES;
 }
 
 - (void)viewDidUnload {
@@ -133,7 +152,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 }
-
 
 
 - (void) showPlaylistView: (id) sender
@@ -144,13 +162,6 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 //	self.navigationItem.rightBarButtonItem = BARBUTTON(@"亦歌",@selector (showPlaylistView:));
-}
-
-- (void) dealloc
-{
-	self.settings = nil;
-	self.login = nil;
-	[super dealloc];
 }
 
 @end

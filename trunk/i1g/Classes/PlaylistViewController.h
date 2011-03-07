@@ -24,7 +24,7 @@
 
 //@property (nonatomic, retain, readwrite) PlayController* playCtrl;
 @property (nonatomic, retain) AudioStreamer *player;
-
+@property (nonatomic, retain) UIView *overlay;
 + (PlaylistViewController*) sharedPlaylistViewCtrlr;
 - (void) playNext;
 - (void) play: (NSArray*) urls;

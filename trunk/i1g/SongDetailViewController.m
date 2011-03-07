@@ -22,7 +22,7 @@
 - (void) dealloc
 {
 	self.song = nil;
-	name = album = performer = nil;
+	self.name = self.album = self.performer = self.remark = nil;
 	[super dealloc];
 }
 

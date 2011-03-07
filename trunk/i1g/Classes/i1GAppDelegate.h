@@ -16,8 +16,8 @@
 
 @interface i1GAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
-    UITabBarController *tabBarController;
-	UIImage *imgSearch, *imgSetting, *imgPlaylist;
+//    UITabBarController *tabBarController;
+//	UIImage *imgSearch, *imgSetting, *imgPlaylist;
 	IBOutlet PlaylistViewController *playlistController;
 	
 	UINavigationController *captionBar;
@@ -26,8 +26,8 @@
 
 + (i1GAppDelegate*) sharedAppDelegate;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
-@property (nonatomic, retain) UIImage *imgSearch, *imgSetting, *imgPlaylist;
+//@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+//@property (nonatomic, retain) UIImage *imgSearch, *imgSetting, *imgPlaylist;
 @property (nonatomic, retain) UINavigationController *captionBar;
 @property (nonatomic, retain) IBOutlet SearchResultViewController *searchController;
 @property (nonatomic, retain) IBOutlet PlaylistViewController *playlistController;
