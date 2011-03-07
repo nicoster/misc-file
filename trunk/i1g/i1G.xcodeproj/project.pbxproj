@@ -18,7 +18,6 @@
 		700E32C0131BEE3200903159 /* PreferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32BE131BEE3200903159 /* PreferenceViewController.m */; };
 		700E32C2131BEF9400903159 /* PreferenceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700E32C1131BEF9400903159 /* PreferenceViewController.xib */; };
 		700E32EB131BF01B00903159 /* ColorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32CF131BF01B00903159 /* ColorHelper.m */; };
-		700E32EC131BF01B00903159 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D1131BF01B00903159 /* LlamaSettings.m */; };
 		700E32ED131BF01B00903159 /* LlamaSettingsNotes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */; };
 		700E32EE131BF01B00903159 /* ButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D5131BF01B00903159 /* ButtonCell.m */; };
 		700E32EF131BF01B00903159 /* CellFullWide.m in Sources */ = {isa = PBXBuildFile; fileRef = 700E32D7131BF01B00903159 /* CellFullWide.m */; };
@@ -42,6 +41,7 @@
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
 		706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 706784AC132474CF0077CC44 /* PlaylistViewContainer.m */; };
+		7067850B132495370077CC44 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7067850A132495370077CC44 /* LlamaSettings.m */; };
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
 		70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C93131C085200F392ED /* PreferenceSettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
@@ -80,7 +80,6 @@
 		700E32CE131BF01B00903159 /* ColorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorHelper.h; sourceTree = "<group>"; };
 		700E32CF131BF01B00903159 /* ColorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorHelper.m; sourceTree = "<group>"; };
 		700E32D0131BF01B00903159 /* LlamaSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LlamaSettings.h; sourceTree = "<group>"; };
-		700E32D1131BF01B00903159 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = "<group>"; };
 		700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LlamaSettingsNotes.txt; sourceTree = "<group>"; };
 		700E32D4131BF01B00903159 /* ButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonCell.h; sourceTree = "<group>"; };
 		700E32D5131BF01B00903159 /* ButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonCell.m; sourceTree = "<group>"; };
@@ -121,6 +120,7 @@
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
 		706784AB132474CF0077CC44 /* PlaylistViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistViewContainer.h; path = ../PlaylistViewContainer.h; sourceTree = "<group>"; };
 		706784AC132474CF0077CC44 /* PlaylistViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistViewContainer.m; path = ../PlaylistViewContainer.m; sourceTree = "<group>"; };
+		7067850A132495370077CC44 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = SOURCE_ROOT; };
 		70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceLogin.plist; sourceTree = "<group>"; };
 		70BE9C93131C085200F392ED /* PreferenceSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceSettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 				700E32CC131BF01B00903159 /* Constants.h */,
 				700E32CD131BF01B00903159 /* Helpers */,
 				700E32D0131BF01B00903159 /* LlamaSettings.h */,
-				700E32D1131BF01B00903159 /* LlamaSettings.m */,
+				7067850A132495370077CC44 /* LlamaSettings.m */,
 				700E32D2131BF01B00903159 /* LlamaSettingsNotes.txt */,
 				700E32D3131BF01B00903159 /* TableCells */,
 				700E32E2131BF01B00903159 /* Views */,
@@ -425,7 +425,6 @@
 				70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */,
 				700E32C0131BEE3200903159 /* PreferenceViewController.m in Sources */,
 				700E32EB131BF01B00903159 /* ColorHelper.m in Sources */,
-				700E32EC131BF01B00903159 /* LlamaSettings.m in Sources */,
 				700E32EE131BF01B00903159 /* ButtonCell.m in Sources */,
 				700E32EF131BF01B00903159 /* CellFullWide.m in Sources */,
 				700E32F0131BF01B00903159 /* CellTextField.m in Sources */,
@@ -439,6 +438,7 @@
 				700E32F8131BF01B00903159 /* WebViewController.m in Sources */,
 				700A32A8132343360051F50A /* PlaylistCell.m in Sources */,
 				706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */,
+				7067850B132495370077CC44 /* LlamaSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
