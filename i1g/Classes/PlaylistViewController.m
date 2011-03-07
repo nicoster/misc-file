@@ -30,7 +30,17 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 @implementation PlaylistViewController
 //@synthesize playCtrl;
-@synthesize player;
+@synthesize player, overlay;
+
+- (void) dealloc
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+//	self.playCtrl = nil;
+	self.overlay = nil;
+	[sharedPlaylistViewController release];
+	sharedPlaylistViewController = nil;
+	[super dealloc];
+}
 
 + (PlaylistViewController*) sharedPlaylistViewCtrlr
 {
@@ -44,8 +54,6 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	}
 	
 	[overlay removeFromSuperview];
-	[overlay release];
-	overlay = nil;
 	
 	[self.tableView reloadData];
 	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
@@ -311,15 +319,6 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		NSLog(@"pl, cannot play next as there's no more");
 	}
 
-}
-
-- (void) dealloc
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-//	self.playCtrl = nil;
-	[sharedPlaylistViewController release];
-	sharedPlaylistViewController = nil;
-	[super dealloc];
 }
 
 

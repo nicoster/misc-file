@@ -225,18 +225,18 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 	return (int)[self.httpClient connect: url withDelegate:self andPostData: data andUserData: userData];
 }
 
-- (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd {
+- (int) loginWithUser: (NSString*) user andPassword: (NSString*) passwd {
 	
 	NSString *data = [NSString stringWithFormat:DATA_LOGIN, passwd, arc4random() * 0xffffffff, user, magic];
 	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LOGIN], nil];
-	[self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
+	return [self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
 }
 
-- (void) logout {
+- (int) logout {
 	
 	NSString *data = [NSString stringWithFormat:DATA_LOGOUT, arc4random() * 0xffffffff, magic];
 	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LOGOUT], nil];
-	[self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
+	return [self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
 }
 
 - (void) addFavById: (NSString*) songId

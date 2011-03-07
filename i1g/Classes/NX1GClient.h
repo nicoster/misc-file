@@ -76,10 +76,10 @@ typedef enum _CallType
 - (void) connection: (HttpConnectionId)connection didFinishWithData: (NSData*) data andError: (NSError*) error andUserData: (id) userData; 
 
 - (int) songsByType: (SongListType) type withCriteria: (NSString*) criteria;
-- (void) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
+- (int) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
 - (void) loadLyricWithId: (NSString*) songId;
 - (void) loadCommentWithTitle: (NSString*) title;
 - (void) addFavById: (NSString*) songId;
-- (void) logout;
+- (int) logout;
 
 @end

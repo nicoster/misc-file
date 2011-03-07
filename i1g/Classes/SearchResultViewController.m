@@ -27,6 +27,13 @@
 
 @synthesize searchBar, searchContainer;
 
+- (void)dealloc {
+	hidSearch = 0;
+	self.searchBar = nil;
+	self.searchContainer = nil;
+    [super dealloc];
+}
+
 - (NX1GClient*) httpClient
 {
 	return [NX1GClient shared1GClient];
@@ -309,12 +316,6 @@
 
 }
 
-
-- (void)dealloc {
-	hidSearch = 0;
-	self.searchBar = nil;
-    [super dealloc];
-}
 
 
 @end
