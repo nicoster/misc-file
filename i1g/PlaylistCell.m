@@ -69,6 +69,7 @@
 - (void) updatePlayProgress: (bool) update
 {
 	if (update) {
+		[self handle1SecondTimer: nil];
 		self.secondsTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(handle1SecondTimer:) userInfo:nil repeats:YES];
 	}
 	else {

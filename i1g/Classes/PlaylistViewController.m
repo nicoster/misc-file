@@ -137,6 +137,10 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song singer], [song album]];
 //	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.editingAccessoryType = UITableViewCellAccessoryNone;
+	
+	if (indexPath.row == 0) {
+		[cell updatePlayProgress:YES];
+	}
 
 	
 	return (UITableViewCell*)cell;
@@ -187,10 +191,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 {
 	if (self.player.state == AS_STOPPED || self.player.state == AS_INITIALIZED) 
 	{
-		if ([self.httpClient.playList count]) {
-			[self.httpClient.history addObject: [self.httpClient.playList objectAtIndex:0]];
-		}
-			
+		
 		[self performSelector:@selector(playNext) withObject: nil afterDelay: 1];
 	}
 	else {
@@ -205,9 +206,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 	
-	
-	
-	if (self.player.progress > 60) {
+	if (self.player.progress > 6) {
 		NXSong *playing = [[self.httpClient playList] objectAtIndex: 0];
 		if (playing) {
 			if (self.httpClient.history) {
@@ -215,9 +214,11 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 			} else {
 				self.httpClient.history = [NSMutableArray arrayWithObject:playing];
 			}
-
+			NSLog(@"pl, add history:%@, %d, count:%d", playing.title, (int)self.player.progress, self.httpClient.history.count);
+			
 		}
 	}
+	
 		
 	[self play:[song urlArray]];
 	
