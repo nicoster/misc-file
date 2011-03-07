@@ -852,7 +852,7 @@ void ASReadStreamCallBack
 	{
 		if (state != AS_STARTING_FILE_THREAD)
 		{
-			NSAssert(NO, @"I believe it never goes here.");
+//			NSAssert(NO, @"I believe it never goes here.");
 			if (state != AS_STOPPING &&
 				state != AS_STOPPED)
 			{

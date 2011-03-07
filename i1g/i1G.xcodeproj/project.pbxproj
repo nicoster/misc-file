@@ -41,6 +41,7 @@
 		702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */; };
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
+		706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 706784AC132474CF0077CC44 /* PlaylistViewContainer.m */; };
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
 		70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C93131C085200F392ED /* PreferenceSettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
@@ -63,7 +64,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* i1GAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i1GAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* i1GAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = i1GAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* i1G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i1G.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* 1G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 1G.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i1G_Prefix.pch; sourceTree = "<group>"; };
@@ -118,6 +119,8 @@
 		702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		702EFE3113142AD6002A3AF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		706784AB132474CF0077CC44 /* PlaylistViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistViewContainer.h; path = ../PlaylistViewContainer.h; sourceTree = "<group>"; };
+		706784AC132474CF0077CC44 /* PlaylistViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistViewContainer.m; path = ../PlaylistViewContainer.m; sourceTree = "<group>"; };
 		70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceLogin.plist; sourceTree = "<group>"; };
 		70BE9C93131C085200F392ED /* PreferenceSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceSettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
@@ -170,6 +173,8 @@
 				702E05E513169500002A3AF1 /* PlayController.m */,
 				1D3623240D0F684500981E51 /* i1GAppDelegate.h */,
 				1D3623250D0F684500981E51 /* i1GAppDelegate.m */,
+				706784AB132474CF0077CC44 /* PlaylistViewContainer.h */,
+				706784AC132474CF0077CC44 /* PlaylistViewContainer.m */,
 				70BF88101317914E00A4EC65 /* PlaylistViewController.h */,
 				70BF88111317914E00A4EC65 /* PlaylistViewController.m */,
 				700A32A6132343360051F50A /* PlaylistCell.h */,
@@ -187,7 +192,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* i1G.app */,
+				1D6058910D05DD3D006BFB54 /* 1G.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,7 +353,7 @@
 			);
 			name = i1G;
 			productName = i1G;
-			productReference = 1D6058910D05DD3D006BFB54 /* i1G.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* 1G.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -433,6 +438,7 @@
 				700E32F7131BF01B00903159 /* LSColorDisplay.m in Sources */,
 				700E32F8131BF01B00903159 /* WebViewController.m in Sources */,
 				700A32A8132343360051F50A /* PlaylistCell.m in Sources */,
+				706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -452,7 +458,7 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = i1G;
+				PRODUCT_NAME = 1G;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 			};
 			name = Debug;
@@ -468,7 +474,7 @@
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = i1G;
+				PRODUCT_NAME = 1G;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				VALIDATE_PRODUCT = YES;
 			};
