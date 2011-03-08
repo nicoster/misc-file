@@ -34,7 +34,7 @@
 		NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 
 		[self.httpClient addFavById:song.songId];
-		[[i1GAppDelegate sharedAppDelegate] forView:self.superview showPrompt:@"收藏 %@ - %@", song.title, song.singer];
+		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"收藏 %@ - %@", song.title, song.singer];
 
 		
 	}else {
@@ -43,7 +43,7 @@
 		 		
 		[pl insertObject: song atIndex: [pl count] ? 1 : 0];
 		[[[[i1GAppDelegate sharedAppDelegate] playlistController] tableView] reloadData];
-		[[i1GAppDelegate sharedAppDelegate] forView:self.superview.superview showPrompt:@"添加 %@ - %@ 到播放列表", song.title, song.singer];
+		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"添加 %@ - %@ 到播放列表", song.title, song.singer];
 	}
 
 }

@@ -68,6 +68,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 - (void) viewDidLoad
 {
+	NSLog(@"perf, pl, viewDidLoad");
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
 	
@@ -79,6 +80,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	//	self.navigationItem.titleView = playCtrl.view;
 //	[self.view addSubview: playCtrl.view];
+	
+	self.view.backgroundColor = [UIColor clearColor];
 
 	self.view.frame = CGRectMake(0, 0, 320, 416);
 	// build a toolbar
@@ -222,7 +225,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		
 	[self play:[song urlArray]];
 	
-	[[i1GAppDelegate sharedAppDelegate] forView:[i1GAppDelegate sharedAppDelegate].captionBar.visibleViewController.view showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
+	[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
 	
 	PlaylistCell *cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 	[cell updatePlayProgress:NO];
