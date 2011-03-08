@@ -80,6 +80,9 @@ static i1GAppDelegate* theAppDelegate;
 	
 	[self.promptBar.superview removeFromSuperview];
 	
+	if (parent == nil) {
+		parent = captionBar.visibleViewController.view;
+	}
 	self.promptBar.text = prompt;
 	[parent addSubview: self.promptBar.superview];	
 	self.promptBar.superview.center = CGPointMake(160, -12);
@@ -102,6 +105,7 @@ static i1GAppDelegate* theAppDelegate;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
+	NSLog(@"Start");
 	[[CSIAnalytics sharedAnalytics] startAnalyticsWithAccountName:nil];
 	[[CSIAnalytics sharedAnalytics] trackEventForCategory:@"launch" action:@"start" label:nil value:nil];
 	
@@ -110,11 +114,11 @@ static i1GAppDelegate* theAppDelegate;
 	
 	{
 		PreferenceViewController *pref = [[PreferenceViewController alloc] init];
-		pref.view;		
+//		pref.view;		
 		pref.title = @"Settings";
 		playlistViewContainer.title = @"亦歌";
 		searchViewContainer.title = @"Playlists";
-		searchController.view;
+//		searchController.view;
 	
 		captionBar = [[UINavigationController alloc] initWithRootViewController: pref];
 		pref.navigationItem.rightBarButtonItem = BARBUTTON(playlistViewContainer.title,@selector (showPlaylistView:));

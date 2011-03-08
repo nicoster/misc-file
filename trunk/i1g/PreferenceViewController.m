@@ -57,7 +57,8 @@
 	
 	if (![ret isEqualToString:@"0000"])
 	{
-		[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"Unable to sign in"];
+		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"Unable to sign in"];
+		[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
 		return;
 	}
 	
@@ -74,7 +75,9 @@
 	
 	if (![ret isEqualToString:@"0000"])
 	{
-		[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"Unable to sign out"];
+		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"Unable to sign out"];
+		[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
+
 //		UIAlertView *alert = [
 //							  [[UIAlertView alloc]
 //							   initWithTitle:@"1G1G"
@@ -105,6 +108,7 @@
 }
 
 - (void)viewDidLoad {
+	NSLog(@"perf, pv, viewDidLoad");
     [super viewDidLoad];
 	hid = 0;
 

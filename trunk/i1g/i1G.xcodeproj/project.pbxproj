@@ -42,6 +42,7 @@
 		702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */; };
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
+		704E006E13260A69001EA0E3 /* note_256_blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 704E006D13260A69001EA0E3 /* note_256_blue.jpg */; };
 		706784AD132474CF0077CC44 /* PlaylistViewContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 706784AC132474CF0077CC44 /* PlaylistViewContainer.m */; };
 		7067850B132495370077CC44 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7067850A132495370077CC44 /* LlamaSettings.m */; };
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
@@ -124,6 +125,7 @@
 		702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		702EFE3113142AD6002A3AF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		704E006D13260A69001EA0E3 /* note_256_blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = note_256_blue.jpg; sourceTree = "<group>"; };
 		706784AB132474CF0077CC44 /* PlaylistViewContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlaylistViewContainer.h; path = ../PlaylistViewContainer.h; sourceTree = "<group>"; };
 		706784AC132474CF0077CC44 /* PlaylistViewContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlaylistViewContainer.m; path = ../PlaylistViewContainer.m; sourceTree = "<group>"; };
 		7067850A132495370077CC44 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = SOURCE_ROOT; };
@@ -319,6 +321,7 @@
 		70E00193131AB59C0087B877 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				704E006D13260A69001EA0E3 /* note_256_blue.jpg */,
 				70D723D0131DFFD4007FC8DF /* icon.png */,
 				70E0FD7613199C9D0087B877 /* search.png */,
 				70E0FD7713199C9D0087B877 /* setting.png */,
@@ -413,6 +416,7 @@
 				70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */,
 				70D723D1131DFFD4007FC8DF /* icon.png in Resources */,
 				700A32A4132342E40051F50A /* PlaylistCell.xib in Resources */,
+				704E006E13260A69001EA0E3 /* note_256_blue.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,7 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tom tang";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -471,7 +475,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69A26404-6860-415D-B682-6456A6337A72";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "11AC5D7E-CD23-4784-BADB-3F2391508C66";
 			};
 			name = Debug;
 		};
@@ -479,7 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tom tang";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = i1G_Prefix.pch;
@@ -487,7 +491,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "69A26404-6860-415D-B682-6456A6337A72";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "11AC5D7E-CD23-4784-BADB-3F2391508C66";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

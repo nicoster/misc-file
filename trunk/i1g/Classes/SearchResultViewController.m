@@ -43,6 +43,7 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
+	NSLog(@"perf, sv, viewDidLoad");
 	[super viewDidLoad];
 	[searchContainer.view addSubview:self.view];
 	self.view.frame = CGRectMake(0, 0, 320, 460);
@@ -261,9 +262,7 @@
 	[self.httpClient saveGivenIds];
 	
 	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
-	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];
-//	[[i1GAppDelegate sharedAppDelegate] forView:self.view showPrompt:@"开始播放 %@ - %@", song.title, song.singer];
-	
+	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];	
 }
 
 #pragma mark -
