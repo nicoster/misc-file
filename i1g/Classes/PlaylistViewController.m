@@ -111,14 +111,18 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	
 	hidListNext = 0;
+	
+
 	[self.httpClient songsByType: SLT_GIVEN withCriteria: nil];
 }
 
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section 
 {
+//	NSMutableArray *pl = self.httpClient.playList;
 	return [[self.httpClient playList] count];
 }
+
 
 - (UITableViewCell *)tableView:(UITableView *)tView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -137,7 +141,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 	cell.title.text = [song title];
-	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song singer], [song album]];
+	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song album], [song singer]];
 //	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.editingAccessoryType = UITableViewCellAccessoryNone;
 	
@@ -204,6 +208,67 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = [player isWaiting];
 }
 
+- (void)removeCells: (NSRange) range
+{
+	if (range.length == 0) {
+		return;
+	}
+//	NSMutableArray *pl = self.httpClient.playList;
+	NSAssert(range.location + range.length <= self.httpClient.playList.count, @"invalid range for removing playlist");
+	// animation for remove/append items
+	if (range.length) {
+		[[self.httpClient playList] removeObjectsInRange: range];
+		
+		NSMutableArray *cellsToDelete = [NSMutableArray arrayWithCapacity:range.length];
+		for (int i = range.location; i < range.location + range.length; i++) {
+			[cellsToDelete addObject: [NSIndexPath indexPathForRow: i inSection: 0]];
+		}	
+		
+		int insertCount = range.length;		
+		if (insertCount > [self.httpClient.songs count]) {
+			insertCount = [self.httpClient.songs count];
+			[self.httpClient.playList addObjectsFromArray:self.httpClient.songs];
+			[self.httpClient.songs removeAllObjects];
+		}
+		else {
+			range.location = 0;
+			[[self.httpClient playList] addObjectsFromArray: [[self.httpClient songs] subarrayWithRange: range]];
+			[[self.httpClient songs] removeObjectsInRange: range];
+		}
+		[self.httpClient saveGivenIds];
+		
+		NSMutableArray *cellsToInsert = [NSMutableArray arrayWithCapacity:insertCount];
+		for (int i = 0; i < insertCount; i++) {
+			[cellsToInsert addObject: [NSIndexPath indexPathForRow: [[self.httpClient playList] count] - range.length + i inSection: 0]];
+		}
+		
+		//filtering animation and presentation model update
+		[self.tableView beginUpdates];
+		{
+			[self.tableView deleteRowsAtIndexPaths:cellsToDelete withRowAnimation:UITableViewRowAnimationFade];
+			[self.tableView insertRowsAtIndexPaths:cellsToInsert withRowAnimation:UITableViewRowAnimationFade];
+			
+		}
+		[self.tableView endUpdates];
+		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+		
+		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
+		
+	}
+	
+	if (hidListNext == 0 && [[self.httpClient songs] count] < PLAYLISTSIZE) {
+		hidListNext = [self.httpClient songsByType:SLT_NEXT withCriteria:nil];
+	}
+	
+}
+
+
+- (void)tableView:(UITableView *)aTableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	[self removeCells:NSMakeRange(indexPath.row, 1)];
+	
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	
@@ -232,6 +297,9 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	
 	cell = (PlaylistCell*)[tableView cellForRowAtIndexPath:indexPath];
 	[cell updatePlayProgress:YES];
+	
+	[self removeCells:NSMakeRange(0, indexPath.row)];
+	return;
 	
 	// animation for remove/append items
 	if (indexPath.row) {

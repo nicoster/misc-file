@@ -27,6 +27,14 @@
 
 @synthesize searchBar, searchContainer;
 
+- (id) initWithContainer: (UIViewController*) container
+{
+	self = [super init];
+	self.searchContainer = container;
+	hidSearch = 0;
+	return self;
+}
+
 - (void)dealloc {
 	hidSearch = 0;
 	self.searchBar = nil;
@@ -193,7 +201,7 @@
 		cell.title.textAlignment = UITextAlignmentLeft;
 		NXSong *song = [[[NX1GClient shared1GClient] searchResults] objectAtIndex: indexPath.row];
 		cell.title.text = [song title];
-		cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song singer], [song album]];;
+		cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song album], [song singer]];
 		
 	}
 

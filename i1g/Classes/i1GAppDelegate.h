@@ -29,7 +29,7 @@
 //@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 //@property (nonatomic, retain) UIImage *imgSearch, *imgSetting, *imgPlaylist;
 @property (nonatomic, retain) UINavigationController *captionBar;
-@property (nonatomic, retain) IBOutlet SearchResultViewController *searchController;
+@property (nonatomic, retain) /*IBOutlet*/ SearchResultViewController *searchController;
 @property (nonatomic, retain) IBOutlet PlaylistViewController *playlistController;
 @property (nonatomic, retain) IBOutlet UIViewController *playlistViewContainer;
 @property (nonatomic, retain) IBOutlet UIViewController *searchViewContainer;

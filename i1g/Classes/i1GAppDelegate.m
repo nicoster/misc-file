@@ -48,6 +48,10 @@ static i1GAppDelegate* theAppDelegate;
 
 - (void) showSearchView: (id) sender
 {
+	if (searchController == nil) {
+		searchController = [[SearchResultViewController alloc] initWithContainer:searchViewContainer];
+		searchController.view;
+	}
 	[captionBar pushViewController:searchViewContainer animated:YES];
 }
 
@@ -118,7 +122,7 @@ static i1GAppDelegate* theAppDelegate;
 		pref.title = @"Settings";
 		playlistViewContainer.title = @"亦歌";
 		searchViewContainer.title = @"Playlists";
-//		searchController.view;
+		searchController = nil;
 	
 		captionBar = [[UINavigationController alloc] initWithRootViewController: pref];
 		pref.navigationItem.rightBarButtonItem = BARBUTTON(playlistViewContainer.title,@selector (showPlaylistView:));
