@@ -336,8 +336,8 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 		return;
 	}
 	
-	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-	NSLog(@"http, done, %@", string);
+//	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+//	NSLog(@"http, done, %@", string);
 	
 	GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:data options:0 error:nil] autorelease];
 	NSString *resultCode = nil;
@@ -347,6 +347,7 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 		resultCode = attrib.stringValue; //[NSString stringWithFormat: [attrib stringValue]];
 		break;
 	}
+	NSLog(@"http, done, %@", resultCode);
 
 	// 3240 3241, magic number is wrong
 	if ([resultCode isEqualToString: @"3240"] || [resultCode isEqualToString: @"3241"] ) {
