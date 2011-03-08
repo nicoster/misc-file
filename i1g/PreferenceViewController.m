@@ -24,8 +24,15 @@
 	[super dealloc];
 }
 
+- (void) animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context
+{
+	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
+}
+
 - (void)flipViews
 {
+	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.alpha = 0.1;
+	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[UIView beginAnimations:nil context:context];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
@@ -38,15 +45,14 @@
 	//	NSInteger maroon = [[whiteBackdrop subviews] indexOfObject:[whiteBackdrop viewWithTag:998]];
 	[self.view exchangeSubviewAtIndex:indexLogin withSubviewAtIndex:indexSettings];
 	//	
-	//	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationFinished:)];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
 	[UIView commitAnimations];	
 }
 
 - (void)loginDidFinish:(NSNotification *)notification;
 {
 	hid = 0;
-	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];
 	NSString* ret = [notification object];
 	
 	if (![ret isEqualToString:@"0000"])
@@ -64,7 +70,6 @@
 - (void)logoutDidFinish:(NSNotification *)notification;
 {
 	hid = 0;
-	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];
 	NSString* ret = [notification object];
 	
 	if (![ret isEqualToString:@"0000"])
@@ -95,7 +100,7 @@
 
 - (void)songDidLoad:(NSNotification *)notification;
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"kSongDidLoad" object:nil];
 	[self buttonPressed:@"kPreferenceSignin" inSettings:self.login];
 }
 
@@ -144,6 +149,7 @@
 		hid = [[NX1GClient shared1GClient] logout];
 	}
 	
+	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.alpha = 1;
 	[self.view addSubview:[PlaylistViewController sharedPlaylistViewCtrlr].overlay];
 }
 
