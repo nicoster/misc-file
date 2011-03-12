@@ -250,7 +250,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 			
 		}
 		[self.tableView endUpdates];
-		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
+//		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 		
 		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
 		
@@ -333,10 +333,10 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		{
 			[self.tableView deleteRowsAtIndexPaths:cellsToDelete withRowAnimation:UITableViewRowAnimationTop];
 			[self.tableView insertRowsAtIndexPaths:cellsToInsert withRowAnimation:UITableViewRowAnimationBottom];
+//			[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 
 		}
 		[self.tableView endUpdates];
-		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 		
 		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
 		

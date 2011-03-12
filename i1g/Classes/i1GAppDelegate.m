@@ -110,7 +110,8 @@ static i1GAppDelegate* theAppDelegate;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
 	NSLog(@"Start");
-	[[CSIAnalytics sharedAnalytics] startAnalyticsWithAccountName:nil];
+	NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"kPreferenceUser"];
+	[[CSIAnalytics sharedAnalytics] startAnalyticsWithAccountName: [NSString stringWithFormat:@"%d", [user hash]]];
 	[[CSIAnalytics sharedAnalytics] trackEventForCategory:@"launch" action:@"start" label:nil value:nil];
 	
 	theAppDelegate = self;
