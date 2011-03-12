@@ -1,6 +1,6 @@
 //
 //  NX1GClient.h
-//  iPhoneStreamingPlayer
+
 //
 //  Created by Nick Xiao on 2/21/11.
 //  Copyright 2011 Cisco CSG. All rights reserved.
