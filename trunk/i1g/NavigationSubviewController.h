@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class PlaylistViewController;
 
-@interface PlaylistViewContainer : UIViewController {
+@interface NavigationSubviewController : UIViewController {
 
-	IBOutlet PlaylistViewController* playlistController;
 }
 
 

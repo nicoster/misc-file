@@ -6,11 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "playlistviewcontainer.h"
-#import "PlaylistViewController.h"
-#import "AudioStreamer.h"
+#import "NavigationSubviewController.h"
 
-@implementation PlaylistViewContainer
+
+@implementation NavigationSubviewController
 
 // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 /*
@@ -67,7 +66,8 @@
     if (motion == UIEventSubtypeMotionShake)
     {
         NSLog(@"Shaking..");
-		[playlistController playNext];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"kPlayNext" object:nil];
+//		[playlistController playNext];
     }
 }
 
@@ -94,17 +94,17 @@
 	switch (event.subtype) {
 		case UIEventSubtypeRemoteControlNextTrack:
 		case UIEventSubtypeMotionShake:
-			[playlistController playNext];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kPlayNext" object:nil];
 			break;
 		case UIEventSubtypeRemoteControlPlay:
-			[playlistController.player start];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kStartPlayer" object:nil];
 			break;
 		case UIEventSubtypeRemoteControlTogglePlayPause:
 		case UIEventSubtypeRemoteControlPause:
-			[playlistController.player pause];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kPausePlayer" object:nil];
 			break;
 		case UIEventSubtypeRemoteControlStop:
-			[playlistController.player stop];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"kStopPlayer" object:nil];
 			break;
 		default:
 			break;

@@ -13,27 +13,35 @@
 
 @class PlaylistViewController;
 @class SearchResultViewController;
+@class NavigationSubviewController;
 
 @interface i1GAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
+    
 //    UITabBarController *tabBarController;
 //	UIImage *imgSearch, *imgSetting, *imgPlaylist;
-	IBOutlet PlaylistViewController *playlistController;
+
+	PlaylistViewController *playlistController;
+	SearchResultViewController *searchController;
 	
 	UINavigationController *captionBar;
-	SearchResultViewController *searchController;
+    
+    NavigationSubviewController *playlistContainer, *preferenceContainer, *searchContainer;
+    
 }
 
 + (i1GAppDelegate*) sharedAppDelegate;
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 //@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 //@property (nonatomic, retain) UIImage *imgSearch, *imgSetting, *imgPlaylist;
+
 @property (nonatomic, retain) UINavigationController *captionBar;
-@property (nonatomic, retain) /*IBOutlet*/ SearchResultViewController *searchController;
-@property (nonatomic, retain) IBOutlet PlaylistViewController *playlistController;
-@property (nonatomic, retain) IBOutlet UIViewController *playlistViewContainer;
-@property (nonatomic, retain) IBOutlet UIViewController *searchViewContainer;
+@property (nonatomic, retain) SearchResultViewController *searchController;
+@property (nonatomic, retain) PlaylistViewController *playlistController;
+
+@property (nonatomic, retain) NavigationSubviewController *playlistContainer, *preferenceContainer, *searchContainer;
 @property (nonatomic, retain) IBOutlet UILabel *promptBar;
+@property (nonatomic, retain) IBOutlet UIView* overlay;
 
 - (void) forView: (UIView*) parent showPrompt: (NSString*) formatString, ...;
 

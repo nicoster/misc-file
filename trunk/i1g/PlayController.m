@@ -72,7 +72,7 @@
 
 - (IBAction) nextPressed: (id)sender
 {
-	[self.playlistView playNext];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kPlayNext" object:nil];
 }
 
 

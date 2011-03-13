@@ -8,6 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+@class PlaylistViewController;
+
 @interface PlaylistCell : UITableViewCell {
     IBOutlet UIView *accessoryView;
     IBOutlet UIView *backgroundView;
@@ -17,6 +19,8 @@
 	NSTimer *secondsTimer;
 	NSString *reuseIdentifier;
 	IBOutlet UIButton *btnAdd, *btnPlay;
+    
+    PlaylistViewController *playlistController;
 }
 
 - (void) updatePlayProgress: (bool) update;
@@ -24,7 +28,7 @@
 @property (nonatomic, retain) NSTimer *secondsTimer;
 @property (nonatomic, copy) NSString *reuseIdentifier;
 @property (nonatomic, retain) UIButton *btnAdd;
-
+@property (nonatomic, retain) PlaylistViewController *playlistController;
 - (void) buttonAddPressed: (id) sender;
 
 @end
