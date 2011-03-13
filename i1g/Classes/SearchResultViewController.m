@@ -269,8 +269,10 @@
 	
 	[self.httpClient saveGivenIds];
 	
-	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
-	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];	
+//	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadPlaylist" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"kPlayNext" object:nil];
+//	[[PlaylistViewController sharedPlaylistViewCtrlr] playNext];	
 }
 
 #pragma mark -

@@ -13,7 +13,14 @@
 
 
 @implementation PreferenceViewController
-@synthesize settings, login, viewLogin, viewSettings;
+@synthesize settings, login, viewLogin, viewSettings, container;
+
+- (id) initWithContainer: (UIViewController*) aContainer
+{
+	self = [super init];
+	self.container = aContainer;
+	return self;
+}
 
 - (void) dealloc
 {
@@ -26,12 +33,12 @@
 
 - (void) animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context
 {
-	[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
+	[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];	
 }
 
 - (void)flipViews
 {
-	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.alpha = 0.1;
+	[i1GAppDelegate sharedAppDelegate].overlay.alpha = 0.1;
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	[UIView beginAnimations:nil context:context];
@@ -58,7 +65,7 @@
 	if (![ret isEqualToString:@"0000"])
 	{
 		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"Unable to sign in"];
-		[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
+		[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];	
 		return;
 	}
 	
@@ -76,7 +83,7 @@
 	if (![ret isEqualToString:@"0000"])
 	{
 		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"Unable to sign out"];
-		[[PlaylistViewController sharedPlaylistViewCtrlr].overlay removeFromSuperview];	
+		[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];	
 
 //		UIAlertView *alert = [
 //							  [[UIAlertView alloc]
@@ -111,6 +118,8 @@
 	NSLog(@"perf, pv, viewDidLoad");
     [super viewDidLoad];
 	hid = 0;
+    
+    [container.view addSubview:self.view];
 
 //	self.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 
@@ -119,7 +128,8 @@
 	[settings setDelegate:self];
 	[viewSettings setDataSource:settings];
 	[viewSettings setDelegate:settings];
-	
+    
+ 	
 	self.login = [[LlamaSettings alloc] initWithPlist:@"PreferenceLogin.plist"];
 	[login setDelegate:self];
 	[viewLogin setDataSource:login];
@@ -153,8 +163,8 @@
 		hid = [[NX1GClient shared1GClient] logout];
 	}
 	
-	[PlaylistViewController sharedPlaylistViewCtrlr].overlay.alpha = 1;
-	[self.view addSubview:[PlaylistViewController sharedPlaylistViewCtrlr].overlay];
+	[i1GAppDelegate sharedAppDelegate].overlay.alpha = 1;
+	[self.view addSubview:[i1GAppDelegate sharedAppDelegate].overlay];
 }
 
 - (void)viewDidUnload {

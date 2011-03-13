@@ -17,12 +17,15 @@
 #define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
 
-static PlaylistViewController* sharedPlaylistViewController = nil;
+//static PlaylistViewController* sharedPlaylistViewController = nil;
 
 @interface PlaylistViewController()
 
 - (IBAction) playPressed: (id)sender;
 - (IBAction) nextPressed: (id)sender;
+- (void) playNext;
+- (void) play: (NSArray*) urls;
+- (void) handlePlayNotification: (NSNotification*) note;
 
 @property (nonatomic, assign, readonly) NX1GClient* httpClient;
 @end
@@ -30,21 +33,22 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 @implementation PlaylistViewController
 //@synthesize playCtrl;
-@synthesize player, overlay;
+@synthesize player, container;
+
+- (id) initWithContainer: (UIViewController*) aContainer
+{
+	self = [super init];
+	self.container = aContainer;
+	return self;
+}
 
 - (void) dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 //	self.playCtrl = nil;
-	self.overlay = nil;
-	[sharedPlaylistViewController release];
-	sharedPlaylistViewController = nil;
-	[super dealloc];
-}
+    self.container = nil;
 
-+ (PlaylistViewController*) sharedPlaylistViewCtrlr
-{
-	return sharedPlaylistViewController;
+	[super dealloc];
 }
 
 - (void)songDidLoad:(NSNotification *)notification;
@@ -53,11 +57,16 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		hidListNext = 0;
 	}
 	
-	[overlay removeFromSuperview];
+	[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];
 	
 	[self.tableView reloadData];
 	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
 
+}
+
+- (void)reloadPlaylist: (NSNotification*) note
+{
+    [self.tableView reloadData];
 }
 
 - (NX1GClient*) httpClient
@@ -65,23 +74,44 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	return [NX1GClient shared1GClient];
 }
 
+- (void) startPlayer: (NSNotification*) note
+{
+    [self.player start];
+}
+
+- (void) stopPlayer: (NSNotification*) note
+{
+    [self.player stop];
+}
+
+- (void) pausePlayer: (NSNotification*) note
+{
+    [self.player pause];
+}
 
 - (void) viewDidLoad
 {
 	NSLog(@"perf, pl, viewDidLoad");
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayNotification:) name:@"kPlaySong" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNext) name:@"kPlayNext" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlaylist:) name:@"kReloadPlaylist" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startPlayer:) name:@"kStartPlayer" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopPlayer:) name:@"kStopPlayer" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer:) name:@"kPausePlayer" object:nil];
 	
-	NSAssert(sharedPlaylistViewController == nil, @"sharedPlaylistViewController isn't nil!");
-	sharedPlaylistViewController = self;
-	[sharedPlaylistViewController retain];
+//	NSAssert(sharedPlaylistViewController == nil, @"sharedPlaylistViewController isn't nil!");
+//	sharedPlaylistViewController = self;
+//	[sharedPlaylistViewController retain];
 		
 //	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
 	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
 	//	self.navigationItem.titleView = playCtrl.view;
 //	[self.view addSubview: playCtrl.view];
 	
-	self.view.backgroundColor = [UIColor clearColor];
+//	self.view.backgroundColor = [UIColor clearColor];
 
 	self.view.frame = CGRectMake(0, 0, 320, 416);
 	// build a toolbar
@@ -104,9 +134,9 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 		
 		tb.items = tbitems;
 		
-		[mainView addSubview: self.view];
-		[mainView addSubview: tb];
-		[mainView addSubview: overlay];
+		[container.view addSubview: self.view];
+		[container.view addSubview: tb];
+		[container.view addSubview: [i1GAppDelegate sharedAppDelegate].overlay];
 	}
 	
 	
@@ -134,7 +164,7 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	{
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"PlaylistCell" owner:self options:nil] lastObject];
 		cell.reuseIdentifier = @"PlaylistCell";
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
 	
 	[cell updatePlayProgress:NO];
@@ -144,6 +174,8 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song album], [song singer]];
 //	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.editingAccessoryType = UITableViewCellAccessoryNone;
+    
+    cell.playlistController = self;
 	
 	if (indexPath.row == 0) {
 		[cell updatePlayProgress:YES];
@@ -299,52 +331,6 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 	[cell updatePlayProgress:YES];
 	
 	[self removeCells:NSMakeRange(0, indexPath.row)];
-	return;
-	
-	// animation for remove/append items
-	if (indexPath.row) {
-		[[self.httpClient playList] removeObjectsInRange: NSMakeRange(0, indexPath.row)];
-		
-		int insertCount = indexPath.row;
-		
-		if (indexPath.row > [self.httpClient.songs count]) {
-			insertCount = [self.httpClient.songs count];
-			[self.httpClient.playList addObjectsFromArray:self.httpClient.songs];
-			[self.httpClient.songs removeAllObjects];
-		}
-		else {
-			NSRange range = NSMakeRange(0, indexPath.row);
-			[[self.httpClient playList] addObjectsFromArray: [[self.httpClient songs] subarrayWithRange: range]];
-			[[self.httpClient songs] removeObjectsInRange: range];
-		}
-		[self.httpClient saveGivenIds];
-
-		NSMutableArray *cellsToDelete = [NSMutableArray arrayWithCapacity:indexPath.row];
-		for (int i = 0; i < indexPath.row; i++) {
-			[cellsToDelete addObject: [NSIndexPath indexPathForRow: i inSection: indexPath.section]];
-		}
-		NSMutableArray *cellsToInsert = [NSMutableArray arrayWithCapacity:insertCount];
-		for (int i = 0; i < insertCount; i++) {
-			[cellsToInsert addObject: [NSIndexPath indexPathForRow: [[self.httpClient playList] count] - indexPath.row + i inSection: indexPath.section]];
-		}
-		
-		//filtering animation and presentation model update
-		[self.tableView beginUpdates];
-		{
-			[self.tableView deleteRowsAtIndexPaths:cellsToDelete withRowAnimation:UITableViewRowAnimationTop];
-			[self.tableView insertRowsAtIndexPaths:cellsToInsert withRowAnimation:UITableViewRowAnimationBottom];
-//			[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
-
-		}
-		[self.tableView endUpdates];
-		
-		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
-		
-	}
-	
-	if (hidListNext == 0 && [[self.httpClient songs] count] < PLAYLISTSIZE) {
-		hidListNext = [self.httpClient songsByType:SLT_NEXT withCriteria:nil];
-	}
 }
 
 - (IBAction) playPressed: (id)sender
@@ -393,6 +379,11 @@ static PlaylistViewController* sharedPlaylistViewController = nil;
 
 }
 
+- (void) handlePlayNotification: (NSNotification*) note
+{
+    NSArray* urls = [[note userInfo] objectForKey:@"kPlayUrls"];
+    [self play: urls];
+}
 
 @end
 

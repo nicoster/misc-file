@@ -11,8 +11,10 @@
 
 @interface PreferenceViewController : UIViewController <LlamaSettingsDelegate> {
 	LlamaSettings *settings, *login;
+    UIViewController* container;
 	int hid;
 }
-@property (retain) LlamaSettings *settings, *login;
-@property (retain) IBOutlet UITableView *viewLogin, *viewSettings;
+@property (nonatomic, retain) LlamaSettings *settings, *login;
+@property (nonatomic, retain) IBOutlet UITableView *viewLogin, *viewSettings;
+@property (nonatomic, retain) UIViewController* container;
 @end

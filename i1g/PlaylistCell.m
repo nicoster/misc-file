@@ -13,7 +13,7 @@
 
 @implementation PlaylistCell
 
-@synthesize title, subtitle, time, secondsTimer, reuseIdentifier, btnAdd;
+@synthesize title, subtitle, time, secondsTimer, reuseIdentifier, btnAdd, playlistController;
 
 - (NX1GClient*) httpClient
 {
@@ -50,8 +50,8 @@
 
 - (void)handle1SecondTimer: (NSTimer*) theTimer
 {	
-	int progress = (int)[PlaylistViewController sharedPlaylistViewCtrlr].player.progress;
-	int duration = (int)[PlaylistViewController sharedPlaylistViewCtrlr].player.duration;
+	int progress = (int) playlistController.player.progress;
+	int duration = (int) playlistController.player.duration;
 	if (progress) {
 		if (0) {
 			self.time.text = [NSString stringWithFormat: @"%d:%02d/%d:%02d", progress / 60, progress % 60, duration / 60, duration % 60];

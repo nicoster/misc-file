@@ -13,16 +13,21 @@
 #import "PlaylistViewController.h"
 #import "SearchResultViewController.h"
 #import "PreferenceViewController.h"
+#import "NavigationSubviewController.h"
 
 #import "CSIAnalytics.h"
 
 #define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
 
+NSString * const TITLE_PREFERENCE = @"Settings";
+NSString * const TITLE_MAIN = @"亦歌";
+NSString * const TITLE_SEARCH = @"Search";
+
 
 @implementation i1GAppDelegate
 
-@synthesize window, captionBar, searchController, playlistController, playlistViewContainer, searchViewContainer, promptBar;
+@synthesize window, captionBar, searchController, playlistController, playlistContainer, preferenceContainer, searchContainer, promptBar, overlay;
 //@synthesize tabBarController, imgSearch, imgSetting, imgPlaylist;
 
 - (void)dealloc {
@@ -32,14 +37,15 @@
 	self.captionBar = nil;
 	self.searchController = nil;
 	self.playlistController = nil;
-	self.playlistViewContainer = nil;
-	self.searchViewContainer = nil;
+	self.playlistContainer = nil;
+	self.searchContainer = nil;
+    self.preferenceContainer = nil;
 	self.promptBar = nil;
     [window release];
     [super dealloc];
 }
 
-static i1GAppDelegate* theAppDelegate;
+static i1GAppDelegate* theAppDelegate = nil;
 
 + (i1GAppDelegate*) sharedAppDelegate
 {
@@ -48,16 +54,30 @@ static i1GAppDelegate* theAppDelegate;
 
 - (void) showSearchView: (id) sender
 {
+    if (searchContainer == nil) {
+        self.searchContainer = [[NavigationSubviewController alloc] init];
+ 		searchContainer.title = TITLE_SEARCH;
+   }
 	if (searchController == nil) {
-		searchController = [[SearchResultViewController alloc] initWithContainer:searchViewContainer];
-		searchController.view;
+		self.searchController = [[SearchResultViewController alloc] initWithContainer:searchContainer];
+		searchController.view = searchController.view;
 	}
-	[captionBar pushViewController:searchViewContainer animated:YES];
+	[captionBar pushViewController:searchContainer animated:YES];
 }
 
 - (void) showPlaylistView: (id) sender
 {
-	[captionBar pushViewController:playlistViewContainer animated:YES];
+    BOOL animate = playlistContainer ? YES : NO;
+    if (playlistContainer == nil) {
+        self.playlistContainer = [[NavigationSubviewController alloc] init];
+		playlistContainer.title = TITLE_MAIN;
+    }
+    
+    if (playlistController == nil) {
+        self.playlistController = [[PlaylistViewController alloc] initWithContainer: playlistContainer];
+        playlistController.view = playlistController.view;
+    }
+	[captionBar pushViewController:playlistContainer animated:animate];
 }
 
 - (void) hidePrompt: (NSTimer*) timer
@@ -118,18 +138,16 @@ static i1GAppDelegate* theAppDelegate;
 	application.applicationSupportsShakeToEdit = YES;
 	
 	{
-		PreferenceViewController *pref = [[PreferenceViewController alloc] init];
-//		pref.view;		
-		pref.title = @"Settings";
-		playlistViewContainer.title = @"亦歌";
-		searchViewContainer.title = @"Playlists";
-		searchController = nil;
+        self.preferenceContainer = [[NavigationSubviewController alloc] init];
+		PreferenceViewController *pref = [[PreferenceViewController alloc] initWithContainer: preferenceContainer];
+        pref.view = pref.view;
+		preferenceContainer.title = TITLE_PREFERENCE;
 	
-		captionBar = [[UINavigationController alloc] initWithRootViewController: pref];
-		pref.navigationItem.rightBarButtonItem = BARBUTTON(playlistViewContainer.title,@selector (showPlaylistView:));
+		captionBar = [[UINavigationController alloc] initWithRootViewController: preferenceContainer];
+		preferenceContainer.navigationItem.rightBarButtonItem = BARBUTTON(TITLE_MAIN,@selector (showPlaylistView:));
 		
-		[captionBar pushViewController:playlistViewContainer animated:NO];
-		playlistViewContainer.navigationItem.rightBarButtonItem = BARBUTTON(searchViewContainer.title,@selector (showSearchView:));
+        [self showPlaylistView:nil];
+		playlistContainer.navigationItem.rightBarButtonItem = BARBUTTON(TITLE_SEARCH,@selector (showSearchView:));
 		
 		[self.window addSubview:captionBar.view];
 		[self.window makeKeyAndVisible];
