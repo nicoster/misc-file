@@ -64,6 +64,11 @@
 
 }
 
+- (void)favDidLoad: (NSNotification*) note
+{
+	[self.tableView reloadData];
+}
+
 - (void)reloadPlaylist: (NSNotification*) note
 {
     [self.tableView reloadData];
@@ -93,6 +98,7 @@
 {
 	NSLog(@"perf, pl, viewDidLoad");
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favDidLoad:) name:@"kFavDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayNotification:) name:@"kPlaySong" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNext) name:@"kPlayNext" object:nil];
@@ -101,18 +107,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startPlayer:) name:@"kStartPlayer" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopPlayer:) name:@"kStopPlayer" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer:) name:@"kPausePlayer" object:nil];
-	
-//	NSAssert(sharedPlaylistViewController == nil, @"sharedPlaylistViewController isn't nil!");
-//	sharedPlaylistViewController = self;
-//	[sharedPlaylistViewController retain];
-		
+			
 //	self.playCtrl = [[PlayController alloc] initWithPlaylistView: self];	
-	//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
-	//	self.navigationItem.titleView = playCtrl.view;
+//	[playCtrl.view setBackgroundColor: [UIColor clearColor]];
+//	self.navigationItem.titleView = playCtrl.view;
 //	[self.view addSubview: playCtrl.view];
 	
-//	self.view.backgroundColor = [UIColor clearColor];
-
 	self.view.frame = CGRectMake(0, 0, 320, 416);
 	// build a toolbar
 	{
@@ -174,7 +174,12 @@
 	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song album], [song singer]];
 //	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.editingAccessoryType = UITableViewCellAccessoryNone;
-    
+	
+    bool isFav = [self.httpClient isFav:song.songId];
+	UIImage *img = [UIImage imageNamed:(isFav ? @"fav.png" : @"notfav.png")];
+	[cell.btnAdd setBackgroundImage:img forState:UIControlStateNormal];
+	cell.btnAdd.alpha = (isFav ? 1 : 0.2);
+	
     cell.playlistController = self;
 	
 	if (indexPath.row == 0) {

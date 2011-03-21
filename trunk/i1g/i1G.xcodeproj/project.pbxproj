@@ -42,6 +42,9 @@
 		702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */; };
 		702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3113142AD6002A3AF1 /* CFNetwork.framework */; };
 		702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 702EFE3213142AD6002A3AF1 /* QuartzCore.framework */; };
+		7033C4B61336F3DB00282A81 /* fav.png in Resources */ = {isa = PBXBuildFile; fileRef = 7033C4B51336F3DB00282A81 /* fav.png */; };
+		7033C4BD133707CF00282A81 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = 7033C4BC133707CF00282A81 /* add.png */; };
+		7033C7DA1337AFBE00282A81 /* notfav.png in Resources */ = {isa = PBXBuildFile; fileRef = 7033C7D91337AFBE00282A81 /* notfav.png */; };
 		704E006E13260A69001EA0E3 /* note_256_blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 704E006D13260A69001EA0E3 /* note_256_blue.jpg */; };
 		7067850B132495370077CC44 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7067850A132495370077CC44 /* LlamaSettings.m */; };
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
@@ -126,6 +129,9 @@
 		702EFE3013142AD6002A3AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		702EFE3113142AD6002A3AF1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		702EFE3213142AD6002A3AF1 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = /System/Library/Frameworks/QuartzCore.framework; sourceTree = "<absolute>"; };
+		7033C4B51336F3DB00282A81 /* fav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fav.png; sourceTree = "<group>"; };
+		7033C4BC133707CF00282A81 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		7033C7D91337AFBE00282A81 /* notfav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notfav.png; sourceTree = "<group>"; };
 		704E006D13260A69001EA0E3 /* note_256_blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = note_256_blue.jpg; sourceTree = "<group>"; };
 		7067850A132495370077CC44 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = SOURCE_ROOT; };
 		70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceLogin.plist; sourceTree = "<group>"; };
@@ -324,6 +330,9 @@
 		70E00193131AB59C0087B877 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				7033C4BC133707CF00282A81 /* add.png */,
+				7033C4B51336F3DB00282A81 /* fav.png */,
+				7033C7D91337AFBE00282A81 /* notfav.png */,
 				704E006D13260A69001EA0E3 /* note_256_blue.jpg */,
 				70D723D0131DFFD4007FC8DF /* icon.png */,
 				70E0FD7613199C9D0087B877 /* search.png */,
@@ -421,6 +430,9 @@
 				700A32A4132342E40051F50A /* PlaylistCell.xib in Resources */,
 				704E006E13260A69001EA0E3 /* note_256_blue.jpg in Resources */,
 				70CDB108132BB55A00DBCF67 /* PlaylistViewController.xib in Resources */,
+				7033C4B61336F3DB00282A81 /* fav.png in Resources */,
+				7033C4BD133707CF00282A81 /* add.png in Resources */,
+				7033C7DA1337AFBE00282A81 /* notfav.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,7 +491,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F3F7155A-4480-413F-9048-D94724C27368";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE8A1CB7-5441-4A94-AE23-43186A0C63FB";
 			};
 			name = Debug;
 		};
@@ -496,7 +508,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F3F7155A-4480-413F-9048-D94724C27368";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE8A1CB7-5441-4A94-AE23-43186A0C63FB";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

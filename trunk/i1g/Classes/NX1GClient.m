@@ -32,6 +32,8 @@ NSString* URL_TRACK = @"http://www.1g1g.com/report/track.jsp";
 NSString* URL_LOADSHOW = @"http://www.1g1g.com/info/loadingshow.jsp?lastid=%d";
 NSString* URL_FAV = @"http://www.1g1g.com/user/pooloperate.jsp";
 NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstore=3&magic=%@";
+NSString* DATA_UNFAV = @"uniqueCode=%d&delete=%@&encoding=utf8&preferredstore=3&magic=%@";
+
 
 @interface GDataXMLElement(NX)
 - (NSString*) stringForName: (NSString*) key;
@@ -77,6 +79,11 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 	return array;
 }
 
+- (BOOL) isEqual:(NXSong*)object
+{
+	return [self.songId isEqual: object.songId];
+}
+
 @end
 
 @implementation NXSongUrl
@@ -94,7 +101,7 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 
 @implementation NX1GClient
 
-@synthesize magic, songs, playList, searchResults, history;
+@synthesize magic, songs, playList, searchResults, history, fav;
 
 + (NX1GClient*) shared1GClient
 {
@@ -221,7 +228,7 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 			break;
 	}
 	
-	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LISTSONG + type], nil];
+	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_LISTSONG + type], criteria, nil];
 	return (int)[self.httpClient connect: url withDelegate:self andPostData: data andUserData: userData];
 }
 
@@ -239,10 +246,22 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 	return [self.httpClient connect:URL_LOGIN withDelegate: self andPostData:data andUserData:userData];
 }
 
-- (void) addFavById: (NSString*) songId
+- (bool) isFav: (NSString*) songId
 {
-	
-	NSString *data = [NSString stringWithFormat:DATA_FAV, arc4random() * 0xffffffff, songId, magic];
+	for (NXSong *song in self.fav) {
+		if ([song.songId isEqualToString:songId]) {
+			NSLog(@"%@ is fav.", songId);
+			return YES;
+		}
+	}
+	NSLog(@"%@ is NOT fav.", songId);
+	return NO;
+}
+
+
+- (void) favById: (NSString*) songId
+{
+	NSString *data = [NSString stringWithFormat:([self isFav:songId] ? DATA_UNFAV : DATA_FAV), arc4random() * 0xffffffff, songId, magic];
 	NSArray *userData = [NSArray arrayWithObjects:[NSNumber numberWithInt: CT_FAV], nil];
 	[self.httpClient connect:URL_FAV withDelegate: self andPostData:data andUserData:userData];
 	
@@ -394,6 +413,21 @@ NSString* DATA_FAV = @"uniqueCode=%d&add=%@^&encoding=utf8&start=0&preferredstor
 			break;
 		}
 		case CT_LISTSONG + SLT_POOL:
+		{
+			NSString *user = [userData objectAtIndex:1];
+			if (user != nil && [user isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]]) {
+				self.fav = [self parseSongList:doc];
+				self.searchResults = self.fav;
+				
+				[[NSNotificationCenter defaultCenter] postNotificationName:@"kSearchDidFinish" object:nil];
+				
+				if ([self.fav count])
+					[[NSNotificationCenter defaultCenter] postNotificationName:@"kFavDidLoad" object:nil];
+				
+				return;
+			}
+			// fall through
+		}
 		case CT_LISTSONG + SLT_TAG:
 		case CT_LISTSONG + SLT_SEARCH:
 		{
