@@ -69,6 +69,10 @@
 		return;
 	}
 	
+	NSString *me = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
+	[[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: me];
+	
+	
 	[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"Welcome, %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]] 
 											  forKey:@"title4section0"];
 	[self.viewSettings reloadData];

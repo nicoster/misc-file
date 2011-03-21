@@ -198,6 +198,10 @@
 	else {
 		cell.title.alpha = 1;
 		cell.btnAdd.hidden = NO;
+		
+		UIImage *img = [UIImage imageNamed:@"add.png"];
+		[cell.btnAdd setBackgroundImage:img forState:UIControlStateNormal];
+
 		cell.title.textAlignment = UITextAlignmentLeft;
 		NXSong *song = [[[NX1GClient shared1GClient] searchResults] objectAtIndex: indexPath.row];
 		cell.title.text = [song title];

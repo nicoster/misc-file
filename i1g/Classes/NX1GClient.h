@@ -63,11 +63,11 @@ typedef enum _CallType
 
 @interface NX1GClient : NSObject<NXHttpClientDelegate> {
 	
-	NSMutableArray *songs, *playList, *searchResults, *history;
+	NSMutableArray *songs, *playList, *searchResults, *history, *fav;
 	NSString *magic;
 }
 
-@property (nonatomic, retain, readwrite) NSMutableArray *songs, *searchResults, *history, *playList;
+@property (nonatomic, retain, readwrite) NSMutableArray *songs, *searchResults, *history, *playList, *fav;
 
 + (NX1GClient*) shared1GClient;
 
@@ -79,7 +79,8 @@ typedef enum _CallType
 - (int) loginWithUser: (NSString*) user andPassword: (NSString*) passwd;
 - (void) loadLyricWithId: (NSString*) songId;
 - (void) loadCommentWithTitle: (NSString*) title;
-- (void) addFavById: (NSString*) songId;
+- (void) favById: (NSString*) songId;
 - (int) logout;
+- (bool) isFav: (NSString*) songId;
 
 @end

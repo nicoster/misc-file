@@ -33,8 +33,27 @@
 	if ([self.reuseIdentifier isEqualToString:@"PlaylistCell"]) {
 		NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
 
-		[self.httpClient addFavById:song.songId];
-		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"收藏 %@ - %@", song.title, song.singer];
+		[self.httpClient favById:song.songId];
+		
+		UIImage *img = nil;
+		NSString *prompt = nil;
+		if ([self.httpClient isFav:song.songId]) {
+			[self.httpClient.fav removeObject:song];
+			img = [UIImage imageNamed: @"notfav.png"];
+			prompt = [NSString stringWithFormat:@"取消收藏 %@ - %@", song.title, song.singer];
+			self.btnAdd.alpha = 0.2;
+		}
+		else {
+			[self.httpClient.fav addObject:song];
+			img = [UIImage imageNamed:@"fav.png"];
+			prompt = [NSString stringWithFormat:@"收藏 %@ - %@", song.title, song.singer];
+			self.btnAdd.alpha = 1;
+		}
+
+		
+		[self.btnAdd setBackgroundImage:img forState:UIControlStateNormal];
+		
+		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:prompt];
 
 		
 	}else {
