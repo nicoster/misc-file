@@ -250,11 +250,11 @@ NSString* DATA_UNFAV = @"uniqueCode=%d&delete=%@&encoding=utf8&preferredstore=3&
 {
 	for (NXSong *song in self.fav) {
 		if ([song.songId isEqualToString:songId]) {
-			NSLog(@"%@ is fav.", songId);
+//			NSLog(@"%@ is fav.", songId);
 			return YES;
 		}
 	}
-	NSLog(@"%@ is NOT fav.", songId);
+//	NSLog(@"%@ is NOT fav.", songId);
 	return NO;
 }
 
