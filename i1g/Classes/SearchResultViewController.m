@@ -18,6 +18,7 @@
 @property (nonatomic, retain) UISearchBar *searchBar;
 @property (nonatomic, assign, readonly) NX1GClient* httpClient;
 - (void)searchDidFinish:(NSNotification *)notification;
+- (void)loadFav:(NSNotification*)note;
 
 
 @end
@@ -80,7 +81,8 @@
 //	searchDC.searchResultsDataSource = self;
 //	searchDC.searchResultsDelegate = self;
 	
-	 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDidFinish:) name:@"kSearchDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDidFinish:) name:@"kSearchDidFinish" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFav:) name:@"kLoadFav" object:nil];
 }
  
 
@@ -91,10 +93,7 @@
 	switch (sender.selectedSegmentIndex) {
 		case 0:
 		{
-			[searchBar resignFirstResponder];
-			searchBar.text = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
-			hidSearch = [[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: searchBar.text];
-			[self.tableView reloadData];
+			[self loadFav:nil];
 			break;
 		}
 		case 1:
@@ -137,6 +136,14 @@
 */
 
 #pragma mark -
+
+- (void)loadFav:(NSNotification*)note
+{
+	[searchBar resignFirstResponder];
+	searchBar.text = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
+	hidSearch = [[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: searchBar.text];
+	[self.tableView reloadData];	
+}
 
 - (void)searchDidFinish:(NSNotification *)notification;
 {

@@ -154,18 +154,18 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 	}
 }
 
-- (NXHttpClientData*) httpDataByConnection: (NSURLConnection*) connection
-{
-	NSEnumerator *e = [connections objectEnumerator];
-	NXHttpClientData* data = nil;
-	
-	while (data = [e nextObject]) {
-		if (data.connection == connection) {
-			return data;
-		}
-	}
-	return nil;
-}
+//- (NXHttpClientData*) httpDataByConnection: (NSURLConnection*) connection
+//{
+//	NSEnumerator *e = [connections objectEnumerator];
+//	NXHttpClientData* data = nil;
+//	
+//	while (data = [e nextObject]) {
+//		if (data.connection == connection) {
+//			return data;
+//		}
+//	}
+//	return nil;
+//}
 
 
 - (NSValue*) keyWithHttpConnectionId: (HttpConnectionId) anId {
@@ -183,10 +183,10 @@ NSString * const kNXHttpClientContentType = @"kNXHttpClientContentType";
 
 - (void) endConnection: (HttpConnectionId) connection
 {
-//	NSLog(@"http, end:%d, retain:%d", connection, [connection retainCount]);
-	NXHttpClientData *data = [self httpDataByConnection: (NSURLConnection*)connection];
-	[self.connections removeObjectForKey: [self keyWithHttpConnectionId: data.hid]];
-//	NSLog(@"http, ~end:%d, retain:%d", connection, [connection retainCount]);
+//	NSLog(@"http, end:%d, count:%d", connection, [self.connections count]);
+//	NXHttpClientData *data = [self httpDataByConnection: (NSURLConnection*)connection];
+	[self.connections removeObjectForKey: [self keyWithHttpConnectionId: connection]];
+//	NSLog(@"http, ~end:%d, count:%d", connection, [self.connections count]);
 }
 
 - (void) dealloc

@@ -71,6 +71,8 @@
 	
 	NSString *me = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
 	[[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: me];
+	// doesn't work as searchview hasn't been loaded yet, thus no observer for this notification.
+//	[[NSNotificationCenter defaultCenter] postNotificationName:@"kLoadFav" object:nil];	
 	
 	
 	[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"Welcome, %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]] 
