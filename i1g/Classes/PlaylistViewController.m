@@ -14,10 +14,6 @@
 #import "SongDetailViewController.h"
 #import "PlaylistCell.h"
 
-#define TABS [@"Playlist Search Setting" componentsSeparatedByString:@" "]
-//#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
-
-//static PlaylistViewController* sharedPlaylistViewController = nil;
 
 @interface PlaylistViewController()
 
@@ -27,7 +23,7 @@
 - (void) play: (NSArray*) urls;
 - (void) handlePlayNotification: (NSNotification*) note;
 
-@property (nonatomic, assign, readonly) NX1GClient* httpClient;
+@property (nonatomic, assign, readonly) NX1GClient* i1gClient;
 @end
 
 
@@ -74,7 +70,7 @@
     [self.tableView reloadData];
 }
 
-- (NX1GClient*) httpClient
+- (NX1GClient*) i1gClient
 {
 	return [NX1GClient shared1GClient];
 }
@@ -92,6 +88,13 @@
 - (void) pausePlayer: (NSNotification*) note
 {
     [self.player pause];
+}
+
+- (void) clearAll: (id) sender
+{
+	[self.i1gClient.playList removeAllObjects];
+	[self.tableView reloadData];
+	[self stopPlayer:nil];
 }
 
 - (void) viewDidLoad
@@ -119,10 +122,15 @@
 		UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 372.0f, 320.0f, 44.0f)];
 		NSMutableArray *tbitems = [NSMutableArray array];
 		
-		UIBarButtonItem *bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
-		bbi.width = 120.0f;
+		UIBarButtonItem *bbi = nil;
+		
+		[tbitems addObject:BARBUTTON(@"清除所有", @selector(clearAll:))];
+		
+		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+		bbi.width = 70.0f;
 		[tbitems addObject:bbi];
 		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playPressed:))];
+		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease];
 //		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
 //		bbi.width = 20.0f;
 //		[tbitems addObject:bbi];
@@ -143,14 +151,14 @@
 	hidListNext = 0;
 	
 
-	[self.httpClient songsByType: SLT_GIVEN withCriteria: nil];
+	[self.i1gClient songsByType: SLT_GIVEN withCriteria: nil];
 }
 
 
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section 
 {
-//	NSMutableArray *pl = self.httpClient.playList;
-	return [[self.httpClient playList] count];
+//	NSMutableArray *pl = self.i1gClient.playList;
+	return [[self.i1gClient playList] count];
 }
 
 
@@ -164,21 +172,22 @@
 	{
 		cell = [[[NSBundle mainBundle] loadNibNamed:@"PlaylistCell" owner:self options:nil] lastObject];
 		cell.reuseIdentifier = @"PlaylistCell";
-		cell.selectionStyle = UITableViewCellSelectionStyleGray;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	
 	[cell updatePlayProgress:NO];
 	
-	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
+	NXSong *song = [[self.i1gClient playList] objectAtIndex: indexPath.row];
 	cell.title.text = [song title];
 	cell.subtitle.text = [NSString stringWithFormat:@"%@ - %@", [song album], [song singer]];
 //	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 //	cell.editingAccessoryType = UITableViewCellAccessoryNone;
 	
-    bool isFav = [self.httpClient isFav:song.songId];
+    bool isFav = [self.i1gClient isFav:song.songId];
 	UIImage *img = [UIImage imageNamed:(isFav ? @"fav.png" : @"notfav.png")];
 	[cell.btnAdd setBackgroundImage:img forState:UIControlStateNormal];
 	cell.btnAdd.alpha = (isFav ? 1 : 0.2);
+	cell.btnAdd.hidden = NO;
 	
     cell.playlistController = self;
 	
@@ -236,7 +245,7 @@
 	if (self.player.state == AS_STOPPED || self.player.state == AS_INITIALIZED) 
 	{
 		
-		[self performSelector:@selector(playNext) withObject: nil afterDelay: 1];
+		[self performSelector:@selector(playNext) withObject: nil afterDelay: 0.3];
 	}
 	else {
 		[NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(playNext) object:nil];
@@ -250,11 +259,11 @@
 	if (range.length == 0) {
 		return;
 	}
-//	NSMutableArray *pl = self.httpClient.playList;
-	NSAssert(range.location + range.length <= self.httpClient.playList.count, @"invalid range for removing playlist");
+//	NSMutableArray *pl = self.i1gClient.playList;
+	NSAssert(range.location + range.length <= self.i1gClient.playList.count, @"invalid range for removing playlist");
 	// animation for remove/append items
 	if (range.length) {
-		[[self.httpClient playList] removeObjectsInRange: range];
+		[[self.i1gClient playList] removeObjectsInRange: range];
 		
 		NSMutableArray *cellsToDelete = [NSMutableArray arrayWithCapacity:range.length];
 		for (int i = range.location; i < range.location + range.length; i++) {
@@ -262,21 +271,21 @@
 		}	
 		
 		int insertCount = range.length;		
-		if (insertCount > [self.httpClient.songs count]) {
-			insertCount = [self.httpClient.songs count];
-			[self.httpClient.playList addObjectsFromArray:self.httpClient.songs];
-			[self.httpClient.songs removeAllObjects];
+		if (insertCount > [self.i1gClient.songs count]) {
+			insertCount = [self.i1gClient.songs count];
+			[self.i1gClient.playList addObjectsFromArray:self.i1gClient.songs];
+			[self.i1gClient.songs removeAllObjects];
 		}
 		else {
 			range.location = 0;
-			[[self.httpClient playList] addObjectsFromArray: [[self.httpClient songs] subarrayWithRange: range]];
-			[[self.httpClient songs] removeObjectsInRange: range];
+			[[self.i1gClient playList] addObjectsFromArray: [[self.i1gClient songs] subarrayWithRange: range]];
+			[[self.i1gClient songs] removeObjectsInRange: range];
 		}
-		[self.httpClient saveGivenIds];
+		[self.i1gClient saveGivenIds];
 		
 		NSMutableArray *cellsToInsert = [NSMutableArray arrayWithCapacity:insertCount];
 		for (int i = 0; i < insertCount; i++) {
-			[cellsToInsert addObject: [NSIndexPath indexPathForRow: [[self.httpClient playList] count] - range.length + i inSection: 0]];
+			[cellsToInsert addObject: [NSIndexPath indexPathForRow: [[self.i1gClient playList] count] - range.length + i inSection: 0]];
 		}
 		
 		//filtering animation and presentation model update
@@ -289,12 +298,12 @@
 		[self.tableView endUpdates];
 //		[self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionTop animated:YES];
 		
-		NSLog(@"pl, songs:%d", [[self.httpClient songs] count]);
+		NSLog(@"pl, songs:%d", [[self.i1gClient songs] count]);
 		
 	}
 	
-	if (hidListNext == 0 && [[self.httpClient songs] count] < PLAYLISTSIZE) {
-		hidListNext = [self.httpClient songsByType:SLT_NEXT withCriteria:nil];
+	if (hidListNext == 0 && [[self.i1gClient songs] count] < PLAYLISTSIZE) {
+		hidListNext = [self.i1gClient songsByType:SLT_NEXT withCriteria:nil];
 	}
 	
 }
@@ -309,17 +318,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	
-	NXSong *song = [[self.httpClient playList] objectAtIndex: indexPath.row];
+	NXSong *song = [[self.i1gClient playList] objectAtIndex: indexPath.row];
 	
 	if (self.player.progress > 6) {
-		NXSong *playing = [[self.httpClient playList] objectAtIndex: 0];
+		NXSong *playing = [[self.i1gClient playList] objectAtIndex: 0];
 		if (playing) {
-			if (self.httpClient.history) {
-				[self.httpClient.history addObject:playing];
+			if (self.i1gClient.history) {
+				[self.i1gClient.history addObject:playing];
 			} else {
-				self.httpClient.history = [NSMutableArray arrayWithObject:playing];
+				self.i1gClient.history = [NSMutableArray arrayWithObject:playing];
 			}
-			NSLog(@"pl, add history:%@, %d, count:%d", playing.title, (int)self.player.progress, self.httpClient.history.count);
+			NSLog(@"pl, add history:%@, %d, count:%d", playing.title, (int)self.player.progress, self.i1gClient.history.count);
 			
 		}
 	}
@@ -374,7 +383,7 @@
 
 - (void) playNext
 {
-	if ([self.httpClient.playList count] > 1) {
+	if ([self.i1gClient.playList count] > 1) {
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionNone];
 		[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:1 inSection:0]];
 	}

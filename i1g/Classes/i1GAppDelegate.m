@@ -17,12 +17,12 @@
 
 #import "CSIAnalytics.h"
 
-#define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
+//#define TABS [@"Playlist Search Settings" componentsSeparatedByString:@" "]
 //#define MAINLABEL	((UILabel *)self.navigationItem.titleView)
 
-NSString * const TITLE_PREFERENCE = @"Settings";
+NSString * const TITLE_PREFERENCE = @"设置";
 NSString * const TITLE_MAIN = @"亦歌";
-NSString * const TITLE_SEARCH = @"Search";
+NSString * const TITLE_SEARCH = @"搜索";
 
 
 @implementation i1GAppDelegate

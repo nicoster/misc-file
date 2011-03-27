@@ -75,7 +75,7 @@
 //	[[NSNotificationCenter defaultCenter] postNotificationName:@"kLoadFav" object:nil];	
 	
 	
-	[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"Welcome, %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]] 
+	[[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"您好, %@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]] 
 											  forKey:@"title4section0"];
 	[self.viewSettings reloadData];
 	[self flipViews];

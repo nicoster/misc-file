@@ -16,7 +16,7 @@
 @interface SearchResultViewController()
 
 @property (nonatomic, retain) UISearchBar *searchBar;
-@property (nonatomic, assign, readonly) NX1GClient* httpClient;
+@property (nonatomic, assign, readonly) NX1GClient* i1gClient;
 - (void)searchDidFinish:(NSNotification *)notification;
 - (void)loadFav:(NSNotification*)note;
 
@@ -26,12 +26,12 @@
 
 @implementation SearchResultViewController
 
-@synthesize searchBar, searchContainer;
+@synthesize searchBar, container;
 
-- (id) initWithContainer: (UIViewController*) container
+- (id) initWithContainer: (UIViewController*) aContainer
 {
 	self = [super init];
-	self.searchContainer = container;
+	self.container = aContainer;
 	hidSearch = 0;
 	return self;
 }
@@ -39,13 +39,22 @@
 - (void)dealloc {
 	hidSearch = 0;
 	self.searchBar = nil;
-	self.searchContainer = nil;
+	self.container = nil;
     [super dealloc];
 }
 
-- (NX1GClient*) httpClient
+- (NX1GClient*) i1gClient
 {
 	return [NX1GClient shared1GClient];
+}
+
+- (void) addAll: (id) sender
+{
+	[self.i1gClient.playList addObjectsFromArray: self.i1gClient.searchResults];
+	[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"添加 %d 首歌曲到播放列表", [self.i1gClient.searchResults count]];
+ 	[self.i1gClient saveGivenIds];
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadPlaylist" object:nil];
+	
 }
 
 #pragma mark -
@@ -54,8 +63,8 @@
 - (void)viewDidLoad {
 	NSLog(@"perf, sv, viewDidLoad");
 	[super viewDidLoad];
-	[searchContainer.view addSubview:self.view];
-	self.view.frame = CGRectMake(0, 0, 320, 460);
+//	[searchContainer.view addSubview:self.view];
+//	self.view.frame = CGRectMake(0, 0, 320, 460);
 
 	hidSearch = 0;
 
@@ -73,13 +82,43 @@
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar; 
 	[segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
 	segmentedControl.momentary = YES;
-	searchContainer.navigationItem.titleView = segmentedControl;	
+	self.container.navigationItem.titleView = segmentedControl;	
 	
 	
 //	UISearchDisplayController *searchDC = nil;
 //	searchDC = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
 //	searchDC.searchResultsDataSource = self;
 //	searchDC.searchResultsDelegate = self;
+	
+	self.view.frame = CGRectMake(0, 0, 320, 416);
+	// build a toolbar
+	{
+		UIToolbar *tb = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0f, 372.0f, 320.0f, 44.0f)];
+		NSMutableArray *tbitems = [NSMutableArray array];
+		
+//		UIBarButtonItem *bbi = nil;
+		
+		[tbitems addObject:BARBUTTON(@"添加所有", @selector(addAll:))];
+		
+//		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//		bbi.width = 120.0f;
+//		[tbitems addObject:bbi];
+//		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPlay, @selector(playPressed:))];
+//		//		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//		//		bbi.width = 20.0f;
+//		//		[tbitems addObject:bbi];
+//		//		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemPause, @selector(playPressed:))];
+//		bbi = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil] autorelease];
+//		bbi.width = 20.0f;
+//		[tbitems addObject:bbi];
+//		[tbitems addObject:SYSBARBUTTON(UIBarButtonSystemItemFastForward, @selector(nextPressed:))];
+		
+		tb.items = tbitems;
+		
+		[self.container.view addSubview: self.view];
+		[self.container.view addSubview: tb];
+	}
+	
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchDidFinish:) name:@"kSearchDidFinish" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFav:) name:@"kLoadFav" object:nil];
@@ -274,11 +313,11 @@
     [detailViewController release];
     */
 	
-	NXSong *song = [[self.httpClient searchResults] objectAtIndex: indexPath.row];
+	NXSong *song = [[self.i1gClient searchResults] objectAtIndex: indexPath.row];
 	
-	[self.httpClient.playList insertObject: song atIndex: [self.httpClient.playList count] ? 1 : 0];
+	[self.i1gClient.playList insertObject: song atIndex: [self.i1gClient.playList count] ? 1 : 0];
 	
-	[self.httpClient saveGivenIds];
+	[self.i1gClient saveGivenIds];
 	
 //	[[[PlaylistViewController sharedPlaylistViewCtrlr] tableView] reloadData];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"kReloadPlaylist" object:nil];
