@@ -17,5 +17,5 @@
 
 - (id) initWithContainer: (UIViewController*) container;
 
-@property (nonatomic, retain) UIViewController *searchContainer;
+@property (nonatomic, retain) UIViewController *container;
 @end

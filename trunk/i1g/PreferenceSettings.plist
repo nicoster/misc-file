@@ -18,7 +18,7 @@
 			<key>Type</key>
 			<string>BLFullButtonSpecifier</string>
 			<key>Title</key>
-			<string>Sign out</string>
+			<string>退出</string>
 			<key>Key</key>
 			<string>kPreferenceSignout</string>
 		</dict>
@@ -26,13 +26,13 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Contact Us</string>
+			<string>联系我们</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>Go to Forum..</string>
+			<string>论坛..</string>
 			<key>Key</key>
 			<string>http://tieba.baidu.com/f?kw=%D2%E0%B8%E8</string>
 			<key>ExternalLaunch</key>
@@ -44,7 +44,7 @@
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>Write to Developers</string>
+			<string>邮件</string>
 			<key>Key</key>
 			<string>mailto:nicoster@gmail.com</string>
 			<key>ExternalLaunch</key>

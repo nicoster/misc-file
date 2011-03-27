@@ -52,6 +52,7 @@
 
 		
 		[self.btnAdd setBackgroundImage:img forState:UIControlStateNormal];
+		self.btnAdd.hidden = NO;
 		
 		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:prompt];
 
