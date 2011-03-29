@@ -14,6 +14,7 @@
 #import "SearchResultViewController.h"
 #import "PreferenceViewController.h"
 #import "NavigationSubviewController.h"
+#import "Reachability.h"
 
 #import "CSIAnalytics.h"
 
@@ -124,11 +125,42 @@ static i1GAppDelegate* theAppDelegate = nil;
 	[NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(hidePrompt:) userInfo:nil repeats:NO];
 }
 
+- (void) updateInterfaceWithReachability: (Reachability*) curReach
+{
+    if(curReach == network)
+	{
+        NetworkStatus netStatus = [curReach currentReachabilityStatus];
+		
+		if (netStatus == NotReachable)
+		{
+			[[NSNotificationCenter defaultCenter] postNotificationName:@"kSongDidLoad" object:nil];
+			UIAlertView *alert = [
+								  [[UIAlertView alloc]
+								   initWithTitle:@"1G"
+								   message:@"网络不可用，请检测网络后再试."
+								   delegate:self
+								   cancelButtonTitle:NSLocalizedString(@"OK", @"")
+								   otherButtonTitles: nil]
+								  autorelease];
+			[alert
+			 performSelector:@selector(show)
+			 onThread:[NSThread mainThread]
+			 withObject:nil
+			 waitUntilDone:NO];
+		}
+		else {
+			[[NX1GClient shared1GClient] songsByType: SLT_GIVEN withCriteria: nil];
+
+		}
+
+    }
+}
+
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-	
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions { 
+		
 	NSLog(@"Start");
 	NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"kPreferenceUser"];
 	[[CSIAnalytics sharedAnalytics] startAnalyticsWithAccountName: [NSString stringWithFormat:@"%d", [user hash]]];
@@ -152,8 +184,11 @@ static i1GAppDelegate* theAppDelegate = nil;
 		[self.window addSubview:captionBar.view];
 		[self.window makeKeyAndVisible];
 		
-		return YES;
 	}
+	network = [[Reachability reachabilityForInternetConnection] retain];
+	[network startNotifier];
+	
+	return YES;
 	
 //	self.imgSearch = [UIImage imageNamed:@"search.png"];
 //	self.imgSetting = [UIImage imageNamed:@"setting.png"];
@@ -260,6 +295,7 @@ static i1GAppDelegate* theAppDelegate = nil;
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, 
 	 optionally refresh the user interface.
      */
+	[self updateInterfaceWithReachability: network];
 }
 
 

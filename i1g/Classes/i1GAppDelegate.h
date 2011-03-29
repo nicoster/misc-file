@@ -14,6 +14,7 @@
 @class PlaylistViewController;
 @class SearchResultViewController;
 @class NavigationSubviewController;
+@class Reachability;
 
 @interface i1GAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
@@ -25,6 +26,8 @@
 	SearchResultViewController *searchController;
 	
 	UINavigationController *captionBar;
+	
+	Reachability *network;
     
     NavigationSubviewController *playlistContainer, *preferenceContainer, *searchContainer;
     

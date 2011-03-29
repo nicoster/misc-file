@@ -13,12 +13,13 @@
 
 
 @implementation PreferenceViewController
-@synthesize settings, login, viewLogin, viewSettings, container;
+@synthesize settings, login, viewLogin, viewSettings, container, loginstate;
 
 - (id) initWithContainer: (UIViewController*) aContainer
 {
 	self = [super init];
 	self.container = aContainer;
+	loginstate = SIGNED_OFF;
 	return self;
 }
 
@@ -29,6 +30,11 @@
 	self.viewLogin = nil;
 	self.viewSettings = nil;
 	[super dealloc];
+}
+
+- (bool) isSignedIn
+{
+	return self.loginstate == SIGNED_IN;
 }
 
 - (void) animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context
@@ -69,6 +75,8 @@
 		return;
 	}
 	
+	self.loginstate = SIGNED_IN;
+	
 	NSString *me = [NSString stringWithFormat: @"@%@", [[NSUserDefaults standardUserDefaults] stringForKey:@"kPreferenceUser"]];
 	[[NX1GClient shared1GClient] songsByType:SLT_SEARCH withCriteria: me];
 	// doesn't work as searchview hasn't been loaded yet, thus no observer for this notification.
@@ -90,22 +98,10 @@
 	{
 		[[i1GAppDelegate sharedAppDelegate] forView:nil showPrompt:@"Unable to sign out"];
 		[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];	
-
-//		UIAlertView *alert = [
-//							  [[UIAlertView alloc]
-//							   initWithTitle:@"1G1G"
-//							   message:@"Unable to sign out."
-//							   delegate:self
-//							   cancelButtonTitle:NSLocalizedString(@"OK", @"")
-//							   otherButtonTitles: nil]
-//							  autorelease];
-//		[alert
-//		 performSelector:@selector(show)
-//		 onThread:[NSThread mainThread]
-//		 withObject:nil
-//		 waitUntilDone:NO];
 		return;
 	}
+	
+	self.loginstate = SIGNED_OFF;
 	
 	[[NSUserDefaults standardUserDefaults] setObject:nil
 											  forKey:@"title4section0"];
@@ -116,8 +112,15 @@
 
 - (void)songDidLoad:(NSNotification *)notification;
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"kSongDidLoad" object:nil];
-	[self buttonPressed:@"kPreferenceSignin" inSettings:self.login];
+	if ([[NX1GClient shared1GClient].playList count] || [self isSignedIn])
+	{
+		[[NSNotificationCenter defaultCenter] removeObserver:self name:@"kSongDidLoad" object:nil];
+	}
+	
+	if (! [self isSignedIn])
+	{
+		[self buttonPressed:@"kPreferenceSignin" inSettings:self.login];
+	}
 }
 
 - (void)viewDidLoad {

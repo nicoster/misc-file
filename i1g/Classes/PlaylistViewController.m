@@ -52,17 +52,13 @@
 	if (hidListNext) {
 		hidListNext = 0;
 	}
-	
+
 	[[i1GAppDelegate sharedAppDelegate].overlay removeFromSuperview];
 	
-	[self.tableView reloadData];
-	[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
-
-}
-
-- (void)favDidLoad: (NSNotification*) note
-{
-	[self.tableView reloadData];
+	if ([self.i1gClient.playList count]) {
+		[self reloadPlaylist:nil];
+		[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
+	}
 }
 
 - (void)reloadPlaylist: (NSNotification*) note
@@ -93,7 +89,7 @@
 - (void) clearAll: (id) sender
 {
 	[self.i1gClient.playList removeAllObjects];
-	[self.tableView reloadData];
+	[self reloadPlaylist:nil];
 	[self stopPlayer:nil];
 }
 
@@ -101,7 +97,7 @@
 {
 	NSLog(@"perf, pl, viewDidLoad");
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(songDidLoad:) name:@"kSongDidLoad" object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(favDidLoad:) name:@"kFavDidLoad" object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPlaylist:) name:@"kFavDidLoad" object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playerStateDidChange:) name:@"ASStatusChangedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handlePlayNotification:) name:@"kPlaySong" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playNext) name:@"kPlayNext" object:nil];
@@ -349,6 +345,8 @@
 
 - (IBAction) playPressed: (id)sender
 {
+	if ([self.i1gClient.playList count] == 0) return;
+	
 	if ([player isPaused] || [player isPlaying]) {
 		[self play:nil];
 	}

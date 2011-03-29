@@ -47,6 +47,8 @@
 		7033C7DA1337AFBE00282A81 /* notfav.png in Resources */ = {isa = PBXBuildFile; fileRef = 7033C7D91337AFBE00282A81 /* notfav.png */; };
 		704E006E13260A69001EA0E3 /* note_256_blue.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 704E006D13260A69001EA0E3 /* note_256_blue.jpg */; };
 		7067850B132495370077CC44 /* LlamaSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7067850A132495370077CC44 /* LlamaSettings.m */; };
+		706B5BFC1340E60100371DD9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 706B5BFB1340E60100371DD9 /* Reachability.m */; };
+		706B5C121340E8D900371DD9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 706B5C111340E8D900371DD9 /* SystemConfiguration.framework */; };
 		70BE9C18131BF1D100F392ED /* PreferenceLogin.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */; };
 		70BE9C94131C085200F392ED /* PreferenceSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 70BE9C93131C085200F392ED /* PreferenceSettings.plist */; };
 		70BF88121317914E00A4EC65 /* PlaylistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BF88111317914E00A4EC65 /* PlaylistViewController.m */; };
@@ -55,6 +57,7 @@
 		70D723D1131DFFD4007FC8DF /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 70D723D0131DFFD4007FC8DF /* icon.png */; };
 		70E0018C131AB5610087B877 /* SongDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E0018B131AB5610087B877 /* SongDetailViewController.m */; };
 		70E00192131AB58C0087B877 /* SongDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70E00191131AB58C0087B877 /* SongDetailViewController.xib */; };
+		70E038A0133F825D00FD0C44 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E0389F133F825D00FD0C44 /* Default.png */; };
 		70E0FCB8131988FB0087B877 /* note_48.png in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FCB7131988FB0087B877 /* note_48.png */; };
 		70E0FD0E13198F560087B877 /* pause.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FD0C13198F560087B877 /* pause.PNG */; };
 		70E0FD0F13198F560087B877 /* play.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70E0FD0D13198F560087B877 /* play.PNG */; };
@@ -134,6 +137,9 @@
 		7033C7D91337AFBE00282A81 /* notfav.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notfav.png; sourceTree = "<group>"; };
 		704E006D13260A69001EA0E3 /* note_256_blue.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = note_256_blue.jpg; sourceTree = "<group>"; };
 		7067850A132495370077CC44 /* LlamaSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LlamaSettings.m; sourceTree = SOURCE_ROOT; };
+		706B5BFA1340E60100371DD9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		706B5BFB1340E60100371DD9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		706B5C111340E8D900371DD9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		70BE9C17131BF1D100F392ED /* PreferenceLogin.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceLogin.plist; sourceTree = "<group>"; };
 		70BE9C93131C085200F392ED /* PreferenceSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PreferenceSettings.plist; sourceTree = "<group>"; };
 		70BF88101317914E00A4EC65 /* PlaylistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaylistViewController.h; sourceTree = "<group>"; };
@@ -145,6 +151,7 @@
 		70E0018A131AB5610087B877 /* SongDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SongDetailViewController.h; path = ../SongDetailViewController.h; sourceTree = "<group>"; };
 		70E0018B131AB5610087B877 /* SongDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SongDetailViewController.m; path = ../SongDetailViewController.m; sourceTree = "<group>"; };
 		70E00191131AB58C0087B877 /* SongDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongDetailViewController.xib; sourceTree = "<group>"; };
+		70E0389F133F825D00FD0C44 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		70E0FCB7131988FB0087B877 /* note_48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note_48.png; sourceTree = "<group>"; };
 		70E0FD0C13198F560087B877 /* pause.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.PNG; sourceTree = "<group>"; };
 		70E0FD0D13198F560087B877 /* play.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.PNG; sourceTree = "<group>"; };
@@ -171,6 +178,7 @@
 				702EFE3413142AD6002A3AF1 /* AudioToolbox.framework in Frameworks */,
 				702EFE3513142AD6002A3AF1 /* CFNetwork.framework in Frameworks */,
 				702EFE3613142AD6002A3AF1 /* QuartzCore.framework in Frameworks */,
+				706B5C121340E8D900371DD9 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +272,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765070DF74369002DB57D /* CoreGraphics.framework */,
+				706B5C111340E8D900371DD9 /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -331,6 +340,7 @@
 			isa = PBXGroup;
 			children = (
 				7033C4BC133707CF00282A81 /* add.png */,
+				70E0389F133F825D00FD0C44 /* Default.png */,
 				7033C4B51336F3DB00282A81 /* fav.png */,
 				7033C7D91337AFBE00282A81 /* notfav.png */,
 				704E006D13260A69001EA0E3 /* note_256_blue.jpg */,
@@ -351,6 +361,8 @@
 			children = (
 				7021D8181325197700F9B3EB /* CSIAnalytics.h */,
 				7021D8191325197700F9B3EB /* CSIAnalytics.m */,
+				706B5BFA1340E60100371DD9 /* Reachability.h */,
+				706B5BFB1340E60100371DD9 /* Reachability.m */,
 				7021D84813252F7800F9B3EB /* UIDevice+CSIExtensions.h */,
 				7021D84913252F7800F9B3EB /* UIDevice+CSIExtensions.m */,
 				702EFDBC13142A2E002A3AF1 /* GDataXMLNode.h */,
@@ -433,6 +445,7 @@
 				7033C4B61336F3DB00282A81 /* fav.png in Resources */,
 				7033C4BD133707CF00282A81 /* add.png in Resources */,
 				7033C7DA1337AFBE00282A81 /* notfav.png in Resources */,
+				70E038A0133F825D00FD0C44 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,6 +484,7 @@
 				7021D81A1325197700F9B3EB /* CSIAnalytics.m in Sources */,
 				7021D84A13252F7800F9B3EB /* UIDevice+CSIExtensions.m in Sources */,
 				70CDB10B132BB80400DBCF67 /* NavigationSubviewController.m in Sources */,
+				706B5BFC1340E60100371DD9 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
