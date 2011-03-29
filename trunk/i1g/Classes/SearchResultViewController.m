@@ -77,7 +77,7 @@
 //	 self.navigationItem.titleView = searchBar;
 	self.tableView.tableHeaderView = searchBar;
 
-	NSArray *buttonNames = [NSArray arrayWithObjects:@"我的收藏", @"播放历史", @"手气不错", nil];
+	NSArray *buttonNames = [NSArray arrayWithObjects:@"我的收藏", @"播放历史", /*@"手气不错",*/ nil];
 	UISegmentedControl* segmentedControl = [[UISegmentedControl alloc] initWithItems:buttonNames];
 	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar; 
 	[segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
