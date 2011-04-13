@@ -74,7 +74,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* i1GAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i1GAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* i1GAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = i1GAppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* 1G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 1G.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* i1G.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i1G.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765070DF74369002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AB4B0D9B1048005BE974 /* i1G_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = i1G_Prefix.pch; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* 1G.app */,
+				1D6058910D05DD3D006BFB54 /* i1G.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -390,7 +390,7 @@
 			);
 			name = i1G;
 			productName = i1G;
-			productReference = 1D6058910D05DD3D006BFB54 /* 1G.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* i1G.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -495,7 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tom tang";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -505,7 +505,7 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE8A1CB7-5441-4A94-AE23-43186A0C63FB";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1301431B-6743-4301-ABE2-A3E4C1CF0992";
 			};
 			name = Debug;
 		};
@@ -513,7 +513,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom tang (C58CHYLG5E)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: tom tang";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = i1G_Prefix.pch;
@@ -521,8 +521,8 @@
 				INFOPLIST_FILE = "i1G-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_LDFLAGS = "-lxml2";
-				PRODUCT_NAME = 1G;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DE8A1CB7-5441-4A94-AE23-43186A0C63FB";
+				PRODUCT_NAME = i1G;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1301431B-6743-4301-ABE2-A3E4C1CF0992";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
