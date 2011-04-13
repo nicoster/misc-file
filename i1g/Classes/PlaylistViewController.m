@@ -47,6 +47,11 @@
 	[super dealloc];
 }
 
+- (void)reloadPlaylist: (NSNotification*) note
+{
+    [self.tableView reloadData];
+}
+
 - (void)songDidLoad:(NSNotification *)notification;
 {
 	if (hidListNext) {
@@ -59,11 +64,6 @@
 		[self reloadPlaylist:nil];
 		[self tableView: self.tableView didSelectRowAtIndexPath: [NSIndexPath indexPathForRow:0 inSection:0]];
 	}
-}
-
-- (void)reloadPlaylist: (NSNotification*) note
-{
-    [self.tableView reloadData];
 }
 
 - (NX1GClient*) i1gClient

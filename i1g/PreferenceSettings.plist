@@ -32,7 +32,19 @@
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>论坛..</string>
+			<string>主页..</string>
+			<key>Key</key>
+			<string>http://nick.luckygarden.org/?page_id=295</string>
+			<key>ExternalLaunch</key>
+			<true/>
+			<key>Restrictive</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>BLURLButtonSpecifier</string>
+			<key>Title</key>
+			<string>亦歌吧..</string>
 			<key>Key</key>
 			<string>http://tieba.baidu.com/f?kw=%D2%E0%B8%E8</string>
 			<key>ExternalLaunch</key>
@@ -44,7 +56,7 @@
 			<key>Type</key>
 			<string>BLURLButtonSpecifier</string>
 			<key>Title</key>
-			<string>邮件</string>
+			<string>邮件..</string>
 			<key>Key</key>
 			<string>mailto:nicoster@gmail.com</string>
 			<key>ExternalLaunch</key>

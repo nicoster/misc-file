@@ -149,7 +149,10 @@ static i1GAppDelegate* theAppDelegate = nil;
 			 waitUntilDone:NO];
 		}
 		else {
-			[[NX1GClient shared1GClient] songsByType: SLT_GIVEN withCriteria: nil];
+			if ([[NX1GClient shared1GClient].playList count] == 0)
+			{
+				[[NX1GClient shared1GClient] songsByType: SLT_GIVEN withCriteria: nil];
+			}
 
 		}
 
