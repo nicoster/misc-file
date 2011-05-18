@@ -106,7 +106,7 @@ int _tmain( int argc, TCHAR* argv[] )
 
 bool GetPdbSignature(string& pdbsig)
 {
-	LPCTSTR FileName = _T("d:\\nick\\desktop\\wininet.dll");
+	LPCTSTR FileName = _T("c:\\windows\\system32\\wininet.dll");
 	
 	HANDLE hFile      = NULL; 
 	HANDLE hFileMap   = NULL; 
@@ -317,6 +317,7 @@ bool GetPdbSignature(string& pdbsig)
 						Guid.Data4[3], Guid.Data4[4], Guid.Data4[5], Guid.Data4[6], Guid.Data4[7], pCvInfo->Age); 
 					
 					_tprintf(buf);
+					_tprintf(_T("\n"));
 					pdbsig = buf;
 			
 					//~ printf( "  Age: %u  \n", pCvInfo->Age ); 
@@ -324,6 +325,8 @@ bool GetPdbSignature(string& pdbsig)
 					//~ printf( "PdbFile: %s \n", pCvInfo->PdbFileName ); 
 			
 				}
+				
+				break;
 							
 			}
 		}

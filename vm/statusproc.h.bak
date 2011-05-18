@@ -1,0 +1,135 @@
+#pragma once
+
+void inline __stdcall StatusProc(HINTERNET hInternet, DWORD dwContext,
+							 DWORD dwInternetStatus,
+							 LPVOID lpvStatusInformation,
+							 DWORD dwStatusInformationLength)
+{
+//	REQUEST_CONTEXT *cpContext;
+//	cpContext= (REQUEST_CONTEXT*)dwContext;
+	char szBuffer[512];
+
+	switch (dwInternetStatus)
+	{
+		case INTERNET_STATUS_CLOSING_CONNECTION:
+			StringCchPrintf(szBuffer,512,"CLOSING_CONNECTION (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_CONNECTED_TO_SERVER:
+			StringCchPrintf(szBuffer,512,"CONNECTED_TO_SERVER (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_CONNECTING_TO_SERVER:
+			StringCchPrintf(szBuffer,512,"CONNECTING_TO_SERVER (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_CONNECTION_CLOSED:
+			StringCchPrintf(szBuffer,512,"CONNECTION_CLOSED (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_HANDLE_CLOSING:
+			StringCchPrintf(szBuffer,512,"HANDLE_CLOSING (%d)",
+				dwStatusInformationLength);
+
+			StringCchPrintf(512, "Closed");
+			
+			//check if the both resource handles are closing
+			//if so, enable the download button.
+			if ((strcmp(rcContext1.szMemo,"Closed")) ||
+				(strcmp(rcContext2.szMemo,"Closed")))
+			{
+				hButton = GetDlgItem(cpContext->hWindow, IDC_Download);
+				EnableWindow(hButton,1);
+			}
+			break;
+		case INTERNET_STATUS_HANDLE_CREATED:
+			StringCchPrintf(szBuffer,512,"HANDLE_CREATED (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_INTERMEDIATE_RESPONSE:
+			StringCchPrintf(szBuffer,512,"INTERMEDIATE_RESPONSE (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_NAME_RESOLVED:
+			StringCchPrintf(szBuffer,512,"NAME_RESOLVED (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_RECEIVING_RESPONSE:
+			StringCchPrintf(szBuffer,512,"RECEIVEING_RESPONSE (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_RESPONSE_RECEIVED:
+			StringCchPrintf(szBuffer,512,"RESPONSE_RECEIVED (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_REDIRECT:
+			StringCchPrintf(szBuffer,512,"REDIRECT (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_REQUEST_COMPLETE:
+			//check for errors
+			if (LPINTERNET_ASYNC_RESULT(lpvStatusInformation)->dwError == 0)
+			{
+				//check if the completed request is from AsyncDirect
+				if (strcmp("AsyncDirect"))
+				{
+					//set the resource handle to the HINTERNET handle
+					//returned in the callback
+					cpContext->hResource = HINTERNET(
+						LPINTERNET_ASYNC_RESULT(lpvStatusInformation)->dwResult);
+
+		
+					StringCchPrintf(szBuffer,512,"REQUEST_COMPLETE (%d)",
+						dwStatusInformationLength);
+
+					//create a thread to handle the header and
+					//resource download
+					cpContext->hThread = CreateThread(NULL, 0,
+						(LPTHREAD_START_ROUTINE)Threader,LPVOID(cpContext), 0,
+						&cpContext->dwThreadID);
+
+				}
+				else
+				{
+					StringCchPrintf(szBuffer,512,"%s(%d): REQUEST_COMPLETE (%d)",
+						cpContext->szMemo,
+						cpContext->nURL, dwStatusInformationLength);
+				}
+
+			}
+			else
+			{
+				StringCchPrintf(szBuffer,512,
+					"REQUEST_COMPLETE (%d) Error (%d) encountered",
+					dwStatusInformationLength,
+					GetLastError());
+			}			
+			break;
+		case INTERNET_STATUS_REQUEST_SENT:
+			StringCchPrintf(szBuffer,512,"REQUEST_SENT (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_RESOLVING_NAME:
+			StringCchPrintf(szBuffer,512,"RESOLVING_NAME (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_SENDING_REQUEST:
+			StringCchPrintf(szBuffer,512,"SENDING_REQUEST (%d)",
+				dwStatusInformationLength);
+			break;
+		case INTERNET_STATUS_STATE_CHANGE:
+			StringCchPrintf(szBuffer,512,"STATE_CHANGE (%d)",
+				dwStatusInformationLength);
+			break;
+		default:
+			StringCchPrintf(szBuffer,512,"Unknown: Status %d Given", dwInternetStatus);
+			break;
+	}
+
+	//add the callback information to the callback list box
+	SendDlgItemMessage(cpContext->hWindow,IDC_CallbackList,
+		LB_ADDSTRING,0,(LPARAM)szBuffer);
+
+	cout<<szBuffer<<endl;
+	
+}

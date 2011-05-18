@@ -1,0 +1,5 @@
+
+struct util
+{
+	int n;
+};
