@@ -1,0 +1,6 @@
+HOME=/home/ranga
+BINDIR=/home/ranga/bin
+
+if [ $HOME/bin = $BINDIR ] ; then
+echo "Your binaries are stored in your home directory."
+fi
