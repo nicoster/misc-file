@@ -16,7 +16,7 @@
 
 package org.ocp.app;
 
-import com.ocp.media.R;
+import org.ocp.media.R;
 
 public class Res {
 //    	public static final R.anim anim = new R.anim();
