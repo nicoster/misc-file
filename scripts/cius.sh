@@ -1,7 +1,9 @@
 #!/bin/bash
 
+cius_build_machine='10.224.118.180'
+sshport=22
 
-# cius related
+alias ciuswifi='adb shell svc wifi'
 alias wbt='adb pull /sdcard/imcius/wbxtrace/`adb shell ls -l /sdcard/imcius/wbxtrace/wbxConntra*|cut -c57-86|sort -r|head -n 1|tee /tmp/wbt` /tmp;cat /tmp/wbt'
 alias a2l='$NDKROOT/toolchains/arm-linux-androideabi-4.4.3/prebuilt/darwin-x86/bin/arm-linux-androideabi-addr2line -e /workspace/collab/src/android/obj/local/armeabi/libimpjni.so'
 alias ash='adb shell'
@@ -39,8 +41,6 @@ function mc()
 function mx()
 {
 	start=$(timer);
-	cius_build_machine='10.224.118.180'
-	sshport=22
 
 	echo 'SSH to cius build machine. build. cp libimpjni to /tmp directory and dc8/nick directory'
 	newdir='/tmp/so/'`date +%Y%m%d.%H.%M`
@@ -59,7 +59,7 @@ function mx()
 	fi
 	beep
 	printf 'Elapsed time: %s\n' $(timer $start)
-	growlnotify -t 'SO build completed' -m 'Elapsed time: '$(timer $start)
+	growlnotify -t 'SO build completed' -m 'Elapsed time: '$(timer $start) 2>/dev/null
 
 }
 
@@ -81,4 +81,11 @@ function aun()
 {
 	adb uninstall cip.impservice
 	adb uninstall com.cisco.cius.im.client
+}
+
+function mo()
+{
+	umount /Volumes/ciusbuild
+	mkdir /Volumes/ciusbuild 2> /dev/null
+	sshfs -p $sshport nick@$cius_build_machine:/ /Volumes/ciusbuild
 }

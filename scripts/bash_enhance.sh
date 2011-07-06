@@ -1,6 +1,8 @@
 #!/bin/bash
 
 export GREP_OPTIONS="--exclude=\*.svn\*"
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
 alias ll='ls -lh'
 alias shp='vi ~/.bash_profile&&source ~/.bash_profile'
 alias beep='echo -e "\a"'
