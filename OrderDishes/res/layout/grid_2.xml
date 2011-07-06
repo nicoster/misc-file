@@ -5,19 +5,27 @@
 	android:background="#ffffff" android:layout_height="fill_parent"
 	android:padding="0dip">
 	<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/myGrid" android:layout_height="match_parent" android:padding="10dp"
-		android:verticalSpacing="10dp" android:horizontalSpacing="10dp"
-		android:numColumns="auto_fit" android:columnWidth="200dp"
-		android:stretchMode="columnWidth" android:gravity="center"
-		android:background="#999999" android:layout_width="500dip"/>
-		<LinearLayout android:layout_height="fill_parent" android:background="#cccccc"
-		android:layout_toRightOf="@id/myGrid" android:orientation="vertical"
-		android:paddingLeft="1dip" android:layout_width="match_parent">
-			<Button android:text="冷菜" android:id="@+id/button1" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
-			<Button android:text="热菜" android:id="@+id/button2" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
-			<Button android:text="川菜" android:id="@+id/button3" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
-			<Button android:text="湘菜" android:id="@+id/button4" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
-			<Button android:text="点心" android:id="@+id/button10" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
-			<Button android:text="主食" android:id="@+id/button11" android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		android:id="@+id/myGrid" android:layout_height="match_parent"
+		android:padding="10dp" android:verticalSpacing="10dp"
+		android:horizontalSpacing="10dp" android:numColumns="auto_fit"
+		android:columnWidth="200dp" android:stretchMode="columnWidth"
+		android:gravity="center" android:background="#999999"
+		android:layout_width="480dip" />
+	<LinearLayout android:layout_height="fill_parent"
+		android:background="#cccccc" android:layout_toRightOf="@id/myGrid"
+		android:orientation="vertical" android:paddingLeft="1dip"
+		android:layout_width="match_parent">
+		<Button android:text="冷菜" android:id="@+id/button1"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="热菜" android:id="@+id/button2"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="川菜" android:id="@+id/button3"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="湘菜" android:id="@+id/button4"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="点心" android:id="@+id/button10"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
+		<Button android:text="主食" android:id="@+id/button11"
+			android:layout_height="wrap_content" android:layout_width="match_parent"></Button>
 	</LinearLayout>
 </RelativeLayout>
