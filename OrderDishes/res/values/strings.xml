@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, OrderDishes3Activity!</string>
-    <string name="app_name">OrderDishes3</string>
+    <string name="app_name">点菜</string>
+    <string name="btn_start_order">开始点菜</string>
 </resources>
