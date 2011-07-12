@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">点菜</string>
     <string name="btn_start_order">开始点菜</string>
+    <string name="btn_order_yet">已点</string>
+    <string name="btn_order_all">全部</string>
+	<string name="btn_order_type">类别</string>
 </resources>
