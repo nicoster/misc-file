@@ -16,10 +16,16 @@
 	
 	<string name="login_activity_save_button">保存</string>
 	<string name="login_activity_cancel_button">取消</string>
+	<string name="ok_button_label">确定</string>
 	
 	<string name="multiple_accounts_toast">仅支持一个帐户。</string>
 	<string name="login_activity_newaccount_text">登录帐户。</string>
 	<string name="login_activity_loginfail_text_pwmissing">输入此帐户的密码。</string>
 	<string name="ui_activity_title">凭证</string>
+	<string name="dialog_no_network_title">网络不可用</string>
+	<string name="dialog_no_network_message">您的设备未连接网络。请连接到网络并重试。</string>
+	
+	<string name="missing_fields_title">缺少字段</string>
+	<string name="login_activity_loginfail_missing_fields">必须输入所有字段才能登录。请检查是否已输入信息并重试。</string>
 
 </resources>
