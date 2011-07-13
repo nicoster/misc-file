@@ -5,4 +5,21 @@
     <string name="btn_order_yet">已点</string>
     <string name="btn_order_all">全部</string>
 	<string name="btn_order_type">类别</string>
+	<string name="general_settings">常规设置</string>
+	<string name="account_settings">帐户设置</string>
+	<string name="enter_credentials">输入凭证</string>
+	
+	<string name="login_activity_username_label">用户名：</string>
+	<string name="login_activity_password_label">密码：</string>
+	<string name="login_activity_server_address_label">服务器地址</string>
+	<string name="login_activity_server_port_label">服务器端口</string>
+	
+	<string name="login_activity_save_button">保存</string>
+	<string name="login_activity_cancel_button">取消</string>
+	
+	<string name="multiple_accounts_toast">仅支持一个帐户。</string>
+	<string name="login_activity_newaccount_text">登录帐户。</string>
+	<string name="login_activity_loginfail_text_pwmissing">输入此帐户的密码。</string>
+	<string name="ui_activity_title">凭证</string>
+
 </resources>
