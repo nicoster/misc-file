@@ -1,6 +1,8 @@
 package org.mfn.dishes.util;
 
 import org.mfn.dishes.vo.DishesObj;
+import org.mfn.dishes.vo.DishesTypeObj;
+import org.mfn.dishes.vo.RoomInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.content.Context;
@@ -38,6 +40,8 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 
 		createDishesInfoTable(db);
 		createUserInfoTable(db);
+		createDishesTypeInfoTable(db);
+		createRoomInfoTable(db);
 
 	}
 
@@ -66,6 +70,26 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 		+ UserInfoObj.USER_ID + " INTEGER PRIMARY KEY," 
 		+ UserInfoObj.USER_NAME + " TEXT," 
 		+ UserInfoObj.USER_LEVEL + " INTEGER" 
+		+ ")";
+
+		db.execSQL(create_dishes_info_table);
+	}
+	
+	private void createDishesTypeInfoTable(SQLiteDatabase db) {
+		String create_dishes_info_table = "CREATE TABLE " + DishesTypeObj.TABLE_NAME + " (" 
+		+ DishesTypeObj.TYPE_ID + " INTEGER PRIMARY KEY," 
+		+ DishesTypeObj.TYPE_NAME + " TEXT," 
+		+ DishesTypeObj.PARENT_TYPE_ID + " INTEGER," 
+		+ DishesTypeObj.TYPE_INDEX + " INTEGER" 
+		+ ")";
+
+		db.execSQL(create_dishes_info_table);
+	}
+	
+	private void createRoomInfoTable(SQLiteDatabase db) {
+		String create_dishes_info_table = "CREATE TABLE " + RoomInfoObj.TABLE_NAME + " (" 
+		+ RoomInfoObj.ROOM_ID + " INTEGER PRIMARY KEY," 
+		+ RoomInfoObj.ROOM_NAME + " TEXT" 
 		+ ")";
 
 		db.execSQL(create_dishes_info_table);
