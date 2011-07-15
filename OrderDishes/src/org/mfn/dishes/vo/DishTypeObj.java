@@ -1,6 +1,6 @@
 package org.mfn.dishes.vo;
 
-public class DishesTypeObj {
+public class DishTypeObj {
 	
 	public static final String TABLE_NAME = "dishes_type_info";
 	public static final String TYPE_ID = "type_id";

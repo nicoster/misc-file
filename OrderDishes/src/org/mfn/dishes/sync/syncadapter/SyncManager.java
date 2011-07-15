@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import org.mfn.dishes.DishesApp;
 import org.mfn.dishes.util.DishesDataAdapter;
-import org.mfn.dishes.vo.DishesObj;
+import org.mfn.dishes.vo.DishObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.accounts.Account;
@@ -61,7 +61,7 @@ public class SyncManager {
     
     private void runFullSyncDatas(Context context, String accountName) {
     	
-    	DishesDataAdapter adapter = new DishesDataAdapter();
+    	DishesDataAdapter adapter = DishesDataAdapter.getInstance();
     	
 		UserInfoObj[] objs = new UserInfoObj[10];
 		for (int i = 0; i < 10; i++) {
@@ -72,9 +72,9 @@ public class SyncManager {
 		}
 		adapter.syncUsersInfo(objs);
     	
-		DishesObj[] dobjs = new DishesObj[10];
+		DishObj[] dobjs = new DishObj[10];
     	for (int i=0;i<10;i++){
-    		dobjs[i] = new DishesObj();
+    		dobjs[i] = new DishObj();
 			dobjs[i].id = i;
 			dobjs[i].query_code = "QWE:"+i;
 			dobjs[i].query_code2 = "QWEWE:"+i;

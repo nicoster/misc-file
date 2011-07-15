@@ -3,8 +3,8 @@ package org.mfn.dishes.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mfn.dishes.vo.DishesObj;
-import org.mfn.dishes.vo.DishesTypeObj;
+import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 
@@ -14,6 +14,19 @@ import android.database.Cursor;
 public class DishesDataAdapter {
 	
 	private DishesDBHelpter helper = DishesDBHelpter.getInstance();
+	
+	private static DishesDataAdapter dishesAdapter;
+	
+	private DishesDataAdapter(){
+		
+	}
+	
+	public static DishesDataAdapter getInstance() {
+		if (dishesAdapter == null) {
+			dishesAdapter = new DishesDataAdapter();
+		}
+		return dishesAdapter;
+	}
 	
 	public void syncUsersInfo(UserInfoObj[] objs){
 		helper.myDB.delete(UserInfoObj.TABLE_NAME, null, null);
@@ -53,74 +66,74 @@ public class DishesDataAdapter {
 		return list.toArray(new UserInfoObj[0]);
 	}
 	
-	public void syncDishesInfo(DishesObj[] objs){
-		helper.myDB.delete(DishesObj.TABLE_NAME, null, null);
-		for (DishesObj obj: objs){
+	public void syncDishesInfo(DishObj[] objs){
+		helper.myDB.delete(DishObj.TABLE_NAME, null, null);
+		for (DishObj obj: objs){
 			addDishesInfo(obj);
 		}
 	}
 	
-	public long addDishesInfo(DishesObj obj){
+	public long addDishesInfo(DishObj obj){
 		ContentValues initialValues = new ContentValues();
-        initialValues.put(DishesObj.DISHES_ID, obj.id);
-        initialValues.put(DishesObj.DISHES_QUERY_CODE, obj.query_code);
-        initialValues.put(DishesObj.DISHES_QUERY_CODE_2, obj.query_code2);
-        initialValues.put(DishesObj.DISHES_NAME, obj.name);
-        initialValues.put(DishesObj.DISHES_SIZE, obj.size);
-        initialValues.put(DishesObj.DISHES_UNIT, obj.unit);
-        initialValues.put(DishesObj.DISHES_PRICE, obj.price);
-        initialValues.put(DishesObj.DISHES_TYPE, obj.type);
-        initialValues.put(DishesObj.DISHES_VARIABLE_PRICE, obj.variable_price);
-        initialValues.put(DishesObj.DISHES_SIZE, obj.size);
-        initialValues.put(DishesObj.DISHES_COOK_TYPE, obj.cook_type);
-        initialValues.put(DishesObj.DISHES_FLAG, obj.flag);
-        initialValues.put(DishesObj.DISHES_COST, obj.cost);
-        initialValues.put(DishesObj.DISHES_IMAGE, obj.image);
+        initialValues.put(DishObj.DISHES_ID, obj.id);
+        initialValues.put(DishObj.DISHES_QUERY_CODE, obj.query_code);
+        initialValues.put(DishObj.DISHES_QUERY_CODE_2, obj.query_code2);
+        initialValues.put(DishObj.DISHES_NAME, obj.name);
+        initialValues.put(DishObj.DISHES_SIZE, obj.size);
+        initialValues.put(DishObj.DISHES_UNIT, obj.unit);
+        initialValues.put(DishObj.DISHES_PRICE, obj.price);
+        initialValues.put(DishObj.DISHES_TYPE, obj.type);
+        initialValues.put(DishObj.DISHES_VARIABLE_PRICE, obj.variable_price);
+        initialValues.put(DishObj.DISHES_SIZE, obj.size);
+        initialValues.put(DishObj.DISHES_COOK_TYPE, obj.cook_type);
+        initialValues.put(DishObj.DISHES_FLAG, obj.flag);
+        initialValues.put(DishObj.DISHES_COST, obj.cost);
+        initialValues.put(DishObj.DISHES_IMAGE, obj.image);
 
-        return helper.myDB.insert(DishesObj.TABLE_NAME, DishesObj.DISHES_ID, initialValues);			
+        return helper.myDB.insert(DishObj.TABLE_NAME, DishObj.DISHES_ID, initialValues);			
 	}
 	
-	public DishesObj[] listDishesInfo(int type){
-		Cursor mCursor = helper.myDB.query(true, DishesObj.TABLE_NAME, new String[]{DishesObj.DISHES_ID,
-				DishesObj.DISHES_QUERY_CODE, DishesObj.DISHES_QUERY_CODE_2, DishesObj.DISHES_NAME,
-				DishesObj.DISHES_SIZE, DishesObj.DISHES_UNIT, DishesObj.DISHES_PRICE, DishesObj.DISHES_TYPE,
-				DishesObj.DISHES_VARIABLE_PRICE, DishesObj.DISHES_SIZE, DishesObj.DISHES_COOK_TYPE,
-				DishesObj.DISHES_FLAG, DishesObj.DISHES_COST, DishesObj.DISHES_IMAGE}, null, null, null, null, null,
+	public DishObj[] listDishesInfo(int type){
+		Cursor mCursor = helper.myDB.query(true, DishObj.TABLE_NAME, new String[]{DishObj.DISHES_ID,
+				DishObj.DISHES_QUERY_CODE, DishObj.DISHES_QUERY_CODE_2, DishObj.DISHES_NAME,
+				DishObj.DISHES_SIZE, DishObj.DISHES_UNIT, DishObj.DISHES_PRICE, DishObj.DISHES_TYPE,
+				DishObj.DISHES_VARIABLE_PRICE, DishObj.DISHES_SIZE, DishObj.DISHES_COOK_TYPE,
+				DishObj.DISHES_FLAG, DishObj.DISHES_COST, DishObj.DISHES_IMAGE}, null, null, null, null, null,
 				null);
 
-		List<DishesObj> list = new ArrayList<DishesObj>();
+		List<DishObj> list = new ArrayList<DishObj>();
 		if (mCursor != null) {
 
 			while (mCursor.moveToNext()) {
 
-				DishesObj obj = new DishesObj();
-				obj.id = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_ID));
-				obj.query_code = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_QUERY_CODE));
-				obj.query_code2 = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_QUERY_CODE_2));
-				obj.name = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_NAME));
-				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_SIZE));
-				obj.unit = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_UNIT));
-				obj.price = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_PRICE));
-				obj.type = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_TYPE));
-				obj.variable_price = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_VARIABLE_PRICE)) == 1;
-				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_SIZE));
-				obj.cook_type = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_COOK_TYPE));
-				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_FLAG));
-				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishesObj.DISHES_COST));
-				obj.image = mCursor.getString(mCursor.getColumnIndex(DishesObj.DISHES_IMAGE));
+				DishObj obj = new DishObj();
+				obj.id = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_ID));
+				obj.query_code = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_QUERY_CODE));
+				obj.query_code2 = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_QUERY_CODE_2));
+				obj.name = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_NAME));
+				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_SIZE));
+				obj.unit = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_UNIT));
+				obj.price = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_PRICE));
+				obj.type = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_TYPE));
+				obj.variable_price = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_VARIABLE_PRICE)) == 1;
+				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_SIZE));
+				obj.cook_type = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_COOK_TYPE));
+				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_FLAG));
+				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISHES_COST));
+				obj.image = mCursor.getString(mCursor.getColumnIndex(DishObj.DISHES_IMAGE));
 
 				list.add(obj);
 			}
 		}
 
-		return list.toArray(new DishesObj[0]);
+		return list.toArray(new DishObj[0]);
 	}
 	
-	public void addDishesType(DishesTypeObj obj){
+	public void addDishesType(DishTypeObj obj){
 		
 	}
 	
-	public DishesTypeObj[] listDishesTypes(){
+	public DishTypeObj[] listDishesTypes(){
 		return null;
 	}
 }

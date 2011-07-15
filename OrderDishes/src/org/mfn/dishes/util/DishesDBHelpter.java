@@ -1,7 +1,7 @@
 package org.mfn.dishes.util;
 
-import org.mfn.dishes.vo.DishesObj;
-import org.mfn.dishes.vo.DishesTypeObj;
+import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.RoomInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
@@ -46,20 +46,20 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 	}
 
 	private void createDishesInfoTable(SQLiteDatabase db) {
-		String create_dishes_info_table = "CREATE TABLE " + DishesObj.TABLE_NAME + " (" 
-		+ DishesObj.DISHES_ID + " INTEGER PRIMARY KEY," 
-		+ DishesObj.DISHES_QUERY_CODE + " TEXT," 
-		+ DishesObj.DISHES_QUERY_CODE_2 + " TEXT," 
-		+ DishesObj.DISHES_NAME + " TEXT, " 
-		+ DishesObj.DISHES_SIZE + " INTEGER,"
-		+ DishesObj.DISHES_UNIT + " STRING," 
-		+ DishesObj.DISHES_PRICE + " FLOAT," 
-		+ DishesObj.DISHES_TYPE	+ " INTEGER," 
-		+ DishesObj.DISHES_VARIABLE_PRICE + " BOOLEAN," 
-		+ DishesObj.DISHES_COOK_TYPE + " STRING,"
-		+ DishesObj.DISHES_FLAG + " INTEGER," 
-		+ DishesObj.DISHES_COST + " FLOAT," 
-		+ DishesObj.DISHES_IMAGE + " TEXT" 
+		String create_dishes_info_table = "CREATE TABLE " + DishObj.TABLE_NAME + " (" 
+		+ DishObj.DISHES_ID + " INTEGER PRIMARY KEY," 
+		+ DishObj.DISHES_QUERY_CODE + " TEXT," 
+		+ DishObj.DISHES_QUERY_CODE_2 + " TEXT," 
+		+ DishObj.DISHES_NAME + " TEXT, " 
+		+ DishObj.DISHES_SIZE + " INTEGER,"
+		+ DishObj.DISHES_UNIT + " STRING," 
+		+ DishObj.DISHES_PRICE + " FLOAT," 
+		+ DishObj.DISHES_TYPE	+ " INTEGER," 
+		+ DishObj.DISHES_VARIABLE_PRICE + " BOOLEAN," 
+		+ DishObj.DISHES_COOK_TYPE + " STRING,"
+		+ DishObj.DISHES_FLAG + " INTEGER," 
+		+ DishObj.DISHES_COST + " FLOAT," 
+		+ DishObj.DISHES_IMAGE + " TEXT" 
 		+ ")";
 
 		db.execSQL(create_dishes_info_table);
@@ -76,11 +76,11 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 	}
 	
 	private void createDishesTypeInfoTable(SQLiteDatabase db) {
-		String create_dishes_info_table = "CREATE TABLE " + DishesTypeObj.TABLE_NAME + " (" 
-		+ DishesTypeObj.TYPE_ID + " INTEGER PRIMARY KEY," 
-		+ DishesTypeObj.TYPE_NAME + " TEXT," 
-		+ DishesTypeObj.PARENT_TYPE_ID + " INTEGER," 
-		+ DishesTypeObj.TYPE_INDEX + " INTEGER" 
+		String create_dishes_info_table = "CREATE TABLE " + DishTypeObj.TABLE_NAME + " (" 
+		+ DishTypeObj.TYPE_ID + " INTEGER PRIMARY KEY," 
+		+ DishTypeObj.TYPE_NAME + " TEXT," 
+		+ DishTypeObj.PARENT_TYPE_ID + " INTEGER," 
+		+ DishTypeObj.TYPE_INDEX + " INTEGER" 
 		+ ")";
 
 		db.execSQL(create_dishes_info_table);
