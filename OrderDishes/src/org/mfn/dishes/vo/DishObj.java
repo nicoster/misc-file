@@ -2,20 +2,20 @@ package org.mfn.dishes.vo;
 
 public class DishObj {
 	
-	public static final String TABLE_NAME = "dishes_info";
-	public static final String DISHES_ID = "dishes_id";
-	public static final String DISHES_QUERY_CODE = "query_code";
-	public static final String DISHES_QUERY_CODE_2 = "query_code_2";
-	public static final String DISHES_NAME = "dishes_name";
-	public static final String DISHES_SIZE = "dishes_size";
-	public static final String DISHES_UNIT = "dishes_unit";
-	public static final String DISHES_PRICE = "dishes_price";
-	public static final String DISHES_TYPE = "dishes_type";
-	public static final String DISHES_VARIABLE_PRICE = "dishes_variable_price";
-	public static final String DISHES_COOK_TYPE = "dishes_cook_type";
-	public static final String DISHES_FLAG = "dishes_flag";
-	public static final String DISHES_COST = "dishes_cost";
-	public static final String DISHES_IMAGE = "dishes_image";
+	public static final String TABLE_NAME = "dish_info";
+	public static final String DISH_ID = "dish_id";
+	public static final String DISH_QUERY_CODE = "query_code";
+	public static final String DISH_QUERY_CODE_2 = "query_code_2";
+	public static final String DISH_NAME = "dish_name";
+	public static final String DISH_SIZE = "dish_size";
+	public static final String DISH_UNIT = "dish_unit";
+	public static final String DISH_PRICE = "dish_price";
+	public static final String DISH_TYPE = "dish_type";
+	public static final String DISH_VARIABLE_PRICE = "dish_variable_price";
+	public static final String DISH_COOK_TYPE = "dish_cook_type";
+	public static final String DISH_FLAG = "dish_flag";
+	public static final String DISH_COST = "dish_cost";
+	public static final String DISH_IMAGE = "dish_image";
 	
 	public int id;
 	public String query_code;
