@@ -4,14 +4,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.mfn.dishes.DishesApp;
+import org.mfn.dishes.util.DishesDataAdapter;
+import org.mfn.dishes.vo.DishesObj;
+import org.mfn.dishes.vo.UserInfoObj;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.RemoteException;
-import android.os.SystemClock;
 import android.provider.ContactsContract;
 import android.provider.SyncStateContract.Constants;
 import android.util.Log;
@@ -37,18 +38,16 @@ public class SyncManager {
     }
     
     public synchronized void doFullSync(final Context context, final String accountName, boolean newThread) {
-
-  
         
         if (newThread) {
             final Runnable runnable = new Runnable() {
                 public void run() {
-                    runFullSyncBuddies(context, accountName);
+                	runFullSyncDatas(context, accountName);
                 }
             };
             performOnBackgroundThread(runnable);
         } else {
-            runFullSyncBuddies(context, accountName);
+        	runFullSyncDatas(context, accountName);
         }
     }
 
@@ -60,8 +59,37 @@ public class SyncManager {
         }
     }
     
-    private void runFullSyncBuddies(Context context, String accountName) {
-
+    private void runFullSyncDatas(Context context, String accountName) {
+    	
+    	DishesDataAdapter adapter = new DishesDataAdapter();
+    	
+		UserInfoObj[] objs = new UserInfoObj[10];
+		for (int i = 0; i < 10; i++) {
+			objs[i] = new UserInfoObj();
+			objs[i].id = i;
+			objs[i].name = "Frey " + "Wang" + i;
+			objs[i].level = i % 3;
+		}
+		adapter.syncUsersInfo(objs);
+    	
+		DishesObj[] dobjs = new DishesObj[10];
+    	for (int i=0;i<10;i++){
+    		dobjs[i] = new DishesObj();
+			dobjs[i].id = i;
+			dobjs[i].query_code = "QWE:"+i;
+			dobjs[i].query_code2 = "QWEWE:"+i;
+			dobjs[i].name = "红烧肉" + i;
+			dobjs[i].size = i;
+			dobjs[i].unit = "QWEWE:"+i;
+			dobjs[i].price = 3.1f*i;
+			dobjs[i].type = i;
+			dobjs[i].variable_price = i%2 ==0;
+			dobjs[i].cook_type="COOK:"+i;
+			dobjs[i].flag =i;
+			dobjs[i].cost = 2.2f*i;
+			dobjs[i].image=i+"diadiaodiaoudaio.bmp";
+    	}
+    	adapter.syncDishesInfo(dobjs);
     }
 	
     public Thread performOnBackgroundThread(final Runnable runnable) {
