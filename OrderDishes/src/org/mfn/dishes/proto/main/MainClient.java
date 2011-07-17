@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 import org.mfn.tcpclient.TcpClient;
 import org.w3c.dom.Document;
@@ -114,6 +116,86 @@ public class MainClient {
 	
 	}
 	
+	// <record f1="00010001" f2="盐水" f3="1"/>
+	private FlavorInfoObj[] parseFlavorInfo(String res)
+	{
+		FlavorInfoObj objs[] = null;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
+            Element root = dom.getDocumentElement();
+            NodeList items = root.getElementsByTagName("record");
+            objs = new FlavorInfoObj[items.getLength()];
+            for (int i = 0; i < items.getLength(); i ++)
+            {
+            	Node item = items.item(i);
+            	FlavorInfoObj obj = new FlavorInfoObj();
+            	obj.id = getNodeAttribute(item, "f1");
+            	obj.name = getNodeAttribute(item, "f2");
+            	obj.is_cook_style = parseBoolean(getNodeAttribute(item, "f3"));
+            	
+            	objs[i] = obj;
+            }
+        }
+        catch (Exception e) {
+        	Log.e("client", e.toString());
+        }        
+        
+		return objs;
+	}
+	
+	public FlavorInfoObj[] getFlavorInfo()
+	{
+		String req = String.format(
+				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'><data>" +
+				"<table field='kouw_id,kouw_neir,kouw_bz'>kouw</table></data></fbsmart>",
+				mUid, mDevice, seq());
+		String res = request(req);
+		return parseFlavorInfo(res);
+	}
+	
+	private DishTypeObj[] parseDishTypeInfo(String res)
+	{
+		DishTypeObj dishtypes[] = null;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
+            Element root = dom.getDocumentElement();
+            NodeList items = root.getElementsByTagName("record");
+            dishtypes = new DishTypeObj[items.getLength()];
+            for (int i = 0; i < items.getLength(); i ++)
+            {
+            	Node item = items.item(i);
+            	DishTypeObj dishtype = new DishTypeObj();
+            	dishtype.id = getNodeAttribute(item, "f1");
+            	dishtype.name = getNodeAttribute(item, "f2");
+            	dishtype.parentId = getNodeAttribute(item, "f3");
+            	dishtype.index = parseInt(getNodeAttribute(item, "f4"));
+            	
+            	dishtypes[i] = dishtype;
+            }
+        }
+        catch (Exception e) {
+        	Log.e("client", e.toString());
+        }        
+        
+		return dishtypes;
+	}
+	
+	public DishTypeObj[] getDishTypeInfo()
+	{
+		String req = String.format(
+				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'><data>" +
+				"<table field='uid,ctname,ctparentid,ctorder'>stCategory</table></data></fbsmart>",
+				mUid, mDevice, seq());
+		String res = request(req);
+		return parseDishTypeInfo(res);
+	}
+	
 	public static float parseFloat(String s)
 	{
 		if (TextUtils.isEmpty(s))
@@ -180,14 +262,13 @@ public class MainClient {
         	Log.e("client", e.toString());
         }        
         
-		return null;
+		return dishes;
 	}
 	
 	public DishObj[] getDishInfo()
 	{
 		String req = String.format(
-				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'>" +
-				"<data>" +
+				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'><data>" +
 				"<table field='cp_id,cp_code,cp_qcode,cp_name,cp_size,cp_unit,cp_price,cp_cate,cp_var,cp_mzuof,cp_azuof'>caip</table>" +
 				"</data></fbsmart>",
 				mUid, mDevice, seq());
@@ -266,8 +347,8 @@ public class MainClient {
 	public UserInfoObj[] getUserInfo()
 	{
 		String req = String.format("<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'>" +
-"<data><table field='yonghxx_yhm,yonghxx_qm,yonghxx_ms,yonghxx_mm'>yonghxx</table></data></fbsmart>", 
-		mUid, mDevice, seq());
+				"<data><table field='yonghxx_yhm,yonghxx_qm,yonghxx_ms,yonghxx_mm'>yonghxx</table></data></fbsmart>",
+				mUid, mDevice, seq());
 		
 		String res = request(req);
 		

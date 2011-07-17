@@ -8,9 +8,9 @@ public class DishTypeObj {
 	public static final String PARENT_TYPE_ID = "parent_type_id";
 	public static final String TYPE_INDEX = "type_index";
 	
-	public int id;
+	public String id;
 	public String name;
-	public int parentId;
+	public String parentId;
 	public int index;
 	
 }

@@ -2,7 +2,8 @@ package org.mfn.dishes;
 
 import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.util.DishesDBHelpter;
-import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.app.Application;
@@ -16,14 +17,15 @@ public class DishesApp extends Application {
 	}
 	
 	@SuppressWarnings("unused")
-	private void runTest()
+	private void runClientTest()
 	{
 		MainClient cli = MainClient.getInstance();
 		cli.init("admin", "pda", "58.240.209.238", 7990, null);
 		cli.login("admin", "");
 		UserInfoObj[] users = cli.getUserInfo();
-		DishObj[] dishes = cli.getDishInfo();
-		
+//		DishObj[] dishes = cli.getDishInfo();
+		DishTypeObj[] dishtypes = cli.getDishTypeInfo();
+		FlavorInfoObj[] flv = cli.getFlavorInfo();
 		int n = 0;
 		n = 1;
 	}
@@ -32,7 +34,7 @@ public class DishesApp extends Application {
 		super.onCreate();
 		app = this;
 				
-//		runTest();
+//		runClientTest();
 		
 		DishesDBHelpter.init(this);
 		DishesDBHelpter.getInstance().open();
