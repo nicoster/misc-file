@@ -52,9 +52,10 @@ public class SyncManager {
     }
 
 
-    private static void sleepWhile() {
+    @SuppressWarnings("unused")
+	private static void sleepWhile() {
         try {
-            Thread.currentThread().sleep(1000 * 60);
+			Thread.sleep(1000 * 60);
         } catch (InterruptedException e) {
         }
     }
@@ -66,25 +67,25 @@ public class SyncManager {
 		UserInfoObj[] objs = new UserInfoObj[10];
 		for (int i = 0; i < 10; i++) {
 			objs[i] = new UserInfoObj();
-			objs[i].id = i;
+			objs[i].id = Integer.toString(i);
 			objs[i].name = "Frey " + "Wang" + i;
-			objs[i].level = i % 3;
+			objs[i].level = Integer.toString(i % 3);
 		}
 		adapter.syncUsersInfo(objs);
     	
 		DishObj[] dobjs = new DishObj[10];
     	for (int i=0;i<10;i++){
     		dobjs[i] = new DishObj();
-			dobjs[i].id = i;
+			dobjs[i].id = Integer.toString(i);
 			dobjs[i].query_code = "QWE:"+i;
 			dobjs[i].query_code2 = "QWEWE:"+i;
 			dobjs[i].name = "红烧肉" + i;
-			dobjs[i].size = i;
+			dobjs[i].size = Integer.toString(i);
 			dobjs[i].unit = "QWEWE:"+i;
 			dobjs[i].price = 3.1f*i;
-			dobjs[i].type = i;
+			dobjs[i].type = Integer.toString(i);
 			dobjs[i].variable_price = i%2 ==0;
-			dobjs[i].cook_type="COOK:"+i;
+//			dobjs[i].cook_style="COOK:"+i;
 			dobjs[i].flag =i;
 			dobjs[i].cost = 2.2f*i;
 			dobjs[i].image=i+"diadiaodiaoudaio.bmp";

@@ -2,6 +2,7 @@ package org.mfn.tcpclient;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -39,6 +40,7 @@ public class TcpClient {
 
 	public String request(String req)
 	{
+		InputStream in = null;
 		String res = "";
 		try {
 			assert(mServer != null && mServer.length() > 0);
@@ -51,8 +53,11 @@ public class TcpClient {
 	        output.flush();
 	        Log.d("conn/send/", req);
 	        
+	        in = s.getInputStream();
+	        
+	        // for debugging
 	        String buf = null;
-	        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream(), "GBK"));
+	        BufferedReader input = new BufferedReader(new InputStreamReader(in, "GBK"));
 	        while ((buf = input.readLine()) != null) res += buf;
 	        Log.d("conn/recv/", res);
 	        

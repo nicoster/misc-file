@@ -1,15 +1,23 @@
 package org.mfn.dishes.proto.main;
 
 
+import java.io.ByteArrayInputStream;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.UserInfoObj;
 import org.mfn.tcpclient.TcpClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import android.text.TextUtils;
+import android.util.Log;
 
 public class MainClient {
 	
@@ -21,10 +29,9 @@ public class MainClient {
 		return mInstance;
 	}
 	
-	private
-	TcpClient mConn = TcpClient.getInstance();
+	private TcpClient mConn = TcpClient.getInstance();
 	
-	String request(String req)
+	private String request(String req)
 	{
 		return mConn.request(req);
 	}
@@ -32,13 +39,12 @@ public class MainClient {
 	String mUid, mDevice, mVersion;
 	int mSeq = 0;
 	
-	int seq()
+	synchronized int seq()
 	{
 		return ++ mSeq;
 	}
 	
-	public
-	void init(String uid, String device, String server, int port, String version)
+	public void init(String uid, String device, String server, int port, String version)
 	{
 		if (version == null || server.length() == 0)
 		{
@@ -61,9 +67,11 @@ public class MainClient {
 		mConn.init(server, port);
 	}
 	
-	String getNodeValue(Document dom, String tag)
+	@SuppressWarnings("unused")
+	private String getNodeValue(Element root, String tag)
 	{
-		Element root = dom.getDocumentElement();
+		if (root == null) return "";
+		
 		NodeList items = root.getElementsByTagName(tag);
 		if (items.getLength() > 0) {
 			Node item = items.item(0);
@@ -75,9 +83,22 @@ public class MainClient {
 		return "";
 	}
 	
-	String getNodeAttribute(Document dom, String tag, String attr)
+	private String getNodeAttribute(Node item, String attr)
 	{
-		Element root = dom.getDocumentElement();
+		if (item == null) return "";
+		NamedNodeMap attrs = item.getAttributes();
+		Node anAttr = attrs.getNamedItem(attr);
+		if (anAttr != null) {
+			return anAttr.getNodeValue();
+		}
+		
+		return "";
+	
+	}
+	
+	private String getNodeAttribute(Element root, String tag, String attr)
+	{
+		if (root == null) return "";
 		NodeList items = root.getElementsByTagName(tag);
 		if (items.getLength() > 0) {
 			Node item = items.item(0);
@@ -85,7 +106,7 @@ public class MainClient {
 			Node anAttr = attrs.getNamedItem(attr);
 			if (anAttr != null)
 			{
-				return anAttr.getNodeName();
+				return anAttr.getNodeValue();
 			}
 		}
 		
@@ -93,29 +114,164 @@ public class MainClient {
 	
 	}
 	
-	Boolean parseLogin(String res)
+	public static float parseFloat(String s)
 	{
-		if (res.length() == 0)
+		if (TextUtils.isEmpty(s))
+			return 0.0f;
+		
+		return Float.parseFloat(s);
+	}
+	public static int parseInt(String s)
+	{
+		if (TextUtils.isEmpty(s))
+			return 0;
+		
+		return Integer.parseInt(s);
+	}
+	public static boolean parseBoolean(String s)
+	{
+		if (TextUtils.isEmpty(s))
+			return false;
+		
+		return Boolean.parseBoolean(s);
+	}
+//	<row f1="000100131" f2="000100131" f3="HHXJCDQXL" f4="红花蟹" f5="" f6="例" f7="128" f8="00010009" f9="0" 
+//	f10="1" f11="00010004,00010005,00010006" f12="72" f13=",," f14="0" f15="100"/>
+	private DishObj[] parseDishInfo(String res)
+	{
+		DishObj dishes[] = null;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
+            Element root = dom.getDocumentElement();
+            NodeList items = root.getElementsByTagName("row");
+            dishes = new DishObj[items.getLength()];
+            for (int i = 0; i < items.getLength(); i ++)
+            {
+            	Node item = items.item(i);
+            	DishObj dish = new DishObj();
+            	dish.id = getNodeAttribute(item, "f1");
+            	dish.query_code = getNodeAttribute(item, "f2");
+            	dish.query_code2 = getNodeAttribute(item, "f3");
+            	dish.name = getNodeAttribute(item, "f4");
+            	dish.size = getNodeAttribute(item, "f5");
+            	dish.unit = getNodeAttribute(item, "f6");
+            	dish.price = parseFloat(getNodeAttribute(item, "f7"));
+            	dish.type = getNodeAttribute(item, "f8");            	
+            	dish.variable_price = parseBoolean(getNodeAttribute(item, "f9"));
+            	dish.setCookingInfo(getNodeAttribute(item, "f11"), getNodeAttribute(item, "f13"));
+//            	if (dish.hasMultiCookingStyle() != parseBoolean(getNodeAttribute(item, "f10")))
+//            	{
+//            		Log.e("client", "multi-cooking-style inconsistent:" + getNodeAttribute(item, "f11") + " f9:" + getNodeAttribute(item, "f9"));
+//            	}
+            	dish.flag = parseInt(getNodeAttribute(item, "f12"));
+            	dish.cost = parseFloat(getNodeAttribute(item, "f14"));
+            	dish.gross_profit = parseFloat(getNodeAttribute(item, "f15"));
+            	dish.name_en = getNodeAttribute(item, "f16");
+            	dish.name_jp = getNodeAttribute(item, "f17");
+            	dishes[i] = dish;
+            }
+            
+            return dishes;
+        }
+        catch (Exception e) {
+        	Log.e("client", e.toString());
+        }        
+        
+		return null;
+	}
+	
+	public DishObj[] getDishInfo()
+	{
+		String req = String.format(
+				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'>" +
+				"<data>" +
+				"<table field='cp_id,cp_code,cp_qcode,cp_name,cp_size,cp_unit,cp_price,cp_cate,cp_var,cp_mzuof,cp_azuof'>caip</table>" +
+				"</data></fbsmart>",
+				mUid, mDevice, seq());
+		String res = request(req);
+		return parseDishInfo(res);
+	}
+	
+	private UserInfoObj[] parseUserInfo(String res)
+	{
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
+            Element root = dom.getDocumentElement();
+            NodeList items = root.getElementsByTagName("record");
+            UserInfoObj users[] = new UserInfoObj[items.getLength()];
+            for (int i = 0; i < items.getLength(); i ++)
+            {
+            	Node item = items.item(i);
+            	UserInfoObj user = new UserInfoObj();
+            	user.id = getNodeAttribute(item, "f1");
+            	user.name = getNodeAttribute(item, "f2");
+            	user.level = getNodeAttribute(item, "f3");
+            	
+            	if (TextUtils.isEmpty(user.id))
+            	{
+            		Log.e("client", "invalid user, dropped:" + user.toString());
+            	}
+            	else
+            	{
+            		users[i] = user;
+            	}
+            }
+            
+            return users;
+        } 
+        catch (Exception e) {
+        	Log.e("client", e.toString());
+        }
+		
+		return null;
+	}
+	
+	private Boolean parseLogin(String res)
+	{		
+		if (res.length() == 0) 
 			return false;
 		
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document dom = builder.parse(res);
-            return "login" == getNodeAttribute(dom, "fbsmart", "cmd");
-        } catch (Exception e) {
-//            throw new RuntimeException(e);
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes())));
+            String cmd = getNodeAttribute(dom.getDocumentElement(), "fbsmart", "cmd");
+            return "login" == cmd;
+        } 
+        catch (Exception e) {
+        	Log.e("client", e.toString());
         }
 		return false; 		
 	}
 	
+
 	public Boolean login(String name, String passwd)
 	{
-		String req = String.format("<fbsmart UID='%s' dev='%s' cmd='login' seq='%d'><data><waiterid>%s</waiterid><password>%s</password><lostdish></lostdish><maxdishid>-1</maxdishid><clientver>%s</clientver></data></fbsmart>", 
+		String req = String.format("<fbsmart UID='%s' dev='%s' cmd='login' seq='%d'><data><waiterid>%s</waiterid>" +
+				"<password>%s</password><lostdish></lostdish><maxdishid>-1</maxdishid><clientver>%s</clientver></data></fbsmart>", 
 				mUid, mDevice, seq(), name, passwd, mVersion);
 		
 		String res = request(req);
 		
 		return parseLogin(res);
 	}
+	
+	public UserInfoObj[] getUserInfo()
+	{
+		String req = String.format("<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'>" +
+"<data><table field='yonghxx_yhm,yonghxx_qm,yonghxx_ms,yonghxx_mm'>yonghxx</table></data></fbsmart>", 
+		mUid, mDevice, seq());
+		
+		String res = request(req);
+		
+		return parseUserInfo(res);
+	}
+
 }

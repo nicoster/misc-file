@@ -55,9 +55,9 @@ public class DishesDataAdapter {
 			while (mCursor.moveToNext()) {
 
 				UserInfoObj obj = new UserInfoObj();
-				obj.id = mCursor.getInt(mCursor.getColumnIndex(UserInfoObj.USER_ID));
+				obj.id = mCursor.getString(mCursor.getColumnIndex(UserInfoObj.USER_ID));
 				obj.name = mCursor.getString(mCursor.getColumnIndex(UserInfoObj.USER_NAME));
-				obj.level = mCursor.getInt(mCursor.getColumnIndex(UserInfoObj.USER_LEVEL));
+				obj.level = mCursor.getString(mCursor.getColumnIndex(UserInfoObj.USER_LEVEL));
 
 				list.add(obj);
 			}
@@ -85,7 +85,7 @@ public class DishesDataAdapter {
         initialValues.put(DishObj.DISH_TYPE, obj.type);
         initialValues.put(DishObj.DISH_VARIABLE_PRICE, obj.variable_price);
         initialValues.put(DishObj.DISH_SIZE, obj.size);
-        initialValues.put(DishObj.DISH_COOK_TYPE, obj.cook_type);
+//       initialValues.put(DishObj.DISH_COOK_TYPE, obj.cook_style);
         initialValues.put(DishObj.DISH_FLAG, obj.flag);
         initialValues.put(DishObj.DISH_COST, obj.cost);
         initialValues.put(DishObj.DISH_IMAGE, obj.image);
@@ -107,17 +107,16 @@ public class DishesDataAdapter {
 			while (mCursor.moveToNext()) {
 
 				DishObj obj = new DishObj();
-				obj.id = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_ID));
+				obj.id = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_ID));
 				obj.query_code = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_QUERY_CODE));
 				obj.query_code2 = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_QUERY_CODE_2));
 				obj.name = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_NAME));
-				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_SIZE));
+				obj.size = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_SIZE));
 				obj.unit = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_UNIT));
-				obj.price = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_PRICE));
-				obj.type = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_TYPE));
+				obj.price = mCursor.getFloat(mCursor.getColumnIndex(DishObj.DISH_PRICE));
+				obj.type = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_TYPE));
 				obj.variable_price = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_VARIABLE_PRICE)) == 1;
-				obj.size = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_SIZE));
-				obj.cook_type = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_COOK_TYPE));
+//				obj.cook_style = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_COOK_TYPE));
 				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_FLAG));
 				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_COST));
 				obj.image = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_IMAGE));
