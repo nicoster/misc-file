@@ -3,10 +3,11 @@ package org.mfn.tcpclient;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import android.util.Log;
 
 public class TcpClient {
 	private static TcpClient mInstance = null;
@@ -25,34 +26,40 @@ public class TcpClient {
 		mServer = server;
 		mPort = port;
 	}
+	
+	public static void hexDump(byte[] buf)
+	{
+		String out = "";
+		for (int i = 0; i < buf.length; i ++)
+		{
+			out += String.format("%02x ", buf[i]);
+		}
+		Log.d("conn/", out);
+	}
 
 	public String request(String req)
 	{
-		String res = null;
+		String res = "";
 		try {
 			assert(mServer != null && mServer.length() > 0);
 			assert(mPort != 0);
 			
 	        Socket s = new Socket(mServer, mPort);
 	       
-	        //outgoing stream redirect to socket
-	        OutputStream out = s.getOutputStream();
-	       
-	        PrintWriter output = new PrintWriter(out);
-	        output.println("Hello Android!");
+	        OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream(), "GBK");
+	        output.write(req, 0, req.length());
+	        output.flush();
+	        Log.d("conn/send/", req);
 	        
-	        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
-	       
-	        //read line(s)
-	        res = input.readLine();
-
-	        //Close connection
+	        String buf = null;
+	        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream(), "GBK"));
+	        while ((buf = input.readLine()) != null) res += buf;
+	        Log.d("conn/recv/", res);
+	        
 	        s.close();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		
