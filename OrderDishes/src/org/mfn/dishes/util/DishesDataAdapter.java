@@ -85,6 +85,7 @@ public class DishesDataAdapter {
         initialValues.put(DishObj.DISH_TYPE, obj.type);
         initialValues.put(DishObj.DISH_VARIABLE_PRICE, obj.variable_price);
         initialValues.put(DishObj.DISH_SIZE, obj.size);
+		//TODO: cooking style
 //       initialValues.put(DishObj.DISH_COOK_TYPE, obj.cook_style);
         initialValues.put(DishObj.DISH_FLAG, obj.flag);
         initialValues.put(DishObj.DISH_COST, obj.cost);
@@ -116,6 +117,7 @@ public class DishesDataAdapter {
 				obj.price = mCursor.getFloat(mCursor.getColumnIndex(DishObj.DISH_PRICE));
 				obj.type = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_TYPE));
 				obj.variable_price = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_VARIABLE_PRICE)) == 1;
+				//TODO: cooking style
 //				obj.cook_style = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_COOK_TYPE));
 				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_FLAG));
 				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishObj.DISH_COST));

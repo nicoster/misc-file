@@ -85,6 +85,7 @@ public class SyncManager {
 			dobjs[i].price = 3.1f*i;
 			dobjs[i].type = Integer.toString(i);
 			dobjs[i].variable_price = i%2 ==0;
+			//TODO: cooking style
 //			dobjs[i].cook_style="COOK:"+i;
 			dobjs[i].flag =i;
 			dobjs[i].cost = 2.2f*i;
