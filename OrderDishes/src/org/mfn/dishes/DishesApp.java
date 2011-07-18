@@ -4,9 +4,11 @@ import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.util.DishesDBHelpter;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
+import org.mfn.dishes.vo.ImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 public class DishesApp extends Application {
 
@@ -26,6 +28,14 @@ public class DishesApp extends Application {
 //		DishObj[] dishes = cli.getDishInfo();
 		DishTypeObj[] dishtypes = cli.getDishTypeInfo();
 		FlavorInfoObj[] flv = cli.getFlavorInfo();
+		ImageInfoObj imgs[] = cli.getImageInfo();
+		
+		for (int i = 0; i < imgs.length; i ++)
+		{
+			String name = imgs[i].name;
+			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
+			cli.downloadImage(name, "/data/dishes");
+		}
 		int n = 0;
 		n = 1;
 	}

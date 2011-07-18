@@ -2,6 +2,10 @@ package org.mfn.dishes.proto.main;
 
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -9,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.mfn.dishes.vo.DishObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
+import org.mfn.dishes.vo.ImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 import org.mfn.tcpclient.TcpClient;
 import org.w3c.dom.Document;
@@ -19,6 +24,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.util.Log;
 
 public class MainClient {
@@ -36,6 +42,11 @@ public class MainClient {
 	private String request(String req)
 	{
 		return mConn.request(req);
+	}
+
+	private boolean requestForOutputStream(String req, OutputStream o)
+	{
+		return mConn.requestForOutputStream(req, o);
 	}
 	
 	String mUid, mDevice, mVersion;
@@ -67,6 +78,13 @@ public class MainClient {
 			port = 7990;
 		}
 		mConn.init(server, port);
+	}
+	
+	private String getNodeValue(Node item)
+	{
+    	if (item.getFirstChild() != null)
+    		return item.getFirstChild().getNodeValue();
+    	return null;
 	}
 	
 	@SuppressWarnings("unused")
@@ -114,6 +132,78 @@ public class MainClient {
 		
 		return "";
 	
+	}
+	
+	/**
+	 * Download the image <code>file</code> and save it to <code>dir</code>.
+	 *
+	 * @param file
+	 *            the file name to download, supposed to be something like '000100063.bmp'
+	 * @param dir
+	 *            the directory to which the downloaded image saves
+	 */
+	public void downloadImage(String file, String dir)
+	{
+		String[] fields = file.split("\\.");
+		assert(fields.length == 2);
+		Log.d("client", "get " + file);
+		
+		String req = String.format(
+				"<fbsmart UID='%s' dev='%s' cmd='getfile' seq='%d' dnt='1'><data>" +
+				"<waiterid>%s</waiterid><deskid/><consumeid/><param1>%s</param1>" +
+				"<param2>%s</param2></data></fbsmart>",
+				mUid, mDevice, seq(), mUid, file, fields[1].toLowerCase());
+		
+		try {
+			FileOutputStream out = new FileOutputStream(new File(dir + "/" + file));
+			requestForOutputStream(req, out);
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private ImageInfoObj[] parseImageInfo(String res)
+	{
+		ImageInfoObj objs[] = null;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            
+            Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
+            Element root = dom.getDocumentElement();
+            NodeList items = root.getElementsByTagName("row");
+            objs = new ImageInfoObj[items.getLength()];
+            for (int i = 0; i < items.getLength(); i ++)
+            {
+            	Node item = items.item(i);
+            	ImageInfoObj obj = new ImageInfoObj();
+            	obj.name = getNodeValue(item);
+            	obj.size = parseInt(getNodeAttribute(item, "code"));
+            	int tick = parseInt(getNodeAttribute(item, "stat"));
+            	obj.modified_time = new Time();
+            	obj.modified_time.set(tick);
+
+            	objs[i] = obj;
+            }
+        }
+        catch (Exception e) {
+        	Log.e("client", e.toString());
+        }        
+        
+		return objs;
+	}
+	
+	public ImageInfoObj[] getImageInfo()
+	{
+		String req = String.format(
+				"<fbsmart UID='%s' dev='%s' cmd='TreeData' seq='%d' dnt='1'><data>" +
+				"<waiterid>%s</waiterid><deskid/><consumeid/><param1>picdir</param1>" +
+				"<param2/></data></fbsmart>",
+				mUid, mDevice, seq(), mUid);
+
+		String res = request(req);
+		return parseImageInfo(res);
 	}
 	
 	// <record f1="00010001" f2="盐水" f3="1"/>
