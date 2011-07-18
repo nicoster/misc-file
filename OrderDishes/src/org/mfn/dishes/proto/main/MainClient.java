@@ -180,9 +180,9 @@ public class MainClient {
             	ImageInfoObj obj = new ImageInfoObj();
             	obj.name = getNodeValue(item);
             	obj.size = parseInt(getNodeAttribute(item, "code"));
-            	int tick = parseInt(getNodeAttribute(item, "stat"));
+            	long time = parseInt(getNodeAttribute(item, "stat"));
             	obj.modified_time = new Time();
-            	obj.modified_time.set(tick);
+            	obj.modified_time.set(time * 1000);
 
             	objs[i] = obj;
             }

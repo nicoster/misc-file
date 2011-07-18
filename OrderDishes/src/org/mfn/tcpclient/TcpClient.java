@@ -47,7 +47,7 @@ public class TcpClient {
 			assert(mPort != 0);
 			
 	        Socket s = new Socket(mServer, mPort);
-	        s.setSoTimeout(5000);
+	        s.setSoTimeout(30000);
 	        
 	        OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream(), "GBK");
 	        output.write(req, 0, req.length());
@@ -83,6 +83,7 @@ public class TcpClient {
 			assert(mPort != 0);
 			
 	        Socket s = new Socket(mServer, mPort);
+	        s.setSoTimeout(30000);
 	       
 	        OutputStreamWriter output = new OutputStreamWriter(s.getOutputStream(), "GBK");
 	        output.write(req, 0, req.length());

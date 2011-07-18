@@ -21,6 +21,7 @@ public class DishesApp extends Application {
 	@SuppressWarnings("unused")
 	private void runClientTest()
 	{
+		
 		MainClient cli = MainClient.getInstance();
 		cli.init("admin", "pda", "58.240.209.238", 7990, null);
 		cli.login("admin", "");
@@ -34,7 +35,7 @@ public class DishesApp extends Application {
 		{
 			String name = imgs[i].name;
 			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
-			cli.downloadImage(name, "/data/dishes");
+			cli.downloadImage(name, "/sdcard/Dishes/images");
 		}
 		int n = 0;
 		n = 1;
