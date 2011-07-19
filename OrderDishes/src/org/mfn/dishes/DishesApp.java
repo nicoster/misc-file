@@ -1,5 +1,7 @@
 package org.mfn.dishes;
 
+import java.io.File;
+
 import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.util.DishesDBHelpter;
 import org.mfn.dishes.vo.DishTypeObj;
@@ -8,11 +10,14 @@ import org.mfn.dishes.vo.ImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.app.Application;
+import android.os.Environment;
 import android.text.TextUtils;
 
 public class DishesApp extends Application {
 
 	private static DishesApp app = null;
+	
+	public static File SD_CARD = null;
 
 	public static DishesApp getInstance() {
 		return app;
@@ -45,7 +50,7 @@ public class DishesApp extends Application {
 		super.onCreate();
 		app = this;
 				
-//		runClientTest();
+		SD_CARD = Environment.getExternalStorageDirectory().getAbsoluteFile();
 		
 		DishesDBHelpter.init(this);
 		DishesDBHelpter.getInstance().open();

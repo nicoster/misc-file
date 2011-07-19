@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -181,8 +182,7 @@ public class MainClient {
             	obj.name = getNodeValue(item);
             	obj.size = parseInt(getNodeAttribute(item, "code"));
             	long time = parseInt(getNodeAttribute(item, "stat"));
-            	obj.modified_time = new Time();
-            	obj.modified_time.set(time * 1000);
+            	obj.modified_time = new Date();
 
             	objs[i] = obj;
             }

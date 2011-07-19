@@ -1,5 +1,6 @@
 package org.mfn.dishes.sync.syncadapter;
 
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -20,7 +21,9 @@ import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.util.Log;
 
 
@@ -97,9 +100,20 @@ public class SyncManager {
 		FlavorInfoObj[] flv = cli.getFlavorInfo();
 		adapter.syncFlavorInfo(flv);
 		
-		ImageInfoObj imgs[] = cli.getImageInfo();		
+		ImageInfoObj imgs[] = cli.getImageInfo();
+		for (int i = 0; i < imgs.length; i ++)
+		{
+			String name = imgs[i].name;
+			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
+			cli.downloadImage(name, getDishesImageDir());
+		}		
     }
 	
+    private String getDishesImageDir(){
+		String sd_card = Environment.getExternalStorageDirectory().getAbsolutePath();
+		return sd_card+"/Dishes/images/";
+    }
+    
     public Thread performOnBackgroundThread(final Runnable runnable) {
         final Thread t = new Thread() {
             @Override

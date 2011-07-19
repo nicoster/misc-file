@@ -1,6 +1,6 @@
 package org.mfn.dishes.vo;
 
-import android.text.format.Time;
+import java.util.Date;
 
 public class ImageInfoObj {
 	public static final String TABLE_NAME = "image_info";
@@ -8,6 +8,6 @@ public class ImageInfoObj {
 	
 	public String name;
 	public int size;
-	public Time modified_time;
+	public Date modified_time;
 
 }
