@@ -33,6 +33,7 @@ public class DishesGridView extends GridView implements IDishesGridAdapterCallBa
 	private void initView(){
 		setNumColumns(2);
 		setPadding(40, 20, 40, 20);
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
 	
 	public void loadDishes(){

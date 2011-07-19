@@ -1,28 +1,26 @@
 package org.mfn.dishes;
 
-import org.mfn.dishes.adapter.DishesGridAdapter;
 import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.view.DishesGridView;
+import org.mfn.dishes.view.ScrollLayout;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.ViewFlipper;
 
 public class InitActivity extends Activity implements OnClickListener{
 	private ImageButton mStartBtn;
 	private ViewGroup mContainer;
 	private RelativeLayout mEntry;
-	private ViewFlipper mMenuFlipper;
-	private View mTestView;
+	private RelativeLayout mDishesMenus;
+	private ScrollLayout mScrollLayout;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +30,8 @@ public class InitActivity extends Activity implements OnClickListener{
 		mStartBtn = (ImageButton)findViewById(R.id.startbtn);
 		mContainer = (ViewGroup) findViewById(R.id.container);
         mEntry = (RelativeLayout) findViewById(R.id.entry);
-        mMenuFlipper = (ViewFlipper) findViewById(R.id.menuflipper);
+        mDishesMenus = (RelativeLayout) findViewById(R.id.dishes_menus);
+        mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
         mStartBtn.setOnClickListener(this);
 //		mStartBtn.setOnClickListener(new Button.OnClickListener() {
@@ -44,10 +43,12 @@ public class InitActivity extends Activity implements OnClickListener{
 //            }
 //        });
         DishesGridView dishesGridView = new DishesGridView(this);
-        dishesGridView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 //        DishesGridAdapter adapter = new DishesGridAdapter(this);
 //        dishesGridView.setAdapter(adapter);
-        mMenuFlipper.addView(dishesGridView);		
+        mScrollLayout.addView(dishesGridView);
+        mScrollLayout.addView(new DishesGridView(this));
+        mScrollLayout.addView(new DishesGridView(this));
+        mScrollLayout.addView(new DishesGridView(this));
 	}
 	public void onClick(View v){
     	applyRotation(0, 90);
@@ -90,8 +91,14 @@ public class InitActivity extends Activity implements OnClickListener{
             final float centerY = mContainer.getHeight() / 2.0f;
             Rotate3dAnimation rotation;
             
+            //rotate menu first
+            rotation = new Rotate3dAnimation(0, 180, centerX, centerY, 310.0f, false);
+            rotation.setFillAfter(true);
+            rotation.setInterpolator(new DecelerateInterpolator());
+            mDishesMenus.startAnimation(rotation);
+            
             mEntry.setVisibility(View.GONE);
-            mMenuFlipper.setVisibility(View.VISIBLE);
+            mDishesMenus.setVisibility(View.VISIBLE);
             
             rotation = new Rotate3dAnimation(90, 180, centerX, centerY, 310.0f, false);
             rotation.setDuration(500);

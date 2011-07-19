@@ -1,4 +1,4 @@
-package org.mfn.dishes;
+package org.mfn.dishes.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

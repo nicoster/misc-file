@@ -3,6 +3,7 @@ package org.mfn.dishes;
 import java.util.List;
 
 import org.mfn.dishes.util.DishesDataAdapter;
+import org.mfn.dishes.view.ScrollLayout;
 import org.mfn.dishes.vo.DishObj;
 
 import android.app.Activity;

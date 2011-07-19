@@ -3,12 +3,12 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:background="#ffffff" android:layout_height="fill_parent"
 	android:padding="0dip">
-<org.mfn.dishes.ScrollLayout
+<org.mfn.dishes.view.ScrollLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:id="@+id/ScrollLayoutAllDishes"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
-</org.mfn.dishes.ScrollLayout>
+</org.mfn.dishes.view.ScrollLayout>
 <Button android:id="@+id/button1" android:layout_width="wrap_content"
 		android:layout_alignParentLeft="true" android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true" android:text="@string/btn_order_yet"></Button>
