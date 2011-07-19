@@ -22,6 +22,7 @@ public class InitActivity extends Activity implements OnClickListener{
 	private ViewGroup mContainer;
 	private RelativeLayout mEntry;
 	private ViewFlipper mMenuFlipper;
+	private View mTestView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +93,7 @@ public class InitActivity extends Activity implements OnClickListener{
             mEntry.setVisibility(View.GONE);
             mMenuFlipper.setVisibility(View.VISIBLE);
             
-            rotation = new Rotate3dAnimation(90, 0, centerX, centerY, 310.0f, false);
+            rotation = new Rotate3dAnimation(90, 180, centerX, centerY, 310.0f, false);
             rotation.setDuration(500);
             rotation.setFillAfter(true);
             rotation.setInterpolator(new DecelerateInterpolator());

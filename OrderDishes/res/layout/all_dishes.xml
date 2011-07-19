@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:background="#ffffff" android:layout_height="fill_parent"
 	android:padding="0dip">
-	<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-		android:id="@+id/allDishesGrid" android:padding="10dp"
-		android:verticalSpacing="10dp" android:horizontalSpacing="10dp"
-		android:numColumns="auto_fit" android:columnWidth="120dp"
-		android:stretchMode="columnWidth" android:gravity="center"
-		android:background="#999999" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
-
-	<Button android:id="@+id/button1" android:layout_width="wrap_content"
+<org.mfn.dishes.ScrollLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/ScrollLayoutAllDishes"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+</org.mfn.dishes.ScrollLayout>
+<Button android:id="@+id/button1" android:layout_width="wrap_content"
 		android:layout_alignParentLeft="true" android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true" android:text="@string/btn_order_yet"></Button>
 	<Button android:id="@+id/button2"
@@ -20,3 +17,4 @@
 		android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="@string/btn_order_type"></Button>
 
 </RelativeLayout>
+
