@@ -281,8 +281,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		boolean isEmpty = true;
 
-		isEmpty = TextUtils.isEmpty(mAccount.accountName) || TextUtils.isEmpty(mAccount.password)
-				|| TextUtils.isEmpty(mAccount.serverAddress);
+		isEmpty = TextUtils.isEmpty(mAccount.accountName) || TextUtils.isEmpty(mAccount.serverAddress);
 
 		return isEmpty;
 	}

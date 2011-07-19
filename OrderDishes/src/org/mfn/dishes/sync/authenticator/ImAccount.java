@@ -11,7 +11,7 @@ public class ImAccount {
     public String accountName;
     public String password;
     public String serverAddress;
-    public String serverPort = "5222";
+    public String serverPort = "7990";
 
     public boolean syncContacts = true;
 

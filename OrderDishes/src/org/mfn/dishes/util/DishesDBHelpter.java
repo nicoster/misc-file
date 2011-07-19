@@ -2,6 +2,7 @@ package org.mfn.dishes.util;
 
 import org.mfn.dishes.vo.DishObj;
 import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.RoomInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
@@ -38,14 +39,15 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-		createDishesInfoTable(db);
+		createDishInfoTable(db);
 		createUserInfoTable(db);
-		createDishesTypeInfoTable(db);
+		createDishTypeInfoTable(db);
 		createRoomInfoTable(db);
+		createFlavorInfoTable(db);
 
 	}
 
-	private void createDishesInfoTable(SQLiteDatabase db) {
+	private void createDishInfoTable(SQLiteDatabase db) {
 		String create_dish_info_table = "CREATE TABLE " + DishObj.TABLE_NAME + " (" 
 		+ DishObj.DISH_ID + " INTEGER PRIMARY KEY," 
 		+ DishObj.DISH_QUERY_CODE + " TEXT," 
@@ -67,19 +69,19 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 
 	private void createUserInfoTable(SQLiteDatabase db) {
 		String create_dish_info_table = "CREATE TABLE " + UserInfoObj.TABLE_NAME + " (" 
-		+ UserInfoObj.USER_ID + " INTEGER PRIMARY KEY," 
+		+ UserInfoObj.USER_ID + " STRING PRIMARY KEY," 
 		+ UserInfoObj.USER_NAME + " TEXT," 
-		+ UserInfoObj.USER_LEVEL + " INTEGER" 
+		+ UserInfoObj.USER_LEVEL + " STRING" 
 		+ ")";
 
 		db.execSQL(create_dish_info_table);
 	}
 	
-	private void createDishesTypeInfoTable(SQLiteDatabase db) {
+	private void createDishTypeInfoTable(SQLiteDatabase db) {
 		String create_dish_info_table = "CREATE TABLE " + DishTypeObj.TABLE_NAME + " (" 
-		+ DishTypeObj.TYPE_ID + " INTEGER PRIMARY KEY," 
+		+ DishTypeObj.TYPE_ID + " STRING PRIMARY KEY," 
 		+ DishTypeObj.TYPE_NAME + " TEXT," 
-		+ DishTypeObj.PARENT_TYPE_ID + " INTEGER," 
+		+ DishTypeObj.PARENT_TYPE_ID + " STRING," 
 		+ DishTypeObj.TYPE_INDEX + " INTEGER" 
 		+ ")";
 
@@ -94,6 +96,17 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 
 		db.execSQL(create_dish_info_table);
 	}
+
+	private void createFlavorInfoTable(SQLiteDatabase db) {
+		String create_dish_info_table = "CREATE TABLE " + FlavorInfoObj.TABLE_NAME + " (" 
+		+ FlavorInfoObj.FLAVOR_ID + " STRING PRIMARY KEY," 
+		+ FlavorInfoObj.FLAVOR_NAME + " TEXT," 
+		+ FlavorInfoObj.IS_COOK_STYLE + " BOOLEAN" 
+		+ ")";
+
+		db.execSQL(create_dish_info_table);
+	}
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS notes");

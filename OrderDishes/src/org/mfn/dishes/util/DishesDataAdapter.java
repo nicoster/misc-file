@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.mfn.dishes.vo.DishObj;
 import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
-
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -45,7 +45,7 @@ public class DishesDataAdapter {
 	}
 	
 	
-	public UserInfoObj[] listUserInfos(int level) {
+	public UserInfoObj[] listUsersInfo(int level) {
 		Cursor mCursor = helper.myDB.query(true, UserInfoObj.TABLE_NAME, new String[]{UserInfoObj.USER_ID,
 				UserInfoObj.USER_NAME, UserInfoObj.USER_LEVEL}, null, null, null, null, null, null);
 
@@ -61,6 +61,7 @@ public class DishesDataAdapter {
 
 				list.add(obj);
 			}
+			mCursor.close();
 		}
 
 		return list.toArray(new UserInfoObj[0]);
@@ -69,11 +70,11 @@ public class DishesDataAdapter {
 	public void syncDishesInfo(DishObj[] objs){
 		helper.myDB.delete(DishObj.TABLE_NAME, null, null);
 		for (DishObj obj: objs){
-			addDishesInfo(obj);
+			addDishInfo(obj);
 		}
 	}
 	
-	public long addDishesInfo(DishObj obj){
+	public long addDishInfo(DishObj obj){
 		ContentValues initialValues = new ContentValues();
         initialValues.put(DishObj.DISH_ID, obj.id);
         initialValues.put(DishObj.DISH_QUERY_CODE, obj.query_code);
@@ -125,16 +126,65 @@ public class DishesDataAdapter {
 
 				list.add(obj);
 			}
+			mCursor.close();
 		}
 
 		return list.toArray(new DishObj[0]);
 	}
 	
-	public void addDishesType(DishTypeObj obj){
-		
+	public void syncDishTypeInfo(DishTypeObj[] objs) {
+		helper.myDB.delete(DishTypeObj.TABLE_NAME, null, null);
+		for (DishTypeObj obj : objs) {
+			addDishType(obj);
+		}
 	}
 	
-	public DishTypeObj[] listDishesTypes(){
-		return null;
+	public long addDishType(DishTypeObj obj){
+		ContentValues initialValues = new ContentValues();
+        initialValues.put(DishTypeObj.TYPE_ID, obj.id);
+        initialValues.put(DishTypeObj.TYPE_NAME, obj.name);
+        initialValues.put(DishTypeObj.PARENT_TYPE_ID, obj.parentId);
+        initialValues.put(DishTypeObj.TYPE_INDEX, obj.index);
+
+        return helper.myDB.insert(DishTypeObj.TABLE_NAME, DishTypeObj.TYPE_ID, initialValues);		
 	}
+	
+	public DishTypeObj[] listDishTypes(){
+		Cursor mCursor = helper.myDB.query(true, DishTypeObj.TABLE_NAME, new String[]{DishTypeObj.TYPE_ID,
+				DishTypeObj.TYPE_NAME, DishTypeObj.TYPE_ID}, null, null, null, null, null, null);
+		
+		List<DishTypeObj> list = new ArrayList<DishTypeObj>();
+		if (mCursor != null) {
+
+			while (mCursor.moveToNext()) {
+
+				DishTypeObj obj = new DishTypeObj();
+				obj.id = "" + mCursor.getInt(mCursor.getColumnIndex(DishTypeObj.TYPE_ID));
+				obj.name = mCursor.getString(mCursor.getColumnIndex(DishTypeObj.TYPE_NAME));
+				obj.index = mCursor.getInt(mCursor.getColumnIndex(DishTypeObj.TYPE_NAME));
+
+				list.add(obj);
+			}
+			mCursor.close();
+
+		}
+		return list.toArray(new DishTypeObj[0]);		
+	}
+	
+	public void syncFlavorInfo(FlavorInfoObj[] objs){
+		helper.myDB.delete(FlavorInfoObj.TABLE_NAME, null, null);
+		for (FlavorInfoObj obj : objs) {
+			addFlavorInfo(obj);
+		}
+	}
+	
+	public long addFlavorInfo(FlavorInfoObj obj){
+		ContentValues initialValues = new ContentValues();
+        initialValues.put(FlavorInfoObj.FLAVOR_ID, obj.id);
+        initialValues.put(FlavorInfoObj.FLAVOR_NAME, obj.name);
+        initialValues.put(FlavorInfoObj.IS_COOK_STYLE, obj.is_cook_style);
+
+        return helper.myDB.insert(FlavorInfoObj.TABLE_NAME, FlavorInfoObj.FLAVOR_ID, initialValues);		
+	}
+	
 }

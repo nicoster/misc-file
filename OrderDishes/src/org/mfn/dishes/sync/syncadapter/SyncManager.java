@@ -3,9 +3,16 @@ package org.mfn.dishes.sync.syncadapter;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.mfn.dishes.Constants;
 import org.mfn.dishes.DishesApp;
+import org.mfn.dishes.proto.main.MainClient;
+import org.mfn.dishes.sync.authenticator.AuthenticationUtil;
+import org.mfn.dishes.sync.authenticator.ImAccount;
 import org.mfn.dishes.util.DishesDataAdapter;
 import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.FlavorInfoObj;
+import org.mfn.dishes.vo.ImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.accounts.Account;
@@ -14,7 +21,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.SyncStateContract.Constants;
 import android.util.Log;
 
 
@@ -64,34 +70,34 @@ public class SyncManager {
     	
     	DishesDataAdapter adapter = DishesDataAdapter.getInstance();
     	
-		UserInfoObj[] objs = new UserInfoObj[10];
-		for (int i = 0; i < 10; i++) {
-			objs[i] = new UserInfoObj();
-			objs[i].id = Integer.toString(i);
-			objs[i].name = "Frey " + "Wang" + i;
-			objs[i].level = Integer.toString(i % 3);
+		AccountManager mAccountManager = AccountManager.get(context);
+
+		Account[] mAccounts = mAccountManager.getAccountsByType(Constants.ACCOUNT_TYPE);
+		if (mAccounts.length == 0) {
+			return;
 		}
-		adapter.syncUsersInfo(objs);
-    	
-		DishObj[] dobjs = new DishObj[10];
-    	for (int i=0;i<10;i++){
-    		dobjs[i] = new DishObj();
-			dobjs[i].id = Integer.toString(i);
-			dobjs[i].query_code = "QWE:"+i;
-			dobjs[i].query_code2 = "QWEWE:"+i;
-			dobjs[i].name = "红烧肉" + i;
-			dobjs[i].size = Integer.toString(i);
-			dobjs[i].unit = "QWEWE:"+i;
-			dobjs[i].price = 3.1f*i;
-			dobjs[i].type = Integer.toString(i);
-			dobjs[i].variable_price = i%2 ==0;
-			//TODO: cooking style
-//			dobjs[i].cook_style="COOK:"+i;
-			dobjs[i].flag =i;
-			dobjs[i].cost = 2.2f*i;
-			dobjs[i].image=i+"diadiaodiaoudaio.bmp";
-    	}
-    	adapter.syncDishesInfo(dobjs);
+		
+		MainClient cli = MainClient.getInstance();
+		
+		ImAccount imAccount = AuthenticationUtil.getAccountData(context);
+		
+		cli.init("admin", "pda", imAccount.serverAddress, Integer.parseInt(imAccount.serverPort), null);
+
+		cli.login(imAccount.accountName, imAccount.password);
+		
+		UserInfoObj[] users = cli.getUserInfo();
+		adapter.syncUsersInfo(users);
+		
+		DishObj[] dishes = cli.getDishInfo();
+		adapter.syncDishesInfo(dishes);
+
+		DishTypeObj[] dishtypes = cli.getDishTypeInfo();
+		adapter.syncDishTypeInfo(dishtypes);
+		
+		FlavorInfoObj[] flv = cli.getFlavorInfo();
+		adapter.syncFlavorInfo(flv);
+		
+		ImageInfoObj imgs[] = cli.getImageInfo();		
     }
 	
     public Thread performOnBackgroundThread(final Runnable runnable) {
