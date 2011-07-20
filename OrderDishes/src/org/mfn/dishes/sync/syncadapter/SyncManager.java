@@ -10,7 +10,7 @@ import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.sync.authenticator.AuthenticationUtil;
 import org.mfn.dishes.sync.authenticator.ImAccount;
 import org.mfn.dishes.util.DishesDataAdapter;
-import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.ImageInfoObj;
@@ -79,6 +79,7 @@ public class SyncManager {
 		if (mAccounts.length == 0) {
 			return;
 		}
+
 		
 		MainClient cli = MainClient.getInstance();
 		
@@ -91,7 +92,7 @@ public class SyncManager {
 		UserInfoObj[] users = cli.getUserInfo();
 		adapter.syncUsersInfo(users);
 		
-		DishObj[] dishes = cli.getDishInfo();
+		DishInfoObj[] dishes = cli.getDishInfo();
 		adapter.syncDishesInfo(dishes);
 
 		DishTypeObj[] dishtypes = cli.getDishTypeInfo();
@@ -107,6 +108,7 @@ public class SyncManager {
 			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
 			cli.downloadImage(name, getDishesImageDir());
 		}		
+
     }
 	
     private String getDishesImageDir(){

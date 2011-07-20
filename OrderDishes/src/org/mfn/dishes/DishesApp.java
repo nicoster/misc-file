@@ -50,7 +50,10 @@ public class DishesApp extends Application {
 		super.onCreate();
 		app = this;
 				
+//		runClientTest();
+
 		SD_CARD = Environment.getExternalStorageDirectory().getAbsoluteFile();
+
 		
 		DishesDBHelpter.init(this);
 		DishesDBHelpter.getInstance().open();

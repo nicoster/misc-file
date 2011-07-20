@@ -1,6 +1,6 @@
 package org.mfn.dishes.util;
 
-import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.RoomInfoObj;
@@ -48,20 +48,20 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 	}
 
 	private void createDishInfoTable(SQLiteDatabase db) {
-		String create_dish_info_table = "CREATE TABLE " + DishObj.TABLE_NAME + " (" 
-		+ DishObj.DISH_ID + " INTEGER PRIMARY KEY," 
-		+ DishObj.DISH_QUERY_CODE + " TEXT," 
-		+ DishObj.DISH_QUERY_CODE_2 + " TEXT," 
-		+ DishObj.DISH_NAME + " TEXT, " 
-		+ DishObj.DISH_SIZE + " INTEGER,"
-		+ DishObj.DISH_UNIT + " STRING," 
-		+ DishObj.DISH_PRICE + " FLOAT," 
-		+ DishObj.DISH_TYPE	+ " INTEGER," 
-		+ DishObj.DISH_VARIABLE_PRICE + " BOOLEAN," 
-		+ DishObj.DISH_COOK_TYPE + " STRING,"
-		+ DishObj.DISH_FLAG + " INTEGER," 
-		+ DishObj.DISH_COST + " FLOAT," 
-		+ DishObj.DISH_IMAGE + " TEXT" 
+		String create_dish_info_table = "CREATE TABLE " + DishInfoObj.TABLE_NAME + " (" 
+		+ DishInfoObj.DISH_ID + " INTEGER PRIMARY KEY," 
+		+ DishInfoObj.DISH_QUERY_CODE + " TEXT," 
+		+ DishInfoObj.DISH_QUERY_CODE_2 + " TEXT," 
+		+ DishInfoObj.DISH_NAME + " TEXT, " 
+		+ DishInfoObj.DISH_SIZE + " INTEGER,"
+		+ DishInfoObj.DISH_UNIT + " STRING," 
+		+ DishInfoObj.DISH_PRICE + " FLOAT," 
+		+ DishInfoObj.DISH_TYPE	+ " INTEGER," 
+		+ DishInfoObj.DISH_VARIABLE_PRICE + " BOOLEAN," 
+		+ DishInfoObj.DISH_COOK_TYPE + " STRING,"
+		+ DishInfoObj.DISH_FLAG + " INTEGER," 
+		+ DishInfoObj.DISH_COST + " FLOAT," 
+		+ DishInfoObj.DISH_IMAGE + " TEXT" 
 		+ ")";
 
 		db.execSQL(create_dish_info_table);

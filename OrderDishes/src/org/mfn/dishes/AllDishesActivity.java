@@ -1,16 +1,12 @@
 package org.mfn.dishes;
 
-import java.util.List;
-
 import org.mfn.dishes.util.DishesDataAdapter;
 import org.mfn.dishes.view.ScrollLayout;
-import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishInfoObj;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,9 +64,9 @@ public class AllDishesActivity extends Activity {
 	private void listAllDishes() {
 		DishesDataAdapter adapter = DishesDataAdapter.getInstance();
 
-		DishObj[] objs = adapter.listDishesInfo(-1);
+		DishInfoObj[] objs = adapter.listDishesInfo(-1);
 
-		for (DishObj obj : objs) {
+		for (DishInfoObj obj : objs) {
 			Log.i(TAG, "ID=" + obj.id + "\tName=" + obj.name + "\tPrice=" + obj.price);
 		}
 	}

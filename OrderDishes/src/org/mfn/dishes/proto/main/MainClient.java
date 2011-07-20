@@ -11,7 +11,7 @@ import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.mfn.dishes.vo.DishObj;
+import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.ImageInfoObj;
@@ -24,8 +24,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+import android.os.Handler;
 import android.text.TextUtils;
-import android.text.format.Time;
 import android.util.Log;
 
 public class MainClient {
@@ -37,6 +37,8 @@ public class MainClient {
 		}
 		return mInstance;
 	}
+	
+	Handler mHandler;
 	
 	private TcpClient mConn = TcpClient.getInstance();
 	
@@ -58,12 +60,18 @@ public class MainClient {
 		return ++ mSeq;
 	}
 	
+	/**
+	 * Initialize this module. Make sure this method is called within main thread. As a Handler gets initialized inside, 
+	 * on which we depend to post notification for data is ready for asynchronous calls.  
+	 */
 	public void init(String uid, String device, String server, int port, String version)
 	{
 		if (version == null || server.length() == 0)
 		{
 			version = "v1.0";
 		}
+		
+		mHandler = new Handler();
 
 		mUid = uid;
 		mDevice = device;
@@ -79,6 +87,11 @@ public class MainClient {
 			port = 7990;
 		}
 		mConn.init(server, port);
+	}
+	
+	public boolean post(Runnable r)
+	{
+		return mHandler.post(r);
 	}
 	
 	private String getNodeValue(Node item)
@@ -147,7 +160,8 @@ public class MainClient {
 	{
 		String[] fields = file.split("\\.");
 		assert(fields.length == 2);
-		Log.d("client", "get " + file);
+		assert(! TextUtils.isEmpty(dir));
+//		Log.d("client", "get " + file);
 		
 		String req = String.format(
 				"<fbsmart UID='%s' dev='%s' cmd='getfile' seq='%d' dnt='1'><data>" +
@@ -182,7 +196,7 @@ public class MainClient {
             	obj.name = getNodeValue(item);
             	obj.size = parseInt(getNodeAttribute(item, "code"));
             	long time = parseInt(getNodeAttribute(item, "stat"));
-            	obj.modified_time = new Date();
+            	obj.modified_time = new Date(time * 1000);
 
             	objs[i] = obj;
             }
@@ -309,9 +323,9 @@ public class MainClient {
 	}
 //	<row f1="000100131" f2="000100131" f3="HHXJCDQXL" f4="红花蟹" f5="" f6="例" f7="128" f8="00010009" f9="0" 
 //	f10="1" f11="00010004,00010005,00010006" f12="72" f13=",," f14="0" f15="100"/>
-	private DishObj[] parseDishInfo(String res)
+	private DishInfoObj[] parseDishInfo(String res)
 	{
-		DishObj dishes[] = null;
+		DishInfoObj dishes[] = null;
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -319,11 +333,11 @@ public class MainClient {
             Document dom = builder.parse(new InputSource(new ByteArrayInputStream(res.getBytes("GBK"))));
             Element root = dom.getDocumentElement();
             NodeList items = root.getElementsByTagName("row");
-            dishes = new DishObj[items.getLength()];
+            dishes = new DishInfoObj[items.getLength()];
             for (int i = 0; i < items.getLength(); i ++)
             {
             	Node item = items.item(i);
-            	DishObj dish = new DishObj();
+            	DishInfoObj dish = new DishInfoObj();
             	dish.id = getNodeAttribute(item, "f1");
             	dish.query_code = getNodeAttribute(item, "f2");
             	dish.query_code2 = getNodeAttribute(item, "f3");
@@ -355,7 +369,7 @@ public class MainClient {
 		return dishes;
 	}
 	
-	public DishObj[] getDishInfo()
+	public DishInfoObj[] getDishInfo()
 	{
 		String req = String.format(
 				"<fbsmart UID='%s' dev='%s' cmd='query' seq='%d' dnt='1'><data>" +
@@ -423,7 +437,7 @@ public class MainClient {
 	}
 	
 
-	public Boolean login(String name, String passwd)
+	public boolean login(String name, String passwd)
 	{
 		String req = String.format("<fbsmart UID='%s' dev='%s' cmd='login' seq='%d'><data><waiterid>%s</waiterid>" +
 				"<password>%s</password><lostdish></lostdish><maxdishid>-1</maxdishid><clientver>%s</clientver></data></fbsmart>", 
@@ -445,4 +459,5 @@ public class MainClient {
 		return parseUserInfo(res);
 	}
 
+//	public boolean order(String deskId, int headcount, )
 }
