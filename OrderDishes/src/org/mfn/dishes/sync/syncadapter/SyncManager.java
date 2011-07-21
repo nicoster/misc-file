@@ -102,19 +102,24 @@ public class SyncManager {
 		adapter.syncFlavorInfo(flv);
 		
 		ImageInfoObj imgs[] = cli.getImageInfo();
+		String imagePath = getDishesImageDir();
+		Log.i(TAG, "Begin download image to " + imagePath);
 		for (int i = 0; i < imgs.length; i ++)
 		{
 			String name = imgs[i].name;
 			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
-			cli.downloadImage(name, getDishesImageDir());
+			cli.downloadImage(name, imagePath);
 		}		
 
     }
 	
-    private String getDishesImageDir(){
-		String sd_card = Environment.getExternalStorageDirectory().getAbsolutePath();
-		return sd_card+"/Dishes/images/";
-    }
+	private String getDishesImageDir() {
+		File imagePathDir = new File(Constants.DISHES_IMAGE_PATH);
+		if (!imagePathDir.exists()) {
+			imagePathDir.mkdirs();
+		}
+		return imagePathDir.getAbsolutePath();
+	}
     
     public Thread performOnBackgroundThread(final Runnable runnable) {
         final Thread t = new Thread() {

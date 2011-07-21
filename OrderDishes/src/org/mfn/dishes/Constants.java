@@ -25,5 +25,5 @@ public class Constants {
 
     public static final int SYNC_CONTACTS_POLL_FREQUENCY = 12 * 60 * 1000; // in seconds
     
-   
+    public static String DISHES_IMAGE_PATH = null;
 }
