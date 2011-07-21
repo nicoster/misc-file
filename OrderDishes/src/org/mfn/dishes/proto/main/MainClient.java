@@ -84,7 +84,7 @@ public class MainClient {
 			version = "v1.0";
 		}
 
-		mHandler = new Handler();
+//		mHandler = new Handler();
 
 		mUid = uid;
 		mWaiter = uid;
@@ -228,7 +228,7 @@ public class MainClient {
 		return parseImageInfo(res);
 	}
 
-	// <record f1="00010001" f2="盐水" f3="1"/>
+	// <record f1="00010001" f2="鐩愭按" f3="1"/>
 	private FlavorInfoObj[] parseFlavorInfo(String res) {
 		FlavorInfoObj objs[] = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -325,7 +325,7 @@ public class MainClient {
 		return Boolean.parseBoolean(s);
 	}
 
-	// <row f1="000100131" f2="000100131" f3="HHXJCDQXL" f4="红花蟹" f5="" f6="例"
+	// <row f1="000100131" f2="000100131" f3="HHXJCDQXL" f4="绾㈣姳锜� f5="" f6="渚�
 	// f7="128" f8="00010009" f9="0"
 	// f10="1" f11="00010004,00010005,00010006" f12="72" f13=",," f14="0"
 	// f15="100"/>
