@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">点菜</string>
+    <string name="app_name">Dishes</string>
     <string name="btn_start_order">开始点菜</string>
     <string name="btn_order_yet">已点</string>
     <string name="btn_order_all">全部</string>
