@@ -10,4 +10,9 @@ public class FlavorInfoObj {
 	public String id;
 	public String name;
 	public boolean is_cook_style;
+	
+	public String toString()
+	{
+		return "{id:" + id + ", name:" + name + ", is_cook_style:" + is_cook_style + "}";
+	}
 }

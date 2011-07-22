@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import org.mfn.dishes.Constants;
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
@@ -15,6 +16,7 @@ import org.mfn.dishes.vo.UserInfoObj;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 public class DishesDataAdapter {
 	
@@ -33,9 +35,14 @@ public class DishesDataAdapter {
 		return dishesAdapter;
 	}
 	
-	public void syncUsersInfo(UserInfoObj[] objs){
+	public void syncUsersInfo(UserInfoObj[] objs) {
+		if (objs == null || objs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncUsersInfo error, data is null");
+			return;
+		}
 		helper.myDB.delete(UserInfoObj.TABLE_NAME, null, null);
-		for (UserInfoObj obj: objs){
+
+		for (UserInfoObj obj : objs) {
 			addUserInfo(obj);
 		}
 	}
@@ -45,7 +52,8 @@ public class DishesDataAdapter {
         initialValues.put(UserInfoObj.USER_ID, obj.id);
         initialValues.put(UserInfoObj.USER_NAME, obj.name);
         initialValues.put(UserInfoObj.USER_LEVEL, obj.level);
-
+        
+        Log.i(Constants.APP_TAG, "addUserInfo:: "+obj.toString());
         return helper.myDB.insert(UserInfoObj.TABLE_NAME, UserInfoObj.USER_ID, initialValues);		
 	}
 	
@@ -73,7 +81,12 @@ public class DishesDataAdapter {
 	}
 	
 	public void syncDishesInfo(DishInfoObj[] objs){
+		if (objs == null || objs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncDishesInfo error, data is null");
+			return;
+		}
 		helper.myDB.delete(DishInfoObj.TABLE_NAME, null, null);
+		
 		for (DishInfoObj obj: objs){
 			addDishInfo(obj);
 		}
@@ -96,6 +109,7 @@ public class DishesDataAdapter {
         initialValues.put(DishInfoObj.DISH_FLAG, obj.flag);
         initialValues.put(DishInfoObj.DISH_COST, obj.cost);
 
+        Log.i(Constants.APP_TAG, "addDishInfo:: "+obj.toString());
         return helper.myDB.insert(DishInfoObj.TABLE_NAME, DishInfoObj.DISH_ID, initialValues);			
 	}
 	
@@ -136,6 +150,10 @@ public class DishesDataAdapter {
 	}
 	
 	public void syncDishTypeInfo(DishTypeObj[] objs) {
+		if (objs == null || objs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncDishTypeInfo error, data is null");
+			return;
+		}
 		helper.myDB.delete(DishTypeObj.TABLE_NAME, null, null);
 		for (DishTypeObj obj : objs) {
 			addDishType(obj);
@@ -149,6 +167,7 @@ public class DishesDataAdapter {
         initialValues.put(DishTypeObj.PARENT_TYPE_ID, obj.parentId);
         initialValues.put(DishTypeObj.TYPE_INDEX, obj.index);
 
+        Log.i(Constants.APP_TAG, "addDishType:: "+obj.toString());
         return helper.myDB.insert(DishTypeObj.TABLE_NAME, DishTypeObj.TYPE_ID, initialValues);		
 	}
 	
@@ -175,6 +194,10 @@ public class DishesDataAdapter {
 	}
 	
 	public void syncFlavorInfo(FlavorInfoObj[] objs){
+		if (objs == null || objs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncFlavorInfo error, data is null");
+			return;
+		}
 		helper.myDB.delete(FlavorInfoObj.TABLE_NAME, null, null);
 		for (FlavorInfoObj obj : objs) {
 			addFlavorInfo(obj);
@@ -187,6 +210,7 @@ public class DishesDataAdapter {
         initialValues.put(FlavorInfoObj.FLAVOR_NAME, obj.name);
         initialValues.put(FlavorInfoObj.IS_COOK_STYLE, obj.is_cook_style);
 
+        Log.i(Constants.APP_TAG, "addFlavorInfo:: "+obj.toString());
         return helper.myDB.insert(FlavorInfoObj.TABLE_NAME, FlavorInfoObj.FLAVOR_ID, initialValues);		
 	}
 	
@@ -213,22 +237,29 @@ public class DishesDataAdapter {
 	}
 	
 	public void syncImageInfo(ServerImageInfoObj[] objs) {
+		if (objs == null || objs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncImageInfo error, data is null");
+			return;
+		}
 		helper.myDB.delete(ImageInfoObj.TABLE_NAME, null, null);
 		HashMap<String, ImageInfoObj> imageMap = new HashMap<String, ImageInfoObj>();
 		for (ServerImageInfoObj sObj : objs) {
-			String id = FunctionUtil.formatNum(sObj.name);
+			String id = FunctionUtil.formatDishId(sObj.name);
 			ImageInfoObj estImgObj = imageMap.get(id);
 			if (estImgObj == null) {
 				ImageInfoObj mObj = new ImageInfoObj();
 				mObj.set(sObj);
-				imageMap.put(mObj.id, mObj);
+				imageMap.put(id, mObj);
 			} else {
 				estImgObj.set(sObj);
 			}
-
-			Iterator it = imageMap.values().iterator();
-			while (it.hasNext()) {
-				ImageInfoObj obj = (ImageInfoObj) it.next();
+		}
+		
+		Iterator it = imageMap.values().iterator();
+		while (it.hasNext()) {
+			ImageInfoObj obj = (ImageInfoObj) it.next();
+			if (FunctionUtil.isImageFile(obj.name)) {
+				Log.i(Constants.APP_TAG, "addImageInfo:: "+obj.toString());
 				addImageInfo(obj);
 			}
 		}
@@ -247,6 +278,7 @@ public class DishesDataAdapter {
 
         return helper.myDB.insert(ImageInfoObj.TABLE_NAME, ImageInfoObj.IMAGE_ID, initialValues);		
 	}
+		
 	
 	public HashMap<String, ImageInfoObj> listImageInfo(){
 		Cursor mCursor = helper.myDB.query(true, ImageInfoObj.TABLE_NAME, new String[]{ImageInfoObj.IMAGE_ID,

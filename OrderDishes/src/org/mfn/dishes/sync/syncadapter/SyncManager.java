@@ -112,20 +112,26 @@ public class SyncManager {
 		for (int i = 0; i < svrImgs.length; i ++)
 		{
 			String name = svrImgs[i].name;
-			String imgId = FunctionUtil.formatNum(name);
+			String imgId = FunctionUtil.formatDishId(name);
 			ImageInfoObj dbImgObj = dbImgMap.get(imgId);
 			Log.i(Constants.APP_TAG, "*" + svrImgs[i].name + "\t size=" + svrImgs[i].size + "\t modify_time="
 					+ svrImgs[i].modified_time.toLocaleString());
 			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase(".."))
 				continue;
-			if (isImageUpdated(svrImgs[i], dbImgObj)) {
-				cli.downloadImage(name, imagePath);
-			}else{
+			if (isImageUpdated(svrImgs[i], dbImgObj) || !imageExist(imagePath + name)) {
+				Log.w(Constants.APP_TAG, "Download..."+imagePath + name);				
+				//cli.downloadImage(name, imagePath);
+			} else {
 				Log.w(Constants.APP_TAG, "No changed, don't download again...");
 			}
-		}		
+		}
+		adapter.syncImageInfo(svrImgs);
     }
 	
+    private boolean imageExist(String fName){
+    	return (new File(fName)).exists();
+    }
+    
 	private boolean isImageUpdated(ServerImageInfoObj sObj, ImageInfoObj obj) {
 		if (obj == null) {
 			return true;

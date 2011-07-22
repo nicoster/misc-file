@@ -27,8 +27,8 @@ public class ImageInfoObj {
 	public Date small_modified_time;
 	
 	public void set(ServerImageInfoObj sObj) {
-		id = FunctionUtil.formatNum(sObj.name);
-		if (sObj.name.toLowerCase().indexOf("t.bmp") > 0) {
+		id = FunctionUtil.formatDishId(sObj.name);
+		if (sObj.name.toLowerCase().endsWith("t.bmp")) {
 			small_name = sObj.name;
 			small_size = sObj.size;
 			small_modified_time = sObj.modified_time;
@@ -39,4 +39,9 @@ public class ImageInfoObj {
 		}
 	}
 
+	public String toString() {
+		return "{id:" + id + ", name:" + name + ", size:" + size + ", modified_time:" + modified_time
+				+ ", small_name:" + small_name + ", small_size:" + small_size + ", small_modified_time:"
+				+ small_modified_time + "}";
+	}
 }

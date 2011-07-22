@@ -51,4 +51,9 @@ public class DishInfoObj {
 		//TODO: parse and set cooking_info
 		return false;
 	}
+	
+	public String toString()
+	{
+		return "{id:" + id + ", name:" + name + ", price:" + price + "}";
+	}
 }

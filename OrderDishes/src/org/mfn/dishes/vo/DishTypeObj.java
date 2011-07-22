@@ -13,4 +13,8 @@ public class DishTypeObj {
 	public String parentId;
 	public int index;
 	
+	public String toString()
+	{
+		return "{id:" + id + ", name:" + name + ", index:" + index + "}";
+	}
 }
