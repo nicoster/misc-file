@@ -59,6 +59,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 	private EditText mUsernameEdit;
 	private TextView mServerAddressLabel;
 	private EditText mServerAddressEdit;
+	private TextView mServerPortLabel;
+	private EditText mServerPortEdit;
 	private Button mBtnSave;
 	private Button mBtnCancel;
 
@@ -70,8 +72,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 	private SharedPreferences settings;
 
-	private static boolean isInprogress;
-
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -79,7 +79,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		settings = getPreferences(Activity.MODE_PRIVATE);
 
 		initViewElements();
-
 	}
 
 	public void onStart() {
@@ -102,6 +101,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		mPasswordLabel = (TextView) findViewById(R.id.password_label);
 		mServerAddressLabel = (TextView) findViewById(R.id.server_address_label);
 		mServerAddressEdit = (EditText) findViewById(R.id.server_address_edit);
+		mServerPortLabel = (TextView) findViewById(R.id.server_port_label);
+		mServerPortEdit = (EditText) findViewById(R.id.server_port_edit);
 		mMessage = (TextView) findViewById(R.id.message);
 		mBtnSave = (Button) findViewById(R.id.save_button);
 
@@ -188,7 +189,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
 		mUsernameEdit.setImeOptions(EditorInfo.IME_ACTION_NEXT);
 		mPasswordEdit.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-		mServerAddressEdit.setImeOptions(EditorInfo.IME_ACTION_DONE);
+		mServerAddressEdit.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+		mServerPortEdit.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
 		mMessage.setText("");
 
@@ -205,20 +207,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 		super.onStop();
 	}
 
-	private ProgressDialog getProgressDialog(CharSequence msg) {
-		ProgressDialog pDialog = new ProgressDialog(this);
-		pDialog.setMessage(msg);
-		pDialog.setIndeterminate(true);
-		pDialog.setCancelable(false);
-		pDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-
-			public void onCancel(DialogInterface dialog) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		return pDialog;
-	}
 
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		switch (id) {
@@ -249,6 +237,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         	 mAccount.accountName = mUsernameEdit.getText().toString();
              mAccount.password = mPasswordEdit.getText().toString();
              mAccount.serverAddress = mServerAddressEdit.getText().toString();
+             mAccount.serverPort = mServerPortEdit.getText().toString();
              AuthenticationUtil.setAccountData(mAccount);
 
              if (emptyFieldsCheck()) {

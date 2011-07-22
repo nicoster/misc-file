@@ -1,11 +1,16 @@
 package org.mfn.dishes.util;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
+import org.mfn.dishes.vo.ImageInfoObj;
+import org.mfn.dishes.vo.ServerImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.content.ContentValues;
@@ -90,7 +95,6 @@ public class DishesDataAdapter {
 //       initialValues.put(DishObj.DISH_COOK_TYPE, obj.cook_style);
         initialValues.put(DishInfoObj.DISH_FLAG, obj.flag);
         initialValues.put(DishInfoObj.DISH_COST, obj.cost);
-        initialValues.put(DishInfoObj.DISH_IMAGE, obj.image);
 
         return helper.myDB.insert(DishInfoObj.TABLE_NAME, DishInfoObj.DISH_ID, initialValues);			
 	}
@@ -100,7 +104,7 @@ public class DishesDataAdapter {
 				DishInfoObj.DISH_QUERY_CODE, DishInfoObj.DISH_QUERY_CODE_2, DishInfoObj.DISH_NAME,
 				DishInfoObj.DISH_SIZE, DishInfoObj.DISH_UNIT, DishInfoObj.DISH_PRICE, DishInfoObj.DISH_TYPE,
 				DishInfoObj.DISH_VARIABLE_PRICE, DishInfoObj.DISH_SIZE, DishInfoObj.DISH_COOK_TYPE,
-				DishInfoObj.DISH_FLAG, DishInfoObj.DISH_COST, DishInfoObj.DISH_IMAGE}, null, null, null, null, null,
+				DishInfoObj.DISH_FLAG, DishInfoObj.DISH_COST}, null, null, null, null, null,
 				null);
 
 		List<DishInfoObj> list = new ArrayList<DishInfoObj>();
@@ -122,7 +126,6 @@ public class DishesDataAdapter {
 //				obj.cook_style = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_COOK_TYPE));
 				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishInfoObj.DISH_FLAG));
 				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishInfoObj.DISH_COST));
-				obj.image = mCursor.getString(mCursor.getColumnIndex(DishInfoObj.DISH_IMAGE));
 
 				list.add(obj);
 			}
@@ -187,4 +190,91 @@ public class DishesDataAdapter {
         return helper.myDB.insert(FlavorInfoObj.TABLE_NAME, FlavorInfoObj.FLAVOR_ID, initialValues);		
 	}
 	
+	public FlavorInfoObj[] listFlavorInfo(){
+		Cursor mCursor = helper.myDB.query(true, FlavorInfoObj.TABLE_NAME, new String[]{FlavorInfoObj.FLAVOR_ID,
+				FlavorInfoObj.FLAVOR_NAME, FlavorInfoObj.IS_COOK_STYLE}, null, null, null, null, null, null);
+		
+		List<FlavorInfoObj> list = new ArrayList<FlavorInfoObj>();
+		if (mCursor != null) {
+
+			while (mCursor.moveToNext()) {
+
+				FlavorInfoObj obj = new FlavorInfoObj();
+				obj.id = mCursor.getString(mCursor.getColumnIndex(FlavorInfoObj.FLAVOR_ID));
+				obj.name = mCursor.getString(mCursor.getColumnIndex(FlavorInfoObj.FLAVOR_NAME));
+				obj.is_cook_style = mCursor.getInt(mCursor.getColumnIndex(FlavorInfoObj.IS_COOK_STYLE)) == 1;
+
+				list.add(obj);
+			}
+			mCursor.close();
+
+		}
+		return list.toArray(new FlavorInfoObj[0]);		
+	}
+	
+	public void syncImageInfo(ServerImageInfoObj[] objs) {
+		helper.myDB.delete(ImageInfoObj.TABLE_NAME, null, null);
+		HashMap<String, ImageInfoObj> imageMap = new HashMap<String, ImageInfoObj>();
+		for (ServerImageInfoObj sObj : objs) {
+			String id = FunctionUtil.formatNum(sObj.name);
+			ImageInfoObj estImgObj = imageMap.get(id);
+			if (estImgObj == null) {
+				ImageInfoObj mObj = new ImageInfoObj();
+				mObj.set(sObj);
+				imageMap.put(mObj.id, mObj);
+			} else {
+				estImgObj.set(sObj);
+			}
+
+			Iterator it = imageMap.values().iterator();
+			while (it.hasNext()) {
+				ImageInfoObj obj = (ImageInfoObj) it.next();
+				addImageInfo(obj);
+			}
+		}
+	}
+	
+	public long addImageInfo(ImageInfoObj obj){
+		ContentValues initialValues = new ContentValues();
+        initialValues.put(ImageInfoObj.IMAGE_ID, obj.id);
+        initialValues.put(ImageInfoObj.IMAGE_NAME, obj.name);
+        initialValues.put(ImageInfoObj.IMAGE_SIZE, obj.size);
+        initialValues.put(ImageInfoObj.IMAGE_MODIFY_TIME, obj.modified_time.getTime());
+        
+        initialValues.put(ImageInfoObj.SMALL_IMAGE_NAME, obj.small_name);
+        initialValues.put(ImageInfoObj.SMALL_IMAGE_SIZE, obj.small_size);
+        initialValues.put(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME, obj.small_modified_time.getTime());
+
+        return helper.myDB.insert(ImageInfoObj.TABLE_NAME, ImageInfoObj.IMAGE_ID, initialValues);		
+	}
+	
+	public HashMap<String, ImageInfoObj> listImageInfo(){
+		Cursor mCursor = helper.myDB.query(true, ImageInfoObj.TABLE_NAME, new String[]{ImageInfoObj.IMAGE_ID,
+				ImageInfoObj.IMAGE_NAME, ImageInfoObj.IMAGE_SIZE, ImageInfoObj.IMAGE_MODIFY_TIME,
+				ImageInfoObj.SMALL_IMAGE_NAME, ImageInfoObj.SMALL_IMAGE_SIZE, ImageInfoObj.SMALL_IMAGE_MODIFY_TIME,
+				}, null, null, null, null, null, null);
+		
+		HashMap<String, ImageInfoObj> map = new HashMap<String, ImageInfoObj>();
+		if (mCursor != null) {
+
+			while (mCursor.moveToNext()) {
+
+				ImageInfoObj obj = new ImageInfoObj();
+				obj.id = mCursor.getString(mCursor.getColumnIndex(ImageInfoObj.IMAGE_ID));
+				obj.name = mCursor.getString(mCursor.getColumnIndex(ImageInfoObj.IMAGE_NAME));
+				obj.size = mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.IMAGE_SIZE));
+				obj.modified_time = new Date(mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.IMAGE_MODIFY_TIME)));
+
+				obj.name = mCursor.getString(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_NAME));
+				obj.size = mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_SIZE));
+				obj.modified_time = new Date(mCursor.getLong(mCursor
+						.getColumnIndex(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME)));
+
+				map.put(obj.id, obj);
+			}
+			mCursor.close();
+
+		}
+		return map;
+	}	
 }

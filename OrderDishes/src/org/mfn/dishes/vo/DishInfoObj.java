@@ -15,7 +15,6 @@ public class DishInfoObj {
 	public static final String DISH_COOK_TYPE = "dish_cook_type";
 	public static final String DISH_FLAG = "dish_flag";
 	public static final String DISH_COST = "dish_cost";
-	public static final String DISH_IMAGE = "dish_image";
 	
 	public static class CookingInfo
 	{
@@ -37,7 +36,6 @@ public class DishInfoObj {
 	public float cost;
 	public float gross_profit;
 	public String name_en, name_jp;
-	public String image;
 	public boolean isPackage(){return (flag & 0x0001) != 0;} //是否套餐
 	public boolean isCustom(){return (flag & 0x0002) != 0;} //自定义菜品
 	public boolean isByQuantity(){return (flag & 0x0004) != 0;} //称重菜品

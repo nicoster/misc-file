@@ -12,12 +12,13 @@
 
 package org.mfn.dishes;
 
+import android.util.DisplayMetrics;
+
 public class Constants {
 
-    /**
-     * Account type string.
-     */
-    public static final String ACCOUNT_TYPE = "org.mfn.dishes.sync";
+    public static String APP_TAG = "DISHES";
+
+	public static final String ACCOUNT_TYPE = "org.mfn.dishes.sync";
 
     public static final String PARAM_SERVER_ADDRESS = "server_address";
 
@@ -26,4 +27,6 @@ public class Constants {
     public static final int SYNC_CONTACTS_POLL_FREQUENCY = 12 * 60 * 1000; // in seconds
     
     public static String DISHES_IMAGE_PATH = null;
+    
+    public static DisplayMetrics DISPLAY_METRICS = null;
 }

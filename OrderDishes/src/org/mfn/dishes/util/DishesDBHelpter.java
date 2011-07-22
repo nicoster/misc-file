@@ -3,6 +3,7 @@ package org.mfn.dishes.util;
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
+import org.mfn.dishes.vo.ImageInfoObj;
 import org.mfn.dishes.vo.RoomInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
@@ -44,6 +45,7 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 		createDishTypeInfoTable(db);
 		createRoomInfoTable(db);
 		createFlavorInfoTable(db);
+		createImageInfoTable(db);
 
 	}
 
@@ -60,8 +62,7 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 		+ DishInfoObj.DISH_VARIABLE_PRICE + " BOOLEAN," 
 		+ DishInfoObj.DISH_COOK_TYPE + " STRING,"
 		+ DishInfoObj.DISH_FLAG + " INTEGER," 
-		+ DishInfoObj.DISH_COST + " FLOAT," 
-		+ DishInfoObj.DISH_IMAGE + " TEXT" 
+		+ DishInfoObj.DISH_COST + " FLOAT" 
 		+ ")";
 
 		db.execSQL(create_dish_info_table);
@@ -102,6 +103,20 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 		+ FlavorInfoObj.FLAVOR_ID + " STRING PRIMARY KEY," 
 		+ FlavorInfoObj.FLAVOR_NAME + " TEXT," 
 		+ FlavorInfoObj.IS_COOK_STYLE + " BOOLEAN" 
+		+ ")";
+
+		db.execSQL(create_dish_info_table);
+	}
+
+	private void createImageInfoTable(SQLiteDatabase db) {
+		String create_dish_info_table = "CREATE TABLE " + ImageInfoObj.TABLE_NAME + " (" 
+		+ ImageInfoObj.IMAGE_ID + " STRING PRIMARY KEY," 
+		+ ImageInfoObj.IMAGE_NAME + " TEXT," 
+		+ ImageInfoObj.SMALL_IMAGE_NAME + " LONG," 
+		+ ImageInfoObj.IMAGE_SIZE + " TEXT," 
+		+ ImageInfoObj.SMALL_IMAGE_SIZE + " LONG," 
+		+ ImageInfoObj.IMAGE_MODIFY_TIME + " LONG," 
+		+ ImageInfoObj.SMALL_IMAGE_MODIFY_TIME + " LONG" 
 		+ ")";
 
 		db.execSQL(create_dish_info_table);

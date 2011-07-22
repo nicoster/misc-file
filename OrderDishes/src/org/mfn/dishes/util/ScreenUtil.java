@@ -1,4 +1,6 @@
-package org.mfn.dishes;
+package org.mfn.dishes.util;
+
+import org.mfn.dishes.DishesApp;
 
 import android.util.DisplayMetrics;
 

@@ -1,6 +1,8 @@
 package org.mfn.dishes.sync.syncadapter;
 
 import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -10,10 +12,12 @@ import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.sync.authenticator.AuthenticationUtil;
 import org.mfn.dishes.sync.authenticator.ImAccount;
 import org.mfn.dishes.util.DishesDataAdapter;
+import org.mfn.dishes.util.FunctionUtil;
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.ImageInfoObj;
+import org.mfn.dishes.vo.ServerImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 
 import android.accounts.Account;
@@ -28,8 +32,6 @@ import android.util.Log;
 
 
 public class SyncManager {
-
-    public static final String TAG = "SyncManager";
 
     private Timer timer;
     
@@ -85,7 +87,7 @@ public class SyncManager {
 		
 		ImAccount imAccount = AuthenticationUtil.getAccountData(context);
 		
-		cli.init("admin", "pda", imAccount.serverAddress, Integer.parseInt(imAccount.serverPort), null);
+		cli.init(imAccount.accountName, "pda", imAccount.serverAddress, Integer.parseInt(imAccount.serverPort), null);
 
 		cli.login(imAccount.accountName, imAccount.password);
 		
@@ -101,18 +103,43 @@ public class SyncManager {
 		FlavorInfoObj[] flv = cli.getFlavorInfo();
 		adapter.syncFlavorInfo(flv);
 		
-		ImageInfoObj imgs[] = cli.getImageInfo();
+		ServerImageInfoObj svrImgs[] = cli.getImageInfo();
+		
+		HashMap<String, ImageInfoObj> dbImgMap = DishesDataAdapter.getInstance().listImageInfo();
+		
 		String imagePath = getDishesImageDir();
-		Log.i(TAG, "Begin download image to " + imagePath);
-		for (int i = 0; i < imgs.length; i ++)
+		Log.i(Constants.APP_TAG, "Begin download image to " + imagePath);
+		for (int i = 0; i < svrImgs.length; i ++)
 		{
-			String name = imgs[i].name;
-			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")) continue;
-			cli.downloadImage(name, imagePath);
+			String name = svrImgs[i].name;
+			String imgId = FunctionUtil.formatNum(name);
+			ImageInfoObj dbImgObj = dbImgMap.get(imgId);
+			Log.i(Constants.APP_TAG, "*" + svrImgs[i].name + "\t size=" + svrImgs[i].size + "\t modify_time="
+					+ svrImgs[i].modified_time.toLocaleString());
+			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase(".."))
+				continue;
+			if (isImageUpdated(svrImgs[i], dbImgObj)) {
+				cli.downloadImage(name, imagePath);
+			}else{
+				Log.w(Constants.APP_TAG, "No changed, don't download again...");
+			}
 		}		
-
     }
 	
+	private boolean isImageUpdated(ServerImageInfoObj sObj, ImageInfoObj obj) {
+		if (obj == null) {
+			return true;
+		}
+
+		Date dbModifyTime;
+		if (sObj.name.toLowerCase().indexOf("t.bmp") > 0) {
+			dbModifyTime = obj.small_modified_time;
+		} else {
+			dbModifyTime = obj.modified_time;
+		}
+		return sObj.modified_time.getTime() != dbModifyTime.getTime();
+	}
+    
 	private String getDishesImageDir() {
 		File imagePathDir = new File(Constants.DISHES_IMAGE_PATH);
 		if (!imagePathDir.exists()) {
@@ -139,16 +166,16 @@ public class SyncManager {
     private void startTimerSync() {
         Account account = getAccount();
         if (account == null) {
-            Log.w(TAG, "Account not exist...");
+            Log.w(Constants.APP_TAG, "Account not exist...");
             return;
         }
         
         if (ContentResolver.getIsSyncable(account, ContactsContract.AUTHORITY) < 1) {
-            Log.w(TAG, "Account not support sync...");
+            Log.w(Constants.APP_TAG, "Account not support sync...");
             return;
         }
         
-        Log.d(TAG, "startTimerSync...");
+        Log.d(Constants.APP_TAG, "startTimerSync...");
         Bundle bundle = new Bundle();
         ContentResolver.requestSync(account, ContactsContract.AUTHORITY, bundle);
     }
@@ -168,17 +195,17 @@ public class SyncManager {
     public void requestSync() {
         final Account account = getAccount();
         if (account == null) {
-            Log.w(TAG, "Account not exist...");
+            Log.w(Constants.APP_TAG, "Account not exist...");
             return;
         }
 
         if (ContentResolver.isSyncActive(account, ContactsContract.AUTHORITY)
                 || ContentResolver.getIsSyncable(account, ContactsContract.AUTHORITY) < 1) {
-            Log.d(TAG, "Is in Sync process or not support sync, cancel this Sync Request.");
+            Log.d(Constants.APP_TAG, "Is in Sync process or not support sync, cancel this Sync Request.");
             return;
         }
 
-        Log.d(TAG, "requestSync...");
+        Log.d(Constants.APP_TAG, "requestSync...");
         timer.cancel();
         timer = new Timer();
         timer.schedule(new TimerTask() {

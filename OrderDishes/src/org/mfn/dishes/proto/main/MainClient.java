@@ -16,6 +16,7 @@ import org.mfn.dishes.vo.DishObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
 import org.mfn.dishes.vo.ImageInfoObj;
+import org.mfn.dishes.vo.ServerImageInfoObj;
 import org.mfn.dishes.vo.UserInfoObj;
 import org.mfn.tcpclient.TcpClient;
 import org.w3c.dom.Document;
@@ -188,8 +189,8 @@ public class MainClient {
 		}
 	}
 
-	private ImageInfoObj[] parseImageInfo(String res) {
-		ImageInfoObj objs[] = null;
+	private ServerImageInfoObj[] parseImageInfo(String res) {
+		ServerImageInfoObj objs[] = null;
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -198,10 +199,10 @@ public class MainClient {
 					new ByteArrayInputStream(res.getBytes("GBK"))));
 			Element root = dom.getDocumentElement();
 			NodeList items = root.getElementsByTagName("row");
-			objs = new ImageInfoObj[items.getLength()];
+			objs = new ServerImageInfoObj[items.getLength()];
 			for (int i = 0; i < items.getLength(); i++) {
 				Node item = items.item(i);
-				ImageInfoObj obj = new ImageInfoObj();
+				ServerImageInfoObj obj = new ServerImageInfoObj();
 				obj.name = getNodeValue(item);
 				obj.size = parseInt(getNodeAttribute(item, "code"));
 				long time = parseInt(getNodeAttribute(item, "stat"));
@@ -216,7 +217,7 @@ public class MainClient {
 		return objs;
 	}
 
-	public ImageInfoObj[] getImageInfo() {
+	public ServerImageInfoObj[] getImageInfo() {
 		String req = String
 				.format(
 						"<fbsmart UID='%s' dev='%s' cmd='TreeData' seq='%d' dnt='1'><data>"

@@ -88,7 +88,7 @@ public class AuthenticationUtil {
 
 	private static void handleSyncContacts(final Account account, ContentResolver resolver, ImAccount mAccount) {
 		Log.i(TAG, "handleSyncContacts:");
-		ContentResolver.setSyncAutomatically(account, ContactsContract.AUTHORITY, mAccount.syncContacts);
+		//ContentResolver.setSyncAutomatically(account, ContactsContract.AUTHORITY, mAccount.syncContacts);
 		final Bundle bundle = new Bundle();
 		if (mAccount.syncContacts) {
 			ContentResolver.addPeriodicSync(account, ContactsContract.AUTHORITY, bundle,

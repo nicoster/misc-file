@@ -1,7 +1,7 @@
 package org.mfn.dishes.vo;
 
 public class GridDishesInfo {
-	private int mCode;
+	private String mCode;
 	private String mDishName;
 	private String mComment;
 	private float mPrice;
@@ -9,7 +9,7 @@ public class GridDishesInfo {
 	private String mImageSrc;
 	private String mFormatedPrice;
 	
-	public GridDishesInfo(int code, String dishName, String comments, float price, String unit, String imageSrc){
+	public GridDishesInfo(String code, String dishName, String comments, float price, String unit, String imageSrc){
 		mCode = code;
 		mDishName = dishName;
 		mComment = comments;
@@ -19,10 +19,10 @@ public class GridDishesInfo {
 		this.formatPrice();
 	}
 	
-	public int getCode() {
+	public String getCode() {
 		return mCode;
 	}
-	public void setCode(int mCode) {
+	public void setCode(String mCode) {
 		this.mCode = mCode;
 	}
 	public String getDishName() {
