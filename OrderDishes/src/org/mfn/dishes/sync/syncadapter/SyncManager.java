@@ -1,6 +1,7 @@
 package org.mfn.dishes.sync.syncadapter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Timer;
@@ -103,37 +104,52 @@ public class SyncManager {
 		FlavorInfoObj[] flv = cli.getFlavorInfo();
 		adapter.syncFlavorInfo(flv);
 		
-		ServerImageInfoObj svrImgs[] = cli.getImageInfo();
-		
+		syncImagesDatas(cli);
+    }
+	
+	private void syncImagesDatas(MainClient cli) {
+		ServerImageInfoObj[] svrImgs = cli.getImageInfo();
+		if (svrImgs == null || svrImgs.length == 0) {
+			Log.e(Constants.APP_TAG, "syncImagesDatas error, data is null");
+			return;
+		}
+
 		HashMap<String, ImageInfoObj> dbImgMap = DishesDataAdapter.getInstance().listImageInfo();
-		
+
 		String imagePath = getDishesImageDir();
 		Log.i(Constants.APP_TAG, "Begin download image to " + imagePath);
-		for (int i = 0; i < svrImgs.length; i ++)
-		{
+		
+		ArrayList<ServerImageInfoObj> validlist = new ArrayList<ServerImageInfoObj>();
+		for (int i = 0; i < svrImgs.length; i++) {
 			String name = svrImgs[i].name;
+			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")
+					|| !FunctionUtil.isImageFile(name))
+				continue;
+			
+			validlist.add(svrImgs[i]);
 			String imgId = FunctionUtil.formatDishId(name);
+			
 			ImageInfoObj dbImgObj = dbImgMap.get(imgId);
 			Log.i(Constants.APP_TAG, "*" + svrImgs[i].name + "\t size=" + svrImgs[i].size + "\t modify_time="
 					+ svrImgs[i].modified_time.toLocaleString());
-			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase(".."))
-				continue;
+
 			if (isImageUpdated(svrImgs[i], dbImgObj) || !imageExist(imagePath + name)) {
-				Log.w(Constants.APP_TAG, "Download..."+imagePath + name);				
-				//cli.downloadImage(name, imagePath);
+				Log.w(Constants.APP_TAG, "Download..." + imagePath + name);
+				cli.downloadImage(name, imagePath);
 			} else {
 				Log.w(Constants.APP_TAG, "No changed, don't download again...");
 			}
 		}
-		adapter.syncImageInfo(svrImgs);
-    }
-	
+
+		DishesDataAdapter.getInstance().syncImageInfo((ServerImageInfoObj[])validlist.toArray(new ServerImageInfoObj[0]));
+	}
+    
     private boolean imageExist(String fName){
     	return (new File(fName)).exists();
     }
     
 	private boolean isImageUpdated(ServerImageInfoObj sObj, ImageInfoObj obj) {
-		if (obj == null) {
+		if (obj == null || sObj == null || sObj.modified_time == null) {
 			return true;
 		}
 
@@ -143,6 +159,11 @@ public class SyncManager {
 		} else {
 			dbModifyTime = obj.modified_time;
 		}
+		
+		if (dbModifyTime == null) {
+			return true;
+		}
+		
 		return sObj.modified_time.getTime() != dbModifyTime.getTime();
 	}
     
@@ -151,7 +172,7 @@ public class SyncManager {
 		if (!imagePathDir.exists()) {
 			imagePathDir.mkdirs();
 		}
-		return imagePathDir.getAbsolutePath();
+		return Constants.DISHES_IMAGE_PATH;
 	}
     
     public Thread performOnBackgroundThread(final Runnable runnable) {

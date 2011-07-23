@@ -40,8 +40,7 @@ public class ImageInfoObj {
 	}
 
 	public String toString() {
-		return "{id:" + id + ", name:" + name + ", size:" + size + ", modified_time:" + modified_time
-				+ ", small_name:" + small_name + ", small_size:" + small_size + ", small_modified_time:"
-				+ small_modified_time + "}";
+		return "{id:" + id + ", name:" + name + ", modified_time:" + modified_time + ", small_name:" + small_name
+				+ ", small_modified_time:" + small_modified_time + "}";
 	}
 }

@@ -28,6 +28,9 @@ public class FunctionUtil {
 		if (fileName.toLowerCase().endsWith(".jpg")){
 			return true;
 		}
+		if (fileName.toLowerCase().endsWith(".wav")){
+			return true;
+		}
 		return false;
 	}
 }

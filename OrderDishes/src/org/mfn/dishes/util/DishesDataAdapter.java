@@ -270,12 +270,16 @@ public class DishesDataAdapter {
         initialValues.put(ImageInfoObj.IMAGE_ID, obj.id);
         initialValues.put(ImageInfoObj.IMAGE_NAME, obj.name);
         initialValues.put(ImageInfoObj.IMAGE_SIZE, obj.size);
-        initialValues.put(ImageInfoObj.IMAGE_MODIFY_TIME, obj.modified_time.getTime());
+		if (obj.modified_time != null) {
+			initialValues.put(ImageInfoObj.IMAGE_MODIFY_TIME, obj.modified_time.getTime());
+		}
         
         initialValues.put(ImageInfoObj.SMALL_IMAGE_NAME, obj.small_name);
         initialValues.put(ImageInfoObj.SMALL_IMAGE_SIZE, obj.small_size);
-        initialValues.put(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME, obj.small_modified_time.getTime());
-
+		if (obj.small_modified_time != null) {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME, obj.small_modified_time.getTime());
+		}
+        
         return helper.myDB.insert(ImageInfoObj.TABLE_NAME, ImageInfoObj.IMAGE_ID, initialValues);		
 	}
 		
