@@ -1,6 +1,7 @@
 package org.mfn.dishes;
 
 import org.mfn.dishes.animation.Rotate3dAnimation;
+import org.mfn.dishes.view.DishTypeGridView;
 import org.mfn.dishes.view.DishesGridView;
 import org.mfn.dishes.view.ScrollLayout;
 
@@ -49,6 +50,9 @@ public class InitActivity extends Activity implements OnClickListener{
         mScrollLayout.addView(new DishesGridView(this));
         mScrollLayout.addView(new DishesGridView(this));
         mScrollLayout.addView(new DishesGridView(this));
+        
+        mScrollLayout.addView(new DishTypeGridView(this));
+        
 	}
 	public void onClick(View v){
     	applyRotation(0, 90);

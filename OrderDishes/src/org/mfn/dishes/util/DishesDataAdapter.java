@@ -181,7 +181,7 @@ public class DishesDataAdapter {
 			while (mCursor.moveToNext()) {
 
 				DishTypeObj obj = new DishTypeObj();
-				obj.id = "" + mCursor.getInt(mCursor.getColumnIndex(DishTypeObj.TYPE_ID));
+				obj.id = mCursor.getString(mCursor.getColumnIndex(DishTypeObj.TYPE_ID));
 				obj.name = mCursor.getString(mCursor.getColumnIndex(DishTypeObj.TYPE_NAME));
 				obj.index = mCursor.getInt(mCursor.getColumnIndex(DishTypeObj.TYPE_NAME));
 
