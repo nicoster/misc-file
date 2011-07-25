@@ -3,6 +3,7 @@ package org.mfn.dishes;
 import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.view.DishTypeGridView;
 import org.mfn.dishes.view.DishesGridView;
+import org.mfn.dishes.view.PickedDishesListView;
 import org.mfn.dishes.view.ScrollLayout;
 
 import android.app.Activity;
@@ -35,23 +36,16 @@ public class InitActivity extends Activity implements OnClickListener{
         mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
         mStartBtn.setOnClickListener(this);
-//		mStartBtn.setOnClickListener(new Button.OnClickListener() {
-//            public void onClick(View v) {
-//            	Intent intent = new Intent();
-//                intent.setClass(InitActivity.this, AllDishesActivity.class);
-//                startActivity(intent);
-//                InitActivity.this.finish();
-//            }
-//        });
-        DishesGridView dishesGridView = new DishesGridView(this);
-//        DishesGridAdapter adapter = new DishesGridAdapter(this);
-//        dishesGridView.setAdapter(adapter);
-        mScrollLayout.addView(dishesGridView);
+
+        mScrollLayout.addView(new PickedDishesListView(this));
+        
         mScrollLayout.addView(new DishesGridView(this));
         mScrollLayout.addView(new DishesGridView(this));
         mScrollLayout.addView(new DishesGridView(this));
         
         mScrollLayout.addView(new DishTypeGridView(this));
+        
+        mScrollLayout.setToScreen(1);
         
 	}
 	public void onClick(View v){
@@ -66,7 +60,7 @@ public class InitActivity extends Activity implements OnClickListener{
 		// Create a new 3D rotation with the supplied parameter
 		// The animation listener is used to trigger the next animation
 		final Rotate3dAnimation rotation = new Rotate3dAnimation(start, end, centerX, centerY, 310.0f, true);
-		rotation.setDuration(500);
+		rotation.setDuration(800);
 		rotation.setFillAfter(true);
 		rotation.setInterpolator(new AccelerateInterpolator());
 		rotation.setAnimationListener(new DisplayNextView());
