@@ -1,6 +1,11 @@
 package org.mfn.dishes;
 
+import java.util.List;
+
 import org.mfn.dishes.animation.Rotate3dAnimation;
+import org.mfn.dishes.datastore.DataStore;
+import org.mfn.dishes.datastore.IDishesItemDataStore;
+import org.mfn.dishes.datastore.PageGridDishesInfo;
 import org.mfn.dishes.view.DishTypeGridView;
 import org.mfn.dishes.view.DishesGridView;
 import org.mfn.dishes.view.PickedDishesListView;
@@ -24,6 +29,8 @@ public class InitActivity extends Activity implements OnClickListener{
 	private RelativeLayout mDishesMenus;
 	private ScrollLayout mScrollLayout;
 	
+	IDishesItemDataStore store;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,17 +44,28 @@ public class InitActivity extends Activity implements OnClickListener{
         
         mStartBtn.setOnClickListener(this);
 
+        store = DataStore.getInstance().getDishesItemDataStore();
+        
+        prepareViews();
+	}
+	
+	
+	private void prepareViews(){
         mScrollLayout.addView(new PickedDishesListView(this));
         
-        mScrollLayout.addView(new DishesGridView(this));
-        mScrollLayout.addView(new DishesGridView(this));
-        mScrollLayout.addView(new DishesGridView(this));
         
+        List<PageGridDishesInfo> list = store.getPageDishesInfos();
+        for (int i=0;i<list.size();i++){
+        	PageGridDishesInfo pageInfo = list.get(i);
+            mScrollLayout.addView(new DishesGridView(this, pageInfo));
+        }
         mScrollLayout.addView(new DishTypeGridView(this));
         
         mScrollLayout.setToScreen(1);
-        
+		
 	}
+
+	
 	public void onClick(View v){
     	applyRotation(0, 90);
     }

@@ -2,6 +2,7 @@ package org.mfn.dishes.view;
 
 import org.mfn.dishes.adapter.DishesGridAdapter;
 import org.mfn.dishes.adapter.DishesGridAdapter.IDishesGridAdapterCallBack;
+import org.mfn.dishes.datastore.PageGridDishesInfo;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -13,11 +14,11 @@ public class DishesGridView extends GridView implements IDishesGridAdapterCallBa
 	private Context mContext;
 	private DishesGridAdapter mAdapter;
 
-	public DishesGridView(Context context) {		
+	public DishesGridView(Context context, PageGridDishesInfo pageInfo) {		
 		super(context);
 		mContext = context;
 		this.initView();
-		this.loadDishes();
+		this.loadDishes(pageInfo);
 	}
 
 	public DishesGridView(Context context, AttributeSet attrs) {
@@ -33,11 +34,11 @@ public class DishesGridView extends GridView implements IDishesGridAdapterCallBa
 	private void initView(){
 		setNumColumns(2);
 		setPadding(40, 20, 40, 20);
-		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT , LayoutParams.MATCH_PARENT));
 	}
 	
-	public void loadDishes(){
-		mAdapter = new DishesGridAdapter(mContext);
+	public void loadDishes(PageGridDishesInfo pageInfo){
+		mAdapter = new DishesGridAdapter(mContext,pageInfo);
 		mAdapter.setCallBack(this);
 		this.setAdapter(mAdapter);
 	}

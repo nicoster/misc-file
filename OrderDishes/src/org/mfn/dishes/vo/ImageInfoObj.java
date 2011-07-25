@@ -2,7 +2,10 @@ package org.mfn.dishes.vo;
 
 import java.util.Date;
 
+import org.mfn.dishes.Constants;
 import org.mfn.dishes.util.FunctionUtil;
+
+import android.text.TextUtils;
 
 public class ImageInfoObj {
 	public static final String TABLE_NAME = "image_info";
@@ -42,5 +45,12 @@ public class ImageInfoObj {
 	public String toString() {
 		return "{id:" + id + ", name:" + name + ", modified_time:" + modified_time + ", small_name:" + small_name
 				+ ", small_modified_time:" + small_modified_time + "}";
+	}
+	
+	public String getImgUrl(boolean isSmall) {
+		if (isSmall && !TextUtils.isEmpty(small_name)) {
+			return Constants.DISHES_IMAGE_PATH + small_name;
+		}
+		return Constants.DISHES_IMAGE_PATH + name;
 	}
 }

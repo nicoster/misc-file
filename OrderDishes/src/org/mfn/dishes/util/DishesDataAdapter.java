@@ -114,6 +114,8 @@ public class DishesDataAdapter {
 	}
 	
 	public DishInfoObj[] listDishesInfo(int type){
+		HashMap<String, ImageInfoObj> imgMap = listImageInfo();
+		
 		Cursor mCursor = helper.myDB.query(true, DishInfoObj.TABLE_NAME, new String[]{DishInfoObj.DISH_ID,
 				DishInfoObj.DISH_QUERY_CODE, DishInfoObj.DISH_QUERY_CODE_2, DishInfoObj.DISH_NAME,
 				DishInfoObj.DISH_SIZE, DishInfoObj.DISH_UNIT, DishInfoObj.DISH_PRICE, DishInfoObj.DISH_TYPE,
@@ -140,7 +142,17 @@ public class DishesDataAdapter {
 //				obj.cook_style = mCursor.getString(mCursor.getColumnIndex(DishObj.DISH_COOK_TYPE));
 				obj.flag = mCursor.getInt(mCursor.getColumnIndex(DishInfoObj.DISH_FLAG));
 				obj.cost = mCursor.getInt(mCursor.getColumnIndex(DishInfoObj.DISH_COST));
-
+				
+				if (obj.type == null || obj.type.trim().equals("0")){
+					continue;
+				}
+				
+				ImageInfoObj imgObj = imgMap.get(obj.id);
+				if (imgObj == null) {
+					continue;
+				}
+				obj.img = imgObj;
+				
 				list.add(obj);
 			}
 			mCursor.close();
@@ -191,6 +203,15 @@ public class DishesDataAdapter {
 
 		}
 		return list.toArray(new DishTypeObj[0]);		
+	}
+	
+	public HashMap<String, DishTypeObj> listDishTypesMap() {
+		HashMap<String, DishTypeObj> map = new HashMap<String, DishTypeObj>();
+		DishTypeObj[] objs = listDishTypes();
+		for (DishTypeObj obj : objs) {
+			map.put(obj.id, obj);
+		}
+		return map;
 	}
 	
 	public void syncFlavorInfo(FlavorInfoObj[] objs){

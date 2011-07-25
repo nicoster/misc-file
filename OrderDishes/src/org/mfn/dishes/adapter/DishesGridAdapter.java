@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.mfn.dishes.R;
 import org.mfn.dishes.datastore.DataStore;
-import org.mfn.dishes.vo.GridDishesInfo;
+import org.mfn.dishes.datastore.PageGridDishesInfo;
+import org.mfn.dishes.vo.DishInfoObj;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +20,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DishesGridAdapter extends BaseAdapter {
-	private List<GridDishesInfo> mDishesList;
-	private GridDishesInfo dishesInfo = null;
+	private List<DishInfoObj> mDishesList;
+	private DishInfoObj dishesInfo = null;
 	private LayoutInflater mInflater = null;
 	private Activity mContext = null;
 	private ViewHolder holder = null;
 	private IDishesGridAdapterCallBack mCallBack;
+	PageGridDishesInfo mPageInfo;
 	
-	public DishesGridAdapter(Context context) {
+	public DishesGridAdapter(Context context, PageGridDishesInfo pageInfo) {
 		mContext = (Activity) context;
 		mInflater = mContext.getLayoutInflater();
-		mDishesList = this.getData();
-	}
-	
-	private List<GridDishesInfo> getData(){
-		return DataStore.getInstance().getDishesItemDataStore().getDishesInfos();
+		mPageInfo = pageInfo;
+		mDishesList = pageInfo.dishesList;
+		
+		Log.w("DishesGridAdapter", "type="+mPageInfo.dish_type_name+" dish number="+mDishesList.size());
+		for (DishInfoObj obj: mDishesList){
+			Log.i("DishesGridAdapter", "*name="+obj.name+" img="+obj.img.getImgUrl(true));
+		}
 	}
 
 	@Override
@@ -44,7 +49,7 @@ public class DishesGridAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public GridDishesInfo getItem(int position) {
+	public DishInfoObj getItem(int position) {
 		return mDishesList.get(position);
 	}
 
@@ -64,10 +69,10 @@ public class DishesGridAdapter extends BaseAdapter {
 		}
 		dishesInfo = mDishesList.get(position);
 		if(dishesInfo != null){
-			String imgSrc = dishesInfo.getImageSrc();
-			String dishName = dishesInfo.getDishName();
-			String dishComments = dishesInfo.getComment();
-			String price = dishesInfo.getFormatedPrice();
+			String imgSrc = dishesInfo.img.getImgUrl(true);
+			String dishName = dishesInfo.name;
+			String dishComments = dishesInfo.name;
+			String price = String.valueOf(dishesInfo.price);
 			
 			Drawable imageDrawable = null;
 			if(imgSrc == null){

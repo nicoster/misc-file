@@ -56,4 +56,6 @@ public class DishInfoObj {
 	{
 		return "{id:" + id + ", name:" + name + ", price:" + price + "}";
 	}
+	
+	public ImageInfoObj img;
 }
