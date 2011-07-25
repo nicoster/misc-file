@@ -1,5 +1,7 @@
 package org.mfn.dishes.view;
 
+import java.util.List;
+
 import org.mfn.dishes.adapter.DishTypeGridAdapter;
 import org.mfn.dishes.adapter.DishesGridAdapter;
 
@@ -12,11 +14,12 @@ public class DishTypeGridView extends GridView{
 	private Context mContext;
 	private DishTypeGridAdapter mAdapter;
 
-	public DishTypeGridView(Context context) {
+	public DishTypeGridView(Context context, List dishTypeList) {
 		super(context);
 		mContext = context;
 		this.initView();
-		this.loadDishTypes();
+		mAdapter = new DishTypeGridAdapter(mContext, dishTypeList);
+		this.setAdapter(mAdapter);
 	}
 	
 	private void initView(){
@@ -24,10 +27,5 @@ public class DishTypeGridView extends GridView{
 		setPadding(20, 20, 40, 20);
 		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
-	
-	public void loadDishTypes(){
-		mAdapter = new DishTypeGridAdapter(mContext);
-		//mAdapter.setCallBack(this);
-		this.setAdapter(mAdapter);
-	}
+
 }

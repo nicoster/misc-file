@@ -29,7 +29,10 @@ public class InitActivity extends Activity implements OnClickListener{
 	private RelativeLayout mDishesMenus;
 	private ScrollLayout mScrollLayout;
 	
-	IDishesItemDataStore store;
+	private ImageButton mLeftBtn;
+	private ImageButton mRightBtn;
+	
+	private IDishesItemDataStore store;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,9 @@ public class InitActivity extends Activity implements OnClickListener{
         mDishesMenus = (RelativeLayout) findViewById(R.id.dishes_menus);
         mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
+        mLeftBtn = (ImageButton)findViewById(R.id.btn_left);
+        mRightBtn = (ImageButton)findViewById(R.id.btn_right);
+        
         mStartBtn.setOnClickListener(this);
 
         store = DataStore.getInstance().getDishesItemDataStore();
@@ -53,16 +59,34 @@ public class InitActivity extends Activity implements OnClickListener{
 	private void prepareViews(){
         mScrollLayout.addView(new PickedDishesListView(this));
         
-        
-        List<PageGridDishesInfo> list = store.getPageDishesInfos();
-        for (int i=0;i<list.size();i++){
-        	PageGridDishesInfo pageInfo = list.get(i);
+        List<PageGridDishesInfo> pageList = store.getPageDishesInfos();
+        for (int i=0;i<pageList.size();i++){
+        	PageGridDishesInfo pageInfo = pageList.get(i);
             mScrollLayout.addView(new DishesGridView(this, pageInfo));
         }
-        mScrollLayout.addView(new DishTypeGridView(this));
+        
+        List dishTypeList = store.getDisheTypePageList();
+        mScrollLayout.addView(new DishTypeGridView(this, dishTypeList));
         
         mScrollLayout.setToScreen(1);
-		
+
+		mLeftBtn.setOnClickListener(new ImageButton.OnClickListener() {
+			public void onClick(View v) {
+				int currentScreen = mScrollLayout.getCurScreen();
+				for (int i = currentScreen; i >= 0; i--) {
+					mScrollLayout.setToScreen(i);
+				}
+			}
+		});
+        mRightBtn.setOnClickListener(new ImageButton.OnClickListener() {
+			public void onClick(View v) {
+				int currentScreen = mScrollLayout.getCurScreen();
+				int last = mScrollLayout.getChildCount();
+				for (int i = currentScreen; i < last; i++) {
+					mScrollLayout.setToScreen(i);
+				}
+			}
+		});    
 	}
 
 	

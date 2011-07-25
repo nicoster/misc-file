@@ -1,6 +1,9 @@
 package org.mfn.dishes.adapter;
 
+import java.util.List;
+
 import org.mfn.dishes.R;
+import org.mfn.dishes.datastore.TypeGridDishesInfo;
 import org.mfn.dishes.util.DishesDataAdapter;
 import org.mfn.dishes.vo.DishTypeObj;
 
@@ -16,17 +19,17 @@ import android.widget.TextView;
 
 public class DishTypeGridAdapter extends BaseAdapter {
 
-	private DishTypeObj[] mDishTypes;
-
 	private LayoutInflater mInflater = null;
 	private Activity mContext = null;
-	private ViewHolder holder = null;
-	private DishTypeObj dishType = null;
+	private ViewHolder mHolder = null;
+	private TypeGridDishesInfo mGridDishType = null;
+	
+	private List<TypeGridDishesInfo> mDishTypeList = null;
 
-	public DishTypeGridAdapter(Context context){
+	public DishTypeGridAdapter(Context context, List dishTypeList){
 		mContext = (Activity) context;
 		mInflater = mContext.getLayoutInflater();
-		mDishTypes = getData();
+		mDishTypeList = dishTypeList;
 	}
 	
 	private DishTypeObj[] getData(){
@@ -35,16 +38,16 @@ public class DishTypeGridAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		if (mDishTypes != null) {
-			return mDishTypes.length;
+		if (mDishTypeList != null) {
+			return mDishTypeList.size();
 		}
 		return 0;
 	}
 
 	@Override
-	public DishTypeObj getItem(int position) {
+	public TypeGridDishesInfo getItem(int position) {
 		
-		return mDishTypes[position];
+		return mDishTypeList.get(position);
 	}
 
 	@Override
@@ -56,26 +59,26 @@ public class DishTypeGridAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if(convertView == null || convertView.getTag() == null){
 			convertView = this.mInflater.inflate(R.layout.grid_dishtype_item, parent, false);
-			holder = new ViewHolder(convertView);
-			convertView.setTag(holder);
+			mHolder = new ViewHolder(convertView);
+			convertView.setTag(mHolder);
 		}else{
-			holder = (ViewHolder)convertView.getTag();
+			mHolder = (ViewHolder)convertView.getTag();
 		}
-		dishType = mDishTypes[position];
-		if(dishType != null){
-			String imgSrc = null;
-			String dishName = dishType.name;
+		mGridDishType = mDishTypeList.get(position);
+		if(mGridDishType != null){
+			String imgSrc = getDefaultImgUrl();
+			String dishName = mGridDishType.dish_type_name;
 			
 			Drawable imageDrawable = null;
 			if(imgSrc == null){
-				holder.imageView.setImageResource(R.drawable.a00010001);
+				mHolder.imageView.setImageResource(R.drawable.a00010001);
 			}else{
 				imageDrawable = Drawable.createFromPath(imgSrc);
-				holder.imageView.setImageDrawable(imageDrawable);
+				mHolder.imageView.setImageDrawable(imageDrawable);
 			}
 			
-			holder.dishTypeName.setText(dishName);
-			holder.imageView.setOnClickListener(imageViewClickListener);
+			mHolder.dishTypeName.setText(dishName);
+			mHolder.imageView.setOnClickListener(imageViewClickListener);
 		}
 		
 		return convertView;
@@ -87,6 +90,13 @@ public class DishTypeGridAdapter extends BaseAdapter {
 			
 		}
 	};
+	
+	private String getDefaultImgUrl(){
+		if (mGridDishType.dishesList.size()>0){
+			return mGridDishType.dishesList.get(0).img.getImgUrl(true);
+		}
+		return null;
+	}
 	
 	private class ViewHolder{
 		ImageView imageView;

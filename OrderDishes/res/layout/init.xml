@@ -14,8 +14,8 @@
 		  android:layout_width="fill_parent"
 		  android:layout_height="fill_parent">
 		</org.mfn.dishes.view.ScrollLayout>
-		<Button android:layout_alignParentLeft="true" android:layout_height="wrap_content"
-				android:layout_alignParentBottom="true" android:text="@string/btn_order_yet" android:id="@+id/ordered_btn" android:layout_width="120dip"></Button>
-		<Button android:layout_alignParentRight="true" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="@string/btn_order_type" android:id="@+id/categary_btn" android:layout_width="120dip"></Button>
+		<ImageButton android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true" android:text="@string/btn_order_yet" android:id="@+id/btn_left" android:layout_width="120dip"></ImageButton>
+		<ImageButton android:layout_alignParentRight="true" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="@string/btn_order_type" android:id="@+id/btn_right" android:layout_width="120dip"></ImageButton>
 	</RelativeLayout>
 </FrameLayout>

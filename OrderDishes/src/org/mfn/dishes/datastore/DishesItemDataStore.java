@@ -26,7 +26,11 @@ public class DishesItemDataStore implements IDishesItemDataStore {
 	public List<PageGridDishesInfo> getPageDishesInfos() {
 		return mPageGridDishesInfos;
 	}
-
+	
+	public List<TypeGridDishesInfo> getDisheTypePageList(){
+		return mTypeGridDishesInfoList;
+	}
+	
 	public DishesItemDataStore() {
 		this.mPageGridDishesInfos = new ArrayList<PageGridDishesInfo>();
 		this.mTypeGridDishesInfos = new HashMap<String, TypeGridDishesInfo>();
