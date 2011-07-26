@@ -24,15 +24,12 @@ public class DishesApp extends Application {
 		Log.i(Constants.APP_TAG, Constants.DISPLAY_METRICS.toString());
 		
 		DishesDBHelpter.init(this);
-		DishesDBHelpter.getInstance().open();
-		
+        DishesDBHelpter.getInstance().open();
 	}
 
 	@Override
 	public void onTerminate() {
-		
-		DishesDBHelpter.getInstance().close();
-		
 		super.onTerminate();
+		DishesDBHelpter.getInstance().close();
 	}
 }

@@ -1,5 +1,6 @@
 package org.mfn.dishes.util;
 
+import org.mfn.dishes.Constants;
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
 import org.mfn.dishes.vo.FlavorInfoObj;
@@ -112,11 +113,14 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 		String create_dish_info_table = "CREATE TABLE " + ImageInfoObj.TABLE_NAME + " (" 
 		+ ImageInfoObj.IMAGE_ID + " STRING PRIMARY KEY," 
 		+ ImageInfoObj.IMAGE_NAME + " TEXT," 
-		+ ImageInfoObj.SMALL_IMAGE_NAME + " LONG," 
-		+ ImageInfoObj.IMAGE_SIZE + " TEXT," 
+		+ ImageInfoObj.SMALL_IMAGE_NAME + " TEXT," 
+		+ ImageInfoObj.VIDEO_IMAGE_NAME + " TEXT," 
+		+ ImageInfoObj.IMAGE_SIZE + " LONG," 
 		+ ImageInfoObj.SMALL_IMAGE_SIZE + " LONG," 
+		+ ImageInfoObj.VIDEO_IMAGE_SIZE + " LONG," 
 		+ ImageInfoObj.IMAGE_MODIFY_TIME + " LONG," 
-		+ ImageInfoObj.SMALL_IMAGE_MODIFY_TIME + " LONG" 
+		+ ImageInfoObj.SMALL_IMAGE_MODIFY_TIME + " LONG," 
+		+ ImageInfoObj.VIDEO_IMAGE_MODIFY_TIME + " LONG" 
 		+ ")";
 
 		db.execSQL(create_dish_info_table);
@@ -134,6 +138,10 @@ public class DishesDBHelpter extends SQLiteOpenHelper {
 	}
 
 	public void close() {
-		helper.close();
+		try {
+			helper.close();
+		} catch (Exception e) {
+			Log.e(Constants.APP_TAG, "Close DB Error:" + e.toString());
+		}
 	}
 }

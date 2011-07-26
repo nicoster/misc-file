@@ -24,7 +24,6 @@ import android.util.Log;
  * platform ContactOperations provider.
  */
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
-    // DO NOT CHANGE
 
     private Context mContext;
 

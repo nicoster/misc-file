@@ -120,7 +120,9 @@ public class SyncManager {
 		Log.i(Constants.APP_TAG, "Begin download image to " + imagePath);
 		
 		ArrayList<ServerImageInfoObj> validlist = new ArrayList<ServerImageInfoObj>();
+		boolean imgChangeFlag = false;
 		for (int i = 0; i < svrImgs.length; i++) {
+			
 			String name = svrImgs[i].name;
 			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")
 					|| !FunctionUtil.isImageFile(name))
@@ -130,23 +132,32 @@ public class SyncManager {
 			String imgId = FunctionUtil.formatDishId(name);
 			
 			ImageInfoObj dbImgObj = dbImgMap.get(imgId);
-			Log.i(Constants.APP_TAG, "*" + svrImgs[i].name + "\t size=" + svrImgs[i].size + "\t modify_time="
-					+ svrImgs[i].modified_time.toLocaleString());
-
-			if (isImageUpdated(svrImgs[i], dbImgObj) || !imageExist(imagePath + name)) {
-				Log.w(Constants.APP_TAG, "Download..." + imagePath + name);
+			
+			String fullImgPath = imagePath + name;
+			if (isImageUpdated(svrImgs[i], dbImgObj) || !imageExist(fullImgPath)) {
+				Log.w(Constants.APP_TAG, "Download..." + fullImgPath);
 				cli.downloadImage(name, imagePath);
+				imgChangeFlag = true;
 			} else {
 				Log.w(Constants.APP_TAG, "No changed, don't download again...");
 			}
 		}
 
-		DishesDataAdapter.getInstance().syncImageInfo((ServerImageInfoObj[])validlist.toArray(new ServerImageInfoObj[0]));
+		if (imgChangeFlag) {
+			DishesDataAdapter.getInstance().syncImageInfo(
+					(ServerImageInfoObj[]) validlist.toArray(new ServerImageInfoObj[0]));
+		}
 	}
     
-    private boolean imageExist(String fName){
-    	return (new File(fName)).exists();
-    }
+	private boolean imageExist(String fullImgPath) {
+		File file = new File(fullImgPath);
+		boolean exist = file.exists();
+		if (!exist) {
+			Log.w(Constants.APP_TAG, fullImgPath + " is not exist............");
+		}
+
+		return exist;
+	}
     
 	private boolean isImageUpdated(ServerImageInfoObj sObj, ImageInfoObj obj) {
 		if (obj == null || sObj == null || sObj.modified_time == null) {
@@ -154,15 +165,24 @@ public class SyncManager {
 		}
 
 		Date dbModifyTime;
-		if (sObj.name.toLowerCase().indexOf("t.bmp") > 0) {
+		String dbImgName;
+		if(FunctionUtil.isVideo(sObj.name)){
+			dbModifyTime = obj.video_modified_time;
+			dbImgName = obj.video_name;
+		}else if (FunctionUtil.isSmallImage(sObj.name)) {
 			dbModifyTime = obj.small_modified_time;
+			dbImgName = obj.small_name;
 		} else {
 			dbModifyTime = obj.modified_time;
+			dbImgName = obj.name;
 		}
 		
 		if (dbModifyTime == null) {
 			return true;
 		}
+
+		Log.i(Constants.APP_TAG, "Server:name" + sObj.name + "\t modify_time=" + sObj.modified_time.getTime());
+		Log.i(Constants.APP_TAG, "Local::id=" + obj.id + " name" + dbImgName +"\t modify_time=" + dbModifyTime.getTime());
 		
 		return sObj.modified_time.getTime() != dbModifyTime.getTime();
 	}

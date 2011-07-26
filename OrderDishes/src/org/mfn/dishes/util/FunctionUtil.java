@@ -28,9 +28,14 @@ public class FunctionUtil {
 		if (fileName.toLowerCase().endsWith(".jpg")){
 			return true;
 		}
-		if (fileName.toLowerCase().endsWith(".wav")){
-			return true;
-		}
 		return false;
+	}
+	
+	public static boolean isSmallImage(String name){
+		return name.toLowerCase().endsWith("t.bmp");
+	}
+	
+	public static boolean isVideo(String name){
+		return name.toLowerCase().endsWith(".avi");
 	}
 }

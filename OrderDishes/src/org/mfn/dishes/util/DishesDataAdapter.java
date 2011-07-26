@@ -16,6 +16,7 @@ import org.mfn.dishes.vo.UserInfoObj;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.text.TextUtils;
 import android.util.Log;
 
 public class DishesDataAdapter {
@@ -286,21 +287,41 @@ public class DishesDataAdapter {
 		}
 	}
 	
-	public long addImageInfo(ImageInfoObj obj){
+	public long addImageInfo(ImageInfoObj obj) {
 		ContentValues initialValues = new ContentValues();
-        initialValues.put(ImageInfoObj.IMAGE_ID, obj.id);
-        initialValues.put(ImageInfoObj.IMAGE_NAME, obj.name);
-        initialValues.put(ImageInfoObj.IMAGE_SIZE, obj.size);
-		if (obj.modified_time != null) {
-			initialValues.put(ImageInfoObj.IMAGE_MODIFY_TIME, obj.modified_time.getTime());
+		initialValues.put(ImageInfoObj.IMAGE_ID, obj.id);
+		
+		if (TextUtils.isEmpty(obj.name) || obj.size<=0 || obj.modified_time == null){
+			Log.w(Constants.APP_TAG, "addImageInfo:: invalid image info data "+obj.id);
+			return -1;
 		}
-        
-        initialValues.put(ImageInfoObj.SMALL_IMAGE_NAME, obj.small_name);
-        initialValues.put(ImageInfoObj.SMALL_IMAGE_SIZE, obj.small_size);
+		
+		initialValues.put(ImageInfoObj.IMAGE_NAME, obj.name);
+		initialValues.put(ImageInfoObj.IMAGE_SIZE, obj.size);
+		initialValues.put(ImageInfoObj.IMAGE_MODIFY_TIME, obj.modified_time.getTime());
+
+		if (TextUtils.isEmpty(obj.small_name)) {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_NAME, obj.name);
+		} else {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_NAME, obj.small_name);
+		}
+		if (obj.small_size > 0) {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_SIZE, obj.small_size);
+		} else {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_SIZE, obj.size);
+		}
 		if (obj.small_modified_time != null) {
 			initialValues.put(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME, obj.small_modified_time.getTime());
+		} else {
+			initialValues.put(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME, obj.modified_time.getTime());
 		}
         
+		if (!TextUtils.isEmpty(obj.video_name) && obj.video_size > 0 && obj.video_modified_time != null) {
+			initialValues.put(ImageInfoObj.VIDEO_IMAGE_NAME, obj.video_name);
+			initialValues.put(ImageInfoObj.VIDEO_IMAGE_SIZE, obj.video_size);
+			initialValues.put(ImageInfoObj.VIDEO_IMAGE_MODIFY_TIME, obj.video_modified_time.getTime());
+		}
+		
         return helper.myDB.insert(ImageInfoObj.TABLE_NAME, ImageInfoObj.IMAGE_ID, initialValues);		
 	}
 		
@@ -322,10 +343,9 @@ public class DishesDataAdapter {
 				obj.size = mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.IMAGE_SIZE));
 				obj.modified_time = new Date(mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.IMAGE_MODIFY_TIME)));
 
-				obj.name = mCursor.getString(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_NAME));
-				obj.size = mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_SIZE));
-				obj.modified_time = new Date(mCursor.getLong(mCursor
-						.getColumnIndex(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME)));
+				obj.small_name = mCursor.getString(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_NAME));
+				obj.small_size = mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_SIZE));
+				obj.small_modified_time = new Date(mCursor.getLong(mCursor.getColumnIndex(ImageInfoObj.SMALL_IMAGE_MODIFY_TIME)));
 
 				map.put(obj.id, obj);
 			}

@@ -6,6 +6,7 @@ import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.datastore.DataStore;
 import org.mfn.dishes.datastore.IDishesItemDataStore;
 import org.mfn.dishes.datastore.PageGridDishesInfo;
+import org.mfn.dishes.util.DishesDBHelpter;
 import org.mfn.dishes.view.DishTypeGridView;
 import org.mfn.dishes.view.DishesGridView;
 import org.mfn.dishes.view.PickedDishesListView;
@@ -13,6 +14,7 @@ import org.mfn.dishes.view.ScrollLayout;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -37,6 +39,9 @@ public class InitActivity extends Activity implements OnClickListener{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Log.i(Constants.APP_TAG, "InitActivity:onCreate");
+		
 		setContentView(R.layout.init);
 		
 		mStartBtn = (ImageButton)findViewById(R.id.startbtn);
@@ -50,9 +55,6 @@ public class InitActivity extends Activity implements OnClickListener{
         
         mStartBtn.setOnClickListener(this);
 
-        store = DataStore.getInstance().getDishesItemDataStore();
-        
-        prepareViews();
 	}
 	
 	
@@ -68,27 +70,42 @@ public class InitActivity extends Activity implements OnClickListener{
         List dishTypeList = store.getDisheTypePageList();
         mScrollLayout.addView(new DishTypeGridView(this, dishTypeList));
         
-        mScrollLayout.setToScreen(1);
+        mScrollLayout.snapToScreen(1);
 
 		mLeftBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
-				int currentScreen = mScrollLayout.getCurScreen();
-				for (int i = currentScreen; i >= 0; i--) {
-					mScrollLayout.setToScreen(i);
-				}
+				mScrollLayout.setToScreen(3);
+				mScrollLayout.snapToScreen(0);
 			}
 		});
         mRightBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
-				int currentScreen = mScrollLayout.getCurScreen();
 				int last = mScrollLayout.getChildCount();
-				for (int i = currentScreen; i < last; i++) {
-					mScrollLayout.setToScreen(i);
-				}
+				mScrollLayout.setToScreen(last-3);
+				mScrollLayout.snapToScreen(last);
 			}
 		});    
 	}
+	
+	public void onStart(){
+		super.onStart();
 
+		Log.i(Constants.APP_TAG, "InitActivity: onStart");
+	
+        store = DataStore.getInstance().getDishesItemDataStore();
+        
+        prepareViews();
+	}
+
+	public void onStop(){
+		Log.i(Constants.APP_TAG, "InitActivity: onStop");
+		super.onStop();
+	}
+	
+	public void onDestroy() {
+		Log.i(Constants.APP_TAG, "InitActivity: onDestroy");
+		super.onDestroy();
+	}
 	
 	public void onClick(View v){
     	applyRotation(0, 90);

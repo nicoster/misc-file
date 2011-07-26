@@ -20,6 +20,10 @@ public class ImageInfoObj {
 	public static final String SMALL_IMAGE_SIZE = "small_image_size";
 	public static final String SMALL_IMAGE_MODIFY_TIME = "small_image_modify_time";
 	
+	public static final String VIDEO_IMAGE_NAME = "video_image_name";
+	public static final String VIDEO_IMAGE_SIZE = "video_image_size";
+	public static final String VIDEO_IMAGE_MODIFY_TIME = "video_image_modify_time";
+	
 	public String id;
 	public String name;
 	public long size;
@@ -29,9 +33,17 @@ public class ImageInfoObj {
 	public long small_size;
 	public Date small_modified_time;
 	
+	public String video_name;
+	public long video_size;
+	public Date video_modified_time;
+	
 	public void set(ServerImageInfoObj sObj) {
 		id = FunctionUtil.formatDishId(sObj.name);
-		if (sObj.name.toLowerCase().endsWith("t.bmp")) {
+		if(FunctionUtil.isVideo(sObj.name)){
+			video_name = sObj.name;
+			video_size = sObj.size;
+			video_modified_time = sObj.modified_time;
+		}else if (FunctionUtil.isSmallImage(sObj.name)) {
 			small_name = sObj.name;
 			small_size = sObj.size;
 			small_modified_time = sObj.modified_time;
@@ -41,7 +53,7 @@ public class ImageInfoObj {
 			modified_time = sObj.modified_time;
 		}
 	}
-
+	
 	public String toString() {
 		return "{id:" + id + ", name:" + name + ", modified_time:" + modified_time + ", small_name:" + small_name
 				+ ", small_modified_time:" + small_modified_time + "}";
