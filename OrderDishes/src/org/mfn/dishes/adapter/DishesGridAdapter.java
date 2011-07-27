@@ -71,7 +71,7 @@ public class DishesGridAdapter extends BaseAdapter {
 		if(dishesInfo != null){
 			String imgSrc = dishesInfo.img.getImgUrl(true);
 			String dishName = dishesInfo.name;
-			String dishComments = dishesInfo.name;
+			String dishComments = dishesInfo.unit;
 			String price = String.valueOf(dishesInfo.price);
 			
 			Drawable imageDrawable = null;
