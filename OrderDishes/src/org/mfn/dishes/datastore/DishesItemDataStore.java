@@ -2,16 +2,12 @@ package org.mfn.dishes.datastore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.mfn.dishes.Constants;
 import org.mfn.dishes.util.DishesDataAdapter;
 import org.mfn.dishes.vo.DishInfoObj;
 import org.mfn.dishes.vo.DishTypeObj;
-
-import android.util.Log;
 
 public class DishesItemDataStore implements IDishesItemDataStore {
 
@@ -114,8 +110,8 @@ public class DishesItemDataStore implements IDishesItemDataStore {
 				}
 
 				mPageGridDishesInfos.add(pageInfo);
-				Log.w(Constants.APP_TAG, "Page:" + pageInfo.page + " Page in Type:" + pageInfo.page_in_type + " ID="
-						+ pageInfo.dish_type_id + " Name:" + pageInfo.dish_type_name+" bumber="+pageInfo.dishesList.size());
+//				Log.w(Constants.APP_TAG, "Page:" + pageInfo.page + " Page in Type:" + pageInfo.page_in_type + " ID="
+//						+ pageInfo.dish_type_id + " Name:" + pageInfo.dish_type_name+" bumber="+pageInfo.dishesList.size());
 			}
 
 		}
