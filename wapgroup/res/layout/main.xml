@@ -6,6 +6,6 @@
 		android:id="@+id/myGrid" android:layout_width="match_parent"
 		android:layout_height="match_parent" android:padding="10dp"
 		android:verticalSpacing="10dp" android:horizontalSpacing="10dp"
-		android:numColumns="auto_fit" android:columnWidth="60dp"
-		android:stretchMode="columnWidth" android:gravity="center" />
+		android:numColumns="auto_fit" android:columnWidth="80dp"
+		android:stretchMode="columnWidth" android:gravity="center" android:background="@drawable/background"/>
 </LinearLayout>
