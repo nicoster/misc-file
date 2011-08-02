@@ -29,4 +29,6 @@ public class Constants {
     public static String DISHES_IMAGE_PATH = null;
     
     public static DisplayMetrics DISPLAY_METRICS = null;
+    
+    public static int DISHES_PER_PAGE = 8;
 }

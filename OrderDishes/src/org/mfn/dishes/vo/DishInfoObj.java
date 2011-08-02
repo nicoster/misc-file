@@ -36,6 +36,7 @@ public class DishInfoObj {
 	public float cost;
 	public float gross_profit;
 	public String name_en, name_jp;
+	
 	public boolean isPackage(){return (flag & 0x0001) != 0;} //是否套餐
 	public boolean isCustom(){return (flag & 0x0002) != 0;} //自定义菜品
 	public boolean isByQuantity(){return (flag & 0x0004) != 0;} //称重菜品

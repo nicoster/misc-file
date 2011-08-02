@@ -3,9 +3,9 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent" android:orientation="vertical">
-    <ImageView android:id="@+id/dish_item_image" android:layout_height="180dip" android:clickable="true" android:cropToPadding="true" android:scaleType="centerInside" android:src="@drawable/icon" android:layout_width="180dip"></ImageView>
-    <TextView android:layout_below="@+id/dish_item_image" android:text="TextView" android:layout_width="wrap_content" android:layout_alignRight="@+id/dish_item_image" android:width="90dip" android:id="@+id/dish_item_comments" android:layout_height="30dip" android:textSize="20sp"></TextView>
-    <ImageButton android:layout_width="wrap_content" android:src="@drawable/icon" android:layout_below="@+id/dish_item_comments" android:id="@+id/dish_item_order_btn" android:layout_alignRight="@+id/dish_item_comments" android:layout_height="30dip"></ImageButton>
-    <TextView android:id="@+id/dish_item_name" android:layout_width="90dip" android:text="Text" android:layout_below="@+id/dish_item_image" android:width="90dip" android:layout_height="30dip" android:textSize="20sp"/>
-    <TextView android:layout_below="@+id/dish_item_name" android:text="TextView" android:layout_width="wrap_content" android:layout_alignLeft="@+id/dish_item_name" android:id="@+id/dish_item_price" android:layout_height="30dip" android:textSize="20sp"></TextView>
+    <ImageView android:id="@+id/dish_item_image" android:clickable="true" android:scaleType="centerInside" android:src="@drawable/icon" android:layout_width="200dip" android:layout_height="160dip"></ImageView>
+    <TextView android:layout_below="@+id/dish_item_image" android:text="TextView" android:layout_width="wrap_content" android:layout_alignRight="@+id/dish_item_image" android:width="90dip" android:id="@+id/dish_item_comments" android:layout_height="30dip" android:textSize="20sp" android:visibility="gone"></TextView>
+    <ImageButton android:id="@+id/dish_item_order_btn" android:layout_alignRight="@+id/dish_item_comments" android:layout_below="@+id/dish_item_name" android:layout_marginRight="10dip" android:src="@drawable/order_dishes" android:layout_width="60dip" android:layout_height="25dip"></ImageButton>
+    <TextView android:id="@+id/dish_item_name" android:layout_width="90dip" android:text="Text" android:layout_below="@+id/dish_item_image" android:layout_height="30dip" android:textSize="20sp" android:width="200dip"/>
+    <TextView android:layout_below="@+id/dish_item_name" android:text="TextView" android:layout_width="wrap_content" android:layout_alignLeft="@+id/dish_item_name" android:id="@+id/dish_item_price" android:layout_height="30dip" android:textSize="20sp" android:width="120dip"></TextView>
 </RelativeLayout>

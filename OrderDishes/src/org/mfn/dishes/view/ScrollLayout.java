@@ -1,7 +1,6 @@
 package org.mfn.dishes.view;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -54,7 +53,7 @@ public class ScrollLayout extends ViewGroup {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		// TODO Auto-generated method stub
-		Log.e(TAG, "onLayout");
+//		Log.e(TAG, "onLayout");
 		if (changed) {
 			int childLeft = 0;
 			final int childCount = getChildCount();
@@ -154,7 +153,7 @@ public class ScrollLayout extends ViewGroup {
 		
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			Log.e(TAG, "event down!");
+//			Log.e(TAG, "event down!");
 			if (!mScroller.isFinished()){
 				mScroller.abortAnimation();
 			}
@@ -169,22 +168,22 @@ public class ScrollLayout extends ViewGroup {
 			break;
 			
 		case MotionEvent.ACTION_UP:
-			Log.e(TAG, "event : up");   
+//			Log.e(TAG, "event : up");   
             // if (mTouchState == TOUCH_STATE_SCROLLING) {   
             final VelocityTracker velocityTracker = mVelocityTracker;   
             velocityTracker.computeCurrentVelocity(1000);   
             int velocityX = (int) velocityTracker.getXVelocity();   
 
-            Log.e(TAG, "velocityX:"+velocityX); 
+//            Log.e(TAG, "velocityX:"+velocityX); 
             
             if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {   
                 // Fling enough to move left   
-            	Log.e(TAG, "snap left");
+//            	Log.e(TAG, "snap left");
                 snapToScreen(mCurScreen - 1);   
             } else if (velocityX < -SNAP_VELOCITY   
                     && mCurScreen < getChildCount() - 1) {   
                 // Fling enough to move right   
-            	Log.e(TAG, "snap right");
+//            	Log.e(TAG, "snap right");
                 snapToScreen(mCurScreen + 1);   
             } else {   
                 snapToDestination();   
@@ -208,7 +207,7 @@ public class ScrollLayout extends ViewGroup {
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
 		// TODO Auto-generated method stub
-		Log.e(TAG, "onInterceptTouchEvent-slop:"+mTouchSlop);
+//		Log.e(TAG, "onInterceptTouchEvent-slop:"+mTouchSlop);
 		
 		final int action = ev.getAction();
 		if ((action == MotionEvent.ACTION_MOVE) && 

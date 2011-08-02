@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.datastore.DataStore;
+import org.mfn.dishes.datastore.IDishesDataStore;
 import org.mfn.dishes.datastore.IDishesItemDataStore;
-import org.mfn.dishes.datastore.PageGridDishesInfo;
-import org.mfn.dishes.util.DishesDBHelpter;
+import org.mfn.dishes.datastore.TypeGridDishesInfo;
 import org.mfn.dishes.view.DishTypeGridView;
 import org.mfn.dishes.view.DishesGridView;
-import org.mfn.dishes.view.PickedDishesListView;
+import org.mfn.dishes.view.OrderedDishesView;
 import org.mfn.dishes.view.ScrollLayout;
+import org.mfn.dishes.vo.DishInfo;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -31,10 +32,13 @@ public class InitActivity extends Activity implements OnClickListener{
 	private RelativeLayout mDishesMenus;
 	private ScrollLayout mScrollLayout;
 	
-	private ImageButton mLeftBtn;
-	private ImageButton mRightBtn;
+	private ImageButton mOrderedBtn;
+	private ImageButton mCategoryBtn;
 	
 	private IDishesItemDataStore store;
+	private IDishesDataStore dishesDataStore;
+	
+	private OrderedDishesView orderedDishesView;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,35 +54,52 @@ public class InitActivity extends Activity implements OnClickListener{
         mDishesMenus = (RelativeLayout) findViewById(R.id.dishes_menus);
         mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
-        mLeftBtn = (ImageButton)findViewById(R.id.btn_left);
-        mRightBtn = (ImageButton)findViewById(R.id.btn_right);
+        mOrderedBtn = (ImageButton)findViewById(R.id.btn_left);
+        mCategoryBtn = (ImageButton)findViewById(R.id.btn_right);
         
         mStartBtn.setOnClickListener(this);
-
+        
+        store = DataStore.getInstance().getDishesItemDataStore();
+        dishesDataStore = DataStore.getInstance().getDishesDataStore();
+        
+        prepareViews();
+//        mEntry.setVisibility(View.GONE);
+//        mDishesMenus.setVisibility(View.VISIBLE);
 	}
 	
 	
 	private void prepareViews(){
-        mScrollLayout.addView(new PickedDishesListView(this));
+		orderedDishesView = new OrderedDishesView(this);
+        mScrollLayout.addView(orderedDishesView);
         
-        List<PageGridDishesInfo> pageList = store.getPageDishesInfos();
-        for (int i=0;i<pageList.size();i++){
-        	PageGridDishesInfo pageInfo = pageList.get(i);
-            mScrollLayout.addView(new DishesGridView(this, pageInfo));
+        int dishesItemPages = dishesDataStore.getAllDishesPages();
+        
+        for(int i = 0; i < dishesItemPages; i++){
+        	List<DishInfo> dishInfos = dishesDataStore.getDishInfosByPage(i);
+        	if(dishInfos.size() > 0){
+        		mScrollLayout.addView(new DishesGridView(this, dishInfos));
+        	}
         }
         
-        List dishTypeList = store.getDisheTypePageList();
+        
+//        List<PageGridDishesInfo> pageList = store.getPageDishesInfos();
+//        for (int i=0;i<pageList.size();i++){
+//        	PageGridDishesInfo pageInfo = pageList.get(i);
+//            mScrollLayout.addView(new DishesGridView(this, pageInfo));
+//        }
+//        
+        List<TypeGridDishesInfo> dishTypeList = store.getDisheTypePageList();
         mScrollLayout.addView(new DishTypeGridView(this, dishTypeList));
         
         mScrollLayout.snapToScreen(1);
 
-		mLeftBtn.setOnClickListener(new ImageButton.OnClickListener() {
-			public void onClick(View v) {
+        mOrderedBtn.setOnClickListener(new ImageButton.OnClickListener() {
+			public void onClick(View v) {				
 				mScrollLayout.setToScreen(3);
 				mScrollLayout.snapToScreen(0);
 			}
 		});
-        mRightBtn.setOnClickListener(new ImageButton.OnClickListener() {
+        mCategoryBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
 				int last = mScrollLayout.getChildCount();
 				mScrollLayout.setToScreen(last-3);
@@ -89,12 +110,13 @@ public class InitActivity extends Activity implements OnClickListener{
 	
 	public void onStart(){
 		super.onStart();
-
+//		mEntry.setVisibility(View.VISIBLE);
+//        mDishesMenus.setVisibility(View.GONE);
 		Log.i(Constants.APP_TAG, "InitActivity: onStart");
 	
-        store = DataStore.getInstance().getDishesItemDataStore();
         
-        prepareViews();
+        
+//        prepareViews();
 	}
 
 	public void onStop(){
@@ -108,8 +130,12 @@ public class InitActivity extends Activity implements OnClickListener{
 	}
 	
 	public void onClick(View v){
-    	applyRotation(0, 90);
+    	applyRotation(0, -90);
     }
+	
+	public void updateUI(){
+		orderedDishesView.updateUI();
+	}
     
     private void applyRotation(float start, float end){
 		// Find the center of the container
@@ -157,7 +183,7 @@ public class InitActivity extends Activity implements OnClickListener{
             mEntry.setVisibility(View.GONE);
             mDishesMenus.setVisibility(View.VISIBLE);
             
-            rotation = new Rotate3dAnimation(90, 180, centerX, centerY, 310.0f, false);
+            rotation = new Rotate3dAnimation(-90, -180, centerX, centerY, 310.0f, false);
             rotation.setDuration(500);
             rotation.setFillAfter(true);
             rotation.setInterpolator(new DecelerateInterpolator());

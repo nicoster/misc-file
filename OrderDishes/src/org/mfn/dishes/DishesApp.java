@@ -1,5 +1,6 @@
 package org.mfn.dishes;
 
+import org.mfn.dishes.datastore.DataStore;
 import org.mfn.dishes.util.DishesDBHelpter;
 
 import android.app.Application;
@@ -25,6 +26,7 @@ public class DishesApp extends Application {
 		
 		DishesDBHelpter.init(this);
         DishesDBHelpter.getInstance().open();
+        DataStore.getInstance().initDishesData();
 	}
 
 	@Override
