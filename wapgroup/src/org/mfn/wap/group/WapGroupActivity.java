@@ -1,35 +1,36 @@
 package org.mfn.wap.group;
 
-import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class WapGroupActivity extends Activity {
 
-    GridView mGrid;
-
+	private static final int DIALOG_CONFIRM_QUIT = 1;
+	
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadApps(); // do this in onresume?
-
         setContentView(R.layout.main);
-        mGrid = (GridView) findViewById(R.id.myGrid);
-        mGrid.setAdapter(new AppsAdapter());
+
+        GridView g = (GridView) findViewById(R.id.myGrid);
+        g.setAdapter(new ImageAdapter(this));
         
-        mGrid.setOnItemClickListener(new OnItemClickListener() {
+        g.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
                 Toast.makeText(WapGroupActivity.this, "" + position, Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent();
@@ -37,50 +38,77 @@ public class WapGroupActivity extends Activity {
 				startActivity(intent);
             }
         });
+
+
     }
 
-    private List<ResolveInfo> mApps;
-
-    private void loadApps() {
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-
-        mApps = getPackageManager().queryIntentActivities(mainIntent, 0);
+    public void onBackPressed(){
+    	this.showDialog(DIALOG_CONFIRM_QUIT);
     }
+    
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+        case DIALOG_CONFIRM_QUIT:
+            return new AlertDialog.Builder(WapGroupActivity.this)
+                .setIcon(R.drawable.alert_dialog_icon)
+                .setTitle(R.string.alert_dialog_quit_title)
+                .setMessage(R.string.alert_dialog_quit_msg)
+                .setPositiveButton(R.string.alert_dialog_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
 
-    public class AppsAdapter extends BaseAdapter {
-        public AppsAdapter() {
+                        finish();
+                    }
+                })
+                .setNegativeButton(R.string.alert_dialog_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        /* User clicked Cancel so do some stuff */
+                    }
+                })
+                .create();
+        }
+        return null;
+    }
+    
+    public class ImageAdapter extends BaseAdapter {
+        public ImageAdapter(Context c) {
+            mContext = c;
+        }
+
+        public int getCount() {
+            return mThumbIds.length;
+        }
+
+        public Object getItem(int position) {
+            return position;
+        }
+
+        public long getItemId(int position) {
+            return position;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView i;
-
+            ImageView imageView;
             if (convertView == null) {
-                i = new ImageView(WapGroupActivity.this);
-                i.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                i.setLayoutParams(new GridView.LayoutParams(50, 50));
+                imageView = new ImageView(mContext);
+                imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+                imageView.setAdjustViewBounds(false);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setPadding(8, 8, 8, 8);
             } else {
-                i = (ImageView) convertView;
+                imageView = (ImageView) convertView;
             }
 
-            ResolveInfo info = mApps.get(position);
-            i.setImageDrawable(info.activityInfo.loadIcon(getPackageManager()));
+            imageView.setImageResource(mThumbIds[position]);
 
-            return i;
+            return imageView;
         }
 
+        private Context mContext;
 
-        public final int getCount() {
-            return mApps.size();
-        }
-
-        public final Object getItem(int position) {
-            return mApps.get(position);
-        }
-
-        public final long getItemId(int position) {
-            return position;
-        }
+		private Integer[] mThumbIds = { R.drawable.a1, R.drawable.a2,
+				R.drawable.a3, R.drawable.a4, R.drawable.a5, R.drawable.a6,
+				R.drawable.a7, R.drawable.a8, R.drawable.a9 };
     }
 
 }
