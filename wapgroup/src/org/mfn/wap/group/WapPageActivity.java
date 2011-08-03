@@ -10,12 +10,12 @@ public class WapPageActivity extends Activity {
 	        
 	        setContentView(R.layout.wappage);
 	        
-	        final String mimeType = "text/html";
-	        final String encoding = "utf-8";
-	        
 	        WebView wv;
 	        
 	        wv = (WebView) findViewById(R.id.wv1);
-	        wv.loadUrl("http://wap.taobao.com");
+	        
+	        String url  = this.getIntent().getStringExtra(Constants.PARAM_WAP_URL);
+	        
+	        wv.loadUrl(url);
 	 }
 }

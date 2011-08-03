@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+		<string-array name="wap_item_names">
+		<item>流量查询</item>
+		<item>阅读的wap站</item>
+		<item>论坛</item>
+		<item>189邮箱</item>
+		<item>流量查询</item>
+		<item>影讯</item>
+		<item>公交</item>
+		<item>天气</item>
+		<item>新闻</item>
+	</string-array>
+
+	<string-array name="wap_item_urls">
+		<item>http://js.wap.vnet.mobl/3g/daohang/index.jsp</item>
+		<item>http://wapread.189.cn</item>
+		<item>http://bbs.88bx.com/m/list.php?fid=37</item>
+		<item>http://wapmail.189.cn</item>
+		<item>http://www.msip.cn/g3</item>
+		<item></item>
+		<item></item>
+		<item></item>
+		<item>http://www.sz.js.cn/3g/</item>
+	</string-array>
+</resources>

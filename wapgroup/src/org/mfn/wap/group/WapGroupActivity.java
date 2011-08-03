@@ -23,7 +23,8 @@ public class WapGroupActivity extends Activity {
 	
 	private View mContainer;
 	private View mIconPage;
-	private View mCoverPage;;
+	private View mCoverPage;
+	private WapIconAdapter mAdapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,13 +38,18 @@ public class WapGroupActivity extends Activity {
         mIconPage = findViewById(R.id.icon_page);
         
         GridView grid = (GridView) findViewById(R.id.myGrid);
-        grid.setAdapter(new WapIconAdapter(this));
+        mAdapter = new WapIconAdapter(this);
+        grid.setAdapter(mAdapter);
         
         
         grid.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-                Toast.makeText(WapGroupActivity.this, "" + position, Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent();
+                String wapName = mAdapter.getItem(position).getWapName();
+                String wapUrl = mAdapter.getItem(position).getWapUrl();
+                Toast.makeText(WapGroupActivity.this, wapName+"\t" + wapUrl, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+                intent.putExtra(Constants.PARAM_WAP_URL, wapUrl);
 				intent.setClass(WapGroupActivity.this, WapPageActivity.class);
 				startActivity(intent);
             }

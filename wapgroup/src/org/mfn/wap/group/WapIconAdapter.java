@@ -1,6 +1,9 @@
 package org.mfn.wap.group;
 
+import java.util.*;
+
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -9,16 +12,31 @@ import android.widget.ImageView;
 
 public class WapIconAdapter extends BaseAdapter {
 	
+	private int num = 9;
+	
 	public WapIconAdapter(Context c) {
 		mContext = c;
+		
+		String[] wap_names = c.getResources().getStringArray(R.array.wap_item_names);
+        String[] wap_urls = c.getResources().getStringArray(R.array.wap_item_urls);
+		
+		for (int i = 0; i < num; i++) {
+			WapItem wapItem = new WapItem();
+			wapItem.setmIcon(R.drawable.a1 + i);
+			wapItem.setWapName(wap_names[i]);
+			wapItem.setWapUrl(wap_urls[i]);
+			wapItem.setAvaiable(!TextUtils.isEmpty((wap_urls[i])));
+			
+			mThumbIds.add(wapItem);
+		}
 	}
 
 	public int getCount() {
-		return mThumbIds.length;
+		return mThumbIds.size();
 	}
 
-	public Object getItem(int position) {
-		return position;
+	public WapItem getItem(int position) {
+		return mThumbIds.get(position);
 	}
 
 	public long getItemId(int position) {
@@ -37,14 +55,13 @@ public class WapIconAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		imageView.setImageResource(mThumbIds[position]);
+		imageView.setImageResource(mThumbIds.get(position).getmIcon());
 
 		return imageView;
 	}
 
 	private Context mContext;
 
-	private Integer[] mThumbIds = { R.drawable.a1, R.drawable.a2,
-			R.drawable.a3, R.drawable.a4, R.drawable.a5, R.drawable.a6,
-			R.drawable.a7, R.drawable.a8, R.drawable.a9 };
+	private List<WapItem> mThumbIds = new ArrayList<WapItem>();
+
 }
