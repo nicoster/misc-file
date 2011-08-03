@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="match_parent">
+	<ImageView android:id="@+id/wap_item_image"
+		android:clickable="true" android:scaleType="centerInside" android:src="@drawable/icon"
+		android:layout_width="140dip" android:layout_height="160dip"></ImageView>
+
+	<TextView android:layout_below="@+id/wap_item_image"
+		android:text="TextView" android:layout_width="wrap_content"
+		android:width="90dip" android:id="@+id/wap_item_name"
+		android:layout_height="30dip" android:textSize="20sp"></TextView>
+
+</RelativeLayout>
