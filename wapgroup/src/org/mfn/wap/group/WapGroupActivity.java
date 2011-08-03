@@ -6,8 +6,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -47,8 +48,8 @@ public class WapGroupActivity extends Activity {
 				startActivity(intent);
             }
         });
-
-        applyRotation(0, -90);
+        
+        loadLoginPage.start();
     }
 
     public void onBackPressed(){
@@ -87,7 +88,7 @@ public class WapGroupActivity extends Activity {
 		// Create a new 3D rotation with the supplied parameter
 		// The animation listener is used to trigger the next animation
 		final Rotate3dAnimation rotation = new Rotate3dAnimation(start, end, centerX, centerY, 310.0f, true);
-		rotation.setDuration(800);
+		rotation.setDuration(500);
 		rotation.setFillAfter(true);
 		rotation.setInterpolator(new AccelerateInterpolator());
 		rotation.setAnimationListener(new DisplayNextView());
@@ -134,5 +135,27 @@ public class WapGroupActivity extends Activity {
     	}
     }    
     
+    Handler progressHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+            case 0:
+            	 applyRotation(0, -90);
+                break;
+            case 1:
+            }
+        }
+    };
 
+    private Thread loadLoginPage = new Thread() {
+        public void run() {
+            try {
+                progressHandler.sendEmptyMessageDelayed(0, 2000);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+
+            }
+        }
+    };
 }
