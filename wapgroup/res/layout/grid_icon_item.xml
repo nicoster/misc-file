@@ -4,11 +4,11 @@
 	android:layout_height="match_parent">
 	<ImageView android:id="@+id/wap_item_image"
 		android:clickable="true" android:scaleType="centerInside" android:src="@drawable/icon"
-		android:layout_width="140dip" android:layout_height="160dip"></ImageView>
+		android:layout_width="140dip" android:layout_height="100dip"></ImageView>
 
 	<TextView android:layout_below="@+id/wap_item_image"
 		android:text="TextView" android:layout_width="wrap_content"
-		android:width="90dip" android:id="@+id/wap_item_name"
-		android:layout_height="30dip" android:textSize="20sp"></TextView>
+		android:width="140dip" android:id="@+id/wap_item_name"
+		android:layout_height="30dip" android:textSize="20sp" android:textStyle="normal" android:textColor="#444444" android:gravity="center_horizontal"></TextView>
 
 </RelativeLayout>

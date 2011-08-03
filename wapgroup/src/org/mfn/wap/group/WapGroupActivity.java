@@ -41,22 +41,8 @@ public class WapGroupActivity extends Activity {
         mAdapter = new WapIconAdapter(this);
         grid.setAdapter(mAdapter);
         
-        
-        grid.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                String wapName = mAdapter.getItem(position).getWapName();
-                String wapUrl = mAdapter.getItem(position).getWapUrl();
-                Toast.makeText(WapGroupActivity.this, wapName+"\t" + wapUrl, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent();
-                intent.putExtra(Constants.PARAM_WAP_URL, wapUrl);
-				intent.setClass(WapGroupActivity.this, WapPageActivity.class);
-				startActivity(intent);
-            }
-        });
-        
-        loadLoginPage.start();
-    }
+		loadLoginPage.start();
+	}
 
     public void onBackPressed(){
     	this.showDialog(DIALOG_CONFIRM_QUIT);
