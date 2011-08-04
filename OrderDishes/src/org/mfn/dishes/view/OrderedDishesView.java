@@ -8,8 +8,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -20,6 +22,7 @@ public class OrderedDishesView extends LinearLayout implements OnItemClickListen
 	private EditText personNum;
 	private ListView orderedDishesListView;
 	private OrderedDishesAdapter mAdapter;
+	private Button mReload;
 	
 	public OrderedDishesView(Context context) {
 		super(context);
@@ -40,14 +43,29 @@ public class OrderedDishesView extends LinearLayout implements OnItemClickListen
 		deskNumber = (EditText) orderedDishesView.findViewById(R.id.ordered_dishes_desk_number_text);
 		personNum = (EditText) orderedDishesView.findViewById(R.id.ordered_dishes_person_number_text);
 		orderedDishesListView = (ListView) orderedDishesView.findViewById(R.id.ordered_dishes_listview);
+		mReload = (Button) orderedDishesView.findViewById(R.id.ordered_dishes_reload);
+		mReload.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				OrderedDishesView.this.reloadData();
+				
+			}
+		});
 		
 		mAdapter = new OrderedDishesAdapter(mContext);
 		orderedDishesListView.setAdapter(mAdapter);
 		orderedDishesListView.setOnItemClickListener(this);
 	}
 	
+	private void reloadData(){
+//		mAdapter = new OrderedDishesAdapter(mContext);
+//		orderedDishesListView.setAdapter(mAdapter);
+		mAdapter.notifyDataSetChanged();
+	}
+	
 	public void updateUI(){
-		mAdapter.updateUI();
+		mAdapter.notifyDataSetChanged();
 	}
 	
 	@Override

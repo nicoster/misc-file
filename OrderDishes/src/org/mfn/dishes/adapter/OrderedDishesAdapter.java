@@ -36,9 +36,9 @@ public class OrderedDishesAdapter extends BaseAdapter {
 	}
 
 	public OrderedDishInfo getItem(int position) {
-		if(this.mOrderedDishInfos == null){
-			return null;
-		}
+//		if(this.mOrderedDishInfos == null){
+//			return null;
+//		}
 		return this.mOrderedDishInfos.get(position);
 	}
 
@@ -47,7 +47,7 @@ public class OrderedDishesAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {	
-		Log.d("OrderedDishesAdapter", " getView ======");
+		Log.e("OrderedDishesAdapter", " getView ======");
 		if(convertView == null || convertView.getTag() == null){
 			convertView = this.inflater.inflate(R.layout.ordered_dish_item, parent, false);
 			holder = new ViewHolder(convertView);
@@ -68,7 +68,8 @@ public class OrderedDishesAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
-	public void updateUI(){
+	public void notifyDataSetChanged(){
+		Log.d("OrderedDishesAdapter", "updateUI ==================");
 		this.mOrderedDishInfos = DataStore.getInstance().getOrderedDishesDataStore().getOrderedDishInfo();
 		super.notifyDataSetChanged();
 	}

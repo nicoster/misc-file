@@ -6,15 +6,19 @@ import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.datastore.DataStore;
 import org.mfn.dishes.datastore.IDishesDataStore;
 import org.mfn.dishes.datastore.IDishesItemDataStore;
-import org.mfn.dishes.datastore.TypeGridDishesInfo;
-import org.mfn.dishes.view.DishTypeGridView;
+import org.mfn.dishes.view.DishesCategoryView;
 import org.mfn.dishes.view.DishesGridView;
 import org.mfn.dishes.view.OrderedDishesView;
 import org.mfn.dishes.view.ScrollLayout;
+import org.mfn.dishes.view.ScrollLayout.IScrollLayoutCallBack;
+import org.mfn.dishes.vo.DishCategoryInfo;
 import org.mfn.dishes.vo.DishInfo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +29,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
-public class InitActivity extends Activity implements OnClickListener{
+public class InitActivity extends Activity implements OnClickListener, IScrollLayoutCallBack{
 	private ImageButton mStartBtn;
 	private ViewGroup mContainer;
 	private RelativeLayout mEntry;
@@ -39,6 +43,9 @@ public class InitActivity extends Activity implements OnClickListener{
 	private IDishesDataStore dishesDataStore;
 	
 	private OrderedDishesView orderedDishesView;
+	private int mCurrentPage = 0;
+	
+	private Handler handler;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,18 +69,40 @@ public class InitActivity extends Activity implements OnClickListener{
         store = DataStore.getInstance().getDishesItemDataStore();
         dishesDataStore = DataStore.getInstance().getDishesDataStore();
         
+        mScrollLayout.setCallBack(this);
+        
+        handler = new Handler(){
+        	public void handleMessage(Message msg){
+        		if(msg.what == 0){
+        			updateUI();
+        		}
+        	}
+        };
+        
         prepareViews();
-//        mEntry.setVisibility(View.GONE);
-//        mDishesMenus.setVisibility(View.VISIBLE);
+	}
+	
+	public void onPageShown(int page){
+		Log.d("InitActivity", "onPageShown page = " + page);
+		mCurrentPage = page;
+//		if(page == 0){			
+//			orderedDishesView = new OrderedDishesView(this);
+//			mOrderLinearLayout.addView(orderedDishesView);
+//		}else{
+//			mOrderLinearLayout.removeView(orderedDishesView);
+//			orderedDishesView = null;
+//		}
 	}
 	
 	
 	private void prepareViews(){
-		orderedDishesView = new OrderedDishesView(this);
-        mScrollLayout.addView(orderedDishesView);
-        
+//		orderedDishesView = new OrderedDishesView(this);
+//        mScrollLayout.addView(orderedDishesView);
+		List<DishCategoryInfo> dishCategoryInfos = dishesDataStore.getAllDishCategoryInfos();
+        mScrollLayout.addView(new DishesCategoryView(this, dishCategoryInfos));
+		
+		
         int dishesItemPages = dishesDataStore.getAllDishesPages();
-        
         for(int i = 0; i < dishesItemPages; i++){
         	List<DishInfo> dishInfos = dishesDataStore.getDishInfosByPage(i);
         	if(dishInfos.size() > 0){
@@ -88,35 +117,34 @@ public class InitActivity extends Activity implements OnClickListener{
 //            mScrollLayout.addView(new DishesGridView(this, pageInfo));
 //        }
 //        
-        List<TypeGridDishesInfo> dishTypeList = store.getDisheTypePageList();
-        mScrollLayout.addView(new DishTypeGridView(this, dishTypeList));
-        
-        mScrollLayout.snapToScreen(1);
+//        List<TypeGridDishesInfo> dishTypeList = store.getDisheTypePageList();
+//        List<DishCategoryInfo> dishCategoryInfos = dishesDataStore.getAllDishCategoryInfos();
+//        mScrollLayout.addView(new DishesCategoryView(this, dishCategoryInfos));
+//        
+//        mScrollLayout.setToScreen(1);
 
         mOrderedBtn.setOnClickListener(new ImageButton.OnClickListener() {
-			public void onClick(View v) {				
-				mScrollLayout.setToScreen(3);
-				mScrollLayout.snapToScreen(0);
+			public void onClick(View v) {
+//				mScrollLayout.setToScreen(3);
+//				mScrollLayout.snapToScreen(0);
+				Intent intent = new Intent(InitActivity.this, OrderedDishesActivity.class);
+				startActivity(intent);
 			}
 		});
         mCategoryBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
-				int last = mScrollLayout.getChildCount();
-				mScrollLayout.setToScreen(last-3);
-				mScrollLayout.snapToScreen(last);
+//				int last = mScrollLayout.getChildCount();
+				if(mCurrentPage > 2){
+					mScrollLayout.setToScreen(2);
+				}
+				mScrollLayout.snapToScreen(0);
 			}
-		});    
+		});
 	}
 	
 	public void onStart(){
 		super.onStart();
-//		mEntry.setVisibility(View.VISIBLE);
-//        mDishesMenus.setVisibility(View.GONE);
 		Log.i(Constants.APP_TAG, "InitActivity: onStart");
-	
-        
-        
-//        prepareViews();
 	}
 
 	public void onStop(){
@@ -133,8 +161,27 @@ public class InitActivity extends Activity implements OnClickListener{
     	applyRotation(0, -90);
     }
 	
-	public void updateUI(){
-		orderedDishesView.updateUI();
+	public void onDishOrdered(){
+		handler.sendEmptyMessage(0);
+	}
+	
+	public void onCategoryClicked(String categoryCode){
+		int pageNumber = dishesDataStore.getFirstPageByCategory(categoryCode);
+		if(pageNumber == -1){
+			pageNumber = 0;
+		}
+		pageNumber++;
+		Log.d("InitActivity", "onCategoryClicked pageNumber = " + pageNumber);
+		if(pageNumber > 2){
+			mScrollLayout.setToScreen(pageNumber - 2);			
+		}
+		mScrollLayout.snapToScreen(pageNumber);
+		
+	}
+	
+	private void updateUI(){
+//		orderedDishesView.updateUI();
+//		orderedDishesView.invalidate();		
 	}
     
     private void applyRotation(float start, float end){
@@ -184,7 +231,7 @@ public class InitActivity extends Activity implements OnClickListener{
             mDishesMenus.setVisibility(View.VISIBLE);
             
             rotation = new Rotate3dAnimation(-90, -180, centerX, centerY, 310.0f, false);
-            rotation.setDuration(500);
+            rotation.setDuration(600);
             rotation.setFillAfter(true);
             rotation.setInterpolator(new DecelerateInterpolator());
 

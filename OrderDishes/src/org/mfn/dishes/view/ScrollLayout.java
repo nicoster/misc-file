@@ -35,6 +35,8 @@ public class ScrollLayout extends ViewGroup {
 	private int mTouchSlop;
 	private float mLastMotionX;
 	private float mLastMotionY;
+	
+	private IScrollLayoutCallBack mCallBack;
 
 	public ScrollLayout(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -115,6 +117,7 @@ public class ScrollLayout extends ViewGroup {
     		mScroller.startScroll(getScrollX(), 0, 
     				delta, 0, Math.abs(delta)*2);
     		mCurScreen = whichScreen;
+    		mCallBack.onPageShown(mCurScreen);
     		invalidate();		// Redraw the layout
     	}
     }
@@ -122,11 +125,20 @@ public class ScrollLayout extends ViewGroup {
     public void setToScreen(int whichScreen) {
     	whichScreen = Math.max(0, Math.min(whichScreen, getChildCount()-1));
     	mCurScreen = whichScreen;
+    	mCallBack.onPageShown(mCurScreen);
     	scrollTo(whichScreen*getWidth(), 0);
     }
     
     public int getCurScreen() {
     	return mCurScreen;
+    }
+    
+    public void setCallBack(IScrollLayoutCallBack callback){
+    	mCallBack = callback;
+    }
+    
+    public interface IScrollLayoutCallBack{
+    	void onPageShown(int page);
     }
     
 	@Override

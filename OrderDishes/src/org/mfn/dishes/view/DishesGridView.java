@@ -91,7 +91,7 @@ public class DishesGridView extends GridView implements IDishesGridAdapterCallBa
 		DishInfo selectedDishInfo = mAdapter.getItem(position);
 		OrderedDishInfo orderedDishInfo = new OrderedDishInfo(selectedDishInfo, 1);
 		mOrderedDishesDataStore.addDishesInfo(orderedDishInfo);
-		mContext.updateUI();
+		mContext.onDishOrdered();
 	}
 	
 	private OnItemClickListener listener = new OnItemClickListener() {

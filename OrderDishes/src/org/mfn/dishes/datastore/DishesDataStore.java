@@ -118,8 +118,9 @@ public class DishesDataStore implements IDishesDataStore {
 		int pages = 0;
 		int pagesInCategory = 0;
 		DishCategoryInfo categoryInfo = null;
-		while(iterator.hasNext()){
+		while(iterator.hasNext()){			
 			categoryInfo = iterator.next();
+			
 			pagesInCategory = categoryInfo.getPages();
 			
 			if(pagesInCategory == 0){
@@ -143,9 +144,9 @@ public class DishesDataStore implements IDishesDataStore {
 		DishCategoryInfo categoryInfo = null;
 		int startPage = -1;
 		while(iterator.hasNext()){
-			categoryInfo = iterator.next();
+			categoryInfo = iterator.next();			
 			startPage = categoryInfo.getStartPage();
-			if(startPage <= page && page <= startPage + categoryInfo.getPages() && startPage != -1){
+			if(startPage <= page && page < startPage + categoryInfo.getPages() && startPage != -1){
 				dishInfos = categoryInfo.getDishInfos(page);
 				break;
 			}
@@ -177,13 +178,13 @@ public class DishesDataStore implements IDishesDataStore {
 	 * @param categroyName
 	 * @return
 	 */
-	public int getFirstPageByCategory(String categroyName){
+	public int getFirstPageByCategory(String categoryCode){
 		Iterator<DishCategoryInfo> iterator = this.mCategoryInfos.iterator();
 		DishCategoryInfo categoryInfo = null;
 		int firstPage = -1;
 		while(iterator.hasNext()){
 			categoryInfo = iterator.next();
-			if(categoryInfo.getDishCategoryName().equalsIgnoreCase(categroyName)){
+			if(categoryInfo.getDishCategoryCode().equalsIgnoreCase(categoryCode)){
 				firstPage = categoryInfo.getStartPage();
 				break;
 			}

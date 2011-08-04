@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.mfn.dishes.Constants;
 
+import android.util.Log;
+
 public class DishCategoryInfo {
 	private String mDishCategoryCode; //type code, use id from DB	
 	private String mDishCategoryName; //type name
@@ -106,11 +108,12 @@ public class DishCategoryInfo {
 	 * @return
 	 */
 	public int getPages(){
-		int dishNumber = this.getDishNumber();
+		int dishNumber = this.getDishNumber();		
 		int pages = dishNumber / mItemsPerPage;
 		if(dishNumber % mItemsPerPage > 0) {
 			pages++;
 		}
+		Log.d("DishCategoryInfo", "getPage items = " + dishNumber + ", page = " + pages);
 		return pages;
 	}
 	

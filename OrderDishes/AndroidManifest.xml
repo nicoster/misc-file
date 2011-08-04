@@ -21,6 +21,10 @@
 			android:configChanges="keyboard|keyboardHidden|uiMode"
 			android:launchMode="singleTask" android:screenOrientation="portrait">
 		</activity>
+		<activity android:name="org.mfn.dishes.OrderedDishesActivity"
+			android:configChanges="keyboard|keyboardHidden|uiMode"
+			android:launchMode="singleInstance" android:screenOrientation="portrait">
+		</activity>
 		<activity android:name=".DishesTypeActivity"
 			android:configChanges="keyboard|keyboardHidden|uiMode"
 			android:launchMode="singleTask" android:screenOrientation="portrait">

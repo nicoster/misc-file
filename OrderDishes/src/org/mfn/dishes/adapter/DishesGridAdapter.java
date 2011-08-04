@@ -22,7 +22,7 @@ import android.widget.TextView;
 public class DishesGridAdapter extends BaseAdapter {
 	private List<DishInfoObj> mDishesList;
 	private List<DishInfo> mDishInfos;
-	private DishInfoObj dishesInfo = null;
+//	private DishInfoObj dishesInfo = null;
 	private DishInfo dishInfo = null;
 	private LayoutInflater mInflater = null;
 	private Activity mContext = null;
@@ -46,14 +46,14 @@ public class DishesGridAdapter extends BaseAdapter {
 		mContext = (Activity) context;
 		mInflater = mContext.getLayoutInflater();
 		mDishInfos = dishInfos;
-		for(DishInfo dishInfo : mDishInfos){
-			Log.d("DishesGridAdapter", "name = " + dishInfo.getName() + ", code = " + dishInfo.getCode() + ", type = " + dishInfo.getCategoryCodes().get(0));
-		}
+//		for(DishInfo dishInfo : mDishInfos){
+//			Log.d("DishesGridAdapter", "name = " + dishInfo.getName() + ", code = " + dishInfo.getCode() + ", type = " + dishInfo.getCategoryCodes().get(0));
+//		}
 	} 
 
 	@Override
 	public int getCount() {
-		Log.d("DishesGridAdapter", "getCount ======");
+//		Log.d("DishesGridAdapter", "getCount ======");
 		if(mDishInfos != null){
 			return mDishInfos.size();
 		}
@@ -62,19 +62,19 @@ public class DishesGridAdapter extends BaseAdapter {
 
 	@Override
 	public DishInfo getItem(int position) {
-		Log.d("DishesGridAdapter", "getItem ====");
+//		Log.d("DishesGridAdapter", "getItem ====");
 		return mDishInfos.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		Log.d("DishesGridAdapter", "getItemId  ===");
+//		Log.d("DishesGridAdapter", "getItemId  ===");
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		Log.d("DishesGridAdapter", "getView ===");
+//		Log.d("DishesGridAdapter", "getView ===");
 		if(convertView == null || convertView.getTag() == null){
 			convertView = this.mInflater.inflate(R.layout.grid_dish_item, parent, false);
 			holder = new ViewHolder(convertView);
@@ -101,6 +101,7 @@ public class DishesGridAdapter extends BaseAdapter {
 			holder.dishName.setText(dishName);
 			holder.dishComments.setText(dishComments);
 			holder.price.setText(price);
+			
 			final int pos = position;
 			holder.imageView.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
@@ -154,20 +155,7 @@ public class DishesGridAdapter extends BaseAdapter {
 		return convertView;
 	}
 	
-//	private View.OnClickListener imageViewClickListener = new View.OnClickListener() {		
-//		@Override
-//		public void onClick(View v) {
-//			mCallBack.onImageClick(v);			
-//		}
-//	};
-//	
-//	private View.OnClickListener orderBtnClickListener = new View.OnClickListener() {		
-//		@Override
-//		public void onClick(View v) {
-//			mCallBack.onBtnClick(v);
-//		}
-//	};
-	
+
 	public void setCallBack(IDishesGridAdapterCallBack callBack){
 		mCallBack = callBack;
 	}

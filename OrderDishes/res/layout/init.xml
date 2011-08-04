@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout android:orientation="vertical" android:id="@+id/container"
-	android:layout_width="fill_parent" android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+	android:layout_width="match_parent" android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 	<RelativeLayout android:id="@+id/entry"
 		android:orientation="vertical" android:layout_width="match_parent"
 		android:layout_height="match_parent" android:background="@drawable/default_bg">
@@ -10,12 +10,16 @@
 	<RelativeLayout android:id="@+id/dishes_menus" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#ffffff" android:visibility="invisible">
 		<org.mfn.dishes.view.ScrollLayout
 		  android:id="@+id/scroll_layout"
-		  android:layout_width="fill_parent"
-		  android:layout_height="fill_parent">
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:layout_above="@+id/dishes_btn_line" >
 		</org.mfn.dishes.view.ScrollLayout>
-		<ImageButton android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+		<RelativeLayout android:id="@+id/dishes_btn_line" android:layout_width="match_parent" android:layout_height="50dip"
+			android:layout_alignParentBottom="true">
+			<ImageButton android:layout_alignParentLeft="true" android:layout_height="wrap_content"
 				android:layout_alignParentBottom="true" android:text="@string/btn_order_yet" android:id="@+id/btn_left" android:layout_width="120dip"></ImageButton>
 		<ImageButton android:layout_alignParentRight="true" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="@string/btn_order_type" android:id="@+id/btn_right" android:layout_width="120dip"></ImageButton>
+		</RelativeLayout>		
 	</RelativeLayout>
 	<RelativeLayout android:id="@+id/category" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="#ffffff">
 		<TextView android:id="@+id/category_label" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Category"></TextView>

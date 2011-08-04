@@ -3,9 +3,7 @@ package org.mfn.dishes.adapter;
 import java.util.List;
 
 import org.mfn.dishes.R;
-import org.mfn.dishes.datastore.TypeGridDishesInfo;
-import org.mfn.dishes.util.DishesDataAdapter;
-import org.mfn.dishes.vo.DishTypeObj;
+import org.mfn.dishes.vo.DishCategoryInfo;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,18 +20,14 @@ public class DishTypeGridAdapter extends BaseAdapter {
 	private LayoutInflater mInflater = null;
 	private Activity mContext = null;
 	private ViewHolder mHolder = null;
-	private TypeGridDishesInfo mGridDishType = null;
+	private DishCategoryInfo mGridDishType = null;
 	
-	private List<TypeGridDishesInfo> mDishTypeList = null;
+	private List<DishCategoryInfo> mDishTypeList = null;
 
-	public DishTypeGridAdapter(Context context, List dishTypeList){
+	public DishTypeGridAdapter(Context context, List<DishCategoryInfo> dishTypeList){
 		mContext = (Activity) context;
 		mInflater = mContext.getLayoutInflater();
 		mDishTypeList = dishTypeList;
-	}
-	
-	private DishTypeObj[] getData(){
-		return DishesDataAdapter.getInstance().listDishTypes();
 	}
 	
 	@Override
@@ -45,7 +39,7 @@ public class DishTypeGridAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public TypeGridDishesInfo getItem(int position) {
+	public DishCategoryInfo getItem(int position) {
 		
 		return mDishTypeList.get(position);
 	}
@@ -66,8 +60,8 @@ public class DishTypeGridAdapter extends BaseAdapter {
 		}
 		mGridDishType = mDishTypeList.get(position);
 		if(mGridDishType != null){
-			String imgSrc = getDefaultImgUrl();
-			String dishName = mGridDishType.dish_type_name;
+			String imgSrc = getDefaultImgUrl(mGridDishType);
+			String dishName = mGridDishType.getDishCategoryName();
 			
 			Drawable imageDrawable = null;
 			if(imgSrc == null){
@@ -91,9 +85,9 @@ public class DishTypeGridAdapter extends BaseAdapter {
 		}
 	};
 	
-	private String getDefaultImgUrl(){
-		if (mGridDishType.dishesList.size()>0){
-			return mGridDishType.dishesList.get(0).img.getImgUrl(true);
+	private String getDefaultImgUrl(DishCategoryInfo dishCategoryInfo){
+		if (mGridDishType.getAllDishInfos().size()>0){
+			return mGridDishType.getAllDishInfos().get(0).getImageInfo().getSmallImagePath();
 		}
 		return null;
 	}
