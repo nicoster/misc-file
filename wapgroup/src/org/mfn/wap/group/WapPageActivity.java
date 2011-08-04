@@ -28,15 +28,15 @@ public class WapPageActivity extends Activity {
 	        
 	        String url  = this.getIntent().getStringExtra(Constants.PARAM_WAP_URL);
 	        
-	        wv.loadUrl(url);
+	        
 	        
 	        WebViewClient wvc = new WebViewClient(){
 	        	
 	        	// before navigate
-	        	public boolean shouldOverrideUrlLoading(WebView view, String url){
-	        		view.loadUrl(url);
-	        		return true;
-	        	}	      
+//	        	public boolean shouldOverrideUrlLoading(WebView view, String url){
+//	        		wv.loadUrl(url);
+//	        		return true;
+//	        	}	      
 	        	
 	        	public void onReceivedSslError(WebView view, SslErrorHandler handler,
 	        	            SslError error) {
@@ -58,6 +58,8 @@ public class WapPageActivity extends Activity {
 	        };
 	        
 	        wv.setWebViewClient(wvc);
+	        wv.loadUrl(url);
+	        wv.requestFocus();
 	        
 	        View goBack = (ImageView)findViewById(R.id.goBackButton);
 	        View goForward = (ImageView)findViewById(R.id.goForwardButton);
