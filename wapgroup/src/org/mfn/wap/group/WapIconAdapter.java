@@ -79,6 +79,7 @@ public class WapIconAdapter extends BaseAdapter {
 
 				Intent intent = new Intent();
 				intent.putExtra(Constants.PARAM_WAP_URL, wapUrl);
+				intent.putExtra(Constants.PARAM_WAP_TITLE, wapName);
 				intent.setClass(mContext, WapPageActivity.class);
 				mContext.startActivity(intent);
 			}
