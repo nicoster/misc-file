@@ -13,21 +13,9 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="org.mfn.dishes.AllDishesActivity"
-			android:configChanges="keyboard|keyboardHidden|uiMode"
-			android:launchMode="singleTask" android:screenOrientation="portrait">
-		</activity>
-		<activity android:name="org.mfn.dishes.AlreadyOrderedActivity"
-			android:configChanges="keyboard|keyboardHidden|uiMode"
-			android:launchMode="singleTask" android:screenOrientation="portrait">
-		</activity>
 		<activity android:name="org.mfn.dishes.OrderedDishesActivity"
 			android:configChanges="keyboard|keyboardHidden|uiMode"
 			android:launchMode="singleInstance" android:screenOrientation="portrait">
-		</activity>
-		<activity android:name=".DishesTypeActivity"
-			android:configChanges="keyboard|keyboardHidden|uiMode"
-			android:launchMode="singleTask" android:screenOrientation="portrait">
 		</activity>
 
 		<service android:name=".sync.authenticator.AuthenticationService"
