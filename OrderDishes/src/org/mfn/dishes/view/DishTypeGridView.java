@@ -2,6 +2,7 @@ package org.mfn.dishes.view;
 
 import java.util.List;
 
+import org.mfn.dishes.R;
 import org.mfn.dishes.adapter.DishTypeGridAdapter;
 import org.mfn.dishes.vo.DishCategoryInfo;
 
@@ -20,6 +21,7 @@ public class DishTypeGridView extends GridView{
 		mAdapter = new DishTypeGridAdapter(mContext, dishTypeList);
 		this.setAdapter(mAdapter);
 		
+		this.setBackgroundResource(R.drawable.default_bg);
 	}
 	
 	private void initView(){
