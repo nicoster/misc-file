@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DishTypeGridAdapter extends BaseAdapter {
 
@@ -72,7 +73,15 @@ public class DishTypeGridAdapter extends BaseAdapter {
 			}
 			
 			mHolder.dishTypeName.setText(dishName);
-			mHolder.imageView.setOnClickListener(imageViewClickListener);
+			final int pos = position;
+			mHolder.imageView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					DishCategoryInfo dci = getItem(pos);
+					int startPage = dci.getStartPage();
+					Toast.makeText(mContext, dci.getDishCategoryName(), Toast.LENGTH_LONG).show();
+				}
+			});
 		}
 		
 		return convertView;
