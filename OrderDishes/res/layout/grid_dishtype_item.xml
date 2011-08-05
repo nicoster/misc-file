@@ -8,6 +8,6 @@
 		android:src="@drawable/icon" android:layout_width="120dip"></ImageView>
 	<TextView android:id="@+id/dishtype_item_name"
 		android:layout_width="90dip" android:text="Text" android:layout_below="@+id/dishtype_item_image"
-		android:width="90dip" android:layout_height="30dip" android:textSize="20sp" />
+		android:width="120dip" android:layout_height="30dip" android:textSize="20sp" android:gravity="center_horizontal"/>
 
 </RelativeLayout>
