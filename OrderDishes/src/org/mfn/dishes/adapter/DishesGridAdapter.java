@@ -3,7 +3,6 @@ package org.mfn.dishes.adapter;
 import java.util.List;
 
 import org.mfn.dishes.R;
-import org.mfn.dishes.datastore.PageGridDishesInfo;
 import org.mfn.dishes.vo.DishInfo;
 import org.mfn.dishes.vo.DishInfoObj;
 
@@ -28,19 +27,7 @@ public class DishesGridAdapter extends BaseAdapter {
 	private Activity mContext = null;
 	private ViewHolder holder = null;
 	private IDishesGridAdapterCallBack mCallBack;
-	PageGridDishesInfo mPageInfo;
 	
-	public DishesGridAdapter(Context context, PageGridDishesInfo pageInfo) {
-		mContext = (Activity) context;
-		mInflater = mContext.getLayoutInflater();
-		mPageInfo = pageInfo;
-		mDishesList = pageInfo.dishesList;
-		
-		Log.w("DishesGridAdapter", "type="+mPageInfo.dish_type_name+" dish number="+mDishesList.size());
-		for (DishInfoObj obj: mDishesList){
-			Log.i("DishesGridAdapter", "*name="+obj.name+" img="+obj.img.getImgUrl(true));
-		}
-	}
 	
 	public DishesGridAdapter(Context context, List<DishInfo> dishInfos) {
 		mContext = (Activity) context;

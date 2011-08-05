@@ -2,7 +2,6 @@ package org.mfn.dishes.datastore;
 
 public class DataStore {
 	private static DataStore mInstance;
-	private IDishesItemDataStore mDishesItemDataStore = null;
 	private IDishesDataStore mDishesDataStore = null;
 	private IOrderedDishesDataStore mOrderedDishesDataStore = null;
 	
@@ -23,14 +22,7 @@ public class DataStore {
 		DBOperator.getInstance().loadDataFromDB();
 		
 	}
-	
-	public IDishesItemDataStore getDishesItemDataStore(){
-		if(mDishesItemDataStore == null){
-			mDishesItemDataStore = new DishesItemDataStore();
-		}
-		return mDishesItemDataStore;
-	}
-	
+
 	public IDishesDataStore getDishesDataStore(){
 		if(mDishesDataStore == null){
 			mDishesDataStore = new DishesDataStore();

@@ -5,7 +5,6 @@ import java.util.List;
 import org.mfn.dishes.animation.Rotate3dAnimation;
 import org.mfn.dishes.datastore.DataStore;
 import org.mfn.dishes.datastore.IDishesDataStore;
-import org.mfn.dishes.datastore.IDishesItemDataStore;
 import org.mfn.dishes.view.DishesCategoryView;
 import org.mfn.dishes.view.DishesGridView;
 import org.mfn.dishes.view.OrderedDishesView;
@@ -39,7 +38,6 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	private ImageButton mOrderedBtn;
 	private ImageButton mCategoryBtn;
 	
-	private IDishesItemDataStore store;
 	private IDishesDataStore dishesDataStore;
 	
 	private OrderedDishesView orderedDishesView;
@@ -61,12 +59,11 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
         mDishesMenus = (RelativeLayout) findViewById(R.id.dishes_menus);
         mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
-        mOrderedBtn = (ImageButton)findViewById(R.id.btn_left);
-        mCategoryBtn = (ImageButton)findViewById(R.id.btn_right);
+        mCategoryBtn = (ImageButton)findViewById(R.id.btn_left);
+        mOrderedBtn = (ImageButton)findViewById(R.id.btn_right);
         
         mStartBtn.setOnClickListener(this);
         
-        store = DataStore.getInstance().getDishesItemDataStore();
         dishesDataStore = DataStore.getInstance().getDishesDataStore();
         
         mScrollLayout.setCallBack(this);
@@ -85,19 +82,10 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	public void onPageShown(int page){
 		Log.d("InitActivity", "onPageShown page = " + page);
 		mCurrentPage = page;
-//		if(page == 0){			
-//			orderedDishesView = new OrderedDishesView(this);
-//			mOrderLinearLayout.addView(orderedDishesView);
-//		}else{
-//			mOrderLinearLayout.removeView(orderedDishesView);
-//			orderedDishesView = null;
-//		}
 	}
 	
 	
 	private void prepareViews(){
-//		orderedDishesView = new OrderedDishesView(this);
-//        mScrollLayout.addView(orderedDishesView);
 		List<DishCategoryInfo> dishCategoryInfos = dishesDataStore.getAllDishCategoryInfos();
         mScrollLayout.addView(new DishesCategoryView(this, dishCategoryInfos));
 		
@@ -110,36 +98,22 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
         	}
         }
         
-        
-//        List<PageGridDishesInfo> pageList = store.getPageDishesInfos();
-//        for (int i=0;i<pageList.size();i++){
-//        	PageGridDishesInfo pageInfo = pageList.get(i);
-//            mScrollLayout.addView(new DishesGridView(this, pageInfo));
-//        }
-//        
-//        List<TypeGridDishesInfo> dishTypeList = store.getDisheTypePageList();
-//        List<DishCategoryInfo> dishCategoryInfos = dishesDataStore.getAllDishCategoryInfos();
-//        mScrollLayout.addView(new DishesCategoryView(this, dishCategoryInfos));
-//        
-//        mScrollLayout.setToScreen(1);
-
         mOrderedBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
-//				mScrollLayout.setToScreen(3);
-//				mScrollLayout.snapToScreen(0);
 				Intent intent = new Intent(InitActivity.this, OrderedDishesActivity.class);
 				startActivity(intent);
 			}
 		});
+        
         mCategoryBtn.setOnClickListener(new ImageButton.OnClickListener() {
 			public void onClick(View v) {
-//				int last = mScrollLayout.getChildCount();
 				if(mCurrentPage > 2){
 					mScrollLayout.setToScreen(2);
 				}
 				mScrollLayout.snapToScreen(0);
 			}
 		});
+
 	}
 	
 	public void onStart(){
@@ -205,6 +179,7 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 
          public void onAnimationEnd(Animation animation) {
              mContainer.post(new SwapViews());
+             mScrollLayout.setToScreen(1);
          }
 
          public void onAnimationRepeat(Animation animation) {

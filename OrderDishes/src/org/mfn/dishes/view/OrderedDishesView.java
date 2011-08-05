@@ -40,12 +40,13 @@ public class OrderedDishesView extends LinearLayout implements OnItemClickListen
 		mContext = (Activity)context;
 		LayoutInflater inflater = mContext.getLayoutInflater();
 		View orderedDishesView = inflater.inflate(R.layout.ordered_dishes, this, true);
+
 		deskNumber = (EditText) orderedDishesView.findViewById(R.id.ordered_dishes_desk_number_text);
 		personNum = (EditText) orderedDishesView.findViewById(R.id.ordered_dishes_person_number_text);
 		orderedDishesListView = (ListView) orderedDishesView.findViewById(R.id.ordered_dishes_listview);
 		mReload = (Button) orderedDishesView.findViewById(R.id.ordered_dishes_reload);
 		mReload.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				OrderedDishesView.this.reloadData();

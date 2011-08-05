@@ -3,6 +3,7 @@ package org.mfn.dishes.view;
 import java.util.List;
 
 import org.mfn.dishes.InitActivity;
+import org.mfn.dishes.R;
 import org.mfn.dishes.adapter.DishesCategoryAdapter;
 import org.mfn.dishes.adapter.DishesCategoryAdapter.IDishesCategoryAdapterCallback;
 import org.mfn.dishes.vo.DishCategoryInfo;
@@ -20,6 +21,8 @@ public class DishesCategoryView extends GridView implements IDishesCategoryAdapt
 	public DishesCategoryView(Context context) {
 		super(context);
 		// TODO Auto-generated constructor stub
+		this.setBackgroundResource(R.drawable.default_bg);
+
 	}
 
 	public DishesCategoryView(Context context, AttributeSet attrs) {
@@ -40,6 +43,7 @@ public class DishesCategoryView extends GridView implements IDishesCategoryAdapt
 		this.setAdapter(mAdapter);
 		mAdapter.setCallback(this);
 //		this.setOnItemClickListener(listener);
+		this.setBackgroundResource(R.drawable.default_bg);
 	}
 	
 	private void initView(){
