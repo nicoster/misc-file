@@ -5,4 +5,6 @@
 	<string name="alert_dialog_no">否</string>	
 	<string name="alert_dialog_quit_title">退出确认</string>
 	<string name="alert_dialog_quit_msg">您真的要退出无线苏州？</string>
+	<string name="alert_dialog_update_title">升级确认</string>
+	<string name="alert_dialog_update_msg">您确定要升级到最新版本无线苏州吗？</string>
 </resources>
