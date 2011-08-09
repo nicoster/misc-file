@@ -3,9 +3,14 @@ package org.mfn.wap.group;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Enumeration;
 
+import org.mfn.wap.group.util.DES;
 import org.mfn.wap.group.util.HttpDownloader;
 
 import android.app.Activity;
@@ -14,12 +19,15 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.RemoteException;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +38,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.URLUtil;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -56,6 +65,8 @@ public class WapGroupActivity extends Activity {
 	private View mIconPage;
 	private View mCoverPage;
 	private WapIconAdapter mAdapter;
+	
+    private SharedPreferences settings;	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,8 @@ public class WapGroupActivity extends Activity {
 
 		setContentView(R.layout.main);
 
+        settings = getPreferences(Activity.MODE_WORLD_WRITEABLE);
+        
 		mContainer = findViewById(R.id.container);
 
 		mCoverPage = findViewById(R.id.cover_page);
@@ -71,16 +84,75 @@ public class WapGroupActivity extends Activity {
 		GridView grid = (GridView) findViewById(R.id.myGrid);
 		mAdapter = new WapIconAdapter(this);
 		grid.setAdapter(mAdapter);
-
+		
+		getMobileNum.start();
 		loadLoginPage.start();
 		checkAppVersin.start();
 	}
+
+	private static final String JS = "javascript:window.HTMLOUT.getHtml(document.getElementsByTagName('pre')[0].innerText)";
 	
 	public void onStart() {
-		WebView  wvMobile = (WebView)findViewById(R.id.wv_mobile_num);
-		wvMobile.loadUrl("http://wap.js.ct10000.com/login!tryLogin.action?ENSTR=3840989EA982EF4308270861BEAC341942AB955700336657");
 		super.onStart();
 	}
+	
+	private void checkMobileNum() {
+		final WebView wvMobile = (WebView) findViewById(R.id.wv_mobile_num);
+
+		wvMobile.getSettings().setJavaScriptEnabled(true);
+		wvMobile.addJavascriptInterface(new MyJavaScript(), "HTMLOUT");
+
+		WebViewClient wvc = new WebViewClient() {
+
+			// before navigate
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				view.loadUrl(url);
+				return true;
+			}
+
+			public void onPageFinished(WebView view, String url) {
+				wvMobile.loadUrl(JS);
+			}
+		};
+
+		wvMobile.setWebViewClient(wvc);
+		String IP = getLocalIpAddress();
+
+		String netType = Constants.NET_TYPE;
+		String str = "$" + IP + "$" + netType;
+
+		Log.i(TAG, DES.encrypt(str));
+		wvMobile.loadUrl(Constants.GET_MOBILE_NUM_URL + DES.encrypt(str));
+	}
+	
+	public static String getLocalIpAddress() {
+		try {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+				NetworkInterface intf = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+					InetAddress inetAddress = enumIpAddr.nextElement();
+					if (!inetAddress.isLoopbackAddress()) {
+						return inetAddress.getHostAddress().toString();
+					}
+				}
+			}
+		} catch (SocketException ex) {
+			ex.printStackTrace();
+		}
+		return "";
+	}
+	
+	class MyJavaScript{
+        public void getHtml(String html) throws RemoteException{
+        	if(html.length() != 0)
+        	{
+        		Log.i(TAG, "Got my mobile number from server "+html);
+        		 SharedPreferences.Editor editor = settings.edit();
+        		 editor.putString(Constants.SAVE_MOBILE_NUM, html);
+        		 editor.commit();
+        	}
+        }
+    }
 	
 	public void onPause(){
 		super.onPause();
@@ -284,6 +356,22 @@ public class WapGroupActivity extends Activity {
 		}
 	};
 
+	private Thread getMobileNum = new Thread() {
+		public void run() {
+			try {
+				String mobileNum = settings.getString(Constants.SAVE_MOBILE_NUM, null);
+				if(TextUtils.isEmpty(mobileNum)){
+					checkMobileNum();
+				}else{
+					Log.i(TAG, "I know my mobile number "+mobileNum);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+		}
+	};	
 	private void downloadTheFile(final String strPath) {
 		fileEx = new_apk_url.substring(new_apk_url.lastIndexOf(".") + 1, new_apk_url.length()).toLowerCase();
 		fileNa = new_apk_url.substring(new_apk_url.lastIndexOf("/") + 1, new_apk_url.lastIndexOf("."));
