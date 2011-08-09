@@ -1,13 +1,11 @@
 package org.mfn.wap.group;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -26,6 +24,7 @@ public class WapPageActivity extends Activity {
 		wv = (WebView) findViewById(R.id.wv1);
 
 		wv.getSettings().setJavaScriptEnabled(true);
+		wv.getSettings().setBuiltInZoomControls(true);
 
 		String url = this.getIntent().getStringExtra(Constants.PARAM_WAP_URL);
 		String title = this.getIntent().getStringExtra(Constants.PARAM_WAP_TITLE);
