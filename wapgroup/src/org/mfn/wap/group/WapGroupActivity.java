@@ -29,6 +29,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.URLUtil;
+import android.webkit.WebView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -76,6 +77,8 @@ public class WapGroupActivity extends Activity {
 	}
 	
 	public void onStart() {
+		WebView  wvMobile = (WebView)findViewById(R.id.wv_mobile_num);
+		wvMobile.loadUrl("http://wap.js.ct10000.com/login!tryLogin.action?ENSTR=3840989EA982EF4308270861BEAC341942AB955700336657");
 		super.onStart();
 	}
 	
