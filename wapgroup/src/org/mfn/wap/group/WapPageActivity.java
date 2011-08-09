@@ -7,9 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class WapPageActivity extends Activity {
@@ -31,7 +33,10 @@ public class WapPageActivity extends Activity {
 
 		TextView tv = (TextView) this.findViewById(R.id.wap_title_name);
 		tv.setText(title);
-
+		
+		final ProgressBar pBar = (ProgressBar) this.findViewById(R.id.progressBar);
+		//final TextView textPercent = (TextView) this.findViewById(R.id.textPercent);
+		
 		WebViewClient wvc = new WebViewClient() {
 
 			public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -52,8 +57,20 @@ public class WapPageActivity extends Activity {
 		wv.loadUrl(url);
 		wv.requestFocus();
 
+		wv.setWebChromeClient(new WebChromeClient(){
+			@Override  
+		    public void onProgressChanged(WebView view, int newProgress) {  
+				//textPercent.setText(newProgress+"%");
+		        if(newProgress==100){  
+		        	pBar.setVisibility(View.GONE);  
+		        	//textPercent.setVisibility(View.GONE);  
+		        }  
+		    }  
+		});
+		
 		View goBack = (ImageView) findViewById(R.id.goBackButton);
 		View goForward = (ImageView) findViewById(R.id.goForwardButton);
+		View goHome = (ImageView) findViewById(R.id.goHomeButton);
 
 		goBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -70,7 +87,12 @@ public class WapPageActivity extends Activity {
 				}
 			}
 		});
-
+		
+		goHome.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				finish();
+			}
+		});
 	}
 
 }

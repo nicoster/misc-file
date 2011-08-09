@@ -7,4 +7,8 @@
 	<string name="alert_dialog_quit_msg">您真的要退出无线苏州？</string>
 	<string name="alert_dialog_update_title">升级确认</string>
 	<string name="alert_dialog_update_msg">您确定要升级到最新版本无线苏州吗？</string>
+	<string name="update_msg">正在升级....</string>
+	<string name="menu_about">关于</string>
+	<string name="menu_exit">退出</string>
+	<string name="dialog_about_msg">© 2011 苏州热线 版权所有</string>
 </resources>

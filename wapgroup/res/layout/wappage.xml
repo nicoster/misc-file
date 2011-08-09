@@ -18,24 +18,14 @@
 	<WebView android:id="@+id/wv1" android:layout_width="match_parent"
 		android:layout_height="fill_parent" android:layout_below="@+id/titlebar"
 		android:layout_above="@+id/statusbar" />
-
-	<RelativeLayout android:background="@drawable/status_bar"
-		android:id="@+id/statusbar" android:layout_width="match_parent"
-		android:layout_alignParentLeft="true" android:layout_gravity="center"
-		android:orientation="horizontal" android:layout_alignParentBottom="true"
-		android:layout_height="wrap_content">
-
-		<ImageView android:id="@+id/goBackButton"
-			android:background="@drawable/btn_left" android:layout_marginLeft="22dip"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:layout_centerVertical="true" android:layout_alignParentLeft="true" />
-
-		<ImageView android:background="@drawable/btn_right"
-			android:layout_width="wrap_content" android:id="@+id/goForwardButton"
-			android:layout_height="wrap_content" android:layout_gravity="center"
-			android:layout_centerVertical="true" android:layout_marginRight="22dip"
-			android:layout_alignParentRight="true"></ImageView>
+	<RelativeLayout android:background="@drawable/status_bar" android:layout_width="match_parent" android:id="@+id/statusbar" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:layout_alignParentLeft="true">
+		<ImageView android:layout_alignParentLeft="true" android:layout_centerVertical="true" android:id="@+id/goBackButton" android:background="@drawable/btn_left" android:layout_width="wrap_content" android:layout_marginLeft="22dip" android:layout_height="wrap_content"></ImageView>
+		<ImageView android:layout_centerVertical="true" android:id="@+id/goHomeButton" android:background="@drawable/btn_home" android:layout_width="wrap_content" android:layout_marginLeft="22dip" android:layout_height="wrap_content" android:layout_centerInParent="true"></ImageView>
+		<ImageView android:layout_centerVertical="true" android:id="@+id/goForwardButton" android:background="@drawable/btn_right" android:layout_marginRight="22dip" android:layout_width="wrap_content" android:layout_alignParentRight="true" android:layout_height="wrap_content"></ImageView>
 	</RelativeLayout>
+	<ProgressBar android:id="@+id/progressBar"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true" android:layout_centerVertical="true"></ProgressBar>
 
 
 </RelativeLayout>        

@@ -8,7 +8,7 @@
 		<TextView android:layout_height="wrap_content"
 			android:layout_width="wrap_content" android:text="TextView"
 			android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true" android:id="@+id/textVersion1"
+			android:layout_alignParentRight="true" android:id="@+id/textVersion"
 			android:textColor="#aa0000" android:textSize="12dip"></TextView>
 	</RelativeLayout>
 	<RelativeLayout android:id="@+id/icon_page"
@@ -22,10 +22,5 @@
 			android:numColumns="auto_fit" android:columnWidth="80dp"
 			android:stretchMode="columnWidth" android:gravity="center"
 			android:background="@drawable/background" />
-		<TextView android:layout_height="wrap_content"
-			android:layout_width="wrap_content" android:text="TextView"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentRight="true" android:id="@+id/textVersion2"
-			android:textColor="#aa0000" android:textSize="12dip"></TextView>
 	</RelativeLayout>
 </FrameLayout>
