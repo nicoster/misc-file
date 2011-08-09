@@ -142,17 +142,18 @@ public class WapGroupActivity extends Activity {
 		return "";
 	}
 	
-	class MyJavaScript{
-        public void getHtml(String html) throws RemoteException{
-        	if(html.length() != 0)
-        	{
-        		Log.i(TAG, "Got my mobile number from server "+html);
-        		 SharedPreferences.Editor editor = settings.edit();
-        		 editor.putString(Constants.SAVE_MOBILE_NUM, html);
-        		 editor.commit();
-        	}
-        }
-    }
+	class MyJavaScript {
+		public void getHtml(String html) throws RemoteException {
+			if (html.length() == 11) {
+				Log.i(TAG, "Got my mobile number from server " + html);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString(Constants.SAVE_MOBILE_NUM, html);
+				editor.commit();
+			}else{
+				Log.e(TAG, "Can't get my mobile number.");
+			}
+		}
+	}
 	
 	public void onPause(){
 		super.onPause();
