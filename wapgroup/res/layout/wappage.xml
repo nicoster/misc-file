@@ -36,10 +36,6 @@
 			android:layout_centerVertical="true" android:layout_marginRight="22dip"
 			android:layout_alignParentRight="true"></ImageView>
 	</RelativeLayout>
-	<ZoomControls android:layout_height="wrap_content"
-		android:layout_width="wrap_content" android:id="@+id/zoomControls1"
-		android:layout_alignBottom="@+id/wv1" android:layout_alignParentRight="true"
-		android:layout_marginBottom="14dp"></ZoomControls>
 
 
 </RelativeLayout>        

@@ -27,6 +27,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.URLUtil;
 import android.widget.GridView;
+import android.widget.TextView;
 
 public class WapGroupActivity extends Activity {
 	
@@ -200,6 +201,12 @@ public class WapGroupActivity extends Activity {
 			PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
 			this.versionCode = info.versionCode;
 			this.versionName = info.versionName;
+			
+			TextView textVersion1 = (TextView)findViewById(R.id.textVersion1);
+			textVersion1.setText(versionName);
+			TextView textVersion2 = (TextView)findViewById(R.id.textVersion2);
+			textVersion2.setText(versionName);
+			
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
