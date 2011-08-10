@@ -2,6 +2,7 @@ package org.mfn.wap.group;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -24,6 +25,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.os.RemoteException;
@@ -49,6 +51,7 @@ public class WapGroupActivity extends Activity {
 	private static final int DIALOG_CONFIRM_QUIT = 1;
 	private static final int DIALOG_CONFIRM_UPDATE = 2;
 	private static final int DIALOG_ABOUT = 3;
+	private static final int DIALOG_SD_ERROR = 4;
 
 	private ProgressDialog dialog;
 
@@ -86,6 +89,8 @@ public class WapGroupActivity extends Activity {
 		GridView grid = (GridView) findViewById(R.id.myGrid);
 		mAdapter = new WapIconAdapter(this);
 		grid.setAdapter(mAdapter);
+		
+		deleteOldApkFiles();
 		
 		getMobileNum.start();
 		loadLoginPage.start();
@@ -154,7 +159,10 @@ public class WapGroupActivity extends Activity {
 				
 				HttpDownloader downloader = new HttpDownloader();
 				String send_status = downloader.download(Constants.SEND_MOBILE_URL + html);
-				Log.i(TAG, "Send Mobile Number Status:"+send_status);
+				Log.i(TAG, "Send Mobile Number Status:" + send_status);
+				editor.putString(Constants.SEND_MOBILE_STATUS, send_status);
+
+				editor.commit();
 			}else{
 				Log.e(TAG, "Can't get my mobile number.");
 			}
@@ -249,6 +257,15 @@ public class WapGroupActivity extends Activity {
 								Dialog.cancel();
 							}})
 						.create();				
+			case DIALOG_SD_ERROR:
+				return new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert)
+						.setTitle(R.string.dialog_error_title)
+						.setMessage(R.string.dialog_error_msg)
+						.setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface Dialog, int whichButton) {
+								Dialog.cancel();
+							}})
+						.create();				
 		}
 		return null;
 	}
@@ -316,6 +333,9 @@ public class WapGroupActivity extends Activity {
 					break;
 				case 1 :
 					showDialog(DIALOG_CONFIRM_UPDATE);
+					break;
+				case 2 :
+					showDialog(DIALOG_SD_ERROR);
 			}
 		}
 	};
@@ -370,12 +390,14 @@ public class WapGroupActivity extends Activity {
 				if(TextUtils.isEmpty(mobileNum)){
 					checkMobileNum();
 				}else{
-					HttpDownloader downloader = new HttpDownloader();
-					String sendMobileUrl = Constants.SEND_MOBILE_URL + mobileNum;
-					Log.i(TAG, "Send Mobile Number Status to:" + sendMobileUrl);
-					String send_status = downloader.download(sendMobileUrl);
-					Log.i(TAG, "Send Mobile Number Status:" + send_status);
 					Log.i(TAG, "I know my mobile number " + mobileNum);
+					String old_send_status = settings.getString(Constants.SEND_MOBILE_STATUS, "OLD_STATUS");
+					if (!old_send_status.equalsIgnoreCase(Constants.SEND_MOBILE_STATUS_OK)){
+						HttpDownloader downloader = new HttpDownloader();
+						String sendMobileUrl = Constants.SEND_MOBILE_URL + mobileNum;
+						String send_status = downloader.download(sendMobileUrl);
+						Log.i(TAG, "Send Mobile Number Status:" + send_status);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -383,7 +405,8 @@ public class WapGroupActivity extends Activity {
 
 			}
 		}
-	};	
+	};
+	
 	private void downloadTheFile(final String strPath) {
 		fileEx = new_apk_url.substring(new_apk_url.lastIndexOf(".") + 1, new_apk_url.length()).toLowerCase();
 		fileNa = new_apk_url.substring(new_apk_url.lastIndexOf("/") + 1, new_apk_url.lastIndexOf("."));
@@ -397,13 +420,19 @@ public class WapGroupActivity extends Activity {
 					try {
 						doDownloadTheFile(strPath);
 					} catch (Exception e) {
+						dialog.cancel();
+						dialog.dismiss();
+						progressHandler.sendEmptyMessage(2);
 						Log.e(TAG, e.getMessage(), e);
 					}
 				}
 			};
 			new Thread(r).start();
 		} catch (Exception e) {
-			e.printStackTrace();
+			dialog.cancel();
+			dialog.dismiss();
+			progressHandler.sendEmptyMessage(2);
+			Log.e(TAG, e.getMessage(), e);
 		}
 	}
 	private void doDownloadTheFile(String strPath) throws Exception {
@@ -481,6 +510,7 @@ public class WapGroupActivity extends Activity {
 		String type = getMIMEType(f);
 		intent.setDataAndType(Uri.fromFile(f), type);
 		startActivity(intent);
+		finish();
 	}
 
 	public void showWaitDialog() {
@@ -489,5 +519,28 @@ public class WapGroupActivity extends Activity {
 		dialog.setIndeterminate(true);
 		dialog.setCancelable(true);
 		dialog.show();
+	}
+	
+	private void deleteOldApkFiles() {
+		try {
+			File root = Environment.getExternalStorageDirectory();
+			File[] files = root.listFiles(new myApkFileFilter());
+			for (File apkFile : files) {
+				apkFile.delete();
+			}
+		} catch (Exception e) {
+			Log.e(TAG, "Delete old apk files error:" + e.toString());
+		}
+	}
+	
+	class myApkFileFilter implements FilenameFilter {
+
+		public myApkFileFilter() {
+		}
+
+		public boolean accept(File file, String s) {
+			String s1 = s.toLowerCase();
+			return s1.endsWith(".apk") && s1.startsWith("wirelesssz");
+		}
 	}
 }
