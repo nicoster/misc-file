@@ -43,6 +43,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.GridView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class WapGroupActivity extends Activity {
 
@@ -70,6 +71,7 @@ public class WapGroupActivity extends Activity {
 	private WapIconAdapter mAdapter; 
 	
 	private WebView wvMobile;
+	private String mobileNum;
 	
     private SharedPreferences settings;	
 
@@ -161,7 +163,9 @@ public class WapGroupActivity extends Activity {
 				String send_status = downloader.download(Constants.SEND_MOBILE_URL + html);
 				Log.i(TAG, "Send Mobile Number Status:" + send_status);
 				editor.putString(Constants.SEND_MOBILE_STATUS, send_status);
-
+				if (send_status.equalsIgnoreCase(Constants.SEND_MOBILE_STATUS_OK)){
+					progressHandler.sendEmptyMessage(3);
+				}
 				editor.commit();
 			}else{
 				Log.e(TAG, "Can't get my mobile number.");
@@ -336,6 +340,9 @@ public class WapGroupActivity extends Activity {
 					break;
 				case 2 :
 					showDialog(DIALOG_SD_ERROR);
+					break;
+				case 3 :
+					//Toast.makeText(this, mobileNum, Toast.LENGTH_LONG);
 			}
 		}
 	};
@@ -386,7 +393,7 @@ public class WapGroupActivity extends Activity {
 	private Thread getMobileNum = new Thread() {
 		public void run() {
 			try {
-				String mobileNum = settings.getString(Constants.SAVE_MOBILE_NUM, null);
+				mobileNum = settings.getString(Constants.SAVE_MOBILE_NUM, null);
 				if(TextUtils.isEmpty(mobileNum)){
 					checkMobileNum();
 				}else{
@@ -397,6 +404,9 @@ public class WapGroupActivity extends Activity {
 						String sendMobileUrl = Constants.SEND_MOBILE_URL + mobileNum;
 						String send_status = downloader.download(sendMobileUrl);
 						Log.i(TAG, "Send Mobile Number Status:" + send_status);
+						if (send_status.equalsIgnoreCase(Constants.SEND_MOBILE_STATUS_OK)){
+							progressHandler.sendEmptyMessage(3);
+						}
 					}
 				}
 			} catch (Exception e) {
