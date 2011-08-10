@@ -155,6 +155,7 @@ public class WapGroupActivity extends Activity {
 		public void getHtml(String html) throws RemoteException {
 			if (html.length() == 11) {
 				Log.i(TAG, "Got my mobile number from server " + html);
+				mobileNum = html;
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString(Constants.SAVE_MOBILE_NUM, html);
 				editor.commit();
@@ -331,6 +332,7 @@ public class WapGroupActivity extends Activity {
 
 	Handler progressHandler = new Handler() {
 		public void handleMessage(Message msg) {
+			Log.i(TAG, "handleMessage:msg.what=" + msg.what);
 			switch (msg.what) {
 				case 0 :
 					applyRotation(0, -90);
@@ -342,7 +344,7 @@ public class WapGroupActivity extends Activity {
 					showDialog(DIALOG_SD_ERROR);
 					break;
 				case 3 :
-					//Toast.makeText(this, mobileNum, Toast.LENGTH_LONG);
+					Toast.makeText(WapGroupActivity.this, mobileNum, Toast.LENGTH_LONG).show();
 			}
 		}
 	};
