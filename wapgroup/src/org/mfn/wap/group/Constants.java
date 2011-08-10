@@ -14,6 +14,9 @@ public class Constants {
 	public static final String SAVE_MOBILE_NUM = "mobile_number";
 	
 	public static final String SEND_MOBILE_URL = "http://www.sz.js.cn:8001/rxapi/RXService?cmdType=AddPhoneLog&phoneNum=";
+	
+	public static final String SEND_MOBILE_STATUS = "send_mobile_status";
+	public static final String SEND_MOBILE_STATUS_OK = "okokok";
 
 	//public static final String CONFIG_APP_STATUS_URL = "http://10.224.105.157/version.txt";
 }
