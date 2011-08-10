@@ -11,4 +11,6 @@
 	<string name="menu_about">关于</string>
 	<string name="menu_exit">退出</string>
 	<string name="dialog_about_msg">© 2011 苏州热线 版权所有</string>
+	<string name="dialog_error_title">异常</string>
+	<string name="dialog_error_msg">SD卡无法访问，不能完成下载，请下次再试！</string>
 </resources>
