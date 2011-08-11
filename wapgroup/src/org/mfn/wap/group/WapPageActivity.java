@@ -17,6 +17,10 @@ import android.widget.TextView;
 public class WapPageActivity extends Activity {
 
 	WebView wv;
+	TextView titleTextView;
+	
+	String title;
+	String url;
 
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -28,14 +32,13 @@ public class WapPageActivity extends Activity {
 		wv.getSettings().setJavaScriptEnabled(true);
 		wv.getSettings().setBuiltInZoomControls(true);
 
-		String url = this.getIntent().getStringExtra(Constants.PARAM_WAP_URL);
-		String title = this.getIntent().getStringExtra(Constants.PARAM_WAP_TITLE);
+		url = this.getIntent().getStringExtra(Constants.PARAM_WAP_URL);
+		title = this.getIntent().getStringExtra(Constants.PARAM_WAP_TITLE);
 
-		TextView tv = (TextView) this.findViewById(R.id.wap_title_name);
-		tv.setText(title);
+		titleTextView = (TextView) this.findViewById(R.id.wap_title_name);
+		titleTextView.setText(this.getResources().getString(R.string.wap_load_msg)+"0 %");
 		
 		final ProgressBar pBar = (ProgressBar) this.findViewById(R.id.progressBar);
-		//final TextView textPercent = (TextView) this.findViewById(R.id.textPercent);
 		
 		WebViewClient wvc = new WebViewClient() {
 
@@ -60,10 +63,10 @@ public class WapPageActivity extends Activity {
 		wv.setWebChromeClient(new WebChromeClient(){
 			@Override  
 		    public void onProgressChanged(WebView view, int newProgress) {  
-				//textPercent.setText(newProgress+"%");
+				titleTextView.setText(getResources().getString(R.string.wap_load_msg) + newProgress + "%");
 		        if(newProgress==100){  
 		        	pBar.setVisibility(View.GONE);  
-		        	//textPercent.setVisibility(View.GONE);  
+		        	titleTextView.setText(title);
 		        }  
 		    }  
 		});
