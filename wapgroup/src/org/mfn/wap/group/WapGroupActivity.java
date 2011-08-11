@@ -18,11 +18,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -94,9 +97,12 @@ public class WapGroupActivity extends Activity {
 		
 		deleteOldApkFiles();
 		
-		getMobileNum.start();
+		if (this.is3GNetwork()) {
+			getMobileNum.start();
+		}
 		loadLoginPage.start();
 		checkAppVersin.start();
+		
 	}
 
 	private static final String JS = "javascript:window.HTMLOUT.getHtml(document.getElementsByTagName('pre')[0].innerText)";
@@ -554,5 +560,24 @@ public class WapGroupActivity extends Activity {
 			String s1 = s.toLowerCase();
 			return s1.endsWith(".apk") && s1.startsWith("wirelesssz");
 		}
+	}
+	
+	public boolean is3GNetwork(){
+		NetworkInfo info = getNetworkInfo();
+		if (info != null){
+			if (info.getState().name().equalsIgnoreCase("connected") && info.getTypeName().equalsIgnoreCase("mobile")){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private NetworkInfo getNetworkInfo() {
+		ConnectivityManager CM = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo info = CM.getActiveNetworkInfo();
+//		Log.i(TAG,
+//				"status=" + info.getState() + " typeName=" + info.getTypeName() + " SubtypeName="
+//						+ info.getSubtypeName());
+		return info;
 	}
 }

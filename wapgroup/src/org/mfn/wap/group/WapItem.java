@@ -6,6 +6,15 @@ public class WapItem {
 	private String wapUrl;
 	private String wapName;
 	private boolean avaiable;
+	private boolean need3G;
+
+	public boolean isNeed3G() {
+		return need3G;
+	}
+
+	public void setNeed3G(boolean need3g) {
+		need3G = need3g;
+	}
 
 	public WapItem() {
 	}

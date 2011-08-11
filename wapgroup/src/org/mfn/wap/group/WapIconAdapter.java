@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +29,7 @@ public class WapIconAdapter extends BaseAdapter {
 		
 		String[] wap_names = c.getResources().getStringArray(R.array.wap_item_names);
         String[] wap_urls = c.getResources().getStringArray(R.array.wap_item_urls);
+        String[] wap_3g = c.getResources().getStringArray(R.array.wap_item_3g);
 		
 		for (int i = 0; i < num; i++) {
 			WapItem wapItem = new WapItem();
@@ -37,6 +37,7 @@ public class WapIconAdapter extends BaseAdapter {
 			wapItem.setWapName(wap_names[i]);
 			wapItem.setWapUrl(wap_urls[i]);
 			wapItem.setAvaiable(!TextUtils.isEmpty((wap_urls[i])));
+			wapItem.setNeed3G(Boolean.parseBoolean(wap_3g[i]));
 			
 			mThumbIds.add(wapItem);
 		}
@@ -74,6 +75,11 @@ public class WapIconAdapter extends BaseAdapter {
 				String wapUrl = item.getWapUrl();
 				if (!item.isAvaiable()) {
 					Toast.makeText(mContext, "[" + wapName + " ]功能暂时还未开通...", Toast.LENGTH_LONG).show();
+					return;
+				}
+				WapGroupActivity wapGroup = (WapGroupActivity)mContext;
+				if (item.isNeed3G() && !wapGroup.is3GNetwork()) {
+					Toast.makeText(mContext, "[" + wapName + " ]需要在3G模式下才能运行...", Toast.LENGTH_LONG).show();
 					return;
 				}
 
