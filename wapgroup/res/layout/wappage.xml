@@ -14,10 +14,10 @@
 			android:layout_width="wrap_content" android:text="Title"
 			android:layout_centerVertical="true" android:layout_centerHorizontal="true"></TextView>
 		<ProgressBar android:layout_width="wrap_content"
-			style="?android:attr/progressBarStyleSmall" android:layout_height="wrap_content"
+			android:layout_height="wrap_content"
 			android:id="@+id/progressBar" android:layout_alignParentTop="true"
 			android:layout_toLeftOf="@+id/wap_title_name"
-			android:layout_marginRight="28dp" android:layout_centerVertical="true"></ProgressBar>
+			android:layout_marginRight="5dp" android:layout_centerVertical="true"></ProgressBar>
 	</RelativeLayout>
 
 	<WebView android:id="@+id/wv1" android:layout_width="match_parent"
