@@ -1,7 +1,6 @@
 package org.mfn.wap.group;
 
 import android.app.Activity;
-import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -41,10 +40,6 @@ public class WapPageActivity extends Activity {
 		final ProgressBar pBar = (ProgressBar) this.findViewById(R.id.progressBar);
 		
 		WebViewClient wvc = new WebViewClient() {
-
-			public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-				handler.proceed();
-			}
 
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 				super.onReceivedError(view, errorCode, description, failingUrl);

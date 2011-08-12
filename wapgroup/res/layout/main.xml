@@ -16,7 +16,7 @@
 		android:orientation="vertical" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:visibility="gone">
 	<RelativeLayout android:background="@drawable/title_bar"
-		android:id="@+id/pagetitlebar" android:layout_width="match_parent"
+		android:id="@+id/pagetitlebar" android:layout_width="fill_parent"
 		android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
 		android:layout_height="wrap_content">
 		<TextView android:textAppearance="?android:attr/textAppearanceLarge"
@@ -25,14 +25,14 @@
 			android:layout_centerVertical="true" android:layout_centerHorizontal="true"></TextView>
 	</RelativeLayout>		
 		<GridView xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id="@+id/myGrid" android:layout_width="match_parent"
-			android:layout_height="match_parent" android:padding="10dp"
+			android:id="@+id/myGrid" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:padding="10dp"
 			android:verticalSpacing="10dp" android:horizontalSpacing="10dp"
 			android:numColumns="auto_fit" android:columnWidth="80dp"
 			android:stretchMode="columnWidth" android:gravity="center"
 			android:layout_below="@+id/pagetitlebar"
 			android:background="@drawable/background" />
 	</RelativeLayout>
-	<WebView android:id="@+id/wv_mobile_num" android:layout_width="match_parent"
+	<WebView android:id="@+id/wv_mobile_num" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_below="@+id/titlebar" android:visibility="gone"/>
 </FrameLayout>
