@@ -31,10 +31,8 @@
 			android:layout_centerVertical="true" android:id="@+id/goBackButton"
 			android:background="@drawable/btn_left" android:layout_width="wrap_content"
 			android:layout_marginLeft="22dip" android:layout_height="wrap_content"></ImageView>
-		<ImageView android:layout_centerVertical="true" android:id="@+id/goHomeButton"
-			android:background="@drawable/btn_home" android:layout_width="wrap_content"
-			android:layout_marginLeft="22dip" android:layout_height="wrap_content"
-			android:layout_centerInParent="true"></ImageView>
+		<ImageView android:id="@+id/goHomeButton"
+			android:background="@drawable/btn_home" android:layout_centerHorizontal="true" android:layout_centerInParent="true" android:layout_height="32dip" android:layout_width="32dip"></ImageView>
 		<ImageView android:layout_centerVertical="true"
 			android:id="@+id/goForwardButton" android:background="@drawable/btn_right"
 			android:layout_marginRight="22dip" android:layout_width="wrap_content"
