@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.mfn.dishes.vo.DishCategoryInfo;
 import org.mfn.dishes.vo.DishInfo;
+import org.mfn.dishes.vo.FlavorInfo;
 
 public interface IDishesDataStore {
 	
@@ -132,4 +133,48 @@ public interface IDishesDataStore {
 	 */
 	public List<DishInfo> getAllDishInfos();
 	
+	/**
+	 * add a flavor info
+	 * @param flavorId
+	 * @param flavorInfo
+	 */
+	public void addFlavorInfo(String flavorId, FlavorInfo flavorInfo);
+	
+	/**
+	 * remove a flavor info
+	 * @param flavorId
+	 */
+	public void delFlavorInfo(String flavorId);
+	
+	/**
+	 * edit a flavor info
+	 * @param oldFlavorInfo
+	 * @param newFlavorInfo
+	 */
+	public void editFlavorInfo(FlavorInfo oldFlavorInfo, FlavorInfo newFlavorInfo);
+	
+	/**
+	 * check whether flavor info exist
+	 * @param flavorId
+	 * @return
+	 */
+	public boolean isFlavorInfoExist(String flavorId);
+	
+	/**
+	 * get a flavor info
+	 * @param flavorId
+	 * @return
+	 */
+	public FlavorInfo getFlavorInfo(String flavorId);
+	
+	/**
+	 * get all flavor infos
+	 * @return
+	 */
+	public List<FlavorInfo> getAllFlavorInfos();	
+	
+	/**
+	 * clear all dishes data
+	 */
+	public void clearDishesData();
 }

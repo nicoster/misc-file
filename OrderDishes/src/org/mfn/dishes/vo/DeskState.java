@@ -1,6 +1,6 @@
 package org.mfn.dishes.vo;
 
-public class DeskStateObj {
+public class DeskState {
 	
 	public static final String TABLE_NAME = "desk_status_info";
 	public static final String TYPE_ID = "type_id";
@@ -12,5 +12,9 @@ public class DeskStateObj {
 	public int state;
 	public int orderId;
 	public String memo;
+	
+	public DeskState(){
+		
+	}
 	
 }

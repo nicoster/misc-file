@@ -1,24 +1,60 @@
 package org.mfn.dishes.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.mfn.dishes.Constants;
+import org.mfn.dishes.util.FunctionUtil;
 
 public class ImageInfo {
+	private String mId;
 	private String mImageName;
 	private long mImageSize;
-	private Date mImageModifyDate;
+	private Date mImageModifyTime;
+	
 	private String mSmallImageName;
 	private long mSmallImageSize;
-	private Date mSmallImageModifyDate;
+	private Date mSmallImageModifyTime;
 	
-	public ImageInfo(String imageName, long size, Date modifyDate, String smalllImageName, long smallImageSize, Date smallImageModifyDate){
+	private String mVideoName;
+	private long mVideoSize;
+	private Date mVideoModifiedTime;
+	
+	public ImageInfo() {
+	}
+	
+	public ImageInfo(String id, String imageName, long size, Date modifyDate, String smalllImageName, long smallImageSize, Date smallImageModifyDate){
+		this.mId = id;
 		this.mImageName = imageName;
 		this.mImageSize = size;
-		this.mImageModifyDate = modifyDate;
+		this.mImageModifyTime = modifyDate;
 		this.mSmallImageName = smalllImageName;
 		this.mSmallImageSize = smallImageSize;
-		this.mSmallImageModifyDate = smallImageModifyDate;
+		this.mSmallImageModifyTime = smallImageModifyDate;
+	}
+	
+	public void setImageInfo(ServerImageInfo serverImageInfo) {
+		mId = FunctionUtil.formatDishId(serverImageInfo.getName());
+		if(FunctionUtil.isVideo(serverImageInfo.getName())){
+			this.mVideoName = serverImageInfo.getName();
+			this.mVideoSize = serverImageInfo.getSize();
+			this.mVideoModifiedTime = serverImageInfo.getModified_time();
+		}else if (FunctionUtil.isSmallImage(serverImageInfo.getName())) {
+			this.mSmallImageName = serverImageInfo.getName();
+			this.mSmallImageSize = serverImageInfo.getSize();
+			this.mSmallImageModifyTime = serverImageInfo.getModified_time();
+		} else {
+			this.mImageName = serverImageInfo.getName();
+			this.mImageSize = serverImageInfo.getSize();
+			this.mImageModifyTime = serverImageInfo.getModified_time();
+		}
+	}
+
+	public String getId() {
+		return mId;
+	}
+
+	public void setId(String mId) {
+		this.mId = mId;
 	}
 
 	public String getImageName() {
@@ -37,12 +73,12 @@ public class ImageInfo {
 		this.mImageSize = mImageSize;
 	}
 
-	public Date getImageModifyDate() {
-		return mImageModifyDate;
+	public Date getImageModifyTime() {
+		return mImageModifyTime;
 	}
 
-	public void setImageModifyDate(Date mImageModifyDate) {
-		this.mImageModifyDate = mImageModifyDate;
+	public void setImageModifyTime(Date mImageModifyTime) {
+		this.mImageModifyTime = mImageModifyTime;
 	}
 
 	public String getSmallImageName() {
@@ -61,12 +97,12 @@ public class ImageInfo {
 		this.mSmallImageSize = mSmallImageSize;
 	}
 
-	public Date getSmallImageModifyDate() {
-		return mSmallImageModifyDate;
+	public Date getSmallImageModifyTime() {
+		return mSmallImageModifyTime;
 	}
 
-	public void setSmallImageModifyDate(Date mSmallImageModifyDate) {
-		this.mSmallImageModifyDate = mSmallImageModifyDate;
+	public void setSmallImageModifyTime(Date mSmallImageModifyTime) {
+		this.mSmallImageModifyTime = mSmallImageModifyTime;
 	}
 	
 	public String getImagePath(){
@@ -75,6 +111,30 @@ public class ImageInfo {
 	
 	public String getSmallImagePath(){
 		return Constants.DISHES_IMAGE_PATH + mSmallImageName;
+	}
+
+	public String getVideoName() {
+		return mVideoName;
+	}
+
+	public void setVideoName(String mVideoName) {
+		this.mVideoName = mVideoName;
+	}
+
+	public long getVideoSize() {
+		return mVideoSize;
+	}
+
+	public void setVideoSize(long mVideoSize) {
+		this.mVideoSize = mVideoSize;
+	}
+
+	public Date getVideoModifiedTime() {
+		return mVideoModifiedTime;
+	}
+
+	public void setVideoModifiedTime(Date mVideoModifiedTime) {
+		this.mVideoModifiedTime = mVideoModifiedTime;
 	}
 
 }

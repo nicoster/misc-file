@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.mfn.dishes.R;
 import org.mfn.dishes.vo.DishInfo;
-import org.mfn.dishes.vo.DishInfoObj;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,9 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DishesGridAdapter extends BaseAdapter {
-	private List<DishInfoObj> mDishesList;
 	private List<DishInfo> mDishInfos;
-//	private DishInfoObj dishesInfo = null;
 	private DishInfo dishInfo = null;
 	private LayoutInflater mInflater = null;
 	private Activity mContext = null;
@@ -33,14 +30,10 @@ public class DishesGridAdapter extends BaseAdapter {
 		mContext = (Activity) context;
 		mInflater = mContext.getLayoutInflater();
 		mDishInfos = dishInfos;
-//		for(DishInfo dishInfo : mDishInfos){
-//			Log.d("DishesGridAdapter", "name = " + dishInfo.getName() + ", code = " + dishInfo.getCode() + ", type = " + dishInfo.getCategoryCodes().get(0));
-//		}
 	} 
 
 	@Override
 	public int getCount() {
-//		Log.d("DishesGridAdapter", "getCount ======");
 		if(mDishInfos != null){
 			return mDishInfos.size();
 		}
@@ -49,13 +42,11 @@ public class DishesGridAdapter extends BaseAdapter {
 
 	@Override
 	public DishInfo getItem(int position) {
-//		Log.d("DishesGridAdapter", "getItem ====");
 		return mDishInfos.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-//		Log.d("DishesGridAdapter", "getItemId  ===");
 		return position;
 	}
 
@@ -104,41 +95,6 @@ public class DishesGridAdapter extends BaseAdapter {
 				}
 			});
 		}
-		
-//		dishesInfo = mDishInfos.get(position);
-//		if(dishesInfo != null){
-//			String imgSrc = dishesInfo.img.getImgUrl(true);
-//			String dishName = dishesInfo.name;
-//			String dishComments = dishesInfo.unit;
-//			String price = String.valueOf(dishesInfo.price);
-//			
-//			Drawable imageDrawable = null;
-//			if(imgSrc == null){
-//				holder.imageView.setImageResource(R.drawable.a00010001);
-//			}else{
-//				imageDrawable = Drawable.createFromPath(imgSrc);
-//				holder.imageView.setImageDrawable(imageDrawable);
-//			}
-//			
-//			holder.dishName.setText(dishName);
-//			holder.dishComments.setText(dishComments);
-//			holder.price.setText(price);
-//			final int pos = position;
-//			holder.imageView.setOnClickListener(new View.OnClickListener() {
-//				public void onClick(View v) {
-//					mCallBack.onImageClick(pos);
-//				}
-//			});
-//			holder.orderBtn.setOnClickListener(new View.OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View v) {
-//					mCallBack.onBtnClick(pos);
-//					
-//				}
-//			});
-//		}
-		
 		return convertView;
 	}
 	

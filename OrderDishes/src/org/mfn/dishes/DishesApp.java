@@ -1,7 +1,6 @@
 package org.mfn.dishes;
 
 import org.mfn.dishes.datastore.DataStore;
-import org.mfn.dishes.util.DishesDBHelpter;
 
 import android.app.Application;
 import android.os.Environment;
@@ -24,14 +23,6 @@ public class DishesApp extends Application {
 		
 		Log.i(Constants.APP_TAG, Constants.DISPLAY_METRICS.toString());
 		
-		DishesDBHelpter.init(this);
-        DishesDBHelpter.getInstance().open();
         DataStore.getInstance().initDishesData();
-	}
-
-	@Override
-	public void onTerminate() {
-		super.onTerminate();
-		DishesDBHelpter.getInstance().close();
 	}
 }

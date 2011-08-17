@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DishInfo {
+	private String 	mId;
 	private String 	mCode;
 	private String 	mPinyinCode;
 	private String 	mName;
@@ -25,8 +26,9 @@ public class DishInfo {
 		this.mCookInfos = new ArrayList<DishInfo.CookInfo>();
 	}
 	
-	public DishInfo(String code, String pinyinCode, String name, int size, String unit, float price, boolean variablePrice,
+	public DishInfo(String id, String code, String pinyinCode, String name, int size, String unit, float price, boolean variablePrice,
 				float cost, int flag, ImageInfo imageInfo){
+		this.mId = id;
 		this.mCode = code;
 		this.mPinyinCode = pinyinCode;
 		this.mName = name;
@@ -41,8 +43,9 @@ public class DishInfo {
 		this.mCookInfos = new ArrayList<DishInfo.CookInfo>();
 	}
 	
-	public DishInfo(String code, String pinyinCode, String name, int size, String unit, float price, boolean variablePrice,
-				float cost, float grossProfit, String nameEn, String nameJp, int flag, ImageInfo imageInfo){
+	public DishInfo(String id, String code, String pinyinCode, String name, int size, String unit, float price, boolean variablePrice,
+				float cost, float grossProfit, String nameEn, String nameJp, int flag){
+		this.mId = id;
 		this.mCode = code;
 		this.mPinyinCode = pinyinCode;
 		this.mName = name;
@@ -55,7 +58,6 @@ public class DishInfo {
 		this.mNameEn = nameEn;
 		this.mNameJp = nameJp;
 		this.mFlag = flag;
-		this.mImageInfo = imageInfo;
 		this.mCategoryList = new ArrayList<String>();
 		this.mCookInfos = new ArrayList<DishInfo.CookInfo>();
 	}
@@ -168,8 +170,16 @@ public class DishInfo {
 			}
 		}
 		return null;
-	}
+	}	
 	
+	public String getId() {
+		return mId;
+	}
+
+	public void setId(String mId) {
+		this.mId = mId;
+	}
+
 	public String getCode() {
 		return mCode;
 	}
@@ -276,6 +286,14 @@ public class DishInfo {
 
 	public void setCookInfos(ArrayList<CookInfo> mCookInfos) {
 		this.mCookInfos = mCookInfos;
+	}
+
+	public int getFlag() {
+		return mFlag;
+	}
+
+	public void setFlag(int mFlag) {
+		this.mFlag = mFlag;
 	}
 
 	public class CookInfo{

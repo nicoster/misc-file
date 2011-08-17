@@ -12,8 +12,6 @@ public class DishesDBHelper extends SQLiteOpenHelper{
 	private static DishesDBHelper helper = null;
 	public static String TAG = "DishesDBHelpter";
 	
-	public SQLiteDatabase myDB = null;
-
 	public static DishesDBHelper getInstance() {
 		if(helper == null){
 			helper = new DishesDBHelper(DishesApp.getInstance());
@@ -27,14 +25,12 @@ public class DishesDBHelper extends SQLiteOpenHelper{
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-
 		createDishInfoTable(db);
 		createUserInfoTable(db);
 		createDishTypeInfoTable(db);
 		createRoomInfoTable(db);
 		createFlavorInfoTable(db);
 		createImageInfoTable(db);
-
 	}
 
 	private void createDishInfoTable(SQLiteDatabase db) {
@@ -100,13 +96,13 @@ public class DishesDBHelper extends SQLiteOpenHelper{
 		String create_dish_info_table = "CREATE TABLE image_info (" 
 		+ "image_id STRING PRIMARY KEY," //0
 		+ "image_name TEXT," //1
-		+ "samll_image_name TEXT"//2
-		+ "video_image_name TEXT"//3
+		+ "samll_image_name TEXT,"//2
+		+ "video_image_name TEXT,"//3
 		+ "image_size LONG," //4
 		+ "small_image_size LONG,"//5
-		+ "video_image_size LONG"//6
+		+ "video_image_size LONG,"//6
 		+ "image_modify_time LONG," //7
-		+ "small_image_modify_time LONG"//8
+		+ "small_image_modify_time LONG,"//8
 		+ "video_image_modify_time LONG"//9
 		+ ")";
 

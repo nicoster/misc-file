@@ -35,4 +35,9 @@ public interface IOrderedDishesDataStore {
 	 * @return
 	 */
 	public float getTotlePrice();
+	
+	/**
+	 * clear all ordered dishes data
+	 */
+	public void clearOrderedDishesData();
 }

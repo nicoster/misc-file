@@ -86,5 +86,12 @@ public class OrderedDishInfoDataStore implements IOrderedDishesDataStore {
 		}
 		return totalPrice;
 	}
+	
+	/**
+	 * clear all ordered dishes data
+	 */
+	public void clearOrderedDishesData(){
+		this.mOrderedDishInfos.clear();
+	}
 
 }

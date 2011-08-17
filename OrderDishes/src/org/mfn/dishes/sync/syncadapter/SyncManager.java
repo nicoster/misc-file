@@ -12,34 +12,33 @@ import org.mfn.dishes.DishesApp;
 import org.mfn.dishes.proto.main.MainClient;
 import org.mfn.dishes.sync.authenticator.AuthenticationUtil;
 import org.mfn.dishes.sync.authenticator.ImAccount;
-import org.mfn.dishes.util.DishesDataAdapter;
 import org.mfn.dishes.util.FunctionUtil;
-import org.mfn.dishes.vo.DishInfoObj;
-import org.mfn.dishes.vo.DishTypeObj;
-import org.mfn.dishes.vo.FlavorInfoObj;
-import org.mfn.dishes.vo.ImageInfoObj;
-import org.mfn.dishes.vo.ServerImageInfoObj;
-import org.mfn.dishes.vo.UserInfoObj;
+import org.mfn.dishes.vo.DishCategoryInfo;
+import org.mfn.dishes.vo.DishInfo;
+import org.mfn.dishes.vo.FlavorInfo;
+import org.mfn.dishes.vo.ImageInfo;
+import org.mfn.dishes.vo.ServerImageInfo;
+import org.mfn.dishes.vo.UserInfo;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 
 
 public class SyncManager {
-
     private Timer timer;
     
     private static SyncManager syncManager = null;
-
+    private SyncDBOperator syncDBOperator = null;
+    
     private SyncManager() {
         timer = new Timer();
+        syncDBOperator = SyncDBOperator.getInstance();
     }
     
     public static SyncManager getInstance(){
@@ -73,9 +72,6 @@ public class SyncManager {
     }
     
     private void runFullSyncDatas(Context context, String accountName) {
-    	
-    	DishesDataAdapter adapter = DishesDataAdapter.getInstance();
-    	
 		AccountManager mAccountManager = AccountManager.get(context);
 
 		Account[] mAccounts = mAccountManager.getAccountsByType(Constants.ACCOUNT_TYPE);
@@ -84,71 +80,80 @@ public class SyncManager {
 		}
 
 		
-		MainClient cli = MainClient.getInstance();
+		MainClient mainClient = MainClient.getInstance();
 		
 		ImAccount imAccount = AuthenticationUtil.getAccountData(context);
 		
-		cli.init(imAccount.accountName, "pda", imAccount.serverAddress, Integer.parseInt(imAccount.serverPort), null);
+		mainClient.init(imAccount.accountName, "pda", imAccount.serverAddress, Integer.parseInt(imAccount.serverPort), null);
 
-		cli.login(imAccount.accountName, imAccount.password);
+		mainClient.login(imAccount.accountName, imAccount.password);
 		
-		UserInfoObj[] users = cli.getUserInfo();
-		adapter.syncUsersInfo(users);
+		UserInfo[] userInfos = mainClient.getUserInfos();
+		syncDBOperator.saveUserInfo(userInfos);
 		
-		DishInfoObj[] dishes = cli.getDishInfo();
-		adapter.syncDishesInfo(dishes);
+		FlavorInfo[] flavorInfos = mainClient.getFlavorInfos();
+		syncDBOperator.saveFlavorInfo(flavorInfos);
+		
+		DishCategoryInfo[] dishCategoryInfos = mainClient.getDishCategoryInfos();
+		syncDBOperator.saveDishCategoryInfo(dishCategoryInfos);
 
-		DishTypeObj[] dishtypes = cli.getDishTypeInfo();
-		adapter.syncDishTypeInfo(dishtypes);
+		DishInfo[] dishInfos = mainClient.getDishInfos();
+		syncDBOperator.saveDishInfo(dishInfos);		
 		
-		FlavorInfoObj[] flv = cli.getFlavorInfo();
-		adapter.syncFlavorInfo(flv);
-		
-		syncImagesDatas(cli);
+		syncImagesDatas(mainClient);
     }
 	
+    /**
+     * sync image datas
+     * @param cli
+     */
 	private void syncImagesDatas(MainClient cli) {
-		ServerImageInfoObj[] svrImgs = cli.getImageInfo();
+		ServerImageInfo[] svrImgs = cli.getImageInfo();
 		if (svrImgs == null || svrImgs.length == 0) {
 			Log.e(Constants.APP_TAG, "syncImagesDatas error, data is null");
 			return;
 		}
 
-		HashMap<String, ImageInfoObj> dbImgMap = DishesDataAdapter.getInstance().listImageInfo();
+		HashMap<String, ImageInfo> dbImgMap = syncDBOperator.getImageInfos();
 
 		String imagePath = getDishesImageDir();
 		Log.i(Constants.APP_TAG, "Begin download image to " + imagePath);
 		
-		ArrayList<ServerImageInfoObj> validlist = new ArrayList<ServerImageInfoObj>();
+		ArrayList<ServerImageInfo> validlist = new ArrayList<ServerImageInfo>();
 		boolean imgChangeFlag = false;
+		
 		for (int i = 0; i < svrImgs.length; i++) {
-			
-			String name = svrImgs[i].name;
-			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..")
-					|| !FunctionUtil.isImageFile(name))
-				continue;
-			
-			validlist.add(svrImgs[i]);
-			String imgId = FunctionUtil.formatDishId(name);
-			
-			ImageInfoObj dbImgObj = dbImgMap.get(imgId);
-			
-			String fullImgPath = imagePath + name;
-			if (isImageUpdated(svrImgs[i], dbImgObj) || !imageExist(fullImgPath)) {
-				Log.w(Constants.APP_TAG, "Download..." + fullImgPath);
-				cli.downloadImage(name, imagePath);
-				imgChangeFlag = true;
-			} else {
-				Log.w(Constants.APP_TAG, "No changed, don't download again...");
-			}
-		}
 
+			String name = svrImgs[i].getName();
+			if (TextUtils.isEmpty(name) || name.equalsIgnoreCase(".") || name.equalsIgnoreCase("..") || !FunctionUtil.isImageFile(name)){
+				continue;
+			}				
+
+			validlist.add(svrImgs[i]);
+//			String imgId = FunctionUtil.formatDishId(name);
+//
+//			ImageInfo dbImg = dbImgMap.get(imgId);
+//
+//			String fullImgPath = imagePath + name;
+//			if (isImageUpdated(svrImgs[i], dbImg) || !imageExist(fullImgPath)) {
+//				Log.w(Constants.APP_TAG, "Download..." + fullImgPath);
+//				cli.downloadImage(name, imagePath);
+//				imgChangeFlag = true;
+//			} else {
+//				Log.w(Constants.APP_TAG, "No changed, don't download again...");
+//			}
+		}
+		imgChangeFlag = true;
 		if (imgChangeFlag) {
-			DishesDataAdapter.getInstance().syncImageInfo(
-					(ServerImageInfoObj[]) validlist.toArray(new ServerImageInfoObj[0]));
+			syncDBOperator.saveImageInfo((ServerImageInfo[]) validlist.toArray(new ServerImageInfo[0]));
 		}
 	}
     
+	/**
+	 * check whether image exist
+	 * @param fullImgPath
+	 * @return
+	 */
 	private boolean imageExist(String fullImgPath) {
 		File file = new File(fullImgPath);
 		boolean exist = file.exists();
@@ -159,34 +164,44 @@ public class SyncManager {
 		return exist;
 	}
     
-	private boolean isImageUpdated(ServerImageInfoObj sObj, ImageInfoObj obj) {
-		if (obj == null || sObj == null || sObj.modified_time == null) {
+	/**
+	 * check whether image has updated
+	 * @param serverImageInfo
+	 * @param imageInfo
+	 * @return
+	 */
+	private boolean isImageUpdated(ServerImageInfo serverImageInfo, ImageInfo imageInfo) {
+		if (imageInfo == null || serverImageInfo == null || serverImageInfo.getModified_time() == null) {
 			return true;
 		}
 
 		Date dbModifyTime;
 		String dbImgName;
-		if(FunctionUtil.isVideo(sObj.name)){
-			dbModifyTime = obj.video_modified_time;
-			dbImgName = obj.video_name;
-		}else if (FunctionUtil.isSmallImage(sObj.name)) {
-			dbModifyTime = obj.small_modified_time;
-			dbImgName = obj.small_name;
+		if(FunctionUtil.isVideo(serverImageInfo.getName())){
+			dbModifyTime = imageInfo.getVideoModifiedTime();
+			dbImgName = imageInfo.getVideoName();
+		}else if (FunctionUtil.isSmallImage(serverImageInfo.getName())) {
+			dbModifyTime = imageInfo.getSmallImageModifyTime();
+			dbImgName = imageInfo.getSmallImageName();
 		} else {
-			dbModifyTime = obj.modified_time;
-			dbImgName = obj.name;
+			dbModifyTime = imageInfo.getImageModifyTime();
+			dbImgName = imageInfo.getImageName();
 		}
 		
 		if (dbModifyTime == null) {
 			return true;
 		}
 
-		Log.i(Constants.APP_TAG, "Server:name" + sObj.name + "\t modify_time=" + sObj.modified_time.getTime());
-		Log.i(Constants.APP_TAG, "Local::id=" + obj.id + " name" + dbImgName +"\t modify_time=" + dbModifyTime.getTime());
+		Log.i(Constants.APP_TAG, "Server:name" + serverImageInfo.getName() + "\t modify_time=" + serverImageInfo.getModified_time().getTime());
+		Log.i(Constants.APP_TAG, "Local::id=" + imageInfo.getId() + " name" + dbImgName +"\t modify_time=" + dbModifyTime.getTime());
 		
-		return sObj.modified_time.getTime() != dbModifyTime.getTime();
+		return serverImageInfo.getModified_time().getTime() != dbModifyTime.getTime();
 	}
     
+	/**
+	 * get image dir
+	 * @return
+	 */
 	private String getDishesImageDir() {
 		File imagePathDir = new File(Constants.DISHES_IMAGE_PATH);
 		if (!imagePathDir.exists()) {

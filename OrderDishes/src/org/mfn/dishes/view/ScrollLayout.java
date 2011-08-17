@@ -75,7 +75,6 @@ public class ScrollLayout extends ViewGroup {
 
     @Override  
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {   
-    	Log.e(TAG, "onMeasure");
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);   
   
         final int width = MeasureSpec.getSize(widthMeasureSpec);   

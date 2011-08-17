@@ -7,7 +7,6 @@ import org.mfn.dishes.datastore.DataStore;
 import org.mfn.dishes.datastore.IDishesDataStore;
 import org.mfn.dishes.view.DishesCategoryView;
 import org.mfn.dishes.view.DishesGridView;
-import org.mfn.dishes.view.OrderedDishesView;
 import org.mfn.dishes.view.ScrollLayout;
 import org.mfn.dishes.view.ScrollLayout.IScrollLayoutCallBack;
 import org.mfn.dishes.vo.DishCategoryInfo;
@@ -40,7 +39,7 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	
 	private IDishesDataStore dishesDataStore;
 	
-	private OrderedDishesView orderedDishesView;
+//	private OrderedDishesView orderedDishesView;
 	private int mCurrentPage = 0;
 	
 	private Handler handler;
@@ -83,6 +82,7 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 		Log.d("InitActivity", "onPageShown page = " + page);
 		mCurrentPage = page;
 	}
+	
 	
 	
 	private void prepareViews(){
@@ -129,6 +129,12 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	public void onDestroy() {
 		Log.i(Constants.APP_TAG, "InitActivity: onDestroy");
 		super.onDestroy();
+	}
+	
+	public void onBackPressed(){
+		DataStore.getInstance().clearAllData();
+		android.os.Process.killProcess(android.os.Process.myPid());
+		finish();		
 	}
 	
 	public void onClick(View v){

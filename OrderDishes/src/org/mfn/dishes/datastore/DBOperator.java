@@ -5,13 +5,16 @@ import java.util.HashMap;
 
 import org.mfn.dishes.vo.DishCategoryInfo;
 import org.mfn.dishes.vo.DishInfo;
+import org.mfn.dishes.vo.FlavorInfo;
 import org.mfn.dishes.vo.ImageInfo;
+import org.mfn.dishes.vo.UserInfo;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DBOperator {
 	private IDishesDataStore dishesDataStore = DataStore.getInstance().getDishesDataStore();
+	private IUserDataStore userDataStore = DataStore.getInstance().getUserDataStore();
 	private HashMap<String, ImageInfo> imageInfos = null;
 	private DishesDBHelper dbHelpter = null;
 	
@@ -31,12 +34,20 @@ public class DBOperator {
 	
 	public void loadDataFromDB(){
 		loadCategoryData();
+		loadFlavorsData();
 		loadDishesData();
 		loadUserData();
 	}
 	
+	public HashMap<String, ImageInfo> getImageInfoHashMap(){
+		if (imageInfos == null || imageInfos.size() == 0) {
+			loadImageData();
+		}
+		return imageInfos;
+	}
+	
 	/**
-	 * load category data from db
+	 * load category data from DB to data store
 	 */
 	private void loadCategoryData(){
 		SQLiteDatabase db = dbHelpter.getReadableDatabase();
@@ -55,7 +66,7 @@ public class DBOperator {
 	}
 	
 	/**
-	 * load image data from DB
+	 * load image data from DB to data store
 	 */
 	private void loadImageData(){
 		SQLiteDatabase db = dbHelpter.getReadableDatabase();
@@ -64,7 +75,8 @@ public class DBOperator {
 		if(cursor.moveToFirst()){
 			do {
 				dishId = cursor.getString(0);
-				ImageInfo imageInfo = new ImageInfo(cursor.getString(1), 
+				ImageInfo imageInfo = new ImageInfo(cursor.getString(0),
+								cursor.getString(1), 
 								cursor.getLong(3), 
 								new Date(cursor.getLong(7)), 
 								cursor.getString(2), 
@@ -78,7 +90,7 @@ public class DBOperator {
 	}
 	
 	/**
-	 * load dish info from DB
+	 * load dish info from DB to data store
 	 */
 	private void loadDishesData(){
 		loadImageData();
@@ -92,7 +104,8 @@ public class DBOperator {
 				dishId = cursor.getString(0);
 				imageInfo = imageInfos.get(dishId);
 				categoryCode = cursor.getString(7);
-				DishInfo dishInfo = new DishInfo(cursor.getString(1), 
+				DishInfo dishInfo = new DishInfo(cursor.getString(0), 
+						cursor.getString(1), 
 						cursor.getString(2), 
 						cursor.getString(3), 
 						cursor.getInt(4), 
@@ -109,9 +122,36 @@ public class DBOperator {
 		db.close();
 	}	
 	
+	/**
+	 * load user info from DB to data store
+	 */
 	private void loadUserData(){
-//		SQLiteDatabase db = dbHelpter.getReadableDatabase();
-//		Cursor cursor = db.query("user_info", null, null, null, null, null, null);
+		SQLiteDatabase db = dbHelpter.getReadableDatabase();
+		Cursor cursor = db.query("user_info", null, null, null, null, null, null);
+		if(cursor.moveToFirst()){
+			do{
+				UserInfo userInfo = new UserInfo(cursor.getString(0), cursor.getString(1), cursor.getString(2));
+				userDataStore.addUserInfo(cursor.getString(0), userInfo);
+			}while(cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
+	}
+	
+	/**
+	 * load flavor info from DB to data store
+	 */
+	private void loadFlavorsData(){
+		SQLiteDatabase db = dbHelpter.getReadableDatabase();
+		Cursor cursor = db.query("flavor_info", null, null, null, null, null, null);
+		if(cursor.moveToFirst()){
+			do{
+				FlavorInfo flavorInfo = new FlavorInfo(cursor.getString(0), cursor.getString(1), cursor.getInt(2) == 1);
+				dishesDataStore.addFlavorInfo(cursor.getString(0), flavorInfo);
+			}while(cursor.moveToNext());
+		}
+		cursor.close();
+		db.close();
 	}
 
 }

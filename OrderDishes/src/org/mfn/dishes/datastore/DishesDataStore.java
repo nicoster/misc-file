@@ -1,6 +1,7 @@
 package org.mfn.dishes.datastore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
@@ -8,14 +9,17 @@ import java.util.TreeSet;
 
 import org.mfn.dishes.vo.DishCategoryInfo;
 import org.mfn.dishes.vo.DishInfo;
+import org.mfn.dishes.vo.FlavorInfo;
 
 public class DishesDataStore implements IDishesDataStore {
 	private TreeMap<String, DishInfo> mDishesInfos;
 	private TreeSet<DishCategoryInfo> mCategoryInfos;
+	private HashMap<String, FlavorInfo> mFlavorInfos;
 	
 	public DishesDataStore(){
 		this.mDishesInfos = new TreeMap<String, DishInfo>();
 		this.mCategoryInfos = new TreeSet<DishCategoryInfo>(new CategoryComparator());
+		this.mFlavorInfos = new HashMap<String, FlavorInfo>();
 	}
 	
 	/**
@@ -322,6 +326,86 @@ public class DishesDataStore implements IDishesDataStore {
 				categoryInfo.editDishInfo(oldDishInfo, newDishInfo);
 			}			
 		}
+	}
+	
+	/**
+	 * add a flavor info
+	 * @param flavorId
+	 * @param flavorInfo
+	 */
+	public void addFlavorInfo(String flavorId, FlavorInfo flavorInfo){
+		if(this.mFlavorInfos.containsKey(flavorId)){
+			return;
+		}
+		this.mFlavorInfos.put(flavorId, flavorInfo);
+	}
+	
+	/**
+	 * remove a flavor info
+	 * @param flavorId
+	 */
+	public void delFlavorInfo(String flavorId){
+		if(this.mFlavorInfos.containsKey(flavorId)){
+			this.mFlavorInfos.remove(flavorId);
+		}
+	}
+	
+	/**
+	 * edit a flavor info
+	 * @param oldFlavorInfo
+	 * @param newFlavorInfo
+	 */
+	public void editFlavorInfo(FlavorInfo oldFlavorInfo, FlavorInfo newFlavorInfo){
+		if(this.mFlavorInfos.containsKey(oldFlavorInfo.getId()) && !this.mFlavorInfos.containsKey(newFlavorInfo.getId())){
+			this.mFlavorInfos.remove(oldFlavorInfo.getId());
+			this.mFlavorInfos.put(newFlavorInfo.getId(), newFlavorInfo);
+		}
+	}
+	
+	/**
+	 * check whether flavor info exist
+	 * @param flavorId
+	 * @return
+	 */
+	public boolean isFlavorInfoExist(String flavorId){
+		if(this.mFlavorInfos.containsKey(flavorId)){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * get a flavor info
+	 * @param flavorId
+	 * @return
+	 */
+	public FlavorInfo getFlavorInfo(String flavorId){
+		if(this.mFlavorInfos.containsKey(flavorId)){
+			return this.mFlavorInfos.get(flavorId);
+		}
+		return null;
+	}
+	
+	/**
+	 * get all flavor infos
+	 * @return
+	 */
+	public List<FlavorInfo> getAllFlavorInfos(){
+		ArrayList<FlavorInfo> flavorInfos = new ArrayList<FlavorInfo>();
+		Iterator<FlavorInfo> iterator = this.mFlavorInfos.values().iterator();
+		while (iterator.hasNext()) {
+			flavorInfos.add(iterator.next());			
+		}
+		return flavorInfos;
+	}
+	
+	/**
+	 * clear all dishes data
+	 */
+	public void clearDishesData(){
+		this.mCategoryInfos.clear();
+		this.mDishesInfos.clear();
+		this.mFlavorInfos.clear();
 	}
 	
 }

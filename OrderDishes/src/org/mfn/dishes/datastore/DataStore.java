@@ -4,6 +4,7 @@ public class DataStore {
 	private static DataStore mInstance;
 	private IDishesDataStore mDishesDataStore = null;
 	private IOrderedDishesDataStore mOrderedDishesDataStore = null;
+	private IUserDataStore mUserDataStore = null;
 	
 	public static DataStore getInstance(){
 		if(mInstance == null){
@@ -35,6 +36,19 @@ public class DataStore {
 			mOrderedDishesDataStore = new OrderedDishInfoDataStore();
 		}
 		return mOrderedDishesDataStore;
+	}
+	
+	public IUserDataStore getUserDataStore(){
+		if(mUserDataStore == null){
+			mUserDataStore = new UserDataStore();
+		}
+		return mUserDataStore;
+	}
+	
+	public void clearAllData(){
+		mDishesDataStore.clearDishesData();
+		mOrderedDishesDataStore.clearOrderedDishesData();
+		mUserDataStore.clearUserData();
 	}
 	
 }

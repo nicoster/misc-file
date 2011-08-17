@@ -1,6 +1,6 @@
 package org.mfn.dishes.vo;
 
-public class DeskInfoObj {
+public class DeskInfo {
 
 	public static final String TABLE_NAME = "desk_info";
 	public static final String DESK_ID = "desk_id";
