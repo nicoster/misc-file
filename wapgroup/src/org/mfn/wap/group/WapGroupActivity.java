@@ -414,6 +414,9 @@ public class WapGroupActivity extends Activity {
 						Log.i(TAG, "Send Mobile Number Status:" + send_status);
 						if (send_status.equalsIgnoreCase(Constants.SEND_MOBILE_STATUS_OK)){
 							progressHandler.sendEmptyMessage(3);
+							SharedPreferences.Editor editor = settings.edit();
+							editor.putString(Constants.SEND_MOBILE_STATUS, send_status);
+							editor.commit();
 						}
 					}
 				}
