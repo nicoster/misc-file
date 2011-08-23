@@ -39,6 +39,13 @@ public class WapPageActivity extends Activity {
 		
 		final ProgressBar pBar = (ProgressBar) this.findViewById(R.id.progressBar);
 		
+		final View goBack = (ImageView) findViewById(R.id.goBackButton);
+		final View goForward = (ImageView) findViewById(R.id.goForwardButton);
+		View goHome = (ImageView) findViewById(R.id.goHomeButton);
+		
+		goBack.setVisibility(View.INVISIBLE);
+		goForward.setVisibility(View.INVISIBLE);
+		
 		WebViewClient wvc = new WebViewClient() {
 
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
@@ -46,7 +53,8 @@ public class WapPageActivity extends Activity {
 			}
 
 			public void onPageFinished(WebView view, String url) {
-				Log.d("test", "test");
+				goBack.setVisibility(wv.canGoBack() ? View.VISIBLE : View.INVISIBLE);
+				goForward.setVisibility(wv.canGoForward() ? View.VISIBLE : View.INVISIBLE);
 			}
 
 		};
@@ -65,10 +73,6 @@ public class WapPageActivity extends Activity {
 		        }  
 		    }  
 		});
-		
-		View goBack = (ImageView) findViewById(R.id.goBackButton);
-		View goForward = (ImageView) findViewById(R.id.goForwardButton);
-		View goHome = (ImageView) findViewById(R.id.goHomeButton);
 
 		goBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
