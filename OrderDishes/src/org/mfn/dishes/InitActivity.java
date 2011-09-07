@@ -15,8 +15,6 @@ import org.mfn.dishes.vo.DishInfo;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,10 +37,7 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	
 	private IDishesDataStore dishesDataStore;
 	
-//	private OrderedDishesView orderedDishesView;
 	private int mCurrentPage = 0;
-	
-	private Handler handler;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,14 +61,6 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
         dishesDataStore = DataStore.getInstance().getDishesDataStore();
         
         mScrollLayout.setCallBack(this);
-        
-        handler = new Handler(){
-        	public void handleMessage(Message msg){
-        		if(msg.what == 0){
-        			updateUI();
-        		}
-        	}
-        };
         
         prepareViews();
 	}
@@ -141,8 +128,10 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
     	applyRotation(0, -90);
     }
 	
-	public void onDishOrdered(){
-		handler.sendEmptyMessage(0);
+	public void onDishImageClicked(String dishId){
+		Intent intent = new Intent(this, DishDetailActivity.class);
+		intent.putExtra("dishId", dishId);
+		startActivity(intent);
 	}
 	
 	public void onCategoryClicked(String categoryCode){
@@ -159,10 +148,6 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 		
 	}
 	
-	private void updateUI(){
-//		orderedDishesView.updateUI();
-//		orderedDishesView.invalidate();		
-	}
     
     private void applyRotation(float start, float end){
 		// Find the center of the container

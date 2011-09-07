@@ -55,16 +55,24 @@ public class DishesGridView extends GridView implements IDishesGridAdapterCallBa
 		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
 	
+	/**
+	 * when click image, show image detail
+	 */
 	public void onImageClick(int position){
 		Log.d("DishesGridView", "onImageClick position = " + position);
+		DishInfo dishInfo = mAdapter.getItem(position);
+		mContext.onDishImageClicked(dishInfo.getId());
 		
 	}
+	
+	/**
+	 * when click order button, add it to ordered datastore
+	 */
 	public void onBtnClick(int position){
 		Log.d("DishesGridView", "onBtnClick position = " + position);
 		DishInfo selectedDishInfo = mAdapter.getItem(position);
 		OrderedDishInfo orderedDishInfo = new OrderedDishInfo(selectedDishInfo, 1);
 		mOrderedDishesDataStore.addDishesInfo(orderedDishInfo);
-		mContext.onDishOrdered();
 	}
 	
 	private OnItemClickListener listener = new OnItemClickListener() {
