@@ -3,7 +3,7 @@
 	android:layout_width="match_parent" android:layout_height="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 	<RelativeLayout android:id="@+id/entry"
 		android:orientation="vertical" android:layout_width="match_parent"
-		android:layout_height="match_parent" android:background="@drawable/default_bg">
+		android:layout_height="match_parent" android:background="@drawable/bg">
 		<ImageButton android:id="@+id/startbtn"
 			android:layout_height="40dip" android:layout_width="80dip" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:layout_marginBottom="200dip"/>
 	</RelativeLayout>
@@ -16,9 +16,9 @@
 		</org.mfn.dishes.view.ScrollLayout>
 		<RelativeLayout android:id="@+id/dishes_btn_line" android:layout_width="match_parent" android:layout_height="50dip"
 			android:layout_alignParentBottom="true">
-			<ImageButton android:layout_alignParentLeft="true" android:layout_height="wrap_content"
-				android:layout_alignParentBottom="true" android:text="@string/btn_order_yet" android:id="@+id/btn_left" android:layout_width="120dip"></ImageButton>
-		<ImageButton android:layout_alignParentRight="true" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:text="@string/btn_order_type" android:id="@+id/btn_right" android:layout_width="120dip"></ImageButton>
+			<Button android:layout_alignParentLeft="true" android:layout_height="wrap_content"
+				android:layout_alignParentBottom="true" android:id="@+id/btn_left" android:layout_width="120dip" android:text="@string/btn_order_type"></Button>
+			<Button android:layout_alignParentRight="true" android:layout_height="wrap_content" android:layout_alignParentBottom="true" android:id="@+id/btn_right" android:layout_width="120dip" android:text="@string/btn_order_yet"></Button>
 		</RelativeLayout>		
 	</RelativeLayout>
 	<RelativeLayout android:id="@+id/category" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="#ffffff">

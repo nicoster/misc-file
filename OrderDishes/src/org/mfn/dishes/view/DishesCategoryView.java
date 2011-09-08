@@ -55,12 +55,12 @@ public class DishesCategoryView extends GridView implements IDishesCategoryAdapt
 		setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 	}
 	
-	private OnItemClickListener listener = new OnItemClickListener() {
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			String categoryCode = mAdapter.getItem(position).getDishCategoryCode();
-			mContext.onCategoryClicked(categoryCode);
-		}
-	};
+//	private OnItemClickListener listener = new OnItemClickListener() {
+//		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//			String categoryCode = mAdapter.getItem(position).getDishCategoryCode();
+//			mContext.onCategoryClicked(categoryCode);
+//		}
+//	};
 	
 	public void onCatagoryImgClicked(int position){
 		String categoryCode = mAdapter.getItem(position).getDishCategoryCode();

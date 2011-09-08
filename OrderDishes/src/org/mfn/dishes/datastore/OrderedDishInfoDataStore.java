@@ -82,7 +82,7 @@ public class OrderedDishInfoDataStore implements IOrderedDishesDataStore {
 		OrderedDishInfo dishInfo = null;
 		while(iterator.hasNext()){
 			dishInfo = iterator.next();
-			totalPrice += dishInfo.getTotalPrice();
+			totalPrice += dishInfo.getDishTotalPrice();
 		}
 		return totalPrice;
 	}

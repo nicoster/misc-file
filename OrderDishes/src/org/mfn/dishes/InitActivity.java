@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
@@ -32,8 +33,8 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
 	private RelativeLayout mDishesMenus;
 	private ScrollLayout mScrollLayout;
 	
-	private ImageButton mOrderedBtn;
-	private ImageButton mCategoryBtn;
+	private Button mOrderedBtn;
+	private Button mCategoryBtn;
 	
 	private IDishesDataStore dishesDataStore;
 	
@@ -53,8 +54,8 @@ public class InitActivity extends Activity implements OnClickListener, IScrollLa
         mDishesMenus = (RelativeLayout) findViewById(R.id.dishes_menus);
         mScrollLayout = (ScrollLayout) findViewById(R.id.scroll_layout);
         
-        mCategoryBtn = (ImageButton)findViewById(R.id.btn_left);
-        mOrderedBtn = (ImageButton)findViewById(R.id.btn_right);
+        mCategoryBtn = (Button)findViewById(R.id.btn_left);
+        mOrderedBtn = (Button)findViewById(R.id.btn_right);
         
         mStartBtn.setOnClickListener(this);
         

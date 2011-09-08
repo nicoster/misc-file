@@ -46,9 +46,15 @@ public class DataStore {
 	}
 	
 	public void clearAllData(){
-		mDishesDataStore.clearDishesData();
-		mOrderedDishesDataStore.clearOrderedDishesData();
-		mUserDataStore.clearUserData();
+		if(mDishesDataStore != null) {
+			mDishesDataStore.clearDishesData();
+		}
+		if(mOrderedDishesDataStore != null) {
+			mOrderedDishesDataStore.clearOrderedDishesData();
+		}
+		if(mUserDataStore != null) {
+			mUserDataStore.clearUserData();
+		}		
 	}
 	
 }

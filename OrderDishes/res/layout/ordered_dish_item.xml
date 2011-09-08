@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent">
-    <TextView android:layout_height="30dip" android:id="@+id/ordered_dish_item_index" android:text="序号" android:layout_width="60dip"></TextView>
-    <TextView android:layout_height="30dip" android:id="@+id/ordered_dish_item_name" android:text="菜名" android:layout_width="160dip"></TextView>
-    <TextView android:layout_height="30dip" android:id="@+id/order_dish_item_price" android:text="单价" android:layout_width="60dip"></TextView>
-    <TextView android:layout_height="30dip" android:id="@+id/ordered_dish_item_unit" android:text="单位" android:layout_width="60dip"></TextView>
-    <TextView android:layout_height="30dip" android:id="@+id/ordered_dish_item_count" android:text="数量" android:layout_width="60dip"></TextView>
-    <TextView android:layout_height="30dip" android:id="@+id/ordered_dish_item_total_price" android:text="总价" android:layout_width="60dip"></TextView>
+  android:layout_width="match_parent" android:layout_height="40dip">
+    <TextView android:id="@+id/ordered_dish_item_index" android:text="序号" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
+    <TextView android:id="@+id/ordered_dish_item_name" android:text="菜名" android:layout_width="160dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
+    <TextView android:id="@+id/order_dish_item_price" android:text="单价" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
+    <TextView android:id="@+id/ordered_dish_item_unit" android:text="单位" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
+    <TextView android:id="@+id/ordered_dish_item_count" android:text="数量" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
+    <TextView android:id="@+id/ordered_dish_item_total_price" android:text="总价" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical"></TextView>
 </LinearLayout>

@@ -1,0 +1,10 @@
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent" android:layout_height="40dip">
+    <TextView android:text="序号" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textStyle="bold" android:textSize="20sp"></TextView>
+    <TextView android:text="菜名" android:layout_width="160dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textSize="20sp" android:textStyle="bold"></TextView>
+    <TextView android:text="单价" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textStyle="bold" android:textSize="20sp"></TextView>
+    <TextView android:text="单位" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textStyle="bold" android:textSize="20sp"></TextView>
+    <TextView android:text="数量" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textStyle="bold" android:textSize="20sp"></TextView>
+    <TextView android:text="总价" android:layout_width="60dip" android:layout_height="match_parent" android:gravity="center_vertical" android:textStyle="bold" android:textSize="20sp"></TextView>
+</LinearLayout>

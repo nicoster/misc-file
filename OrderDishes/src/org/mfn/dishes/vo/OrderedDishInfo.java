@@ -33,7 +33,7 @@ public class OrderedDishInfo {
 		this.mOrderedNumber = mOrderedNumber;
 	}
 
-	public float getTotalPrice() {
+	public float getDishTotalPrice() {
 		return mTotalPrice;
 	}
 

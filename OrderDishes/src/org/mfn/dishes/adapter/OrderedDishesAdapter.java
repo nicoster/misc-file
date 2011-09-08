@@ -34,11 +34,8 @@ public class OrderedDishesAdapter extends BaseAdapter {
 		}
 		return this.mOrderedDishInfos.size();
 	}
-
+	
 	public OrderedDishInfo getItem(int position) {
-//		if(this.mOrderedDishInfos == null){
-//			return null;
-//		}
 		return this.mOrderedDishInfos.get(position);
 	}
 
@@ -57,12 +54,12 @@ public class OrderedDishesAdapter extends BaseAdapter {
 		}
 		OrderedDishInfo orderedDishInfo = this.mOrderedDishInfos.get(position);
 		if(orderedDishInfo != null){
-			holder.index.setText(String.valueOf(position));
+			holder.index.setText(String.valueOf(position + 1));
 			holder.dishName.setText(orderedDishInfo.getDishInfo().getName());
 			holder.unitPrice.setText(String.valueOf(orderedDishInfo.getDishInfo().getPrice()));
 			holder.unit.setText(orderedDishInfo.getDishInfo().getUnit());
 			holder.orderedNumber.setText(String.valueOf(orderedDishInfo.getOrderedNumber()));
-			holder.totalPrice.setText(String.valueOf(orderedDishInfo.getTotalPrice()));
+			holder.totalPrice.setText(String.valueOf(orderedDishInfo.getDishTotalPrice()));			
 		}
 		
 		return convertView;
