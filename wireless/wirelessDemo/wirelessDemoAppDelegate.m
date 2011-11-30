@@ -16,15 +16,13 @@
     TTNavigator* navigator = [TTNavigator navigator];
     navigator.persistenceMode = TTNavigatorPersistenceModeAll;
     TTURLMap* map = navigator.URLMap;
-        [map from:@"*" toViewController:[TTWebController class]];
+//	[map from:@"*" toViewController:[TTWebController class]];
     
-    [map from:@"tt://launcher/" toViewController:
-	 [LauncherViewController class]];
+    [map from:@"tt://launcher/" 
+		toViewController: [LauncherViewController class]];
     
-    if (![navigator restoreViewControllers]) {
-        [navigator openURLAction:
+	[navigator openURLAction:
 		 [TTURLAction actionWithURLPath:@"tt://launcher"]];
-    }
 }
 
 
