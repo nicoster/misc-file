@@ -16,7 +16,6 @@
     TTNavigator* navigator = [TTNavigator navigator];
     navigator.persistenceMode = TTNavigatorPersistenceModeAll;
     TTURLMap* map = navigator.URLMap;
-//	[map from:@"*" toViewController:[TTWebController class]];
     
     [map from:@"tt://launcher/" 
 		toViewController: [LauncherViewController class]];
@@ -27,15 +26,15 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL)navigator:(TTNavigator*)navigator shouldOpenURL:(NSURL*)URL {
-    return YES;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)URL {
-    [[TTNavigator navigator] openURLAction:[TTURLAction actionWithURLPath:URL.absoluteString]];
-    return YES;
-}
+//- (BOOL)navigator:(TTNavigator*)navigator shouldOpenURL:(NSURL*)URL {
+//    return YES;
+//}
+//
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+//- (BOOL)application:(UIApplication*)application handleOpenURL:(NSURL*)URL {
+//    [[TTNavigator navigator] openURLAction:[TTURLAction actionWithURLPath:URL.absoluteString]];
+//    return YES;
+//}
 
 @end
