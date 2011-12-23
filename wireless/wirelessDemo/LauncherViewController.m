@@ -23,8 +23,8 @@
 	launcherView.columnCount = 4;
 	launcherView.pages = [NSArray arrayWithObjects:
 						   [NSArray arrayWithObjects:
-							[self launcherItemWithTitle:@"Google" image:@"bundle://Icon.png" URL:@"http://google.com"],
-							[self launcherItemWithTitle:@"Apple" image:@"bundle://Icon.png" URL:@"http://apple.com"]
+							[self launcherItemWithTitle:@"天气" image:@"bundle://Icon.png" URL:@"http://google.com"],
+							[self launcherItemWithTitle:@"影讯" image:@"bundle://Icon.png" URL:@"tt://nib/MovieSummaryController"]
 							, nil]
 						  , nil];
 	launcherView.delegate = self;
@@ -78,7 +78,7 @@
 }
 
 - (void)launcherView:(TTLauncherView*)launcher didSelectItem:(TTLauncherItem*)item {
-	[[TTNavigator navigator] openURLAction:[TTURLAction actionWithURLPath:item.URL]];
+	[[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:item.URL] applyAnimated:YES]];
 }
 
 

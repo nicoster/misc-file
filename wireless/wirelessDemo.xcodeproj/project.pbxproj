@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201088596B4756681693704 /* libThree20UICommon.a */; };
+		320A2827FEC940B25BC42C65 /* libThree20Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A2827FEC940B25BC42C64 /* libThree20Core.a */; };
+		320A5A189C235877202780D5 /* libThree20Network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A5A189C235877202780D4 /* libThree20Network.a */; };
+		320A737074758E53BA54BE95 /* libThree20UINavigator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A737074758E53BA54BE94 /* libThree20UINavigator.a */; };
 		320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
 		320B6C86F11D9990244A9731 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 320B6C86F11D9990244A9730 /* Three20.bundle */; };
-		70E7A45D1486768A00B2341F /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
-		70E7A45E1486768A00B2341F /* libThree20Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A2827FEC940B25BC42C64 /* libThree20Core.a */; };
-		70E7A45F1486768A00B2341F /* libThree20Network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A5A189C235877202780D4 /* libThree20Network.a */; };
-		70E7A4601486768A00B2341F /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
-		70E7A4611486768A00B2341F /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		70E7A4621486768A00B2341F /* libThree20UICommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201088596B4756681693704 /* libThree20UICommon.a */; };
-		70E7A4631486768A00B2341F /* libThree20UINavigator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A737074758E53BA54BE94 /* libThree20UINavigator.a */; };
-		70E7A46A148684B400B2341F /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
+		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
+		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
+		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -26,6 +26,11 @@
 		92062864147642540060928E /* wirelessDemoAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 92062863147642540060928E /* wirelessDemoAppDelegate_iPhone.m */; };
 		9206286B147642540060928E /* wirelessDemoAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206286A147642540060928E /* wirelessDemoAppDelegate_iPad.m */; };
 		9206289A1476466D0060928E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 920628991476466D0060928E /* Icon.png */; };
+		921B423A14A3283B0021C4CD /* MovieSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423814A3283B0021C4CD /* MovieSummaryController.m */; };
+		921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 921B423914A3283B0021C4CD /* MovieSummaryController.xib */; };
+		921B424114A32DAE0021C4CD /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423E14A32DAE0021C4CD /* DataCache.m */; };
+		921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B424014A32DAE0021C4CD /* FlowCoverView.m */; };
+		921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921B424314A32E640021C4CD /* OpenGLES.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +210,14 @@
 		92062869147642540060928E /* wirelessDemoAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wirelessDemoAppDelegate_iPad.h; path = iPad/wirelessDemoAppDelegate_iPad.h; sourceTree = "<group>"; };
 		9206286A147642540060928E /* wirelessDemoAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = wirelessDemoAppDelegate_iPad.m; path = iPad/wirelessDemoAppDelegate_iPad.m; sourceTree = "<group>"; };
 		920628991476466D0060928E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		921B423714A3283B0021C4CD /* MovieSummaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieSummaryController.h; path = ../MovieSummaryController.h; sourceTree = "<group>"; };
+		921B423814A3283B0021C4CD /* MovieSummaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieSummaryController.m; path = ../MovieSummaryController.m; sourceTree = "<group>"; };
+		921B423914A3283B0021C4CD /* MovieSummaryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieSummaryController.xib; sourceTree = "<group>"; };
+		921B423D14A32DAE0021C4CD /* DataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCache.h; sourceTree = "<group>"; };
+		921B423E14A32DAE0021C4CD /* DataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCache.m; sourceTree = "<group>"; };
+		921B423F14A32DAE0021C4CD /* FlowCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowCoverView.h; sourceTree = "<group>"; };
+		921B424014A32DAE0021C4CD /* FlowCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowCoverView.m; sourceTree = "<group>"; };
+		921B424314A32E640021C4CD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,14 +225,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70E7A45D1486768A00B2341F /* libThree20.a in Frameworks */,
-				70E7A45E1486768A00B2341F /* libThree20Core.a in Frameworks */,
-				70E7A45F1486768A00B2341F /* libThree20Network.a in Frameworks */,
-				70E7A4601486768A00B2341F /* libThree20Style.a in Frameworks */,
-				70E7A4611486768A00B2341F /* libThree20UI.a in Frameworks */,
-				70E7A4621486768A00B2341F /* libThree20UICommon.a in Frameworks */,
-				70E7A4631486768A00B2341F /* libThree20UINavigator.a in Frameworks */,
+				921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */,
+				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
+				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
+				320A737074758E53BA54BE95 /* libThree20UINavigator.a in Frameworks */,
+				320A2827FEC940B25BC42C65 /* libThree20Core.a in Frameworks */,
+				320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */,
 				320AF8492C47A4D819F7C451 /* QuartzCore.framework in Frameworks */,
+				320A5A189C235877202780D5 /* libThree20Network.a in Frameworks */,
+				320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */,
 				92062850147642540060928E /* UIKit.framework in Frameworks */,
 				92062852147642540060928E /* Foundation.framework in Frameworks */,
 				92062854147642540060928E /* CoreGraphics.framework in Frameworks */,
@@ -292,25 +306,10 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		705AA19B148671F3000B3C64 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
-				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
-				320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */,
-				320A2827FEC940B25BC42C60 /* Three20Core.xcodeproj */,
-				320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */,
-				320A5A189C235877202780D0 /* Three20Network.xcodeproj */,
-				320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
 		92062840147642540060928E = {
 			isa = PBXGroup;
 			children = (
 				920628821476464E0060928E /* Resources */,
-				705AA19B148671F3000B3C64 /* Dependencies */,
 				92062855147642540060928E /* src */,
 				9206284E147642540060928E /* Frameworks */,
 				9206284C147642540060928E /* Products */,
@@ -328,7 +327,15 @@
 		9206284E147642540060928E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				921B424314A32E640021C4CD /* OpenGLES.framework */,
+				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
+				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
+				320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */,
+				320A2827FEC940B25BC42C60 /* Three20Core.xcodeproj */,
+				320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */,
 				320AF8492C47A4D819F7C450 /* QuartzCore.framework */,
+				320A5A189C235877202780D0 /* Three20Network.xcodeproj */,
+				320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */,
 				9206284F147642540060928E /* UIKit.framework */,
 				92062851147642540060928E /* Foundation.framework */,
 				92062853147642540060928E /* CoreGraphics.framework */,
@@ -339,6 +346,8 @@
 		92062855147642540060928E /* src */ = {
 			isa = PBXGroup;
 			children = (
+				921B423C14A328590021C4CD /* Movie */,
+				921B423614A326F40021C4CD /* FlowCover Classes */,
 				703E9A64147B386400489DB1 /* LauncherViewController.h */,
 				703E9A65147B386400489DB1 /* LauncherViewController.m */,
 				9206285E147642540060928E /* wirelessDemoAppDelegate.h */,
@@ -385,8 +394,29 @@
 			isa = PBXGroup;
 			children = (
 				920628991476466D0060928E /* Icon.png */,
+				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		921B423614A326F40021C4CD /* FlowCover Classes */ = {
+			isa = PBXGroup;
+			children = (
+				921B423D14A32DAE0021C4CD /* DataCache.h */,
+				921B423E14A32DAE0021C4CD /* DataCache.m */,
+				921B423F14A32DAE0021C4CD /* FlowCoverView.h */,
+				921B424014A32DAE0021C4CD /* FlowCoverView.m */,
+			);
+			name = "FlowCover Classes";
+			sourceTree = "<group>";
+		};
+		921B423C14A328590021C4CD /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				921B423714A3283B0021C4CD /* MovieSummaryController.h */,
+				921B423814A3283B0021C4CD /* MovieSummaryController.m */,
+			);
+			name = Movie;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,6 +610,7 @@
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				9206285A147642540060928E /* InfoPlist.strings in Resources */,
 				9206289A1476466D0060928E /* Icon.png in Resources */,
+				921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,11 +621,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70E7A46A148684B400B2341F /* LauncherViewController.m in Sources */,
 				9206285C147642540060928E /* main.m in Sources */,
 				92062860147642540060928E /* wirelessDemoAppDelegate.m in Sources */,
 				92062864147642540060928E /* wirelessDemoAppDelegate_iPhone.m in Sources */,
 				9206286B147642540060928E /* wirelessDemoAppDelegate_iPad.m in Sources */,
+				703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */,
+				921B423A14A3283B0021C4CD /* MovieSummaryController.m in Sources */,
+				921B424114A32DAE0021C4CD /* DataCache.m in Sources */,
+				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
