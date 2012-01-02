@@ -75,11 +75,12 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    [[TTURLCache sharedCache] removeAll:YES];
     
-    TTURLRequest* request = [TTURLRequest requestWithURL:kRequestURLPath delegate:[[[MovieInfoDelegate alloc] initWithController:self] autorelease]];
+    TTURLRequest* request = [TTURLRequest requestWithURL:kRequestURLPath delegate:[[MovieInfoDelegate alloc] initWithController:self]];
     
 //    TTURLRequest* request = [TTURLRequest requestWithURL: kRequestURLPath delegate: self];
+    
+    request.cachePolicy = TTURLRequestCachePolicyNoCache;
     
     request.response = [[[TTURLJSONResponse alloc] init] autorelease];
     
