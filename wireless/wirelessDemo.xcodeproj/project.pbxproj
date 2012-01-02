@@ -17,6 +17,15 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
+		705D9EC114B204600023732D /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 705D9EC014B204600023732D /* cupertino.PNG */; };
+		705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
+		705D9EC314B209DE0023732D /* WeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2DB014B19D08005CF65E /* WeatherCell.xib */; };
+		705D9EC414B209DE0023732D /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
+		705D9EC514B209DE0023732D /* WeatherDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */; };
+		705D9EC614B20A510023732D /* WeatherSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */; };
+		705D9EC714B20A510023732D /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */; };
+		705D9EC814B20A510023732D /* WeatherDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */; };
+		705D9EC914B20A510023732D /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2DAE14B19C8D005CF65E /* WeatherCell.m */; };
 		70B5D31E14B15A4D00E95DC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285B147642540060928E /* main.m */; };
 		70B5D31F14B15A4D00E95DC3 /* wirelessDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285F147642540060928E /* wirelessDemoAppDelegate.m */; };
 		70B5D32014B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 92062863147642540060928E /* wirelessDemoAppDelegate_iPhone.m */; };
@@ -255,6 +264,7 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		703E9A64147B386400489DB1 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		703E9A65147B386400489DB1 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
+		705D9EC014B204600023732D /* cupertino.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cupertino.PNG; sourceTree = "<group>"; };
 		70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherSummaryController.xib; sourceTree = "<group>"; };
 		70B5D2CD14B13E7100E95DC3 /* WeatherSummaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherSummaryController.h; sourceTree = SOURCE_ROOT; };
 		70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherSummaryController.m; sourceTree = SOURCE_ROOT; };
@@ -517,6 +527,7 @@
 		920628821476464E0060928E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				705D9EC014B204600023732D /* cupertino.PNG */,
 				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
@@ -829,11 +840,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */,
+				705D9EC314B209DE0023732D /* WeatherCell.xib in Resources */,
+				705D9EC414B209DE0023732D /* WeatherViewController.xib in Resources */,
+				705D9EC514B209DE0023732D /* WeatherDetailsController.xib in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				9206285A147642540060928E /* InfoPlist.strings in Resources */,
 				9206289A1476466D0060928E /* Icon.png in Resources */,
 				921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */,
 				92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */,
+				705D9EC114B204600023732D /* cupertino.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -861,6 +877,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				705D9EC614B20A510023732D /* WeatherSummaryController.m in Sources */,
+				705D9EC714B20A510023732D /* WeatherViewController.m in Sources */,
+				705D9EC814B20A510023732D /* WeatherDetailsController.m in Sources */,
+				705D9EC914B20A510023732D /* WeatherCell.m in Sources */,
 				9206285C147642540060928E /* main.m in Sources */,
 				92062860147642540060928E /* wirelessDemoAppDelegate.m in Sources */,
 				92062864147642540060928E /* wirelessDemoAppDelegate_iPhone.m in Sources */,
