@@ -17,6 +17,9 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
+		70B5D2CC14B13B8800E95DC3 /* WeatherSummaryController3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController3.xib */; };
+		70B5D2D014B13E7100E95DC3 /* WeatherSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */; };
+		70B5D2D114B13E7100E95DC3 /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CF14B13E7100E95DC3 /* WeatherSummaryController.xib */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -195,6 +198,10 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		703E9A64147B386400489DB1 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		703E9A65147B386400489DB1 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
+		70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherSummaryController3.xib; sourceTree = "<group>"; };
+		70B5D2CD14B13E7100E95DC3 /* WeatherSummaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherSummaryController.h; sourceTree = SOURCE_ROOT; };
+		70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherSummaryController.m; sourceTree = SOURCE_ROOT; };
+		70B5D2CF14B13E7100E95DC3 /* WeatherSummaryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherSummaryController.xib; sourceTree = SOURCE_ROOT; };
 		9206284B147642540060928E /* wirelessDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wirelessDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9206284F147642540060928E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		92062851147642540060928E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -355,6 +362,9 @@
 				92062861147642540060928E /* iPhone */,
 				92062868147642540060928E /* iPad */,
 				92062856147642540060928E /* Supporting Files */,
+				70B5D2CD14B13E7100E95DC3 /* WeatherSummaryController.h */,
+				70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */,
+				70B5D2CF14B13E7100E95DC3 /* WeatherSummaryController.xib */,
 			);
 			name = src;
 			path = wirelessDemo;
@@ -395,6 +405,7 @@
 			children = (
 				920628991476466D0060928E /* Icon.png */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
+				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController3.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -611,6 +622,8 @@
 				9206285A147642540060928E /* InfoPlist.strings in Resources */,
 				9206289A1476466D0060928E /* Icon.png in Resources */,
 				921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */,
+				70B5D2CC14B13B8800E95DC3 /* WeatherSummaryController3.xib in Resources */,
+				70B5D2D114B13E7100E95DC3 /* WeatherSummaryController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +642,7 @@
 				921B423A14A3283B0021C4CD /* MovieSummaryController.m in Sources */,
 				921B424114A32DAE0021C4CD /* DataCache.m in Sources */,
 				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
+				70B5D2D014B13E7100E95DC3 /* WeatherSummaryController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

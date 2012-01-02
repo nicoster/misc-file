@@ -23,7 +23,7 @@
 	launcherView.columnCount = 4;
 	launcherView.pages = [NSArray arrayWithObjects:
 						   [NSArray arrayWithObjects:
-							[self launcherItemWithTitle:@"天气" image:@"bundle://Icon.png" URL:@"http://google.com"],
+							[self launcherItemWithTitle:@"天气" image:@"bundle://Icon.png" URL:@"tt://nib/WeatherSummaryController"],
 							[self launcherItemWithTitle:@"影讯" image:@"bundle://Icon.png" URL:@"tt://nib/MovieSummaryController"]
 							, nil]
 						  , nil];
