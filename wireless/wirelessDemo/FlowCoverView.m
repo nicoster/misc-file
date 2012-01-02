@@ -72,6 +72,13 @@ const GLfloat GVertices[] = {
 	 1.0f,  1.0f, 0.0f,
 };
 
+//const GLfloat GVertices[] = {
+//	-1.0f, 0.0f, 0.0f,
+//    1.0f, 0.0f, 0.0f,
+//	-1.0f,  2.0f, 0.0f,
+//    1.0f,  2.0f, 0.0f,
+//};
+
 const GLshort GTextures[] = {
 	0, 0,
 	1, 0,
@@ -395,7 +402,11 @@ static void *GData = NULL;
 	glTranslatef(trans, 0, 0);
 	glScalef(sc,sc,1.0);
 	glMultMatrixf(m);
+    
+
 	glDrawArrays(GL_TRIANGLE_STRIP,0,4);
+    
+
 	
 	// reflect
 	glTranslatef(0,-2,0);
@@ -533,7 +544,7 @@ static void *GData = NULL;
 	 *	Adjust speed to make this land on an even location
 	 */
 	
-	NSLog(@"speed: %lf",speed);
+//	NSLog(@"speed: %lf",speed);
 	double delta = speed * speed / (FRICTION * 2);
 	if (speed < 0) delta = -delta;
 	double nearest = startOff + delta;
@@ -544,8 +555,8 @@ static void *GData = NULL;
 	runDelta = fabs(startSpeed / FRICTION);
 	startTime = CACurrentMediaTime();
 	
-	NSLog(@"startSpeed: %lf",startSpeed);
-	NSLog(@"runDelta: %lf",runDelta);
+//	NSLog(@"startSpeed: %lf",startSpeed);
+//	NSLog(@"runDelta: %lf",runDelta);
 	timer = [NSTimer scheduledTimerWithTimeInterval:0.03
 					target:self
 					selector:@selector(driveAnimation)

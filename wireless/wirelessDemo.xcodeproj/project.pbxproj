@@ -17,11 +17,6 @@
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
 		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
-		70B5D2CC14B13B8800E95DC3 /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
-		70B5D2D014B13E7100E95DC3 /* WeatherSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */; };
-		70B5D2D514B14E7900E95DC3 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */; };
-		70B5D2D614B14E7900E95DC3 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
-		70B5D2D814B1528E00E95DC3 /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D714B1528E00E95DC3 /* cupertino.PNG */; };
 		70B5D31E14B15A4D00E95DC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285B147642540060928E /* main.m */; };
 		70B5D31F14B15A4D00E95DC3 /* wirelessDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285F147642540060928E /* wirelessDemoAppDelegate.m */; };
 		70B5D32014B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 92062863147642540060928E /* wirelessDemoAppDelegate_iPhone.m */; };
@@ -51,11 +46,6 @@
 		70B5D33A14B15A4D00E95DC3 /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
 		70B5D33B14B15A4D00E95DC3 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
 		70B5D33C14B15A4D00E95DC3 /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D714B1528E00E95DC3 /* cupertino.PNG */; };
-		70FF2D6A14B16630005CF65E /* Temp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D6914B16630005CF65E /* Temp.xib */; };
-		70FF2D7114B18DA0005CF65E /* WeatherDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */; };
-		70FF2D7214B18DA0005CF65E /* WeatherDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */; };
-		70FF2DAF14B19C8D005CF65E /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2DAE14B19C8D005CF65E /* WeatherCell.m */; };
-		70FF2DB114B19D08005CF65E /* WeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2DB014B19D08005CF65E /* WeatherCell.xib */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -70,6 +60,9 @@
 		921B424114A32DAE0021C4CD /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423E14A32DAE0021C4CD /* DataCache.m */; };
 		921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B424014A32DAE0021C4CD /* FlowCoverView.m */; };
 		921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921B424314A32E640021C4CD /* OpenGLES.framework */; };
+		928A9B1A14ADB9A6004F8817 /* libextThree20JSON+YAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928A9B1514ADB6F1004F8817 /* libextThree20JSON+YAJL.a */; };
+		928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 928A9BA014AEAEEE004F8817 /* MovieInfo.m */; };
+		92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6486414B1C29500C7A786 /* default_movie_post.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,55 +164,6 @@
 			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
 			remoteInfo = Three20UI;
 		};
-		70B5D2DB14B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3201088596B4756681693700 /* Three20UICommon.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20UICommon;
-		};
-		70B5D2DD14B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20;
-		};
-		70B5D2DF14B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320A737074758E53BA54BE90 /* Three20UINavigator.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20UINavigator;
-		};
-		70B5D2E114B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320A2827FEC940B25BC42C60 /* Three20Core.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20Core;
-		};
-		70B5D2E314B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20UI;
-		};
-		70B5D2E514B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320A5A189C235877202780D0 /* Three20Network.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20Network;
-		};
-		70B5D2E714B15A3C00E95DC3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = BEF31F390F352DF5000DE5D2;
-			remoteInfo = Three20Style;
-		};
 		920628841476464E0060928E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */;
@@ -268,6 +212,34 @@
 			proxyType = 2;
 			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C;
 			remoteInfo = Three20UINavigatorUnitTests;
+		};
+		928A9B1214ADB6F1004F8817 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2;
+			remoteInfo = "extThree20JSON+SBJSON";
+		};
+		928A9B1414ADB6F1004F8817 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6E645BD91187751200F08CB1;
+			remoteInfo = "extThree20JSON+YAJL";
+		};
+		928A9B1614ADB6F1004F8817 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C;
+			remoteInfo = "extThree20JSONUnitTests+SBJSON";
+		};
+		928A9B1814ADB992004F8817 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E645BA31187751200F08CB1;
+			remoteInfo = "extThree20JSON+YAJL";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -324,6 +296,10 @@
 		921B423F14A32DAE0021C4CD /* FlowCoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowCoverView.h; sourceTree = "<group>"; };
 		921B424014A32DAE0021C4CD /* FlowCoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowCoverView.m; sourceTree = "<group>"; };
 		921B424314A32E640021C4CD /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
+		928A9B9F14AEAEEE004F8817 /* MovieInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfo.h; sourceTree = "<group>"; };
+		928A9BA014AEAEEE004F8817 /* MovieInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfo.m; sourceTree = "<group>"; };
+		92B6486414B1C29500C7A786 /* default_movie_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_movie_post.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				928A9B1A14ADB9A6004F8817 /* libextThree20JSON+YAJL.a in Frameworks */,
 				921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
 				320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */,
@@ -472,6 +449,7 @@
 		9206284E147642540060928E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */,
 				921B424314A32E640021C4CD /* OpenGLES.framework */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
 				320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */,
@@ -539,7 +517,7 @@
 		920628821476464E0060928E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				70B5D2D714B1528E00E95DC3 /* cupertino.PNG */,
+				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
@@ -566,8 +544,28 @@
 			children = (
 				921B423714A3283B0021C4CD /* MovieSummaryController.h */,
 				921B423814A3283B0021C4CD /* MovieSummaryController.m */,
+				928A9B9F14AEAEEE004F8817 /* MovieInfo.h */,
+				928A9BA014AEAEEE004F8817 /* MovieInfo.m */,
 			);
 			name = Movie;
+			sourceTree = "<group>";
+		};
+		921B430614AB01FA0021C4CD /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				92B6486414B1C29500C7A786 /* default_movie_post.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		928A9B0714ADB6F0004F8817 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				928A9B1314ADB6F1004F8817 /* libextThree20JSON+SBJSON.a */,
+				928A9B1514ADB6F1004F8817 /* libextThree20JSON+YAJL.a */,
+				928A9B1714ADB6F1004F8817 /* extJSONUnitTests+SBJSON.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -581,13 +579,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				70B5D2DA14B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2DC14B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2DE14B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2E014B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2E214B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2E414B15A3C00E95DC3 /* PBXTargetDependency */,
-				70B5D2E614B15A3C00E95DC3 /* PBXTargetDependency */,
 			);
 			name = Dependencies;
 			productName = wirelessDemo;
@@ -615,13 +606,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92062871147642540060928E /* Build configuration list for PBXNativeTarget "wirelessDemo" */;
 			buildPhases = (
+				92062849147642540060928E /* Resources */,
 				92062847147642540060928E /* Sources */,
 				92062848147642540060928E /* Frameworks */,
-				92062849147642540060928E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				928A9B1914ADB992004F8817 /* PBXTargetDependency */,
 				3201088596B4756681693701 /* PBXTargetDependency */,
 				320D7DCCE32703ACAB9A45E1 /* PBXTargetDependency */,
 				320A737074758E53BA54BE91 /* PBXTargetDependency */,
@@ -654,6 +646,10 @@
 			productRefGroup = 9206284C147642540060928E /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 928A9B0714ADB6F0004F8817 /* Products */;
+					ProjectRef = 928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */;
+				},
 				{
 					ProductGroup = 320D7DCCE32703ACAB9A45E3 /* Products */;
 					ProjectRef = 320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */;
@@ -791,6 +787,27 @@
 			remoteRef = 920628961476464E0060928E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		928A9B1314ADB6F1004F8817 /* libextThree20JSON+SBJSON.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libextThree20JSON+SBJSON.a";
+			remoteRef = 928A9B1214ADB6F1004F8817 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928A9B1514ADB6F1004F8817 /* libextThree20JSON+YAJL.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libextThree20JSON+YAJL.a";
+			remoteRef = 928A9B1414ADB6F1004F8817 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		928A9B1714ADB6F1004F8817 /* extJSONUnitTests+SBJSON.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "extJSONUnitTests+SBJSON.octest";
+			remoteRef = 928A9B1614ADB6F1004F8817 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -816,12 +833,7 @@
 				9206285A147642540060928E /* InfoPlist.strings in Resources */,
 				9206289A1476466D0060928E /* Icon.png in Resources */,
 				921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */,
-				70B5D2CC14B13B8800E95DC3 /* WeatherSummaryController.xib in Resources */,
-				70B5D2D614B14E7900E95DC3 /* WeatherViewController.xib in Resources */,
-				70B5D2D814B1528E00E95DC3 /* cupertino.PNG in Resources */,
-				70FF2D6A14B16630005CF65E /* Temp.xib in Resources */,
-				70FF2D7214B18DA0005CF65E /* WeatherDetailsController.xib in Resources */,
-				70FF2DB114B19D08005CF65E /* WeatherCell.xib in Resources */,
+				92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,10 +869,7 @@
 				921B423A14A3283B0021C4CD /* MovieSummaryController.m in Sources */,
 				921B424114A32DAE0021C4CD /* DataCache.m in Sources */,
 				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
-				70B5D2D014B13E7100E95DC3 /* WeatherSummaryController.m in Sources */,
-				70B5D2D514B14E7900E95DC3 /* WeatherViewController.m in Sources */,
-				70FF2D7114B18DA0005CF65E /* WeatherDetailsController.m in Sources */,
-				70FF2DAF14B19C8D005CF65E /* WeatherCell.m in Sources */,
+				928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,40 +911,10 @@
 			name = Three20UI;
 			targetProxy = 320F2C48872C2E2C4DF86202 /* PBXContainerItemProxy */;
 		};
-		70B5D2DA14B15A3C00E95DC3 /* PBXTargetDependency */ = {
+		928A9B1914ADB992004F8817 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = Three20UICommon;
-			targetProxy = 70B5D2DB14B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2DC14B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20;
-			targetProxy = 70B5D2DD14B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2DE14B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20UINavigator;
-			targetProxy = 70B5D2DF14B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2E014B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20Core;
-			targetProxy = 70B5D2E114B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2E214B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20UI;
-			targetProxy = 70B5D2E314B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2E414B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20Network;
-			targetProxy = 70B5D2E514B15A3C00E95DC3 /* PBXContainerItemProxy */;
-		};
-		70B5D2E614B15A3C00E95DC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Three20Style;
-			targetProxy = 70B5D2E714B15A3C00E95DC3 /* PBXContainerItemProxy */;
+			name = "extThree20JSON+YAJL";
+			targetProxy = 928A9B1814ADB992004F8817 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1057,6 +1036,11 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(BUILT_PRODUCTS_DIR)/../three20",
+					"$(BUILT_PRODUCTS_DIR)/../../three20",
+					../three20/Build/Products/three20,
+				);
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
