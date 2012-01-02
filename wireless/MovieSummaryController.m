@@ -16,6 +16,7 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 
 
 
+
 @implementation MovieSummaryController
 
 @synthesize flow = _flow;
@@ -74,9 +75,11 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+//    [[TTURLCache sharedCache] removeAll:YES];
     
-    TTURLRequest* request = [TTURLRequest requestWithURL: kRequestURLPath
-                            delegate: [[[MovieInfoDelegate alloc] initWithController:self] autorelease]];
+    TTURLRequest* request = [TTURLRequest requestWithURL:kRequestURLPath delegate:[[[MovieInfoDelegate alloc] initWithController:self] autorelease]];
+    
+//    TTURLRequest* request = [TTURLRequest requestWithURL: kRequestURLPath delegate: self];
     
     request.response = [[[TTURLJSONResponse alloc] init] autorelease];
     
@@ -188,11 +191,11 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 
 
 
-- (id)initWithController:(id*)controller {
-    self = [super init];
+- (id)initWithController:(MovieSummaryController *)controller {
     if (self) {
         _controller = (MovieSummaryController*)controller;
     }
+    
     return self;
 }
 
@@ -206,11 +209,13 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 }
 
 - (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {
+    
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)requestDidFinishLoad:(TTURLRequest*)request {
+//    return;
     TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
     
     NSArray *entries = JsonResponse.rootObject;
@@ -221,31 +226,33 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
         NSDictionary *details = [entry objectForKey:@"MovieInfo"];
         //NSLog(@"entry:%@",entry);
         
-            MovieInfo * movieinfo = [[[MovieInfo alloc] init]autorelease];
-            movieinfo.name = [details objectForKey:@"movieName"];
-            movieinfo.name_en = [details objectForKey:@"movieNameEn"];
-            movieinfo.director = [details objectForKey:@"director"];
-            movieinfo.performers = [details objectForKey:@"performers"];
-            movieinfo.category = [details objectForKey:@"category"];
-            movieinfo.description = [details objectForKey:@"description"];
+        MovieInfo * movieinfo = [[[MovieInfo alloc] init]autorelease];
+        movieinfo.name = [details objectForKey:@"movieName"];
+        NSLog(@"%@", movieinfo.name);
+        
+        
+        movieinfo.name_en = [details objectForKey:@"movieNameEn"];
+        movieinfo.director = [details objectForKey:@"director"];
+        movieinfo.performers = [details objectForKey:@"performers"];
+        movieinfo.category = [details objectForKey:@"category"];
+        movieinfo.description = [details objectForKey:@"description"];
                                   
-            movieinfo.duration =[NSNumber numberWithInt:[[details objectForKey:@"duration"] integerValue]];
-            movieinfo.status =[NSNumber numberWithInt:[[details objectForKey:@"status"] integerValue]];
-            movieinfo.score =[NSNumber numberWithInt:[[details objectForKey:@"score"] integerValue]];
-            NSLog(@"score:%d", [movieinfo.score integerValue]);
+        movieinfo.duration =[NSNumber numberWithInt:[[details objectForKey:@"duration"] integerValue]];
+        movieinfo.status =[NSNumber numberWithInt:[[details objectForKey:@"status"] integerValue]];
+        movieinfo.score =[NSNumber numberWithInt:[[details objectForKey:@"score"] integerValue]];
             
-            movieinfo.server_image_url = [details objectForKey:@"imageUrl"];
-            movieinfo.comments = [details objectForKey:@"comment"];
+        movieinfo.server_image_url = [details objectForKey:@"imageUrl"];
+        movieinfo.comments = [details objectForKey:@"comment"];
             
-            movieinfo.startDate = [details objectForKey:@"startDate"];
+        movieinfo.startDate = [details objectForKey:@"startDate"];
             
-            NSMutableDictionary* hasSchedule = [details objectForKey:@"hasSchedule"];
-            if(hasSchedule)
-            {
-                movieinfo.hasSchedule = hasSchedule;
-            }
+        NSMutableDictionary* hasSchedule = [details objectForKey:@"hasSchedule"];
+        if(hasSchedule)
+        {
+            movieinfo.hasSchedule = hasSchedule;
+        }
             
-            [_controller.movie_info_array addObject:movieinfo];
+        [_controller.movie_info_array addObject:movieinfo];
             
     }
     

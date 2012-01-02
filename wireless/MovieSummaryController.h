@@ -44,8 +44,9 @@
     
     MovieSummaryController * _controller;
 }
+//@property(nonatomic, retain) MovieSummaryController *controller;
 
-- (id)initWithController:(id *)controller;
+- (id)initWithController:(MovieSummaryController *)controller;
 
 
 @end
