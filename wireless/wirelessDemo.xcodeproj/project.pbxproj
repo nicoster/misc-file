@@ -51,6 +51,11 @@
 		70B5D33A14B15A4D00E95DC3 /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
 		70B5D33B14B15A4D00E95DC3 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
 		70B5D33C14B15A4D00E95DC3 /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D714B1528E00E95DC3 /* cupertino.PNG */; };
+		70FF2D6A14B16630005CF65E /* Temp.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D6914B16630005CF65E /* Temp.xib */; };
+		70FF2D7114B18DA0005CF65E /* WeatherDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */; };
+		70FF2D7214B18DA0005CF65E /* WeatherDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */; };
+		70FF2DAF14B19C8D005CF65E /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2DAE14B19C8D005CF65E /* WeatherCell.m */; };
+		70FF2DB114B19D08005CF65E /* WeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2DB014B19D08005CF65E /* WeatherCell.xib */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -289,6 +294,13 @@
 		70B5D30D14B15A3E00E95DC3 /* dependencies.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = dependencies.plist; path = /workspace/wireless/dependencies.plist; sourceTree = "<absolute>"; };
 		70B5D34014B15A4D00E95DC3 /* wirelessDemo copy copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wirelessDemo copy copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B5D34214B15A4E00E95DC3 /* wireless.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = wireless.plist; path = /workspace/wireless/wireless.plist; sourceTree = "<absolute>"; };
+		70FF2D6914B16630005CF65E /* Temp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Temp.xib; sourceTree = "<group>"; };
+		70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDetailsController.h; sourceTree = SOURCE_ROOT; };
+		70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDetailsController.m; sourceTree = SOURCE_ROOT; };
+		70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherDetailsController.xib; sourceTree = SOURCE_ROOT; };
+		70FF2DAD14B19C8D005CF65E /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCell.h; sourceTree = SOURCE_ROOT; };
+		70FF2DAE14B19C8D005CF65E /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCell.m; sourceTree = SOURCE_ROOT; };
+		70FF2DB014B19D08005CF65E /* WeatherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeatherCell.xib; path = wirelessDemo/WeatherCell.xib; sourceTree = "<group>"; };
 		9206284B147642540060928E /* wirelessDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wirelessDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9206284F147642540060928E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		92062851147642540060928E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -426,6 +438,11 @@
 				70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */,
 				70B5D2D214B14E7800E95DC3 /* WeatherViewController.h */,
 				70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */,
+				70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */,
+				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
+				70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */,
+				70FF2DAD14B19C8D005CF65E /* WeatherCell.h */,
+				70FF2DAE14B19C8D005CF65E /* WeatherCell.m */,
 			);
 			name = Weather;
 			sourceTree = "<group>";
@@ -526,7 +543,9 @@
 				920628991476466D0060928E /* Icon.png */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
+				70FF2DB014B19D08005CF65E /* WeatherCell.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
+				70FF2D6914B16630005CF65E /* Temp.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -800,6 +819,9 @@
 				70B5D2CC14B13B8800E95DC3 /* WeatherSummaryController.xib in Resources */,
 				70B5D2D614B14E7900E95DC3 /* WeatherViewController.xib in Resources */,
 				70B5D2D814B1528E00E95DC3 /* cupertino.PNG in Resources */,
+				70FF2D6A14B16630005CF65E /* Temp.xib in Resources */,
+				70FF2D7214B18DA0005CF65E /* WeatherDetailsController.xib in Resources */,
+				70FF2DB114B19D08005CF65E /* WeatherCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -837,6 +859,8 @@
 				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
 				70B5D2D014B13E7100E95DC3 /* WeatherSummaryController.m in Sources */,
 				70B5D2D514B14E7900E95DC3 /* WeatherViewController.m in Sources */,
+				70FF2D7114B18DA0005CF65E /* WeatherDetailsController.m in Sources */,
+				70FF2DAF14B19C8D005CF65E /* WeatherCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

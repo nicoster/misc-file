@@ -37,35 +37,40 @@
     [super viewDidLoad];
     self.scrollView.delegate = self;
     
-    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
-    for (int i = 0; i < colors.count; i++) {
+//    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
+//    for (int i = 0; i < colors.count; i++) {
+//        CGRect frame;
+//        frame.origin.x = self.scrollView.frame.size.width * i;
+//        frame.origin.y = 0;
+//        frame.size = self.scrollView.frame.size;
+//        
+//        CGRect frame2 = {0, 0, 0, 0};
+//        
+//        UIView *subview = [[UIView alloc] initWithFrame:frame2];
+//                           subview.frame = frame;
+//        subview.backgroundColor = [colors objectAtIndex:i];
+//        [self.scrollView addSubview:subview];
+//        [subview release];
+//    }
+//    
+//    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
+    
+    
+    int i = 0;
+    for (; i < 3; i ++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
         frame.origin.y = 0;
         frame.size = self.scrollView.frame.size;
         
-        UIView *subview = [[UIView alloc] initWithFrame:frame];
-        subview.backgroundColor = [colors objectAtIndex:i];
+        WeatherViewController* weather = [[[WeatherViewController alloc] initWithNibName: nil bundle: nil] autorelease];
+        [self.weathers addObject: weather];
+        UIView *subview = [weather view];
+        subview.frame = frame;
         [self.scrollView addSubview:subview];
-        [subview release];
     }
     
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
-    
-    
-//    int i = 1;
-//    CGRect frame;
-//    frame.origin.x = self.scrollView.frame.size.width * i;
-//    frame.origin.y = 0;
-//    frame.size = self.scrollView.frame.size;
-//    
-//    WeatherViewController* weather = [[[WeatherViewController alloc] init] autorelease];
-//    [self.weathers addObject: weather];
-//    UIView *subview = [weather view];
-//    subview.frame = frame;
-//    [self.scrollView addSubview:subview];
-//    
-//    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * i, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * i, self.scrollView.frame.size.height);
 }
 
 - (void)viewDidUnload

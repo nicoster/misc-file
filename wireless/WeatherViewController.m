@@ -7,8 +7,11 @@
 //
 
 #import "WeatherViewController.h"
+#import "WeatherDetailsController.h"
 
 @implementation WeatherViewController
+
+@synthesize weatherDetailsController = myWeatherDetailsController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +36,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.weatherDetailsController = [[WeatherDetailsController alloc] initWithNibName: nil bundle: nil];
+    [self.view addSubview:self.weatherDetailsController.view];
 }
 
 - (void)viewDidUnload
@@ -40,6 +46,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.weatherDetailsController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
