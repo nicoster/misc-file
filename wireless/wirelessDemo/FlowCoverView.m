@@ -355,13 +355,19 @@ static void *GData = NULL;
 {
 	NSNumber *num = [NSNumber numberWithInt:index];
 	FlowCoverRecord *fcr = [cache objectForKey:num];
-	if (fcr == nil) {
+    
+    FlowCoverRecord *fcrTemp;
+    GLuint texture = [self imageToTexture:[self tileImage:index]];
+    fcrTemp = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
+
+	if (fcr == nil || fcr != fcrTemp) {
 		/*
 		 *	Object at index doesn't exist. Create a new texture
 		 */
+        fcr = fcrTemp;
 		
-		GLuint texture = [self imageToTexture:[self tileImage:index]];
-		fcr = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
+//		GLuint texture = [self imageToTexture:[self tileImage:index]];
+//		fcr = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
 		[cache setObject:fcr forKey:num];
 	}
 	
