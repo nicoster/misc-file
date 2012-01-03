@@ -47,6 +47,11 @@
 //@property(nonatomic, retain) MovieSummaryController *controller;
 
 - (id)initWithController:(MovieSummaryController *)controller;
+@end
 
+@interface ImageDelegate: NSObject<TTURLRequestDelegate>{
+    MovieSummaryController * _controller;
+}
 
+- (id)initWithController:(MovieSummaryController *)controller;
 @end

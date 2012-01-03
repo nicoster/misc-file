@@ -12,7 +12,8 @@
 #import "MovieInfo.h"
 
 
-static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=4e799458ecc65cca11ff88bd2ecedca3&cmd=13&city=320500";
+static        NSString* movieinfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=4e799458ecc65cca11ff88bd2ecedca3&cmd=13&city=320500";
+static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=88755a311e935512a5c0f57fc7119406&cmd=14&city=320500";
 
 
 
@@ -76,7 +77,11 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    TTURLRequest* request = [TTURLRequest requestWithURL:kRequestURLPath delegate:[[MovieInfoDelegate alloc] initWithController:self]];
+//  [[TTURLCache sharedCache] removeAll:YES];
+    MovieInfoDelegate *movieinfodelegate = [[MovieInfoDelegate alloc] initWithController:self];
+    
+
+    TTURLRequest* request = [TTURLRequest requestWithURL:movieinfoRequestURLPath delegate:movieinfodelegate];
     
 //    TTURLRequest* request = [TTURLRequest requestWithURL: kRequestURLPath delegate: self];
     
@@ -90,8 +95,9 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 //    {
 //        int a = 0;
 //    }
-    
-    [request send];
+
+    BOOL b = [request send];
+    NSLog(@"abcde:%d",b);
 }
 
 - (void)viewDidUnload
@@ -152,22 +158,13 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 
 - (UIImage *)flowCover:(FlowCoverView *)view cover:(int)image
 {
+    MovieInfo *pInfo = [self.movie_info_array objectAtIndex:image];
+    if( pInfo.tempBitmap != nil)
+    {
+        return pInfo.tempBitmap;
+    }
+    
     return [UIImage imageNamed:@"default_movie_post.png"];
-	switch (image % 6) {
-		case 0:
-		default:
-			return [UIImage imageNamed:@"cover_1.jpg"];
-		case 1:
-			return [UIImage imageNamed:@"cover_2.jpg"];
-		case 2:
-			return [UIImage imageNamed:@"cover_3.jpg"];
-		case 3:
-			return [UIImage imageNamed:@"cover_4.jpg"];
-		case 4:
-			return [UIImage imageNamed:@"cover_5.jpg"];
-		case 5:
-			return [UIImage imageNamed:@"cover_6.jpg"];
-	}
 }
 
 - (void)flowCover:(FlowCoverView *)view didSelect:(int)image
@@ -190,9 +187,8 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
 @implementation MovieInfoDelegate
 
 
-
-
 - (id)initWithController:(MovieSummaryController *)controller {
+    [super init];
     if (self) {
         _controller = (MovieSummaryController*)controller;
     }
@@ -222,14 +218,15 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
     NSArray *entries = JsonResponse.rootObject;
     NSLog(@"%d", [entries count]);
 
+    ImageDelegate *imgdelegate = [[ImageDelegate alloc] initWithController:_controller];
     
     for (NSDictionary* entry in entries) {
         NSDictionary *details = [entry objectForKey:@"MovieInfo"];
-        //NSLog(@"entry:%@",entry);
+        //NSLog(@"entry: %@",entry);
         
         MovieInfo * movieinfo = [[[MovieInfo alloc] init]autorelease];
         movieinfo.name = [details objectForKey:@"movieName"];
-        NSLog(@"%@", movieinfo.name);
+        //NSLog(@"moviename: %@", movieinfo.name);
         
         
         movieinfo.name_en = [details objectForKey:@"movieNameEn"];
@@ -243,6 +240,18 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
         movieinfo.score =[NSNumber numberWithInt:[[details objectForKey:@"score"] integerValue]];
             
         movieinfo.server_image_url = [details objectForKey:@"imageUrl"];
+//        NSLog(@"serverurl: %@",movieinfo.server_image_url);
+        
+        // Get Image
+        TTURLRequest* request = [TTURLRequest requestWithURL:movieinfo.server_image_url delegate:imgdelegate];
+        
+        request.cachePolicy = TTURLRequestCachePolicyNoCache;
+        
+        request.response = [[[TTURLImageResponse alloc] init] autorelease];
+        
+        [request send];
+        // end
+        
         movieinfo.comments = [details objectForKey:@"comment"];
             
         movieinfo.startDate = [details objectForKey:@"startDate"];
@@ -261,8 +270,64 @@ static        NSString* kRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz
     
     // update UI
     [_controller UpdateUI];
-    // get img
+    
+    // get cinema info
+    
+}
+@end
+
+
+@implementation ImageDelegate
+
+- (id)initWithController:(MovieSummaryController *)controller {
+//    [super init];
+    if (self) {
+        _controller = (MovieSummaryController*)controller;
+    }
+    
+    return self;
+}
+
+
+#pragma mark -
+#pragma mark TTURLRequestDelegate
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)requestDidStartLoad:(TTURLRequest*)request {
+    //    [_requestButton setTitle:@"Loading..." forState:UIControlStateNormal];
+
+}
+
+- (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {
     
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)requestDidFinishLoad:(TTURLRequest*)request 
+{
+//    return;
+    TTURLImageResponse* imageResponse = (TTURLImageResponse*)request.response;
+    NSString * strRequestURL = request.urlPath; 
+    
+    for (NSUInteger i = 0; i<[_controller.movie_info_array count]; i++) 
+    {
+        MovieInfo *p = [_controller.movie_info_array objectAtIndex:i];
+        
+        if([p.server_image_url compare:strRequestURL] == NSOrderedSame)
+        {
+            NSLog(@"array idx:%d, url:%@",i, strRequestURL);
+            
+            p.tempBitmap = imageResponse.image;
+            break;
+        }
+        else
+        {
+            NSLog(@"reqURL:%@  sev_URL:%@  Idx:%d", strRequestURL, p.server_image_url,i);
+        }
+        
+    }
+ 
+    [_controller UpdateUI];
+}
 @end
