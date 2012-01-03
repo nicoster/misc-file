@@ -255,7 +255,7 @@
 		70FF2DAD14B19C8D005CF65E /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCell.h; sourceTree = SOURCE_ROOT; };
 		70FF2DAE14B19C8D005CF65E /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCell.m; sourceTree = SOURCE_ROOT; };
 		70FF2DB014B19D08005CF65E /* WeatherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeatherCell.xib; path = wirelessDemo/WeatherCell.xib; sourceTree = "<group>"; };
-		9206284B147642540060928E /* wirelessDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wirelessDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9206284B147642540060928E /* wireless.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = wireless.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9206284F147642540060928E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		92062851147642540060928E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		92062853147642540060928E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -401,7 +401,7 @@
 		9206284C147642540060928E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9206284B147642540060928E /* wirelessDemo.app */,
+				9206284B147642540060928E /* wireless.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -482,10 +482,10 @@
 				705D9EC014B204600023732D /* cupertino.PNG */,
 				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
-				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
 				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
+				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70FF2DB014B19D08005CF65E /* WeatherCell.xib */,
 				70FF2D6914B16630005CF65E /* Temp.xib */,
 			);
@@ -535,9 +535,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9206284A147642540060928E /* wirelessDemo */ = {
+		9206284A147642540060928E /* wireless */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92062871147642540060928E /* Build configuration list for PBXNativeTarget "wirelessDemo" */;
+			buildConfigurationList = 92062871147642540060928E /* Build configuration list for PBXNativeTarget "wireless" */;
 			buildPhases = (
 				92062849147642540060928E /* Resources */,
 				92062847147642540060928E /* Sources */,
@@ -555,9 +555,9 @@
 				320A5A189C235877202780D1 /* PBXTargetDependency */,
 				320CC833B8AF0ACFD35E6221 /* PBXTargetDependency */,
 			);
-			name = wirelessDemo;
+			name = wireless;
 			productName = wirelessDemo;
-			productReference = 9206284B147642540060928E /* wirelessDemo.app */;
+			productReference = 9206284B147642540060928E /* wireless.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -614,7 +614,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				9206284A147642540060928E /* wirelessDemo */,
+				9206284A147642540060928E /* wireless */,
 			);
 		};
 /* End PBXProject section */
@@ -846,6 +846,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cisco Systems, Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -867,6 +868,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "D19B34B0-3C12-4CDD-A773-502E1D00983A";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -877,6 +879,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cisco Systems, Inc.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -892,6 +895,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
+				PROVISIONING_PROFILE = "D19B34B0-3C12-4CDD-A773-502E1D00983A";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -901,6 +905,7 @@
 		92062872147642540060928E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: tom tang (C58CHYLG5E)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -909,7 +914,8 @@
 					../three20/Build/Products/three20,
 				);
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = wireless;
+				PROVISIONING_PROFILE = "F3862690-7112-4C1F-B31D-320BEB135C27";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -917,10 +923,12 @@
 		92062873147642540060928E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: tom tang (C58CHYLG5E)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = wireless;
+				PROVISIONING_PROFILE = "F3862690-7112-4C1F-B31D-320BEB135C27";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -937,7 +945,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92062871147642540060928E /* Build configuration list for PBXNativeTarget "wirelessDemo" */ = {
+		92062871147642540060928E /* Build configuration list for PBXNativeTarget "wireless" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92062872147642540060928E /* Debug */,
