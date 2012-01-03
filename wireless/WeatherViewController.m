@@ -12,6 +12,7 @@
 @implementation WeatherViewController
 
 @synthesize weatherDetailsController = myWeatherDetailsController;
+@synthesize city = myCity, currentTemp = myCurrentTemp, weatherIcon = myWeatherIcon;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +38,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    int current = arc4random() % 20;
+    self.currentTemp.text = [NSString stringWithFormat: @"%d", current];
+   
     self.weatherDetailsController = [[WeatherDetailsController alloc] initWithNibName: nil bundle: nil];
     [self.view addSubview:self.weatherDetailsController.view];
 }

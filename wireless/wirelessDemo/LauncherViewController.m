@@ -19,12 +19,12 @@
 	[super loadView];
 	
 	launcherView = [[TTLauncherView alloc] initWithFrame:self.view.bounds];
-	launcherView.backgroundColor = [UIColor blackColor];
-	launcherView.columnCount = 4;
+	launcherView.backgroundColor = [UIColor whiteColor];
+	launcherView.columnCount = 3;
 	launcherView.pages = [NSArray arrayWithObjects:
 						   [NSArray arrayWithObjects:
-							[self launcherItemWithTitle:@"天气" image:@"bundle://Icon.png" URL:@"tt://nib/WeatherSummaryController"],
-							[self launcherItemWithTitle:@"影讯" image:@"bundle://Icon.png" URL:@"tt://nib/MovieSummaryController"]
+							[self launcherItemWithTitle:@"天气" image:@"bundle://weather.png" URL:@"tt://nib/WeatherSummaryController"],
+							[self launcherItemWithTitle:@"影讯" image:@"bundle://movies.png" URL:@"tt://nib/MovieSummaryController"]
 							, nil]
 						  , nil];
 	launcherView.delegate = self;
@@ -35,11 +35,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	self.title = @"My Launcher View";
+	self.title = @"无线苏州";
 	
-	UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:launcherView action:@selector(beginEditing)];
-	self.navigationItem.rightBarButtonItem = editButton;
-	[editButton release];
+//	UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:launcherView action:@selector(beginEditing)];
+//	self.navigationItem.rightBarButtonItem = editButton;
+//	[editButton release];
 }
 
 - (void)viewDidUnload {

@@ -35,6 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.navigationController.title = @"天气预报";
+    
     self.scrollView.delegate = self;
     
 //    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
@@ -55,6 +58,7 @@
 //    
 //    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
     
+    NSString* cities[] = {@"Suzhou", @"Shanghai", @"Beijing"};
     
     int i = 0;
     for (; i < 3; i ++) {
@@ -66,6 +70,7 @@
         WeatherViewController* weather = [[[WeatherViewController alloc] initWithNibName: nil bundle: nil] autorelease];
         [self.weathers addObject: weather];
         UIView *subview = [weather view];
+        weather.city.text = cities[i];
         subview.frame = frame;
         [self.scrollView addSubview:subview];
     }

@@ -9,5 +9,9 @@
 
 
 @interface WeatherDetailsController : UITableViewController
+{
+}
+
+- (NSString *)getDayOfTheWeek:(NSDate *)date;
 
 @end

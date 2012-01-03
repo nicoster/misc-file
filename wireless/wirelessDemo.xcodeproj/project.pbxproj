@@ -26,35 +26,8 @@
 		705D9EC714B20A510023732D /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */; };
 		705D9EC814B20A510023732D /* WeatherDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */; };
 		705D9EC914B20A510023732D /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2DAE14B19C8D005CF65E /* WeatherCell.m */; };
-		70B5D31E14B15A4D00E95DC3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285B147642540060928E /* main.m */; };
-		70B5D31F14B15A4D00E95DC3 /* wirelessDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206285F147642540060928E /* wirelessDemoAppDelegate.m */; };
-		70B5D32014B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 92062863147642540060928E /* wirelessDemoAppDelegate_iPhone.m */; };
-		70B5D32114B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206286A147642540060928E /* wirelessDemoAppDelegate_iPad.m */; };
-		70B5D32214B15A4D00E95DC3 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
-		70B5D32314B15A4D00E95DC3 /* MovieSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423814A3283B0021C4CD /* MovieSummaryController.m */; };
-		70B5D32414B15A4D00E95DC3 /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423E14A32DAE0021C4CD /* DataCache.m */; };
-		70B5D32514B15A4D00E95DC3 /* FlowCoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B424014A32DAE0021C4CD /* FlowCoverView.m */; };
-		70B5D32614B15A4D00E95DC3 /* WeatherSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */; };
-		70B5D32714B15A4D00E95DC3 /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */; };
-		70B5D32914B15A4D00E95DC3 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921B424314A32E640021C4CD /* OpenGLES.framework */; };
-		70B5D32A14B15A4D00E95DC3 /* libThree20UICommon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3201088596B4756681693704 /* libThree20UICommon.a */; };
-		70B5D32B14B15A4D00E95DC3 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
-		70B5D32C14B15A4D00E95DC3 /* libThree20UINavigator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A737074758E53BA54BE94 /* libThree20UINavigator.a */; };
-		70B5D32D14B15A4D00E95DC3 /* libThree20Core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A2827FEC940B25BC42C64 /* libThree20Core.a */; };
-		70B5D32E14B15A4D00E95DC3 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		70B5D32F14B15A4D00E95DC3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 320AF8492C47A4D819F7C450 /* QuartzCore.framework */; };
-		70B5D33014B15A4D00E95DC3 /* libThree20Network.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320A5A189C235877202780D4 /* libThree20Network.a */; };
-		70B5D33114B15A4D00E95DC3 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
-		70B5D33214B15A4D00E95DC3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
-		70B5D33314B15A4D00E95DC3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
-		70B5D33414B15A4D00E95DC3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
-		70B5D33614B15A4D00E95DC3 /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 320B6C86F11D9990244A9730 /* Three20.bundle */; };
-		70B5D33714B15A4D00E95DC3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 92062858147642540060928E /* InfoPlist.strings */; };
-		70B5D33814B15A4D00E95DC3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 920628991476466D0060928E /* Icon.png */; };
-		70B5D33914B15A4D00E95DC3 /* MovieSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 921B423914A3283B0021C4CD /* MovieSummaryController.xib */; };
-		70B5D33A14B15A4D00E95DC3 /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
-		70B5D33B14B15A4D00E95DC3 /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
-		70B5D33C14B15A4D00E95DC3 /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D714B1528E00E95DC3 /* cupertino.PNG */; };
+		705D9ECB14B2F8F20023732D /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = 705D9ECA14B2F8F20023732D /* movies.png */; };
+		705D9ECD14B2F8FB0023732D /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 705D9ECC14B2F8FA0023732D /* weather.png */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -265,16 +238,15 @@
 		703E9A64147B386400489DB1 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		703E9A65147B386400489DB1 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		705D9EC014B204600023732D /* cupertino.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cupertino.PNG; sourceTree = "<group>"; };
+		705D9ECA14B2F8F20023732D /* movies.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movies.png; sourceTree = "<group>"; };
+		705D9ECC14B2F8FA0023732D /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather.png; sourceTree = "<group>"; };
 		70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherSummaryController.xib; sourceTree = "<group>"; };
 		70B5D2CD14B13E7100E95DC3 /* WeatherSummaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherSummaryController.h; sourceTree = SOURCE_ROOT; };
 		70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherSummaryController.m; sourceTree = SOURCE_ROOT; };
 		70B5D2D214B14E7800E95DC3 /* WeatherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherViewController.h; sourceTree = SOURCE_ROOT; };
 		70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherViewController.m; sourceTree = SOURCE_ROOT; };
 		70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherViewController.xib; sourceTree = SOURCE_ROOT; };
-		70B5D2D714B1528E00E95DC3 /* cupertino.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cupertino.PNG; sourceTree = "<group>"; };
-		70B5D30B14B15A3C00E95DC3 /* wirelessDemo copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wirelessDemo copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B5D30D14B15A3E00E95DC3 /* dependencies.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = dependencies.plist; path = /workspace/wireless/dependencies.plist; sourceTree = "<absolute>"; };
-		70B5D34014B15A4D00E95DC3 /* wirelessDemo copy copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "wirelessDemo copy copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70B5D34214B15A4E00E95DC3 /* wireless.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = wireless.plist; path = /workspace/wireless/wireless.plist; sourceTree = "<absolute>"; };
 		70FF2D6914B16630005CF65E /* Temp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Temp.xib; sourceTree = "<group>"; };
 		70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDetailsController.h; sourceTree = SOURCE_ROOT; };
@@ -313,25 +285,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		70B5D32814B15A4D00E95DC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				70B5D32914B15A4D00E95DC3 /* OpenGLES.framework in Frameworks */,
-				70B5D32A14B15A4D00E95DC3 /* libThree20UICommon.a in Frameworks */,
-				70B5D32B14B15A4D00E95DC3 /* libThree20.a in Frameworks */,
-				70B5D32C14B15A4D00E95DC3 /* libThree20UINavigator.a in Frameworks */,
-				70B5D32D14B15A4D00E95DC3 /* libThree20Core.a in Frameworks */,
-				70B5D32E14B15A4D00E95DC3 /* libThree20UI.a in Frameworks */,
-				70B5D32F14B15A4D00E95DC3 /* QuartzCore.framework in Frameworks */,
-				70B5D33014B15A4D00E95DC3 /* libThree20Network.a in Frameworks */,
-				70B5D33114B15A4D00E95DC3 /* libThree20Style.a in Frameworks */,
-				70B5D33214B15A4D00E95DC3 /* UIKit.framework in Frameworks */,
-				70B5D33314B15A4D00E95DC3 /* Foundation.framework in Frameworks */,
-				70B5D33414B15A4D00E95DC3 /* CoreGraphics.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92062848147642540060928E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,7 +379,6 @@
 				70B5D2D214B14E7800E95DC3 /* WeatherViewController.h */,
 				70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */,
 				70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */,
-				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
 				70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */,
 				70FF2DAD14B19C8D005CF65E /* WeatherCell.h */,
 				70FF2DAE14B19C8D005CF65E /* WeatherCell.m */,
@@ -450,8 +402,6 @@
 			isa = PBXGroup;
 			children = (
 				9206284B147642540060928E /* wirelessDemo.app */,
-				70B5D30B14B15A3C00E95DC3 /* wirelessDemo copy.app */,
-				70B5D34014B15A4D00E95DC3 /* wirelessDemo copy copy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -527,13 +477,16 @@
 		920628821476464E0060928E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				705D9ECC14B2F8FA0023732D /* weather.png */,
+				705D9ECA14B2F8F20023732D /* movies.png */,
 				705D9EC014B204600023732D /* cupertino.PNG */,
 				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
-				70FF2DB014B19D08005CF65E /* WeatherCell.xib */,
+				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
+				70FF2DB014B19D08005CF65E /* WeatherCell.xib */,
 				70FF2D6914B16630005CF65E /* Temp.xib */,
 			);
 			name = Resources;
@@ -582,37 +535,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		70B5D2D914B15A3C00E95DC3 /* Dependencies */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 70B5D30814B15A3C00E95DC3 /* Build configuration list for PBXNativeTarget "Dependencies" */;
-			buildPhases = (
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Dependencies;
-			productName = wirelessDemo;
-			productReference = 70B5D30B14B15A3C00E95DC3 /* wirelessDemo copy.app */;
-			productType = "com.apple.product-type.application";
-		};
-		70B5D30E14B15A4D00E95DC3 /* wireless */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 70B5D33D14B15A4D00E95DC3 /* Build configuration list for PBXNativeTarget "wireless" */;
-			buildPhases = (
-				70B5D31D14B15A4D00E95DC3 /* Sources */,
-				70B5D32814B15A4D00E95DC3 /* Frameworks */,
-				70B5D33514B15A4D00E95DC3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = wireless;
-			productName = wirelessDemo;
-			productReference = 70B5D34014B15A4D00E95DC3 /* wirelessDemo copy copy.app */;
-			productType = "com.apple.product-type.application";
-		};
 		9206284A147642540060928E /* wirelessDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 92062871147642540060928E /* Build configuration list for PBXNativeTarget "wirelessDemo" */;
@@ -693,8 +615,6 @@
 			projectRoot = "";
 			targets = (
 				9206284A147642540060928E /* wirelessDemo */,
-				70B5D2D914B15A3C00E95DC3 /* Dependencies */,
-				70B5D30E14B15A4D00E95DC3 /* wireless */,
 			);
 		};
 /* End PBXProject section */
@@ -822,20 +742,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
-		70B5D33514B15A4D00E95DC3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				70B5D33614B15A4D00E95DC3 /* Three20.bundle in Resources */,
-				70B5D33714B15A4D00E95DC3 /* InfoPlist.strings in Resources */,
-				70B5D33814B15A4D00E95DC3 /* Icon.png in Resources */,
-				70B5D33914B15A4D00E95DC3 /* MovieSummaryController.xib in Resources */,
-				70B5D33A14B15A4D00E95DC3 /* WeatherSummaryController.xib in Resources */,
-				70B5D33B14B15A4D00E95DC3 /* WeatherViewController.xib in Resources */,
-				70B5D33C14B15A4D00E95DC3 /* cupertino.PNG in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92062849147642540060928E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -850,29 +756,14 @@
 				921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */,
 				92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */,
 				705D9EC114B204600023732D /* cupertino.PNG in Resources */,
+				705D9ECB14B2F8F20023732D /* movies.png in Resources */,
+				705D9ECD14B2F8FB0023732D /* weather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		70B5D31D14B15A4D00E95DC3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				70B5D31E14B15A4D00E95DC3 /* main.m in Sources */,
-				70B5D31F14B15A4D00E95DC3 /* wirelessDemoAppDelegate.m in Sources */,
-				70B5D32014B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPhone.m in Sources */,
-				70B5D32114B15A4D00E95DC3 /* wirelessDemoAppDelegate_iPad.m in Sources */,
-				70B5D32214B15A4D00E95DC3 /* LauncherViewController.m in Sources */,
-				70B5D32314B15A4D00E95DC3 /* MovieSummaryController.m in Sources */,
-				70B5D32414B15A4D00E95DC3 /* DataCache.m in Sources */,
-				70B5D32514B15A4D00E95DC3 /* FlowCoverView.m in Sources */,
-				70B5D32614B15A4D00E95DC3 /* WeatherSummaryController.m in Sources */,
-				70B5D32714B15A4D00E95DC3 /* WeatherViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		92062847147642540060928E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -950,50 +841,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		70B5D30914B15A3C00E95DC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
-				INFOPLIST_FILE = "wirelessDemo copy-Info.plist";
-				PRODUCT_NAME = "wirelessDemo copy";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		70B5D30A14B15A3C00E95DC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
-				INFOPLIST_FILE = "wirelessDemo copy-Info.plist";
-				PRODUCT_NAME = "wirelessDemo copy";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		70B5D33E14B15A4D00E95DC3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
-				INFOPLIST_FILE = "wirelessDemo copy copy-Info.plist";
-				PRODUCT_NAME = "wirelessDemo copy copy";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		70B5D33F14B15A4D00E95DC3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
-				INFOPLIST_FILE = "wirelessDemo copy copy-Info.plist";
-				PRODUCT_NAME = "wirelessDemo copy copy";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 		9206286F147642540060928E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1081,24 +928,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		70B5D30814B15A3C00E95DC3 /* Build configuration list for PBXNativeTarget "Dependencies" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				70B5D30914B15A3C00E95DC3 /* Debug */,
-				70B5D30A14B15A3C00E95DC3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		70B5D33D14B15A4D00E95DC3 /* Build configuration list for PBXNativeTarget "wireless" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				70B5D33E14B15A4D00E95DC3 /* Debug */,
-				70B5D33F14B15A4D00E95DC3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		92062845147642540060928E /* Build configuration list for PBXProject "wirelessDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
