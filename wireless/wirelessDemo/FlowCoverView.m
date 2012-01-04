@@ -46,7 +46,7 @@ woody@chaosinmotion.com. Chaos In Motion is at http://www.chaosinmotion.com
 /*																		*/
 /************************************************************************/
 
-#define TEXTURESIZE			256		// width and height of texture; power of 2, 256 max
+#define TEXTURESIZE			256	// width and height of texture; power of 2, 256 max
 #define MAXTILES			48		// maximum allocated 256x256 tiles in cache
 #define VISTILES			6		// # tiles left and right of center tile visible on screen
 
@@ -335,6 +335,7 @@ static void *GData = NULL;
 	r.origin.x = (256 - size.width)/2;
 	r.origin.y = (256 - size.height)/2;
 	r.size = size;
+
 	[image drawInRect:r];
 	
 	/*
@@ -427,7 +428,7 @@ static void *GData = NULL;
 	}
 	m[3] = -f;
 	m[0] = 1-fabs(f);
-	double sc = 0.45 * (1 - fabs(f));
+	double sc = 0.6 * (1 - fabs(f));
 	trans += f * 1;
 	
 	glPushMatrix();
