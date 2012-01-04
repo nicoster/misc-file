@@ -87,6 +87,17 @@ woody@chaosinmotion.com. Chaos In Motion is at http://www.chaosinmotion.com
 
 @end
 
+@interface ImageData:  NSObject
+{
+    UIImage * _ImageTexture;
+    BOOL _bIsDefault;
+}
+
+@property(nonatomic,retain) UIImage *ImageTexture;
+@property(nonatomic) BOOL bIsDefault;
+
+@end
+
 /*	FlowCoverViewDelegate
  *
  *		Provides the interface for the delegate used by my flow cover. This
@@ -96,7 +107,9 @@ woody@chaosinmotion.com. Chaos In Motion is at http://www.chaosinmotion.com
 
 @protocol FlowCoverViewDelegate
 - (int)flowCoverNumberImages:(FlowCoverView *)view;
-- (UIImage *)flowCover:(FlowCoverView *)view cover:(int)cover;
+- (ImageData *)flowCover:(FlowCoverView *)view cover:(int)cover;
 - (void)flowCover:(FlowCoverView *)view didSelect:(int)cover;
 - (void)coverAtIndexWasBroughtToFront:(int )nIndex;
 @end
+
+

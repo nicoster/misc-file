@@ -156,15 +156,23 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     return [self.movie_info_array count];
 }
 
-- (UIImage *)flowCover:(FlowCoverView *)view cover:(int)image
+- (ImageData *)flowCover:(FlowCoverView *)view cover:(int)image
 {
     MovieInfo *pInfo = [self.movie_info_array objectAtIndex:image];
+    
+    ImageData * p = [[ImageData alloc]autorelease];
+    
     if( pInfo.tempBitmap != nil)
     {
-        return pInfo.tempBitmap;
+        p.ImageTexture = pInfo.tempBitmap;
+        p.bIsDefault = NO;
+        return p;
     }
     
-    return [UIImage imageNamed:@"default_movie_post.png"];
+    p.ImageTexture = [UIImage imageNamed:@"default_movie_post.png"];
+    p.bIsDefault = YES;
+    
+    return p;
 }
 
 - (void)flowCover:(FlowCoverView *)view didSelect:(int)image

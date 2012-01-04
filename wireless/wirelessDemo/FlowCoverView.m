@@ -95,13 +95,16 @@ const GLshort GTextures[] = {
 @interface FlowCoverRecord : NSObject
 {
 	GLuint	texture;
+    BOOL _bIsDefault;
 }
 @property GLuint texture;
+@property BOOL bIsDefault;
 - (id)initWithTexture:(GLuint)t;
 @end
 
 @implementation FlowCoverRecord
 @synthesize texture;
+@synthesize bIsDefault = _bIsDefault;
 
 - (id)initWithTexture:(GLuint)t
 {
@@ -118,6 +121,13 @@ const GLshort GTextures[] = {
 	}
 	[super dealloc];
 }
+@end
+
+@implementation ImageData
+
+@synthesize ImageTexture = _ImageTexture;
+@synthesize bIsDefault = _bIsDefault;
+
 
 @end
 
@@ -260,7 +270,7 @@ const GLshort GTextures[] = {
 	}
 }
 
-- (UIImage *)tileImage:(int)image
+- (ImageData *)tileImage:(int)image
 {
 	if (delegate) {
 		return [delegate flowCover:self cover:image];
@@ -357,10 +367,12 @@ static void *GData = NULL;
 	FlowCoverRecord *fcr = [cache objectForKey:num];
     
     FlowCoverRecord *fcrTemp;
-    GLuint texture = [self imageToTexture:[self tileImage:index]];
+    ImageData * p = [self tileImage:index];
+    GLuint texture = [self imageToTexture:p.ImageTexture];
     fcrTemp = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
+    fcrTemp.bIsDefault = p.bIsDefault;
 
-	if (fcr == nil || fcr != fcrTemp) {
+	if (fcr == nil ) {
 		/*
 		 *	Object at index doesn't exist. Create a new texture
 		 */
@@ -370,6 +382,15 @@ static void *GData = NULL;
 //		fcr = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
 		[cache setObject:fcr forKey:num];
 	}
+    else
+    {
+        if(!fcrTemp.bIsDefault && fcr.bIsDefault)
+        {
+            fcr = fcrTemp;
+            [cache setObject:fcr forKey:num];
+        }
+        
+    }
 	
 	return fcr;
 }
