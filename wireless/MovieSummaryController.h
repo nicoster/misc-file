@@ -10,6 +10,17 @@
 #import "FlowCoverView.h"
 #import <Three20/Three20.h>
 
+@interface DataStore : NSObject {
+@private
+    NSMutableArray * _movie_info_array;
+    NSMutableArray * _cinema_info_array;
+}
+@property (nonatomic, retain) NSMutableArray* movie_info_array;
+@property (nonatomic, retain) NSMutableArray* cinema_info_array;
++(DataStore *) SharedDataStore;
+
+@end
+
 @interface MovieSummaryController : UIViewController<FlowCoverViewDelegate>{
 
     FlowCoverView * _flow;
@@ -21,11 +32,13 @@
     UILabel * _movie_duration;
     UILabel * _movie_startDate;
     
-    NSMutableArray * _movie_info_array;
+//    NSMutableArray * _movie_info_array;
+//    NSMutableArray * _cinema_info_array;
     int _currentIdx;
 }
 
-@property (nonatomic, retain) NSMutableArray* movie_info_array;
+//@property (nonatomic, retain) NSMutableArray* movie_info_array;
+//@property (nonatomic, retain) NSMutableArray* cinema_info_array;
 @property (nonatomic) int currentIdx;
 
 @property(nonatomic,retain) IBOutlet FlowCoverView* flow;
@@ -37,6 +50,8 @@
 @property(nonatomic,retain) IBOutlet UILabel * movie_duration;
 @property(nonatomic,retain) IBOutlet UILabel * movie_startDate;
 - (void) UpdateUI;
+
+- (IBAction)viewCinema;
 
 @end
 
@@ -54,4 +69,10 @@
 }
 
 - (id)initWithController:(MovieSummaryController *)controller;
+@end
+
+@interface CinemaInfoDelegate : NSObject<TTURLRequestDelegate> {
+    MovieSummaryController * _controller;
+}
+-(id)initWithController:(MovieSummaryController *)controller;
 @end

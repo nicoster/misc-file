@@ -10,12 +10,30 @@
 #import <extThree20JSON/extThree20JSON.h>
 #import <CommonCrypto/CommonDigest.h>
 #import "MovieInfo.h"
+#import "CinemaInfo.h"
 
 
 static        NSString* movieinfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=4e799458ecc65cca11ff88bd2ecedca3&cmd=13&city=320500";
 static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=88755a311e935512a5c0f57fc7119406&cmd=14&city=320500";
 
+@implementation DataStore
 
+@synthesize movie_info_array = _movie_info_array;
+@synthesize cinema_info_array = _cinema_info_array;
+
++(DataStore *) SharedDataStore
+{
+    static DataStore * p = nil;
+    if(p == nil)
+    {
+        p = [[DataStore alloc]init];
+        p.movie_info_array = [[NSMutableArray array] retain];
+        p.cinema_info_array = [[NSMutableArray array]retain];
+    }
+    return p;
+}
+
+@end
 
 
 @implementation MovieSummaryController
@@ -30,7 +48,9 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 @synthesize movie_startDate = _movie_startDate;
 
 
-@synthesize movie_info_array          = _movie_info_array;
+//@synthesize movie_info_array          = _movie_info_array;
+//@synthesize cinema_info_array         = _cinema_info_array;
+
 @synthesize currentIdx = _currentIdx;
 
 
@@ -39,7 +59,8 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _movie_info_array = [[NSMutableArray array] retain];
+//        _movie_info_array = [[NSMutableArray array] retain];
+//        _cinema_info_array = [[NSMutableArray array]retain];
     }
     return self;
 }
@@ -75,10 +96,11 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"全部影片";
     // Do any additional setup after loading the view from its nib.
     
 //  [[TTURLCache sharedCache] removeAll:YES];
-    MovieInfoDelegate *movieinfodelegate = [[MovieInfoDelegate alloc] initWithController:self];
+    MovieInfoDelegate *movieinfodelegate = [(MovieInfoDelegate*)[MovieInfoDelegate alloc] initWithController:self];
     
 
     TTURLRequest* request = [TTURLRequest requestWithURL:movieinfoRequestURLPath delegate:movieinfodelegate];
@@ -116,7 +138,7 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 - (void) UpdateUI
 {
     
-    if([self.movie_info_array count] == 0)
+    if([[DataStore SharedDataStore].movie_info_array count] == 0)
     {
         return;
     }
@@ -126,7 +148,7 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     //[MovieInfoStore sharedMovieInfoStore].CurrentIdx;
     
 
-    MovieInfo *pInfo = [self.movie_info_array objectAtIndex:nIdx];
+    MovieInfo *pInfo = [[DataStore SharedDataStore].movie_info_array objectAtIndex:nIdx];
     
     if(pInfo)
     {
@@ -139,6 +161,11 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         [_movie_startDate setText:[NSString stringWithFormat:@"上映时间 : %@",pInfo.startDate]];        
     }
     
+}
+
+- (IBAction)viewCinema
+{
+    [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"tt://nib/WeatherSummaryController"] applyAnimated:YES]];
 }
 
 
@@ -158,12 +185,12 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 //    {
 //        return [[MovieInfoStore sharedMovieInfoStore].MovieInfo count];
 //    }
-    return [self.movie_info_array count];
+    return [[DataStore SharedDataStore].movie_info_array count];
 }
 
 - (ImageData *)flowCover:(FlowCoverView *)view cover:(int)image
 {
-    MovieInfo *pInfo = [self.movie_info_array objectAtIndex:image];
+    MovieInfo *pInfo = [[DataStore SharedDataStore].movie_info_array objectAtIndex:image];
     
     ImageData * p = [[ImageData alloc]autorelease];
     
@@ -231,7 +258,9 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     NSArray *entries = JsonResponse.rootObject;
     NSLog(@"%d", [entries count]);
 
-    ImageDelegate *imgdelegate = [[ImageDelegate alloc] initWithController:_controller];
+    ImageDelegate *imgdelegate = [(ImageDelegate*)[ImageDelegate alloc] initWithController:_controller];
+    
+
     
     for (NSDictionary* entry in entries) {
         NSDictionary *details = [entry objectForKey:@"MovieInfo"];
@@ -265,12 +294,12 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
             movieinfo.hasSchedule = hasSchedule;
         }
             
-        [_controller.movie_info_array addObject:movieinfo];
+        [[DataStore SharedDataStore].movie_info_array addObject:movieinfo];
         
         // Get Image
         TTURLRequest* request = [TTURLRequest requestWithURL:movieinfo.server_image_url delegate:imgdelegate];
         
-        //request.cachePolicy = TTURLRequestCachePolicyNoCache;
+        request.cachePolicy = TTURLRequestCachePolicyNoCache;
         
         request.response = [[[TTURLImageResponse alloc] init] autorelease];
         
@@ -285,6 +314,16 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     [_controller UpdateUI];
     
     // get cinema info
+    CinemaInfoDelegate *cinemainfodelegate = [(CinemaInfoDelegate *)[CinemaInfoDelegate alloc] initWithController:_controller];
+    
+    TTURLRequest* requestforcinemainfo = [TTURLRequest requestWithURL:cinemainfoRequestURLPath delegate:cinemainfodelegate];
+    
+    requestforcinemainfo.cachePolicy = TTURLRequestCachePolicyNoCache;
+    
+    requestforcinemainfo.response = [[[TTURLJSONResponse alloc] init] autorelease];
+    
+    [requestforcinemainfo send];
+    // end
     
 }
 @end
@@ -323,9 +362,9 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     TTURLImageResponse* imageResponse = (TTURLImageResponse*)request.response;
     NSString * strRequestURL = request.urlPath; 
     
-    for (NSUInteger i = 0; i<[_controller.movie_info_array count]; i++) 
+    for (NSUInteger i = 0; i<[[DataStore SharedDataStore].movie_info_array count]; i++) 
     {
-        MovieInfo *p = [_controller.movie_info_array objectAtIndex:i];
+        MovieInfo *p = [[DataStore SharedDataStore].movie_info_array objectAtIndex:i];
         
         if([p.server_image_url compare:strRequestURL] == NSOrderedSame)
         {
@@ -342,5 +381,73 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     }
  
     [_controller UpdateUI];
+}
+@end
+
+@implementation CinemaInfoDelegate
+
+- (id)initWithController:(MovieSummaryController *)controller {
+    //    [super init];
+    if (self) {
+        _controller = (MovieSummaryController*)controller;
+    }
+    
+    return self;
+}
+
+
+#pragma mark -
+#pragma mark TTURLRequestDelegate
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)requestDidStartLoad:(TTURLRequest*)request {
+    //    [_requestButton setTitle:@"Loading..." forState:UIControlStateNormal];
+    
+}
+
+- (void)request:(TTURLRequest*)request didFailLoadWithError:(NSError*)error {
+    
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (void)requestDidFinishLoad:(TTURLRequest*)request 
+{
+    TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
+    
+    NSArray *entries = JsonResponse.rootObject;
+    NSLog(@"%d", [entries count]);
+    
+    for (NSDictionary* entry in entries) {
+        NSDictionary *details = [entry objectForKey:@"CinamaInfo"];
+        //NSLog(@"entry: %@",entry);
+        
+        CinemaInfo * cinemainfo = [[[CinemaInfo alloc] init]autorelease];
+        cinemainfo.cinemaid = [NSNumber numberWithInt:[[details objectForKey:@"cinemaId"] integerValue]];
+        //NSLog(@"moviename: %@", movieinfo.name);
+        
+        
+        cinemainfo.cinemaname = [details objectForKey:@"cinemaName"];
+        cinemainfo.address = [details objectForKey:@"address"];
+        cinemainfo.city = [details objectForKey:@"city"];
+        cinemainfo.area = [details objectForKey:@"area"];
+        cinemainfo.description = [details objectForKey:@"description"];
+        
+            
+        cinemainfo.imageurl = [details objectForKey:@"imageUrl"];
+        cinemainfo.logourl = [details objectForKey:@"logoUrl"];
+        cinemainfo.busline = [details objectForKey:@"bus"];
+        cinemainfo.telphone = [details objectForKey:@"telphone"];
+        cinemainfo.opentime = [details objectForKey:@"opentime"];
+        cinemainfo.facilities = [details objectForKey:@"facilities"];
+        cinemainfo.restaurant = [details objectForKey:@"restaurant"];
+        cinemainfo.entplace = [details objectForKey:@"entplace"];
+        
+        
+        [[DataStore SharedDataStore].cinema_info_array addObject:cinemainfo];
+    }
+    
+
+
 }
 @end

@@ -45,6 +45,7 @@
 		928A9B1A14ADB9A6004F8817 /* libextThree20JSON+YAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928A9B1514ADB6F1004F8817 /* libextThree20JSON+YAJL.a */; };
 		928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 928A9BA014AEAEEE004F8817 /* MovieInfo.m */; };
 		92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6486414B1C29500C7A786 /* default_movie_post.png */; };
+		92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4DD514B43B6D009126AD /* CinemaInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,6 +283,8 @@
 		928A9B9F14AEAEEE004F8817 /* MovieInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfo.h; sourceTree = "<group>"; };
 		928A9BA014AEAEEE004F8817 /* MovieInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfo.m; sourceTree = "<group>"; };
 		92B6486414B1C29500C7A786 /* default_movie_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_movie_post.png; sourceTree = "<group>"; };
+		92BA4DD414B43B6D009126AD /* CinemaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaInfo.h; sourceTree = "<group>"; };
+		92BA4DD514B43B6D009126AD /* CinemaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -510,6 +513,8 @@
 				921B423814A3283B0021C4CD /* MovieSummaryController.m */,
 				928A9B9F14AEAEEE004F8817 /* MovieInfo.h */,
 				928A9BA014AEAEEE004F8817 /* MovieInfo.m */,
+				92BA4DD414B43B6D009126AD /* CinemaInfo.h */,
+				92BA4DD514B43B6D009126AD /* CinemaInfo.m */,
 			);
 			name = Movie;
 			sourceTree = "<group>";
@@ -781,6 +786,7 @@
 				921B424114A32DAE0021C4CD /* DataCache.m in Sources */,
 				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
 				928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */,
+				92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
