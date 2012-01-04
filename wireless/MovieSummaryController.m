@@ -115,12 +115,17 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 
 - (void) UpdateUI
 {
+    
+    if([self.movie_info_array count] == 0)
+    {
+        return;
+    }
     [_flow draw];
     
     int nIdx = self.currentIdx;
     //[MovieInfoStore sharedMovieInfoStore].CurrentIdx;
     
-    
+
     MovieInfo *pInfo = [self.movie_info_array objectAtIndex:nIdx];
     
     if(pInfo)
@@ -250,16 +255,6 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         movieinfo.server_image_url = [details objectForKey:@"imageUrl"];
 //        NSLog(@"serverurl: %@",movieinfo.server_image_url);
         
-        // Get Image
-        TTURLRequest* request = [TTURLRequest requestWithURL:movieinfo.server_image_url delegate:imgdelegate];
-        
-        request.cachePolicy = TTURLRequestCachePolicyNoCache;
-        
-        request.response = [[[TTURLImageResponse alloc] init] autorelease];
-        
-        [request send];
-        // end
-        
         movieinfo.comments = [details objectForKey:@"comment"];
             
         movieinfo.startDate = [details objectForKey:@"startDate"];
@@ -271,6 +266,16 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         }
             
         [_controller.movie_info_array addObject:movieinfo];
+        
+        // Get Image
+        TTURLRequest* request = [TTURLRequest requestWithURL:movieinfo.server_image_url delegate:imgdelegate];
+        
+        //request.cachePolicy = TTURLRequestCachePolicyNoCache;
+        
+        request.response = [[[TTURLImageResponse alloc] init] autorelease];
+        
+        [request send];
+        // end
             
     }
     

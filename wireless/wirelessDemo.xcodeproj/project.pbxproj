@@ -915,7 +915,7 @@
 				);
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
 				PRODUCT_NAME = wireless;
-				PROVISIONING_PROFILE = "F3862690-7112-4C1F-B31D-320BEB135C27";
+				PROVISIONING_PROFILE = "8701E6C7-7734-4E7F-84E7-C81FCBF43FF1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -928,7 +928,7 @@
 				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
 				PRODUCT_NAME = wireless;
-				PROVISIONING_PROFILE = "F3862690-7112-4C1F-B31D-320BEB135C27";
+				PROVISIONING_PROFILE = "8701E6C7-7734-4E7F-84E7-C81FCBF43FF1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

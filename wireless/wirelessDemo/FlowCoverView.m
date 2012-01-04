@@ -368,14 +368,16 @@ static void *GData = NULL;
     
     FlowCoverRecord *fcrTemp;
     ImageData * p = [self tileImage:index];
-    GLuint texture = [self imageToTexture:p.ImageTexture];
-    fcrTemp = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
-    fcrTemp.bIsDefault = p.bIsDefault;
 
 	if (fcr == nil ) {
 		/*
 		 *	Object at index doesn't exist. Create a new texture
 		 */
+
+        GLuint texture = [self imageToTexture:p.ImageTexture];
+        fcrTemp = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
+        fcrTemp.bIsDefault = p.bIsDefault;
+        
         fcr = fcrTemp;
 		
 //		GLuint texture = [self imageToTexture:[self tileImage:index]];
@@ -384,8 +386,12 @@ static void *GData = NULL;
 	}
     else
     {
-        if(!fcrTemp.bIsDefault && fcr.bIsDefault)
+        if(!p.bIsDefault && fcr.bIsDefault)
         {
+            GLuint texture = [self imageToTexture:p.ImageTexture];
+            fcrTemp = [[[FlowCoverRecord alloc] initWithTexture:texture] autorelease];
+            fcrTemp.bIsDefault = p.bIsDefault;
+            
             fcr = fcrTemp;
             [cache setObject:fcr forKey:num];
         }
