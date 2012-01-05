@@ -9,6 +9,7 @@
 
 #import "wirelessDemoAppDelegate.h"
 #import "LauncherViewController.h"
+#import "MovieSummaryController.h"
 @implementation wirelessDemoAppDelegate
 
 //@synthesize window = _window;
@@ -23,9 +24,22 @@
     
     
     [map from:@"tt://nib/(loadFromNib:)" toSharedViewController:self];
+    [map from:@"tt://obj/(initwithobj:)" toViewController:self];
+
     
 	[navigator openURLAction:
 		 [TTURLAction actionWithURLPath:@"tt://launcher"]];
+}
+
+
+- (UIViewController*)initwithobj:(NSString *)className query:(NSDictionary *)obj 
+{
+
+    MovieInfo *p = [obj objectForKey:@"movieinfo"];
+
+    UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initwithObj:p];
+    [newController autorelease];
+    return newController;
 }
 
 - (UIViewController*)loadFromNib:(NSString *)nibName withClass:className {

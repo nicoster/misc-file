@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FlowCoverView.h"
 #import <Three20/Three20.h>
+#import "MovieInfo.h"
 
 @interface DataStore : NSObject {
 @private
@@ -20,6 +21,7 @@
 +(DataStore *) SharedDataStore;
 
 @end
+
 
 @interface MovieSummaryController : UIViewController<FlowCoverViewDelegate>{
 
@@ -49,7 +51,9 @@
 @property(nonatomic,retain) IBOutlet UILabel * movie_category;
 @property(nonatomic,retain) IBOutlet UILabel * movie_duration;
 @property(nonatomic,retain) IBOutlet UILabel * movie_startDate;
+
 - (void) UpdateUI;
+- (void) OpenMovieSchedule:(MovieInfo *) pmovieinfo;
 
 - (IBAction)viewCinema;
 

@@ -9,7 +9,7 @@
 #import "MovieSummaryController.h"
 #import <extThree20JSON/extThree20JSON.h>
 #import <CommonCrypto/CommonDigest.h>
-#import "MovieInfo.h"
+
 #import "CinemaInfo.h"
 
 
@@ -48,10 +48,8 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 @synthesize movie_startDate = _movie_startDate;
 
 
-//@synthesize movie_info_array          = _movie_info_array;
-//@synthesize cinema_info_array         = _cinema_info_array;
-
 @synthesize currentIdx = _currentIdx;
+
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -59,8 +57,6 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        _movie_info_array = [[NSMutableArray array] retain];
-//        _cinema_info_array = [[NSMutableArray array]retain];
     }
     return self;
 }
@@ -105,7 +101,6 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 
     TTURLRequest* request = [TTURLRequest requestWithURL:movieinfoRequestURLPath delegate:movieinfodelegate];
     
-//    TTURLRequest* request = [TTURLRequest requestWithURL: kRequestURLPath delegate: self];
     
     request.cachePolicy = TTURLRequestCachePolicyNoCache;
     
@@ -145,7 +140,6 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     [_flow draw];
     
     int nIdx = self.currentIdx;
-    //[MovieInfoStore sharedMovieInfoStore].CurrentIdx;
     
 
     MovieInfo *pInfo = [[DataStore SharedDataStore].movie_info_array objectAtIndex:nIdx];
@@ -163,9 +157,26 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     
 }
 
+- (void) OpenMovieSchedule:(MovieInfo *) pmovieinfo
+{
+    
+}
+
 - (IBAction)viewCinema
 {
-    [[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:@"tt://nib/WeatherSummaryController"] applyAnimated:YES]];
+    if([DataStore SharedDataStore].movie_info_array != nil && [[DataStore SharedDataStore].movie_info_array count] != 0)
+    {
+        MovieInfo *p = [[DataStore SharedDataStore].movie_info_array objectAtIndex:_currentIdx];
+        if(p)
+        {
+            
+            TTURLAction *urlAction = [[[TTURLAction alloc] initWithURLPath:@"tt://obj/MovieScheduleController"] autorelease];
+            urlAction.query = [NSDictionary dictionaryWithObject:p forKey:@"movieinfo"];
+            urlAction.animated = YES;
+            [[TTNavigator navigator] openURLAction:urlAction];
+            
+        }
+    }
 }
 
 
@@ -210,6 +221,19 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 - (void)flowCover:(FlowCoverView *)view didSelect:(int)image
 {
 	NSLog(@"Selected Index %d",image);
+    if([DataStore SharedDataStore].movie_info_array != nil && [[DataStore SharedDataStore].movie_info_array count] != 0)
+    {
+        MovieInfo *p = [[DataStore SharedDataStore].movie_info_array objectAtIndex:image];
+        if(p)
+        {
+            
+            TTURLAction *urlAction = [[[TTURLAction alloc] initWithURLPath:@"tt://obj/MovieScheduleController"] autorelease];
+            urlAction.query = [NSDictionary dictionaryWithObject:p forKey:@"movieinfo"];
+            urlAction.animated = YES;
+            [[TTNavigator navigator] openURLAction:urlAction];
+            
+        }
+    }
 }
 
 - (void)coverAtIndexWasBroughtToFront:(int )nIndex;
@@ -368,14 +392,14 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         
         if([p.server_image_url compare:strRequestURL] == NSOrderedSame)
         {
-            NSLog(@"array idx:%d, url:%@",i, strRequestURL);
+            //NSLog(@"array idx:%d, url:%@",i, strRequestURL);
             
             p.tempBitmap = imageResponse.image;
             break;
         }
         else
         {
-            NSLog(@"reqURL:%@  sev_URL:%@  Idx:%d", strRequestURL, p.server_image_url,i);
+            //NSLog(@"reqURL:%@  sev_URL:%@  Idx:%d", strRequestURL, p.server_image_url,i);
         }
         
     }
