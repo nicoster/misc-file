@@ -37,7 +37,7 @@
 
     MovieInfo *p = [obj objectForKey:@"movieinfo"];
 
-    UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initwithObj:p];
+    UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initwithObj:className info:p];
     [newController autorelease];
     return newController;
 }
