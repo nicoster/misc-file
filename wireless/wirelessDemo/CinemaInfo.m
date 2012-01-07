@@ -26,6 +26,7 @@
 @synthesize facilities = _facilities;
 @synthesize restaurant = _restaurant;
 @synthesize entplace = _entplace;
-@synthesize validfilmnumber = _validfilmnumber;
+@synthesize validfilmcount = _validfilmcount;
+@synthesize park = _park;
 
 @end

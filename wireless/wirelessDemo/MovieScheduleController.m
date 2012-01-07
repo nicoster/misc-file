@@ -11,8 +11,29 @@
 
 static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirelesssz/RXService?token=970497ff485736e74c5460416fab0c14&cmd=15&city=320500&movieDay=%d&movieId=%d";
 
+@implementation MovieInCinema
+
+@synthesize movieid = _movieid;
+@synthesize cinemaid = _cinemaid;
+@synthesize movieCount = _movieCount;
+@synthesize moviescheduledetails_array = _moviescheduledetails_array;
+
+-(id)init
+{
+    if(self)
+    {
+        _movieCount = 0;
+        _moviescheduledetails_array = [[NSMutableArray array]retain];
+    }
+    return self;
+}
+
+@end
+
 @implementation MovieScheduleController
+@synthesize movieinfo = _movieinfo;
 @synthesize cinematable = _cinematable;
+@synthesize cinematable_array = _cinematable_array;
 
 - (id)initwithObj:(NSString*)nibNameOrNil info:(MovieInfo *)p
 {
@@ -20,21 +41,37 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         _movieinfo = p;
-        NSLog(@"name:-- %@",_movieinfo.name_en);
+        
+        if(self.cinematable_array == nil)
+        {
+            self.cinematable_array = [[NSMutableArray array]retain];
+        }
+        else
+        {
+            [self.cinematable_array removeAllObjects];
+        }
+        if(_movieinfo.movieSchedule == nil)
+        {
+            NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, 0,[_movieinfo.id intValue]];
+            NSLog(@"url:%@", url);
+            
+            MovieScheduleDelegate *moviescheduledelegate = [(MovieScheduleDelegate*)[MovieScheduleDelegate alloc] initWithController:self];
+            
+            
+            TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:moviescheduledelegate];
+            
+            
+            //request.cachePolicy = TTURLRequestCachePolicyNoCache;
+            
+            request.response = [[[TTURLJSONResponse alloc] init] autorelease];
+            
+            [request send];
+
+        }
         _cinematable.delegate = self;
     }
     return self;
 }
-
-//- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-//{
-//    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if (self) {
-//        // Custom initialization
-//    }
-//
-//    return self;
-//}
 
 - (void)didReceiveMemoryWarning
 {
@@ -70,16 +107,14 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 5;
+    return [self.cinematable_array count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -91,8 +126,29 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    cell.textLabel.text = @"aaaa";
-    cell.detailTextLabel.text = @"bbbbb";
+    NSString * name;
+    //for (CinemaInfo* ci in [DataStore SharedDataStore].cinema_info_array) 
+    for(int i = 0; i< [[DataStore SharedDataStore].cinema_info_array count];i++)
+    {
+        CinemaInfo * ci = [[DataStore SharedDataStore].cinema_info_array objectAtIndex:i];
+        
+        if([ci.cinemaid intValue] == [((MovieInCinema*)[self.cinematable_array objectAtIndex:indexPath.row]).cinemaid intValue])
+        {
+            name = ci.cinemaname;
+            break;
+        }
+    }
+    
+    UIFont *myFont = [ UIFont fontWithName: @"Arial" size: 17.0 ];
+    cell.textLabel.font  = myFont;
+
+    cell.textLabel.text = name;
+    NSString * details = [NSString stringWithFormat:@"剩余场次 : %d",((MovieInCinema*)[self.cinematable_array objectAtIndex:indexPath.row]).movieCount];
+    
+    UIFont *myFont1 = [ UIFont fontWithName: @"Arial" size: 14.0 ];
+    cell.detailTextLabel.font  = myFont1;
+    cell.detailTextLabel.text = details;
+    
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     // Configure the cell...
@@ -155,9 +211,9 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
 @end
 
-@implementation MovieScheduleDelegate1
+@implementation MovieScheduleDelegate
 
-- (id)initWithController:(id *)controller {
+- (id)initWithController:(MovieScheduleController *)controller {
     //    [super init];
     if (self) {
         _controller = (MovieScheduleController*)controller;
@@ -186,37 +242,82 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 {
     TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
     
+    int day = [[request.parameters objectForKey:@"movieDay"] intValue];
+    
+    [_controller.movieinfo.movieSchedule removeAllObjects];
+    
+
+    
     NSArray *entries = JsonResponse.rootObject;
-    NSLog(@"%d", [entries count]);
+    
+    NSMutableDictionary * _ci_dictionary = [NSMutableDictionary dictionary];
+    
     
     for (NSDictionary* entry in entries) {
-        NSDictionary *details = [entry objectForKey:@"CinamaInfo"];
-        //NSLog(@"entry: %@",entry);
+        NSDictionary *details = [entry objectForKey:@"Schedule"];
         
-        //        CinemaInfo * cinemainfo = [[[CinemaInfo alloc] init]autorelease];
-        //        cinemainfo.cinemaid = [NSNumber numberWithInt:[[details objectForKey:@"cinemaId"] integerValue]];
-        //        //NSLog(@"moviename: %@", movieinfo.name);
-        //        
-        //        
-        //        cinemainfo.cinemaname = [details objectForKey:@"cinemaName"];
-        //        cinemainfo.address = [details objectForKey:@"address"];
-        //        cinemainfo.city = [details objectForKey:@"city"];
-        //        cinemainfo.area = [details objectForKey:@"area"];
-        //        cinemainfo.description = [details objectForKey:@"description"];
-        //        
-        //        
-        //        cinemainfo.imageurl = [details objectForKey:@"imageUrl"];
-        //        cinemainfo.logourl = [details objectForKey:@"logoUrl"];
-        //        cinemainfo.busline = [details objectForKey:@"bus"];
-        //        cinemainfo.telphone = [details objectForKey:@"telphone"];
-        //        cinemainfo.opentime = [details objectForKey:@"opentime"];
-        //        cinemainfo.facilities = [details objectForKey:@"facilities"];
-        //        cinemainfo.restaurant = [details objectForKey:@"restaurant"];
-        //        cinemainfo.entplace = [details objectForKey:@"entplace"];
-        //        
-        //        
-        //        [[DataStore SharedDataStore].cinema_info_array addObject:cinemainfo];
+        ScheduleInfo * scheduleinfo = [[[ScheduleInfo alloc] init] autorelease];
+        
+        scheduleinfo.movieid = [details objectForKey:@"movieid"];
+        scheduleinfo.cinemaid = [details objectForKey:@"cinemaid"];
+        scheduleinfo.screenid = [details objectForKey:@"screen"];
+        scheduleinfo.price = [details objectForKey:@"price"];
+
+        
+        // convert time
+        NSString * p =[details objectForKey:@"time"];
+        NSDateFormatter* format=[[NSDateFormatter new]autorelease];
+        [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [format setDateFormat:(@"yyyy/MM/dd HH:mm")]; // HH:mm:ss
+        scheduleinfo.movietime = [format dateFromString:p];
+        NSLog(@"time:%@",scheduleinfo.movietime);
+        // end
+        
+        int n = (int)[NSNumber numberWithInt:[[details objectForKey:@"language"] intValue]] ;
+        scheduleinfo.dub  = (n == 0?@"en":@"cn");
+        
+        
+        [[_controller.movieinfo.movieSchedule objectAtIndex:day] addObject:scheduleinfo];
+        
+        
+        
+        MovieInCinema *pCinema;
+        
+        if([_ci_dictionary objectForKey:scheduleinfo.cinemaid] == nil)
+        {
+            
+            pCinema = [[[MovieInCinema alloc]init]autorelease];
+        }
+        else
+        {
+            pCinema = [_ci_dictionary objectForKey:scheduleinfo.cinemaid];
+        }
+        
+        pCinema.movieid = scheduleinfo.movieid;
+        pCinema.cinemaid = scheduleinfo.cinemaid;
+        [pCinema.moviescheduledetails_array addObject:scheduleinfo];
+        
+        NSDate *date = [NSDate date];
+        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        NSInteger interval = [zone secondsFromGMTForDate: date];
+        NSDate *now = [date  dateByAddingTimeInterval: interval];
+        
+
+        
+        if([now compare:scheduleinfo.movietime] == NSOrderedAscending)
+        {
+            pCinema.movieCount++;
+        }
+        
+        [_ci_dictionary setObject:pCinema forKey:pCinema.cinemaid];
     }
+    
+    for (id key in _ci_dictionary)
+    {
+        [_controller.cinematable_array addObject: [_ci_dictionary objectForKey:key]];
+    }
+    
+    [_controller.cinematable reloadData];
     
     
     

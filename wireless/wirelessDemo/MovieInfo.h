@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@interface DataStore : NSObject {
+@private
+    NSMutableArray * _movie_info_array;
+    NSMutableArray * _cinema_info_array;
+}
+@property (nonatomic, retain) NSMutableArray* movie_info_array;
+@property (nonatomic, retain) NSMutableArray* cinema_info_array;
++(DataStore *) SharedDataStore;
+
+@end
+
 @interface MovieInfo : NSObject{
     
     NSNumber *  _id;
@@ -38,7 +49,7 @@
     
     NSMutableDictionary * _hasSchedule;
     
-    NSMutableDictionary * _MovieSchedule;
+    NSMutableArray * _movieSchedule;
     
 }
 
@@ -61,9 +72,42 @@
 @property (nonatomic, retain) UIImage*   tempBitmap;
 @property (nonatomic, retain) NSNumber*   status;
 @property (nonatomic, retain) NSMutableDictionary*   hasSchedule;
-@property (nonatomic, retain) NSMutableDictionary*   MovieSchedule;
+@property (nonatomic, retain) NSMutableArray*   movieSchedule;
+@end
 
-
-
-
+@interface ScheduleInfo : NSObject {
+    /*
+     private Date movieTime;
+     private int movieId;
+     private String movieName;
+     private String movieName_en;
+     private int cinemaId;
+     private int screenId;
+     private int price;
+     
+     private String dub; // 对话
+     private String subtitle;// 字幕
+     
+     public ExchangeTicket[] tickets;
+     */
+    NSDate * _movietime;
+    NSNumber * _movieid;
+    NSString * _moviename;
+    NSString * _moviename_en;
+    NSNumber * _cinemaid;
+    NSNumber * _screenid;
+    NSNumber * _price;
+    NSString * _dub;
+    NSString * _subtitle;
+    
+}
+@property (nonatomic, retain) NSDate* movietime;
+@property (nonatomic, retain) NSNumber * movieid;
+@property (nonatomic, copy) NSString * moviename;
+@property (nonatomic, copy) NSString * moviename_en;
+@property (nonatomic, retain) NSNumber * cinemaid;
+@property (nonatomic, retain) NSNumber * screenid;
+@property (nonatomic, retain) NSNumber * price;
+@property (nonatomic, copy) NSString * dub;
+@property (nonatomic, copy) NSString * subtitle;
 @end

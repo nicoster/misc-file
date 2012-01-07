@@ -35,7 +35,7 @@
     NSString * _restaurant;
     NSString * _entplace;
     
-    NSNumber * _validfilmnumber;
+    NSInteger _validfilmcount;
     
 }
 
@@ -57,6 +57,6 @@
 @property (nonatomic, copy) NSString*   facilities;
 @property (nonatomic, copy) NSString*   restaurant;
 @property (nonatomic, copy) NSString*   entplace;
-@property (nonatomic, retain) NSNumber * validfilmnumber;
+@property (nonatomic) NSInteger validfilmcount;
 
 @end
