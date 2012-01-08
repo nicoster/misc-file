@@ -211,7 +211,6 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
 
 - (void)flowCover:(FlowCoverView *)view didSelect:(int)image
 {
-	NSLog(@"Selected Index %d",image);
     if([DataStore SharedDataStore].movie_info_array != nil && [[DataStore SharedDataStore].movie_info_array count] != 0)
     {
         MovieInfo *p = [[DataStore SharedDataStore].movie_info_array objectAtIndex:image];
@@ -229,8 +228,6 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
 
 - (void)coverAtIndexWasBroughtToFront:(int )nIndex;
 {
-    NSLog(@"The front index %d", nIndex);
-
     self.currentIdx = nIndex;
     
     [self UpdateUI];
@@ -320,7 +317,6 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
         [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         [format setDateFormat:(@"yyyy/MM/dd")];
         movieinfo.startDate = [format dateFromString:p];
-        NSLog(@"time:%@",movieinfo.startDate);
         // end
             
         NSMutableDictionary* hasSchedule = [details objectForKey:@"hasSchedule"];
@@ -381,7 +377,6 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)requestDidFinishLoad:(TTURLRequest*)request 
 {
-//    return;
     TTURLImageResponse* imageResponse = (TTURLImageResponse*)request.response;
     NSString * strRequestURL = request.urlPath; 
     
@@ -390,9 +385,7 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
         MovieInfo *p = [[DataStore SharedDataStore].movie_info_array objectAtIndex:i];
         
         if([p.server_image_url compare:strRequestURL] == NSOrderedSame)
-        {
-            //NSLog(@"array idx:%d, url:%@",i, strRequestURL);
-            
+        {    
             p.tempBitmap = imageResponse.image;
             break;
         }
@@ -439,17 +432,17 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
     TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
     
     NSArray *entries = JsonResponse.rootObject;
-    NSLog(@"%d", [entries count]);
+    //NSLog(@"%d", [entries count]);
     
     for (NSDictionary* entry in entries) {
         NSDictionary *details = [entry objectForKey:@"CinemaInfo"];
-        NSLog(@"entry: %@",details);
+        //NSLog(@"entry: %@",details);
         
         CinemaInfo * cinemainfo = [[[CinemaInfo alloc] init]autorelease];
         cinemainfo.cinemaid = [NSNumber numberWithInt:[[details objectForKey:@"cinemaId"] integerValue]];
         
         cinemainfo.cinemaname = [details objectForKey:@"cinemaName"];
-        NSLog(@"cinemaid: %d, name:%@", [cinemainfo.cinemaid intValue], cinemainfo.cinemaname);
+        //NSLog(@"cinemaid: %d, name:%@", [cinemainfo.cinemaid intValue], cinemainfo.cinemaname);
         cinemainfo.address = [details objectForKey:@"address"];
         cinemainfo.city = [details objectForKey:@"city"];
         cinemainfo.area = [details objectForKey:@"area"];

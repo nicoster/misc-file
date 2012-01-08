@@ -9,13 +9,14 @@
 #import "MovieScheduleController.h"
 #import <extThree20JSON/extThree20JSON.h>
 
-static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirelesssz/RXService?token=970497ff485736e74c5460416fab0c14&cmd=15&city=320500&movieDay=%d&movieId=%d";
+
 
 @implementation MovieInCinema
 
 @synthesize movieid = _movieid;
 @synthesize cinemaid = _cinemaid;
 @synthesize movieCount = _movieCount;
+@synthesize day = _day;
 @synthesize moviescheduledetails_array = _moviescheduledetails_array;
 
 -(id)init
@@ -36,6 +37,27 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 @synthesize datesegmented = _datesegmented;
 @synthesize cinematable_array = _cinematable_array;
 
+-(void)sendRequest: (NSInteger)day movieid:(NSInteger )id
+{
+    NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, day,id];
+    
+    TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:self];
+    
+    request.cachePolicy = TTURLRequestCachePolicyNoCache;
+    
+    request.response = [[[TTURLJSONResponse alloc] init] autorelease];
+    
+    [request send];
+    
+    for(int i= 0; i< self.datesegmented.numberOfSegments; i++)
+    {
+        if(day == i)
+            [self.datesegmented setEnabled:YES forSegmentAtIndex:i];
+        else
+            [self.datesegmented setEnabled:NO forSegmentAtIndex:i];
+    }
+}
+
 - (id)initwithObj:(NSString*)nibNameOrNil info:(MovieInfo *)p
 {
     
@@ -51,22 +73,7 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         {
             [self.cinematable_array removeAllObjects];
         }
-        if(_movieinfo.movieSchedule == nil)
-        {
-            NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, 0,[_movieinfo.id intValue]];
-            NSLog(@"url:%@", url);
-           
-            
-            TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:self];
-            
-            
-            request.cachePolicy = TTURLRequestCachePolicyNoCache;
-            
-            request.response = [[[TTURLJSONResponse alloc] init] autorelease];
-            
-            [request send];
 
-        }
         _cinematable.delegate = self;
     }
     return self;
@@ -86,6 +93,11 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    if(_movieinfo.movieSchedule == nil)
+    {
+        [self sendRequest:0 movieid:[_movieinfo.id intValue]];        
+    }
 
 }
 
@@ -105,7 +117,6 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSString *destDateString = [dateFormatter stringFromDate:now];
-    NSLog(@"date:%@",destDateString);
     
     NSTimeInterval secondsIn24Hours = 24 * 60 * 60;
     NSTimeInterval secondsIn48Hours = 48 *60 * 60;
@@ -132,20 +143,10 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 {
     NSInteger segment = _datesegmented.selectedSegmentIndex; 
     
-    NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, segment,[_movieinfo.id intValue]];
-    NSLog(@"url:%@", url);
-    
-    
-    TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:self];
-    
-    
-    request.cachePolicy = TTURLRequestCachePolicyNoCache;
-    
-    request.response = [[[TTURLJSONResponse alloc] init] autorelease];
     
     [_cinematable_array removeAllObjects];
     
-    [request send];
+    [self sendRequest:segment movieid:[_movieinfo.id intValue]];
 }
 
 #pragma mark - Table view data source
@@ -172,7 +173,6 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     }
     
     NSString * name;
-    //for (CinemaInfo* ci in [DataStore SharedDataStore].cinema_info_array) 
     for(int i = 0; i< [[DataStore SharedDataStore].cinema_info_array count];i++)
     {
         CinemaInfo * ci = [[DataStore SharedDataStore].cinema_info_array objectAtIndex:i];
@@ -268,9 +268,18 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)requestDidFinishLoad:(TTURLRequest*)request 
 {
+    
+    for(int i= 0; i< self.datesegmented.numberOfSegments; i++)
+    {
+        [self.datesegmented setEnabled:YES forSegmentAtIndex:i];
+    }
+    
+    
     TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
     
     int day = [[request.parameters objectForKey:@"movieDay"] intValue];
+    
+    NSLog(@"parameters key: %@ -- values: %@", [request.parameters allKeys],[request.parameters allValues]);
     
     [self.movieinfo.movieSchedule removeAllObjects];
     
@@ -296,7 +305,6 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         [format setDateFormat:(@"yyyy/MM/dd HH:mm")]; // HH:mm:ss
         scheduleinfo.movietime = [format dateFromString:p];
-        NSLog(@"time:%@",scheduleinfo.movietime);
         // end
         
         int n = (int)[NSNumber numberWithInt:[[details objectForKey:@"language"] intValue]] ;
@@ -321,12 +329,13 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         
         pCinema.movieid = scheduleinfo.movieid;
         pCinema.cinemaid = scheduleinfo.cinemaid;
+        pCinema.day = day;
         [pCinema.moviescheduledetails_array addObject:scheduleinfo];
         
         NSDate *now = [NSDate date];
-        //        NSTimeZone *zone = [NSTimeZone systemTimeZone];
-        //        NSInteger interval = [zone secondsFromGMTForDate: date];
-        //        NSDate *now = [date  dateByAddingTimeInterval: interval];
+//        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//        NSInteger interval = [zone secondsFromGMTForDate: date];
+//        NSDate *now = [date  dateByAddingTimeInterval: interval];
         
         
         
