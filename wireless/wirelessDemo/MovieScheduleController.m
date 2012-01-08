@@ -274,12 +274,10 @@
         [self.datesegmented setEnabled:YES forSegmentAtIndex:i];
     }
     
+    int day = self.datesegmented.selectedSegmentIndex;
+    
     
     TTURLJSONResponse *JsonResponse = (TTURLJSONResponse*)request.response;
-    
-    int day = [[request.parameters objectForKey:@"movieDay"] intValue];
-    
-    NSLog(@"parameters key: %@ -- values: %@", [request.parameters allKeys],[request.parameters allValues]);
     
     [self.movieinfo.movieSchedule removeAllObjects];
     
@@ -309,7 +307,6 @@
         
         int n = (int)[NSNumber numberWithInt:[[details objectForKey:@"language"] intValue]] ;
         scheduleinfo.dub  = (n == 0?@"en":@"cn");
-        
         
         [[self.movieinfo.movieSchedule objectAtIndex:day] addObject:scheduleinfo];
         
