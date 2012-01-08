@@ -25,6 +25,19 @@
     
     [map from:@"tt://nib/(loadFromNib:)" toSharedViewController:self];
     [map from:@"tt://obj/(initwithobj:)" toViewController:self];
+    
+//    // test
+//    NSDate *now = [NSDate date];
+//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
+//    
+//    
+//    [dateFormatter setDateFormat:@"MM月dd日"];
+//    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    
+//    NSString *destDateString = [dateFormatter stringFromDate:now];
+//    NSLog(@"date:%@",destDateString);
+//    // end
+
 
     
 	[navigator openURLAction:

@@ -26,9 +26,11 @@
 -(id) init;
 @end
 
-@interface MovieScheduleController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+
+@interface MovieScheduleController : UIViewController<UITableViewDelegate,UITableViewDataSource, TTURLRequestDelegate>{
     MovieInfo * _movieinfo;
     UITableView * _cinematable;
+    UISegmentedControl * _datesegmented;
 
     NSMutableArray * _cinematable_array;
     
@@ -37,15 +39,12 @@
 
 @property(nonatomic,retain)IBOutlet UITableView* cinematable;
 
+@property(nonatomic,retain)IBOutlet UISegmentedControl* datesegmented;
+
 @property(nonatomic, retain) NSMutableArray * cinematable_array;
 
+- (IBAction)segmentControlAction:(id)sender;
+
 @end
 
-@interface MovieScheduleDelegate: NSObject< TTURLRequestDelegate>{
-    
-    MovieScheduleController * _controller;
-}
-
-- (id)initWithController:(id *)controller;
-@end
 

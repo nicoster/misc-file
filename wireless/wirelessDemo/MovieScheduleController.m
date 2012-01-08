@@ -33,6 +33,7 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 @implementation MovieScheduleController
 @synthesize movieinfo = _movieinfo;
 @synthesize cinematable = _cinematable;
+@synthesize datesegmented = _datesegmented;
 @synthesize cinematable_array = _cinematable_array;
 
 - (id)initwithObj:(NSString*)nibNameOrNil info:(MovieInfo *)p
@@ -54,14 +55,12 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         {
             NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, 0,[_movieinfo.id intValue]];
             NSLog(@"url:%@", url);
+           
             
-            MovieScheduleDelegate *moviescheduledelegate = [(MovieScheduleDelegate*)[MovieScheduleDelegate alloc] initWithController:self];
-            
-            
-            TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:moviescheduledelegate];
+            TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:self];
             
             
-            //request.cachePolicy = TTURLRequestCachePolicyNoCache;
+            request.cachePolicy = TTURLRequestCachePolicyNoCache;
             
             request.response = [[[TTURLJSONResponse alloc] init] autorelease];
             
@@ -87,6 +86,19 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+
+//    NSDate *now = [NSDate date];
+//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
+//    
+//    
+//    [dateFormatter setDateFormat:@"MM月dd日"];
+//    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//    
+//    NSString *destDateString = [dateFormatter stringFromDate:now];
+//    NSLog(@"date:%@",destDateString);
+//    
+//    [self.datesegmented setTitle:destDateString forSegmentAtIndex:0];
+
 }
 
 - (void)viewDidUnload
@@ -95,6 +107,34 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
+-(void) viewWillAppear:(BOOL)animated
+{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
+    
+    
+    [dateFormatter setDateFormat:@"MM月dd日"];
+    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSString *destDateString = [dateFormatter stringFromDate:now];
+    NSLog(@"date:%@",destDateString);
+    
+    NSTimeInterval secondsIn24Hours = 24 * 60 * 60;
+    NSTimeInterval secondsIn48Hours = 48 *60 * 60;
+    NSDate *date24HoursAhead = [now dateByAddingTimeInterval:secondsIn24Hours];
+    NSDate *date48HoursAhead = [now dateByAddingTimeInterval:secondsIn48Hours];
+    
+    
+    
+    
+    [self.datesegmented setTitle:destDateString forSegmentAtIndex:0];
+    
+    destDateString = [dateFormatter stringFromDate:date24HoursAhead];
+    [self.datesegmented setTitle:destDateString forSegmentAtIndex:1];
+    
+    destDateString = [dateFormatter stringFromDate:date48HoursAhead];
+    [self.datesegmented setTitle:destDateString forSegmentAtIndex:2];
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -102,6 +142,25 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)segmentControlAction:(id)sender
+{
+    NSInteger segment = _datesegmented.selectedSegmentIndex; 
+    
+    NSString* url = [NSString stringWithFormat: moviescheduleRequestURLPath, segment,[_movieinfo.id intValue]];
+    NSLog(@"url:%@", url);
+    
+    
+    TTURLRequest* request = [TTURLRequest requestWithURL:url delegate:self];
+    
+    
+    request.cachePolicy = TTURLRequestCachePolicyNoCache;
+    
+    request.response = [[[TTURLJSONResponse alloc] init] autorelease];
+    
+    [_cinematable_array removeAllObjects];
+    
+    [request send];
+}
 
 #pragma mark - Table view data source
 
@@ -209,24 +268,9 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
      */
 }
 
-@end
-
-@implementation MovieScheduleDelegate
-
-- (id)initWithController:(MovieScheduleController *)controller {
-    //    [super init];
-    if (self) {
-        _controller = (MovieScheduleController*)controller;
-    }
-    
-    return self;
-}
-
 
 #pragma mark -
 #pragma mark TTURLRequestDelegate
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)requestDidStartLoad:(TTURLRequest*)request {
     //    [_requestButton setTitle:@"Loading..." forState:UIControlStateNormal];
     
@@ -244,9 +288,7 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     
     int day = [[request.parameters objectForKey:@"movieDay"] intValue];
     
-    [_controller.movieinfo.movieSchedule removeAllObjects];
-    
-
+    [self.movieinfo.movieSchedule removeAllObjects];
     
     NSArray *entries = JsonResponse.rootObject;
     
@@ -262,7 +304,7 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         scheduleinfo.cinemaid = [details objectForKey:@"cinemaid"];
         scheduleinfo.screenid = [details objectForKey:@"screen"];
         scheduleinfo.price = [details objectForKey:@"price"];
-
+        
         
         // convert time
         NSString * p =[details objectForKey:@"time"];
@@ -277,7 +319,7 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         scheduleinfo.dub  = (n == 0?@"en":@"cn");
         
         
-        [[_controller.movieinfo.movieSchedule objectAtIndex:day] addObject:scheduleinfo];
+        [[self.movieinfo.movieSchedule objectAtIndex:day] addObject:scheduleinfo];
         
         
         
@@ -297,12 +339,12 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
         pCinema.cinemaid = scheduleinfo.cinemaid;
         [pCinema.moviescheduledetails_array addObject:scheduleinfo];
         
-        NSDate *date = [NSDate date];
-        NSTimeZone *zone = [NSTimeZone systemTimeZone];
-        NSInteger interval = [zone secondsFromGMTForDate: date];
-        NSDate *now = [date  dateByAddingTimeInterval: interval];
+        NSDate *now = [NSDate date];
+        //        NSTimeZone *zone = [NSTimeZone systemTimeZone];
+        //        NSInteger interval = [zone secondsFromGMTForDate: date];
+        //        NSDate *now = [date  dateByAddingTimeInterval: interval];
         
-
+        
         
         if([now compare:scheduleinfo.movietime] == NSOrderedAscending)
         {
@@ -314,13 +356,15 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     
     for (id key in _ci_dictionary)
     {
-        [_controller.cinematable_array addObject: [_ci_dictionary objectForKey:key]];
+        [self.cinematable_array addObject: [_ci_dictionary objectForKey:key]];
     }
     
-    [_controller.cinematable reloadData];
-    
-    
-    
+    [self.cinematable reloadData];
 }
+
 @end
+
+
+
+
 
