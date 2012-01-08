@@ -19,13 +19,11 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     NSNumber * _cinemaid;
     NSInteger _movieCount;
     NSInteger _day;
-    NSMutableArray * _moviescheduledetails_array;
 }
 
 @property(nonatomic, retain) NSNumber *movieid;
 @property(nonatomic, retain) NSNumber *cinemaid;
 @property(nonatomic)    NSInteger day;
-@property(nonatomic, retain) NSMutableArray * moviescheduledetails_array;
 @property(nonatomic) NSInteger movieCount;
 -(id) init;
 @end

@@ -15,11 +15,15 @@
     UISegmentedControl * _datesegmented;
     
     MovieInCinema * _movieschedule;
+    
+    NSMutableArray * _movieschedule_array;
 }
 
 @property(nonatomic, retain) IBOutlet UITableView * moviescheduletable;
 @property(nonatomic, retain) IBOutlet UISegmentedControl * datesegmented;
 
+@property(nonatomic, retain) NSMutableArray * movieschedule_array;
 
+-(void)sendRequest: (NSInteger)day movieid:(NSInteger )id;
 - (IBAction)segmentControlAction:(id)sender;
 @end
