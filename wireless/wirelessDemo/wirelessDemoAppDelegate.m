@@ -25,19 +25,7 @@
     
     [map from:@"tt://nib/(loadFromNib:)" toSharedViewController:self];
     [map from:@"tt://obj/(initwithobj:)" toViewController:self];
-    
-//    // test
-//    NSDate *now = [NSDate date];
-//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
-//    
-//    
-//    [dateFormatter setDateFormat:@"MM月dd日"];
-//    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    
-//    NSString *destDateString = [dateFormatter stringFromDate:now];
-//    NSLog(@"date:%@",destDateString);
-//    // end
-
+    [map from:@"tt://moviedetail/(initwithdetail:)" toViewController:self];
 
     
 	[navigator openURLAction:
@@ -50,6 +38,16 @@
 
     MovieInfo *p = [obj objectForKey:@"movieinfo"];
 
+    UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initwithObj:className info:p];
+    [newController autorelease];
+    return newController;
+}
+
+- (UIViewController*)initwithdetail:(NSString *)className query:(NSDictionary *)obj 
+{
+    
+    MovieInfo *p = [obj objectForKey:@"moviedetail"];
+    
     UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initwithObj:className info:p];
     [newController autorelease];
     return newController;

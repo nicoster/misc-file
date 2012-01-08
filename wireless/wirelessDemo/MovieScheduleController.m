@@ -87,18 +87,6 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-//    NSDate *now = [NSDate date];
-//    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
-//    
-//    
-//    [dateFormatter setDateFormat:@"MM月dd日"];
-//    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    
-//    NSString *destDateString = [dateFormatter stringFromDate:now];
-//    NSLog(@"date:%@",destDateString);
-//    
-//    [self.datesegmented setTitle:destDateString forSegmentAtIndex:0];
-
 }
 
 - (void)viewDidUnload
@@ -123,8 +111,6 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
     NSTimeInterval secondsIn48Hours = 48 *60 * 60;
     NSDate *date24HoursAhead = [now dateByAddingTimeInterval:secondsIn24Hours];
     NSDate *date48HoursAhead = [now dateByAddingTimeInterval:secondsIn48Hours];
-    
-    
     
     
     [self.datesegmented setTitle:destDateString forSegmentAtIndex:0];
@@ -258,17 +244,15 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    TTURLAction *urlAction = [[[TTURLAction alloc] initWithURLPath:@"tt://moviedetail/MovieScheduleDetailsController"] autorelease];
+    
+    MovieInCinema *pCinema = [self.cinematable_array objectAtIndex:indexPath.row];
+    urlAction.query = [NSDictionary dictionaryWithObject:pCinema forKey:@"moviedetail"];
+    urlAction.animated = YES;
+    [[TTNavigator navigator] openURLAction:urlAction];
 }
 
-
+////////////////////////////////////
 #pragma mark -
 #pragma mark TTURLRequestDelegate
 - (void)requestDidStartLoad:(TTURLRequest*)request {
