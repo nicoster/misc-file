@@ -13,27 +13,10 @@
 #import "CinemaInfo.h"
 
 
-static        NSString* movieinfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=4e799458ecc65cca11ff88bd2ecedca3&cmd=13&city=320500";
-static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=88755a311e935512a5c0f57fc7119406&cmd=14&city=320500";
+static NSString* movieinfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=4e799458ecc65cca11ff88bd2ecedca3&cmd=13&city=320500";
+static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wirelesssz/RXService?token=88755a311e935512a5c0f57fc7119406&cmd=14&city=320500";
 
-@implementation DataStore
 
-@synthesize movie_info_array = _movie_info_array;
-@synthesize cinema_info_array = _cinema_info_array;
-
-+(DataStore *) SharedDataStore
-{
-    static DataStore * p = nil;
-    if(p == nil)
-    {
-        p = [[DataStore alloc]init];
-        p.movie_info_array = [[NSMutableArray array] retain];
-        p.cinema_info_array = [[NSMutableArray array]retain];
-    }
-    return p;
-}
-
-@end
 
 
 @implementation MovieSummaryController
@@ -152,7 +135,15 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         [_movie_category setText:[NSString stringWithFormat:@"类型 : %@", pInfo.category]];
         [_movie_duration setText:[NSString stringWithFormat:@"时长 : %d分钟", [pInfo.duration integerValue]]]; 
         
-        [_movie_startDate setText:[NSString stringWithFormat:@"上映时间 : %@",pInfo.startDate]];        
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease]; 
+        
+        //zzz表示时区，zzz可以删除，这样返回的日期字符将不包含时区信息 +0000。
+        
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        
+        NSString *destDateString = [dateFormatter stringFromDate:pInfo.startDate];
+        
+        [_movie_startDate setText:[NSString stringWithFormat:@"上映时间 : %@",destDateString]];        
     }
     
 }
@@ -281,6 +272,18 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     
     NSArray *entries = JsonResponse.rootObject;
     NSLog(@"%d", [entries count]);
+    
+    // get cinema info
+    CinemaInfoDelegate *cinemainfodelegate = [(CinemaInfoDelegate *)[CinemaInfoDelegate alloc] initWithController:_controller];
+    
+    TTURLRequest* requestforcinemainfo = [TTURLRequest requestWithURL:cinemainfoRequestURLPath delegate:cinemainfodelegate];
+    
+    requestforcinemainfo.cachePolicy = TTURLRequestCachePolicyNoCache;
+    
+    requestforcinemainfo.response = [[[TTURLJSONResponse alloc] init] autorelease];
+    
+    [requestforcinemainfo send];
+    // end
 
     ImageDelegate *imgdelegate = [(ImageDelegate*)[ImageDelegate alloc] initWithController:_controller];
     
@@ -291,6 +294,7 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
         //NSLog(@"entry: %@",entry);
         
         MovieInfo * movieinfo = [[[MovieInfo alloc] init]autorelease];
+        movieinfo.id = [details objectForKey:@"movieId"];
         movieinfo.name = [details objectForKey:@"movieName"];
         //NSLog(@"moviename: %@", movieinfo.name);
         
@@ -309,8 +313,15 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
 //        NSLog(@"serverurl: %@",movieinfo.server_image_url);
         
         movieinfo.comments = [details objectForKey:@"comment"];
-            
-        movieinfo.startDate = [details objectForKey:@"startDate"];
+        
+        // convert time
+        NSString * p =[details objectForKey:@"startDate"];
+        NSDateFormatter* format=[[NSDateFormatter new]autorelease];
+        [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+        [format setDateFormat:(@"yyyy/MM/dd")];
+        movieinfo.startDate = [format dateFromString:p];
+        NSLog(@"time:%@",movieinfo.startDate);
+        // end
             
         NSMutableDictionary* hasSchedule = [details objectForKey:@"hasSchedule"];
         if(hasSchedule)
@@ -336,18 +347,6 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     
     // update UI
     [_controller UpdateUI];
-    
-    // get cinema info
-    CinemaInfoDelegate *cinemainfodelegate = [(CinemaInfoDelegate *)[CinemaInfoDelegate alloc] initWithController:_controller];
-    
-    TTURLRequest* requestforcinemainfo = [TTURLRequest requestWithURL:cinemainfoRequestURLPath delegate:cinemainfodelegate];
-    
-    requestforcinemainfo.cachePolicy = TTURLRequestCachePolicyNoCache;
-    
-    requestforcinemainfo.response = [[[TTURLJSONResponse alloc] init] autorelease];
-    
-    [requestforcinemainfo send];
-    // end
     
 }
 @end
@@ -443,15 +442,14 @@ static        NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/w
     NSLog(@"%d", [entries count]);
     
     for (NSDictionary* entry in entries) {
-        NSDictionary *details = [entry objectForKey:@"CinamaInfo"];
-        //NSLog(@"entry: %@",entry);
+        NSDictionary *details = [entry objectForKey:@"CinemaInfo"];
+        NSLog(@"entry: %@",details);
         
         CinemaInfo * cinemainfo = [[[CinemaInfo alloc] init]autorelease];
         cinemainfo.cinemaid = [NSNumber numberWithInt:[[details objectForKey:@"cinemaId"] integerValue]];
-        //NSLog(@"moviename: %@", movieinfo.name);
-        
         
         cinemainfo.cinemaname = [details objectForKey:@"cinemaName"];
+        NSLog(@"cinemaid: %d, name:%@", [cinemainfo.cinemaid intValue], cinemainfo.cinemaname);
         cinemainfo.address = [details objectForKey:@"address"];
         cinemainfo.city = [details objectForKey:@"city"];
         cinemainfo.area = [details objectForKey:@"area"];

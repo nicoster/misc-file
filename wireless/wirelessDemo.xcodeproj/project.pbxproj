@@ -37,6 +37,8 @@
 		92062864147642540060928E /* wirelessDemoAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = 92062863147642540060928E /* wirelessDemoAppDelegate_iPhone.m */; };
 		9206286B147642540060928E /* wirelessDemoAppDelegate_iPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 9206286A147642540060928E /* wirelessDemoAppDelegate_iPad.m */; };
 		9206289A1476466D0060928E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 920628991476466D0060928E /* Icon.png */; };
+		9208BFA514B92D1C00E04190 /* MovieScheduleDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9208BFA314B92D1C00E04190 /* MovieScheduleDetailsController.m */; };
+		9208BFA614B92D1C00E04190 /* MovieScheduleDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */; };
 		921B423A14A3283B0021C4CD /* MovieSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423814A3283B0021C4CD /* MovieSummaryController.m */; };
 		921B423B14A3283B0021C4CD /* MovieSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 921B423914A3283B0021C4CD /* MovieSummaryController.xib */; };
 		921B424114A32DAE0021C4CD /* DataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 921B423E14A32DAE0021C4CD /* DataCache.m */; };
@@ -46,8 +48,8 @@
 		928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 928A9BA014AEAEEE004F8817 /* MovieInfo.m */; };
 		92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6486414B1C29500C7A786 /* default_movie_post.png */; };
 		92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4DD514B43B6D009126AD /* CinemaInfo.m */; };
-		92BA4EDE14B5766C009126AD /* MovieScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4EDC14B5766B009126AD /* MovieScheduleController.m */; };
-		92BA4EDF14B5766C009126AD /* MovieScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92BA4EDD14B5766C009126AD /* MovieScheduleController.xib */; };
+		92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */; };
+		92BC3C1414B6E0B7002BB9D5 /* MovieScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +275,9 @@
 		92062869147642540060928E /* wirelessDemoAppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = wirelessDemoAppDelegate_iPad.h; path = iPad/wirelessDemoAppDelegate_iPad.h; sourceTree = "<group>"; };
 		9206286A147642540060928E /* wirelessDemoAppDelegate_iPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = wirelessDemoAppDelegate_iPad.m; path = iPad/wirelessDemoAppDelegate_iPad.m; sourceTree = "<group>"; };
 		920628991476466D0060928E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		9208BFA214B92D1C00E04190 /* MovieScheduleDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScheduleDetailsController.h; sourceTree = "<group>"; };
+		9208BFA314B92D1C00E04190 /* MovieScheduleDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScheduleDetailsController.m; sourceTree = "<group>"; };
+		9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieScheduleDetailsController.xib; path = wirelessDemo/MovieScheduleDetailsController.xib; sourceTree = "<group>"; };
 		921B423714A3283B0021C4CD /* MovieSummaryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MovieSummaryController.h; path = ../MovieSummaryController.h; sourceTree = "<group>"; };
 		921B423814A3283B0021C4CD /* MovieSummaryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MovieSummaryController.m; path = ../MovieSummaryController.m; sourceTree = "<group>"; };
 		921B423914A3283B0021C4CD /* MovieSummaryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieSummaryController.xib; sourceTree = "<group>"; };
@@ -287,9 +292,9 @@
 		92B6486414B1C29500C7A786 /* default_movie_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_movie_post.png; sourceTree = "<group>"; };
 		92BA4DD414B43B6D009126AD /* CinemaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaInfo.h; sourceTree = "<group>"; };
 		92BA4DD514B43B6D009126AD /* CinemaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaInfo.m; sourceTree = "<group>"; };
-		92BA4EDB14B5766B009126AD /* MovieScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScheduleController.h; sourceTree = "<group>"; };
-		92BA4EDC14B5766B009126AD /* MovieScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScheduleController.m; sourceTree = "<group>"; };
-		92BA4EDD14B5766C009126AD /* MovieScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieScheduleController.xib; path = wirelessDemo/MovieScheduleController.xib; sourceTree = "<group>"; };
+		92BC3C1014B6E0B7002BB9D5 /* MovieScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScheduleController.h; sourceTree = "<group>"; };
+		92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieScheduleController.m; sourceTree = "<group>"; };
+		92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieScheduleController.xib; path = wirelessDemo/MovieScheduleController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -490,7 +495,8 @@
 				705D9EC014B204600023732D /* cupertino.PNG */,
 				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
-				92BA4EDD14B5766C009126AD /* MovieScheduleController.xib */,
+				92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */,
+				9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
 				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
@@ -521,8 +527,10 @@
 				928A9BA014AEAEEE004F8817 /* MovieInfo.m */,
 				92BA4DD414B43B6D009126AD /* CinemaInfo.h */,
 				92BA4DD514B43B6D009126AD /* CinemaInfo.m */,
-				92BA4EDB14B5766B009126AD /* MovieScheduleController.h */,
-				92BA4EDC14B5766B009126AD /* MovieScheduleController.m */,
+				92BC3C1014B6E0B7002BB9D5 /* MovieScheduleController.h */,
+				92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */,
+				9208BFA214B92D1C00E04190 /* MovieScheduleDetailsController.h */,
+				9208BFA314B92D1C00E04190 /* MovieScheduleDetailsController.m */,
 			);
 			name = Movie;
 			sourceTree = "<group>";
@@ -771,7 +779,8 @@
 				705D9EC114B204600023732D /* cupertino.PNG in Resources */,
 				705D9ECB14B2F8F20023732D /* movies.png in Resources */,
 				705D9ECD14B2F8FB0023732D /* weather.png in Resources */,
-				92BA4EDF14B5766C009126AD /* MovieScheduleController.xib in Resources */,
+				92BC3C1414B6E0B7002BB9D5 /* MovieScheduleController.xib in Resources */,
+				9208BFA614B92D1C00E04190 /* MovieScheduleDetailsController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -796,7 +805,8 @@
 				921B424214A32DAE0021C4CD /* FlowCoverView.m in Sources */,
 				928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */,
 				92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */,
-				92BA4EDE14B5766C009126AD /* MovieScheduleController.m in Sources */,
+				92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */,
+				9208BFA514B92D1C00E04190 /* MovieScheduleDetailsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

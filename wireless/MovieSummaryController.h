@@ -11,16 +11,7 @@
 #import <Three20/Three20.h>
 #import "MovieInfo.h"
 
-@interface DataStore : NSObject {
-@private
-    NSMutableArray * _movie_info_array;
-    NSMutableArray * _cinema_info_array;
-}
-@property (nonatomic, retain) NSMutableArray* movie_info_array;
-@property (nonatomic, retain) NSMutableArray* cinema_info_array;
-+(DataStore *) SharedDataStore;
 
-@end
 
 
 @interface MovieSummaryController : UIViewController<FlowCoverViewDelegate>{
