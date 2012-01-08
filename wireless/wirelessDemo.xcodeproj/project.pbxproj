@@ -21,10 +21,8 @@
 		705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
 		705D9EC314B209DE0023732D /* WeatherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2DB014B19D08005CF65E /* WeatherCell.xib */; };
 		705D9EC414B209DE0023732D /* WeatherViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */; };
-		705D9EC514B209DE0023732D /* WeatherDetailsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */; };
 		705D9EC614B20A510023732D /* WeatherSummaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */; };
 		705D9EC714B20A510023732D /* WeatherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */; };
-		705D9EC814B20A510023732D /* WeatherDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */; };
 		705D9EC914B20A510023732D /* WeatherCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 70FF2DAE14B19C8D005CF65E /* WeatherCell.m */; };
 		705D9ECB14B2F8F20023732D /* movies.png in Resources */ = {isa = PBXBuildFile; fileRef = 705D9ECA14B2F8F20023732D /* movies.png */; };
 		705D9ECD14B2F8FB0023732D /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 705D9ECC14B2F8FA0023732D /* weather.png */; };
@@ -339,9 +337,6 @@
 		70CFAEA814B82F2C004D6C5E /* WeatherDataMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDataMgr.h; sourceTree = SOURCE_ROOT; };
 		70CFAEA914B82F2C004D6C5E /* WeatherDataMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDataMgr.m; sourceTree = SOURCE_ROOT; };
 		70FF2D6914B16630005CF65E /* Temp.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Temp.xib; sourceTree = "<group>"; };
-		70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherDetailsController.h; sourceTree = SOURCE_ROOT; };
-		70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherDetailsController.m; sourceTree = SOURCE_ROOT; };
-		70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WeatherDetailsController.xib; sourceTree = SOURCE_ROOT; };
 		70FF2DAD14B19C8D005CF65E /* WeatherCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherCell.h; sourceTree = SOURCE_ROOT; };
 		70FF2DAE14B19C8D005CF65E /* WeatherCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherCell.m; sourceTree = SOURCE_ROOT; };
 		70FF2DB014B19D08005CF65E /* WeatherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WeatherCell.xib; path = wirelessDemo/WeatherCell.xib; sourceTree = "<group>"; };
@@ -524,8 +519,6 @@
 				70B5D2CE14B13E7100E95DC3 /* WeatherSummaryController.m */,
 				70B5D2D214B14E7800E95DC3 /* WeatherViewController.h */,
 				70B5D2D314B14E7800E95DC3 /* WeatherViewController.m */,
-				70FF2D6E14B18DA0005CF65E /* WeatherDetailsController.h */,
-				70FF2D6F14B18DA0005CF65E /* WeatherDetailsController.m */,
 				70FF2DAD14B19C8D005CF65E /* WeatherCell.h */,
 				70FF2DAE14B19C8D005CF65E /* WeatherCell.m */,
 				70CFAEA814B82F2C004D6C5E /* WeatherDataMgr.h */,
@@ -634,7 +627,6 @@
 				92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */,
 				9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
-				70FF2D7014B18DA0005CF65E /* WeatherDetailsController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
 				70FF2DB014B19D08005CF65E /* WeatherCell.xib */,
@@ -906,7 +898,6 @@
 				705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */,
 				705D9EC314B209DE0023732D /* WeatherCell.xib in Resources */,
 				705D9EC414B209DE0023732D /* WeatherViewController.xib in Resources */,
-				705D9EC514B209DE0023732D /* WeatherDetailsController.xib in Resources */,
 				320B6C86F11D9990244A9731 /* Three20.bundle in Resources */,
 				9206285A147642540060928E /* InfoPlist.strings in Resources */,
 				9206289A1476466D0060928E /* Icon.png in Resources */,
@@ -970,7 +961,6 @@
 			files = (
 				705D9EC614B20A510023732D /* WeatherSummaryController.m in Sources */,
 				705D9EC714B20A510023732D /* WeatherViewController.m in Sources */,
-				705D9EC814B20A510023732D /* WeatherDetailsController.m in Sources */,
 				705D9EC914B20A510023732D /* WeatherCell.m in Sources */,
 				9206285C147642540060928E /* main.m in Sources */,
 				92062860147642540060928E /* wirelessDemoAppDelegate.m in Sources */,

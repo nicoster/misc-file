@@ -8,9 +8,8 @@
 
 @class WeatherDetailsController;
 
-@interface WeatherViewController : UIViewController
+@interface WeatherViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 {
-    WeatherDetailsController* myWeatherDetailsController;
     UILabel *myCity, *myCurrentTemp;
     UIImageView *myWeatherIcon;
     NSString* myCityID;
@@ -19,6 +18,8 @@
 @property (retain) NSString* cityID;
 @property (retain) IBOutlet UILabel *city, *currentTemp;
 @property (retain) IBOutlet UIImageView *weatherIcon;
+@property (retain) IBOutlet UITableView *weatherDetail;
 
-@property (retain) WeatherDetailsController* weatherDetailsController;
+- (NSString *)getDayOfTheWeek:(NSDate *)date;
+
 @end
