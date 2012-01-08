@@ -240,7 +240,7 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
 
 
 - (id)initWithController:(MovieSummaryController *)controller {
-    [super init];
+    self = [super init];
     if (self) {
         _controller = (MovieSummaryController*)controller;
     }

@@ -8,6 +8,7 @@
 
 #import "WeatherSummaryController.h"
 #import "WeatherViewController.h"
+#import "WeatherDataMgr.h"
 
 
 @implementation WeatherSummaryController
@@ -35,6 +36,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    WeatherDataMgr* wdmgr = [WeatherDataMgr shardWeatherDataMgr];
+    [wdmgr addCity:@"101190401"];
+    [wdmgr addCity:@"101110101"];
+    [wdmgr retrieveData];
     
     self.navigationController.title = @"天气预报";
     

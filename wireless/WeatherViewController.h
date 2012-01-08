@@ -13,8 +13,10 @@
     WeatherDetailsController* myWeatherDetailsController;
     UILabel *myCity, *myCurrentTemp;
     UIImageView *myWeatherIcon;
+    NSString* myCityID;
 }
 
+@property (retain) NSString* cityID;
 @property (retain) IBOutlet UILabel *city, *currentTemp;
 @property (retain) IBOutlet UIImageView *weatherIcon;
 

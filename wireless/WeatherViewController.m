@@ -13,6 +13,7 @@
 
 @synthesize weatherDetailsController = myWeatherDetailsController;
 @synthesize city = myCity, currentTemp = myCurrentTemp, weatherIcon = myWeatherIcon;
+@synthesize cityID = myCityID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
