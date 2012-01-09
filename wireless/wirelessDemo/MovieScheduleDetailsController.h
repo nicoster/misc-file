@@ -17,6 +17,7 @@
     MovieInCinema * _movieschedule;
     
     NSMutableArray * _movieschedule_array;
+    
 }
 
 @property(nonatomic, retain) IBOutlet UITableView * moviescheduletable;

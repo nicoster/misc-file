@@ -23,6 +23,8 @@
     UITextView * _comments;
     
     MovieInfo * _movieinfo;
+    
+    UIButton * _btn;
 }
 
 @property (retain, nonatomic) IBOutlet UIImageView *moviepic;
@@ -31,10 +33,16 @@
 @property (retain, nonatomic) IBOutlet UILabel *director;
 @property (retain, nonatomic) IBOutlet UILabel *performers;
 @property (retain, nonatomic) IBOutlet UILabel *duration;
-//- (IBAction)showprevue:(id)sender;
+
+-(IBAction)showprevue:(id)sender;
+
 @property (retain, nonatomic) IBOutlet UITextView *descp;
 @property (retain, nonatomic) IBOutlet UITextView *comments;
 
+@property (retain, nonatomic) IBOutlet UIButton * btn;
+
 @property(retain, nonatomic) MovieInfo * movieinfo;
+
+-(id) initWithInfo:(MovieInfo *)p;
 
 @end

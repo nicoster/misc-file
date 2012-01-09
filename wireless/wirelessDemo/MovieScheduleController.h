@@ -11,6 +11,7 @@
 #import "MovieInfo.h"
 #import "CinemaInfo.h" 
 #import <Three20/Three20.h>
+#import "MovieInfoController.h"
 
 static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirelesssz/RXService?token=970497ff485736e74c5460416fab0c14&cmd=15&city=320500&movieDay=%d&movieId=%d";
 
@@ -36,9 +37,9 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
     NSMutableArray * _cinematable_array;
     
-    UIView * _movieinfoview;
+    //UIView * _movieinfoview;
     UIButton * _button;
-    
+    MovieInfoController *_movieinfoController;
 }
 @property (nonatomic, retain) MovieInfo * movieinfo;
 
@@ -54,6 +55,8 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
 - (IBAction)segmentControlAction:(id)sender;
 -(IBAction)buttonSwitch:(id)sender;
+
+@property(nonatomic, retain) MovieInfoController *movieinfoController;
 
 @end
 

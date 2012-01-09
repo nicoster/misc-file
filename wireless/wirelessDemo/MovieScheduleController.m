@@ -36,6 +36,8 @@
 @synthesize datesegmented = _datesegmented;
 @synthesize cinematable_array = _cinematable_array;
 
+@synthesize movieinfoController = _movieinfoController;
+
 
 
 -(void)sendRequest: (NSInteger)day movieid:(NSInteger )id
@@ -100,15 +102,16 @@
         [self sendRequest:0 movieid:[_movieinfo.id intValue]];        
     }
     
-    MovieInfoController * p = [[[MovieInfoController alloc]initWithInfo:_movieinfo]autorelease];
+    self.movieinfoController = [[(MovieInfoController*)[MovieInfoController alloc]initWithInfo:_movieinfo] autorelease];
 
-    _movieinfoview = p.view;
+    //_movieinfoview = p.view;
     
-    [self.view addSubview:_movieinfoview ];
+    [[self view] addSubview:_movieinfoController.view ];
+
     
-    CGRect theFrame = [_movieinfoview frame];
+    CGRect theFrame = [_movieinfoController.view frame];
     theFrame.origin.y = -460.0f;
-    _movieinfoview.frame = theFrame;
+    _movieinfoController.view.frame = theFrame;
     
     [self.view bringSubviewToFront:_button];
     [self.view bringSubviewToFront:self.navigationController.navigationBar];
@@ -182,22 +185,21 @@
     }
     else if( [url isEqualToString:@"Curl2"])
     {
-        //_button.titleLabel.text = @"影片详情";
+
         [_button setTitle:@"影片详情" forState:UIControlStateNormal & UIControlStateHighlighted & UIControlStateSelected];
         rect1.origin.y = 0.0f;
     }
     
     [_button setFrame:rect1];
     [UIView commitAnimations];
-//    if( [url isEqualToString:@"Curl2"])
-//        _button.titleLabel.text = @"影片详情";
+
 }
 
 
 -(IBAction)buttonSwitch:(id)sender
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
-    if([_movieinfoview frame].origin.y< -450.0f)
+    if([_movieinfoController.view frame].origin.y< -450.0f)
     {
         [UIView beginAnimations:@"Curl1" context:context];
     }
@@ -208,7 +210,7 @@
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 	[UIView setAnimationDuration:1.0f];
     [UIView setAnimationDelegate:self];
-	CGRect rect = [_movieinfoview frame];
+	CGRect rect = [_movieinfoController.view frame];
 	CGRect rect1=[_button frame];
     CGRect rect2 = [self.navigationController.navigationBar frame];
     if(rect.origin.y < -450.0f)
@@ -226,7 +228,7 @@
     }
     
     [_button setFrame:rect1];
-    [_movieinfoview setFrame:rect];
+    [_movieinfoController.view setFrame:rect];
     [self.navigationController.navigationBar setFrame:rect2];
     [UIView commitAnimations];
     

@@ -19,6 +19,8 @@
 @synthesize performers = _performers;
 @synthesize duration = _duration;
 
+@synthesize btn = _btn;
+
 @synthesize movieinfo = _movieinfo;
 
 
@@ -66,6 +68,9 @@
     [_descp setEditable:NO];
     [_comments setText:_movieinfo.comments];
     [_comments setEditable:NO];
+    
+    
+    //[_btn addTarget:self action:@selector(showprevue:)forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewDidUnload
@@ -101,7 +106,9 @@
     [_comments release];
     [super dealloc];
 }
-//- (IBAction)showprevue:(id)sender {
-//    int a = 0;
-//}
+
+-(IBAction)showprevue:(id)sender
+{
+    NSLog(@"aaaaaaaaaaa");
+}
 @end
