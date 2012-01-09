@@ -36,6 +36,9 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
     NSMutableArray * _cinematable_array;
     
+    UIView * _movieinfoview;
+    UIButton * _button;
+    
 }
 @property (nonatomic, retain) MovieInfo * movieinfo;
 
@@ -45,9 +48,12 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 
 @property(nonatomic, retain) NSMutableArray * cinematable_array;
 
+@property(nonatomic, retain) IBOutlet UIButton * mybutton;
+
 -(void)sendRequest: (NSInteger)day movieid:(NSInteger )id;
 
 - (IBAction)segmentControlAction:(id)sender;
+-(IBAction)buttonSwitch:(id)sender;
 
 @end
 

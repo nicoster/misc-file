@@ -8,7 +8,7 @@
 
 #import "MovieScheduleController.h"
 #import <extThree20JSON/extThree20JSON.h>
-
+#import "MovieInfoController.h"
 
 
 @implementation MovieInCinema
@@ -30,10 +30,13 @@
 @end
 
 @implementation MovieScheduleController
+@synthesize mybutton = _button;
 @synthesize movieinfo = _movieinfo;
 @synthesize cinematable = _cinematable;
 @synthesize datesegmented = _datesegmented;
 @synthesize cinematable_array = _cinematable_array;
+
+
 
 -(void)sendRequest: (NSInteger)day movieid:(NSInteger )id
 {
@@ -96,11 +99,27 @@
     {
         [self sendRequest:0 movieid:[_movieinfo.id intValue]];        
     }
+    
+    MovieInfoController * p = [[[MovieInfoController alloc]initWithInfo:_movieinfo]autorelease];
+
+    _movieinfoview = p.view;
+    
+    [self.view addSubview:_movieinfoview ];
+    
+    CGRect theFrame = [_movieinfoview frame];
+    theFrame.origin.y = -460.0f;
+    _movieinfoview.frame = theFrame;
+    
+    [self.view bringSubviewToFront:_button];
+    [self.view bringSubviewToFront:self.navigationController.navigationBar];
+    
 
 }
 
 - (void)viewDidUnload
 {
+    [self setMybutton:nil];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -145,6 +164,72 @@
     [_cinematable_array removeAllObjects];
     
     [self sendRequest:segment movieid:[_movieinfo.id intValue]];
+}
+
+-(void)animationDidStop:(NSString *) url
+{
+    NSLog(@"%@",url);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:@"Curl" context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.5];
+    CGRect rect1=[_button frame];
+    if([url isEqualToString:@"Curl1"])
+    {
+        [_button setTitle:@"收起" forState:UIControlStateNormal & UIControlStateHighlighted & UIControlStateSelected];
+        rect1.origin.y = 416.0f - rect1.size.height;
+    }
+    else if( [url isEqualToString:@"Curl2"])
+    {
+        //_button.titleLabel.text = @"影片详情";
+        [_button setTitle:@"影片详情" forState:UIControlStateNormal & UIControlStateHighlighted & UIControlStateSelected];
+        rect1.origin.y = 0.0f;
+    }
+    
+    [_button setFrame:rect1];
+    [UIView commitAnimations];
+//    if( [url isEqualToString:@"Curl2"])
+//        _button.titleLabel.text = @"影片详情";
+}
+
+
+-(IBAction)buttonSwitch:(id)sender
+{
+	CGContextRef context = UIGraphicsGetCurrentContext();
+    if([_movieinfoview frame].origin.y< -450.0f)
+    {
+        [UIView beginAnimations:@"Curl1" context:context];
+    }
+    else
+    {
+        [UIView beginAnimations:@"Curl2" context:context];
+    }
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:1.0f];
+    [UIView setAnimationDelegate:self];
+	CGRect rect = [_movieinfoview frame];
+	CGRect rect1=[_button frame];
+    CGRect rect2 = [self.navigationController.navigationBar frame];
+    if(rect.origin.y < -450.0f)
+    {
+        rect.origin.y = -44.0f;
+        rect1.origin.y = 416.0f;
+        rect2.origin.y = -24.0f;
+        
+    }
+    else
+    {
+        rect.origin.y = -460.0f;
+        rect1.origin.y = -44.0f;
+        rect2.origin.y = 20.0f;
+    }
+    
+    [_button setFrame:rect1];
+    [_movieinfoview setFrame:rect];
+    [self.navigationController.navigationBar setFrame:rect2];
+    [UIView commitAnimations];
+    
 }
 
 #pragma mark - Table view data source
@@ -311,6 +396,10 @@
     [self.cinematable reloadData];
 }
 
+- (void)dealloc {
+    [_button release];
+    [super dealloc];
+}
 @end
 
 
