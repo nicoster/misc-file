@@ -8,6 +8,7 @@
 
 #import "MovieInfoController.h"
 
+
 @implementation MovieInfoController
 @synthesize descp = _descp;
 @synthesize comments = _comments;
@@ -22,6 +23,8 @@
 @synthesize btn = _btn;
 
 @synthesize movieinfo = _movieinfo;
+
+@synthesize play = _play;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -109,6 +112,23 @@
 
 -(IBAction)showprevue:(id)sender
 {
-    NSLog(@"aaaaaaaaaaa");
+//    if(_movieinfo.sample_video_url == nil)
+//    {
+//        NSString * url = [NSString stringWithFormat:@"http://res.88bx.com/WirelessSZ/movies/videos/%d.mp4",[ _movieinfo.id integerValue]];
+//
+//        
+//        MPMoviePlayerViewController *pc = [[[MPMoviePlayerViewController alloc]initWithContentURL: [NSURL URLWithString: url ]] autorelease];
+//        
+//        self.play = pc;
+//        
+//        [self.view addSubview:self.play.view];
+//        self.play.view.backgroundColor = [UIColor blackColor];
+//        [self presentMoviePlayerViewControllerAnimated:self.play];
+//        
+//        //set config and start playing.
+//        self.play.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+//        self.play.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
+//        [self.play.moviePlayer play];
+//    }
 }
 @end

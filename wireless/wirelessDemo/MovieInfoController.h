@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MovieInfo.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface MovieInfoController : UIViewController{
     
@@ -25,6 +26,8 @@
     MovieInfo * _movieinfo;
     
     UIButton * _btn;
+    
+    MPMoviePlayerViewController * _play;
 }
 
 @property (retain, nonatomic) IBOutlet UIImageView *moviepic;
@@ -42,6 +45,8 @@
 @property (retain, nonatomic) IBOutlet UIButton * btn;
 
 @property(retain, nonatomic) MovieInfo * movieinfo;
+
+@property(retain, nonatomic) MPMoviePlayerViewController * play;
 
 -(id) initWithInfo:(MovieInfo *)p;
 

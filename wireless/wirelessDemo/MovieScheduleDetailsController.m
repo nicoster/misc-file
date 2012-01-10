@@ -9,6 +9,19 @@
 #import "MovieScheduleDetailsController.h"
 #import <extThree20JSON/extThree20JSON.h>
 
+@implementation ScheduleInfo(MycompareTime)
+
+- (NSComparisonResult) compareTime:(ScheduleInfo *)other {
+    
+    
+    
+    NSComparisonResult i = [[self movietime] compare:[other movietime]];
+//    NSLog(@"%@-%@:%d", self.movietime, other.movietime, i);
+    return i;
+    
+}
+@end
+
 @implementation MovieScheduleDetailsController
 
 @synthesize moviescheduletable = _moviescheduletable;
@@ -273,7 +286,7 @@
         // convert time
         NSString * p =[details objectForKey:@"time"];
         NSDateFormatter* format=[[NSDateFormatter new]autorelease];
-        [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+//        [format setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
         [format setDateFormat:(@"yyyy/MM/dd HH:mm")]; // HH:mm:ss
         scheduleinfo.movietime = [format dateFromString:p];
         // end
@@ -287,9 +300,11 @@
         }
     }
     
+    [_movieschedule_array sortUsingSelector:@selector(compareTime:)];
     
     [self.moviescheduletable reloadData];
 }
 
-
 @end
+
+
