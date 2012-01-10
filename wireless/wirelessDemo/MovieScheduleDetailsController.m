@@ -171,6 +171,11 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    NSDate *date = [NSDate date];
+//    NSTimeZone *zone = [NSTimeZone systemTimeZone];
+//    NSInteger interval = [zone secondsFromGMTForDate: date];
+//    NSDate *now = [date  dateByAddingTimeInterval: interval];
+
     
     UIFont *myFont = [ UIFont fontWithName: @"Arial" size: 17.0 ];
     cell.textLabel.font  = myFont;
@@ -180,6 +185,10 @@
     NSDate *now = scheduleinfo.movietime;
     NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init]autorelease]; 
     
+    if([date compare:scheduleinfo.movietime] == NSOrderedDescending)
+    {
+        cell.textLabel.textColor =  [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:0.8f];
+    }
     
     [dateFormatter setDateFormat:@"HH:mm"];
     //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
