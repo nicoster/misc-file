@@ -7,8 +7,8 @@
 //
 
 #import "WeatherViewController.h"
-#import "WeatherDetailsController.h"
 #import "WeatherCell.h"
+#import "WeatherDataMgr.h"
 
 #define SEPARATOR_COLOR [UIColor colorWithRed:0.1266 green:0.2633 blue:0.3882 alpha:1.0f]
 #define TITLE_COLOR [UIColor colorWithRed:0.1686 green:0.2275 blue:0.3333 alpha:1.0f]
@@ -17,8 +17,10 @@
 
 @implementation WeatherViewController
 
-@synthesize city = myCity, currentTemp = myCurrentTemp, weatherIcon = myWeatherIcon;
+@synthesize city = myCity, currentTemp = myCurrentTemp, weatherIcon = myWeatherIcon, weatherDesc = myWeatherDesc;
 @synthesize cityID = myCityID, weatherDetail = myWeatherDetail;
+@synthesize weatherData = myWeatherData;
+@synthesize realtimeWeatherData = myRealtimeWeatherData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,8 +53,11 @@
     self.weatherDetail.showsHorizontalScrollIndicator = NO;
     self.weatherDetail.showsVerticalScrollIndicator = NO;
 
-    int current = arc4random() % 20;
-    self.currentTemp.text = [NSString stringWithFormat: @"%d", current];
+//    int current = arc4random() % 20;
+//    self.currentTemp.text = [NSString stringWithFormat: @"%d", current];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onWeatherDataReady:) name:@"kWeatherDataReady" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRealtimeWeatherDataReady:) name:@"kRealtimeWeatherDataReady" object:nil];
 }
 
 - (void)viewDidUnload
@@ -60,6 +65,8 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.weatherData = nil;
+    self.realtimeWeatherData = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -68,6 +75,28 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)onWeatherDataReady: (NSNotification*) note
+{
+    WeatherData* wd = [note object];
+    if ([self.cityID compare:wd.cityID] == NSOrderedSame)
+    {
+        self.weatherData = wd;
+        self.city.text = wd.cityName;
+        self.weatherDesc.text = [wd.weathers objectAtIndex:0];
+        self.weatherIcon.image = [UIImage imageNamed:wd.HDImage];
+        [self.weatherDetail reloadData];
+    }
+}
+
+- (void)onRealtimeWeatherDataReady: (NSNotification*) note
+{
+    RealtimeWeatherData* rwd = [note object];
+    if ([self.cityID compare:rwd.cityID] == NSOrderedSame)
+    {
+        self.realtimeWeatherData = rwd;
+        self.currentTemp.text = rwd.currentTemp;
+    }
+}
 
 #pragma -
 
@@ -77,7 +106,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 5;
+    return [self.weatherData.tempLows count];
 }
 
 - (NSString *)getDayOfTheWeek:(NSDate *)date
@@ -98,11 +127,11 @@
     }
     
     cell.weekDay.text = [self getDayOfTheWeek: [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * indexPath.row]];
-    int high = arc4random() % 20 + 1;
-    int low = arc4random() % high;
-    cell.tempHigh.text = [NSString stringWithFormat: @"%d°", high];
-    cell.tempLow.text = [NSString stringWithFormat: @"%d°", low];
-    cell.backgroundColor = [UIColor blueColor];
+    cell.tempHigh.text = [NSString stringWithFormat: @"%@°", [self.weatherData.tempHighs objectAtIndex:indexPath.row]];
+    cell.tempLow.text  = [NSString stringWithFormat: @"%@°", [self.weatherData.tempLows objectAtIndex:indexPath.row]];
+    cell.weatherIcon.image = [UIImage imageNamed:[self.weatherData.images objectAtIndex:indexPath.row]];
+
+//    cell.backgroundColor = [UIColor redColor];
     //	cell.backgroundColor = (indexPath.row % 2 ? ITEM_COLOR : TITLE_COLOR);
     
 	return (UITableViewCell*)cell;

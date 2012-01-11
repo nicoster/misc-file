@@ -17,6 +17,7 @@
     NSMutableArray* myTempLows;
     NSMutableArray* myWinds;
     NSMutableArray* myImages;
+    NSString* myHDImage;
 }
 
 @property (retain) NSString* cityName;
@@ -28,6 +29,22 @@
 @property (retain) NSMutableArray* tempLows;
 @property (retain) NSMutableArray* winds;
 @property (retain) NSMutableArray* images;
+@property (retain) NSString* HDImage;
+
+@end
+
+// {"weatherinfo":{"city":"苏州","cityid":"101190401","temp":"3","wd":"东北风","ws":"3级","sd":"68%","wse":"3","time":"22:30","isradar":"0","radar":""}}
+@interface RealtimeWeatherData : NSObject {
+
+}
+
+@property (retain) NSString* cityName;
+@property (retain) NSString* cityID;
+@property (retain) NSString* currentTemp;
+@property (retain) NSString* windDirection;
+@property (retain) NSString* windSpeed;
+@property (retain) NSString* humidity;
+@property (retain) NSString* time;
 
 @end
 
@@ -36,10 +53,15 @@
 
 @interface WeatherDataMgr : NSObject<TTURLRequestDelegate>
 {
-    NSMutableDictionary* myData;
+//    NSMutableDictionary* myData;
+//    NSMutableDictionary* myRealtimeData;
 }
 
-+ (WeatherDataMgr*) shardWeatherDataMgr;
++ (WeatherDataMgr*) sharedWeatherDataMgr;
 - (void) retrieveData;
 - (void) addCity:(NSString*) cityid;
+
+@property (retain) NSMutableArray* normalWeatherRequest;
+@property (retain) NSMutableDictionary* realtimeWeatherRequest;
+
 @end

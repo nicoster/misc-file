@@ -45,6 +45,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{4, 7}, {105, 21}}</string>
 								<reference key="NSSuperview" ref="420248987"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="271062033"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -82,6 +83,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{238, 9}, {36, 21}}</string>
 								<reference key="NSSuperview" ref="420248987"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -112,6 +114,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{175, 7}, {55, 26}}</string>
 								<reference key="NSSuperview" ref="420248987"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="116955074"/>
 								<string key="NSReuseIdentifierKey">_NS:328</string>
 								<bool key="IBUIOpaque">NO</bool>
@@ -133,16 +136,23 @@
 							<object class="IBUIImageView" id="271062033">
 								<reference key="NSNextResponder" ref="420248987"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{128, 6}, {24, 24}}</string>
+								<string key="NSFrame">{{113, 2}, {54, 35}}</string>
 								<reference key="NSSuperview" ref="420248987"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="681393612"/>
 								<string key="NSReuseIdentifierKey">_NS:567</string>
+								<int key="IBUIContentMode">2</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">mini-rainsnow@2x.png</string>
+								</object>
 							</object>
 						</array>
 						<string key="NSFrameSize">{280, 35}</string>
 						<reference key="NSSuperview" ref="496870235"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="440218055"/>
 						<string key="NSReuseIdentifierKey">_NS:395</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
@@ -158,6 +168,7 @@
 				</array>
 				<string key="NSFrameSize">{280, 36}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="420248987"/>
 				<string key="NSReuseIdentifierKey">_NS:384</string>
 				<reference key="IBUIBackgroundColor" ref="13444633"/>
@@ -225,10 +236,10 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="496870235"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="271062033"/>
 							<reference ref="440218055"/>
 							<reference ref="681393612"/>
 							<reference ref="116955074"/>
+							<reference ref="271062033"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -272,11 +283,50 @@
 			<nil key="sourceID"/>
 			<int key="maxID">13</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">WeatherCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="tempHigh">UILabel</string>
+						<string key="tempLow">UILabel</string>
+						<string key="weatherIcon">UIImageView</string>
+						<string key="weekDay">UILabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="tempHigh">
+							<string key="name">tempHigh</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="tempLow">
+							<string key="name">tempLow</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="weatherIcon">
+							<string key="name">weatherIcon</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="weekDay">
+							<string key="name">weekDay</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/WeatherCell.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">mini-rainsnow@2x.png</string>
+			<string key="NS.object.0">{80, 72}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">933</string>
 	</data>
 </archive>

@@ -37,50 +37,30 @@
 {
     [super viewDidLoad];
     
-    WeatherDataMgr* wdmgr = [WeatherDataMgr shardWeatherDataMgr];
-    [wdmgr addCity:@"101190401"];
-    [wdmgr addCity:@"101110101"];
-    [wdmgr retrieveData];
-    
     self.navigationController.title = @"天气预报";
-    
     self.scrollView.delegate = self;
     
-//    NSArray *colors = [NSArray arrayWithObjects:[UIColor redColor], [UIColor greenColor], [UIColor blueColor], nil];
-//    for (int i = 0; i < colors.count; i++) {
-//        CGRect frame;
-//        frame.origin.x = self.scrollView.frame.size.width * i;
-//        frame.origin.y = 0;
-//        frame.size = self.scrollView.frame.size;
-//        
-//        CGRect frame2 = {0, 0, 0, 0};
-//        
-//        UIView *subview = [[UIView alloc] initWithFrame:frame2];
-//                           subview.frame = frame;
-//        subview.backgroundColor = [colors objectAtIndex:i];
-//        [self.scrollView addSubview:subview];
-//        [subview release];
-//    }
-//    
-//    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * colors.count, self.scrollView.frame.size.height);
+    NSString* cities[] = {@"101190401", @"101110101"};
     
-    NSString* cities[] = {@"Suzhou", @"Shanghai", @"Beijing"};
-    
+    WeatherDataMgr* wdmgr = [WeatherDataMgr sharedWeatherDataMgr];
     int i = 0;
-    for (; i < 3; i ++) {
+    for (; i < sizeof(cities) / sizeof(cities[0]); i ++) {
         CGRect frame;
         frame.origin.x = self.scrollView.frame.size.width * i;
         frame.origin.y = 0;
         frame.size = self.scrollView.frame.size;
         
         WeatherViewController* weather = [[[WeatherViewController alloc] initWithNibName: nil bundle: nil] autorelease];
+        weather.cityID = cities[i];
         [self.weathers addObject: weather];
         UIView *subview = [weather view];
-        weather.city.text = cities[i];
         subview.frame = frame;
         [self.scrollView addSubview:subview];
+
+        [wdmgr addCity:cities[i]];
     }
     
+    [wdmgr retrieveData];
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * i, self.scrollView.frame.size.height);
 }
 
