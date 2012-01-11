@@ -16,6 +16,8 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
+		700C1FA014BDE95100F70202 /* MovieInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C1F9E14BDE95100F70202 /* MovieInfoController.m */; };
+		700C1FA114BDE95100F70202 /* MovieInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700C1F9F14BDE95100F70202 /* MovieInfoController.xib */; };
 		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
 		705D9EC114B204600023732D /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 705D9EC014B204600023732D /* cupertino.PNG */; };
 		705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
@@ -281,6 +283,9 @@
 		320CC833B8AF0ACFD35E6220 /* Three20Style.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20Style.xcodeproj; path = ../three20/src/Three20Style/Three20Style.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320D7DCCE32703ACAB9A45E0 /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = ../three20/src/Three20/Three20.xcodeproj; sourceTree = SOURCE_ROOT; };
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
+		700C1F9D14BDE95100F70202 /* MovieInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfoController.h; sourceTree = "<group>"; };
+		700C1F9E14BDE95100F70202 /* MovieInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfoController.m; sourceTree = "<group>"; };
+		700C1F9F14BDE95100F70202 /* MovieInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieInfoController.xib; path = wirelessDemo/MovieInfoController.xib; sourceTree = "<group>"; };
 		703E9A64147B386400489DB1 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		703E9A65147B386400489DB1 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		705D9EC014B204600023732D /* cupertino.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cupertino.PNG; sourceTree = "<group>"; };
@@ -629,6 +634,7 @@
 				920628991476466D0060928E /* Icon.png */,
 				92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */,
 				9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */,
+				700C1F9F14BDE95100F70202 /* MovieInfoController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
@@ -652,6 +658,8 @@
 		921B423C14A328590021C4CD /* Movie */ = {
 			isa = PBXGroup;
 			children = (
+				700C1F9D14BDE95100F70202 /* MovieInfoController.h */,
+				700C1F9E14BDE95100F70202 /* MovieInfoController.m */,
 				921B423714A3283B0021C4CD /* MovieSummaryController.h */,
 				921B423814A3283B0021C4CD /* MovieSummaryController.m */,
 				928A9B9F14AEAEEE004F8817 /* MovieInfo.h */,
@@ -953,6 +961,7 @@
 				70CFAFC514BCA0E2004D6C5E /* mini-sunrain@2x.png in Resources */,
 				70CFAFC614BCA0E2004D6C5E /* mini-wind@2x.png in Resources */,
 				70CFAFC814BCA1A0004D6C5E /* mini-overcast@2x.png in Resources */,
+				700C1FA114BDE95100F70202 /* MovieInfoController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -979,6 +988,7 @@
 				92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */,
 				92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */,
 				9208BFA514B92D1C00E04190 /* MovieScheduleDetailsController.m in Sources */,
+				700C1FA014BDE95100F70202 /* MovieInfoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

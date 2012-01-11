@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.title = @"天气预报";
+    self.title = @"天气预报";
     self.scrollView.delegate = self;
     
     NSString* cities[] = {@"101190401", @"101110101"};
