@@ -97,6 +97,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    self.title = @"排片";
+    
     if(_movieinfo.movieSchedule == nil)
     {
         [self sendRequest:0 movieid:[_movieinfo.id intValue]];        

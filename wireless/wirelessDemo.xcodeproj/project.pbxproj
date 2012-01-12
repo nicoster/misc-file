@@ -58,6 +58,7 @@
 		92B4C74B14BD6E89006E656A /* CinemaDetailInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B4C74914BD6E88006E656A /* CinemaDetailInfoController.m */; };
 		92B4C74C14BD6E89006E656A /* CinemaDetailInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B4C74A14BD6E89006E656A /* CinemaDetailInfoController.xib */; };
 		92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6486414B1C29500C7A786 /* default_movie_post.png */; };
+		92BA056014BEB33D00B5667B /* bg_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 92BA055C14BEB33D00B5667B /* bg_button.png */; };
 		92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4DD514B43B6D009126AD /* CinemaInfo.m */; };
 		92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */; };
 		92BC3C1414B6E0B7002BB9D5 /* MovieScheduleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */; };
@@ -351,6 +352,7 @@
 		92B4C74914BD6E88006E656A /* CinemaDetailInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailInfoController.m; sourceTree = "<group>"; };
 		92B4C74A14BD6E89006E656A /* CinemaDetailInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CinemaDetailInfoController.xib; path = wirelessDemo/CinemaDetailInfoController.xib; sourceTree = "<group>"; };
 		92B6486414B1C29500C7A786 /* default_movie_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_movie_post.png; sourceTree = "<group>"; };
+		92BA055C14BEB33D00B5667B /* bg_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_button.png; sourceTree = "<group>"; };
 		92BA4DD414B43B6D009126AD /* CinemaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaInfo.h; sourceTree = "<group>"; };
 		92BA4DD514B43B6D009126AD /* CinemaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaInfo.m; sourceTree = "<group>"; };
 		92BC3C1014B6E0B7002BB9D5 /* MovieScheduleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieScheduleController.h; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 		921B430614AB01FA0021C4CD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				92BA055C14BEB33D00B5667B /* bg_button.png */,
 				92B6486414B1C29500C7A786 /* default_movie_post.png */,
 			);
 			name = Images;
@@ -909,6 +912,7 @@
 				9208BFA614B92D1C00E04190 /* MovieScheduleDetailsController.xib in Resources */,
 				92B4C71614BAACE9006E656A /* MovieInfoController.xib in Resources */,
 				92B4C74C14BD6E89006E656A /* CinemaDetailInfoController.xib in Resources */,
+				92BA056014BEB33D00B5667B /* bg_button.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
