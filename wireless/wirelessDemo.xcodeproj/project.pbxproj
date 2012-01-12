@@ -16,8 +16,6 @@
 		320CC833B8AF0ACFD35E6225 /* libThree20Style.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320CC833B8AF0ACFD35E6224 /* libThree20Style.a */; };
 		320D7DCCE32703ACAB9A45E5 /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320D7DCCE32703ACAB9A45E4 /* libThree20.a */; };
 		320F2C48872C2E2C4DF86205 /* libThree20UI.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 320F2C48872C2E2C4DF86204 /* libThree20UI.a */; };
-		700C1FA014BDE95100F70202 /* MovieInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 700C1F9E14BDE95100F70202 /* MovieInfoController.m */; };
-		700C1FA114BDE95100F70202 /* MovieInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 700C1F9F14BDE95100F70202 /* MovieInfoController.xib */; };
 		703E9A66147B386400489DB1 /* LauncherViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E9A65147B386400489DB1 /* LauncherViewController.m */; };
 		705D9EC114B204600023732D /* cupertino.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 705D9EC014B204600023732D /* cupertino.PNG */; };
 		705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */; };
@@ -36,41 +34,6 @@
 		70CFAE8A14B6D0F2004D6C5E /* LwlonlEtZSZSMkL.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAE6114B6D0F1004D6C5E /* LwlonlEtZSZSMkL.png */; };
 		70CFAE9C14B6D0F2004D6C5E /* OTBqAzFm1Zk33uM.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAE7314B6D0F1004D6C5E /* OTBqAzFm1Zk33uM.png */; };
 		70CFAEAA14B82F2C004D6C5E /* WeatherDataMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CFAEA914B82F2C004D6C5E /* WeatherDataMgr.m */; };
-		70CFAF9414BC0F8E004D6C5E /* cloudovercast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5A14BC0F8E004D6C5E /* cloudovercast.png */; };
-		70CFAF9514BC0F8E004D6C5E /* fog.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5B14BC0F8E004D6C5E /* fog.png */; };
-		70CFAF9614BC0F8E004D6C5E /* lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5C14BC0F8E004D6C5E /* lightening.png */; };
-		70CFAF9714BC0F8E004D6C5E /* overcastdust.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5D14BC0F8E004D6C5E /* overcastdust.png */; };
-		70CFAF9814BC0F8E004D6C5E /* rainbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5E14BC0F8E004D6C5E /* rainbig.png */; };
-		70CFAF9914BC0F8E004D6C5E /* rainovercast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5F14BC0F8E004D6C5E /* rainovercast.png */; };
-		70CFAF9A14BC0F8E004D6C5E /* rainovercastbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6014BC0F8E004D6C5E /* rainovercastbig.png */; };
-		70CFAF9B14BC0F8E004D6C5E /* rainsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6114BC0F8E004D6C5E /* rainsmall.png */; };
-		70CFAF9C14BC0F8E004D6C5E /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6214BC0F8E004D6C5E /* snow.png */; };
-		70CFAF9D14BC0F8E004D6C5E /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6314BC0F8E004D6C5E /* sun.png */; };
-		70CFAF9E14BC0F8E004D6C5E /* suncloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6414BC0F8E004D6C5E /* suncloud.png */; };
-		70CFAF9F14BC0F8E004D6C5E /* suncloudsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6514BC0F8E004D6C5E /* suncloudsmall.png */; };
-		70CFAFA014BC0F8E004D6C5E /* sundust.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6614BC0F8E004D6C5E /* sundust.png */; };
-		70CFAFA114BC0F8E004D6C5E /* sunlightening.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6714BC0F8E004D6C5E /* sunlightening.png */; };
-		70CFAFA214BC0F8E004D6C5E /* sunrainbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6814BC0F8E004D6C5E /* sunrainbig.png */; };
-		70CFAFA314BC0F8E004D6C5E /* sunrainsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6914BC0F8E004D6C5E /* sunrainsmall.png */; };
-		70CFAFA414BC0F8E004D6C5E /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6A14BC0F8E004D6C5E /* unknown.png */; };
-		70CFAFA614BC990F004D6C5E /* overcast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA514BC990F004D6C5E /* overcast.png */; };
-		70CFAFB714BCA0E2004D6C5E /* mini-clearnight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA714BCA0E2004D6C5E /* mini-clearnight@2x.png */; };
-		70CFAFB814BCA0E2004D6C5E /* mini-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA814BCA0E2004D6C5E /* mini-cloud@2x.png */; };
-		70CFAFB914BCA0E2004D6C5E /* mini-flurries@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA914BCA0E2004D6C5E /* mini-flurries@2x.png */; };
-		70CFAFBA14BCA0E2004D6C5E /* mini-fog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAA14BCA0E2004D6C5E /* mini-fog@2x.png */; };
-		70CFAFBB14BCA0E2004D6C5E /* mini-hail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAB14BCA0E2004D6C5E /* mini-hail@2x.png */; };
-		70CFAFBC14BCA0E2004D6C5E /* mini-ice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAC14BCA0E2004D6C5E /* mini-ice@2x.png */; };
-		70CFAFBD14BCA0E2004D6C5E /* mini-lightening@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAD14BCA0E2004D6C5E /* mini-lightening@2x.png */; };
-		70CFAFBE14BCA0E2004D6C5E /* mini-rain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAE14BCA0E2004D6C5E /* mini-rain@2x.png */; };
-		70CFAFBF14BCA0E2004D6C5E /* mini-raincloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAF14BCA0E2004D6C5E /* mini-raincloud@2x.png */; };
-		70CFAFC014BCA0E2004D6C5E /* mini-rainsnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB014BCA0E2004D6C5E /* mini-rainsnow@2x.png */; };
-		70CFAFC114BCA0E2004D6C5E /* mini-snow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB114BCA0E2004D6C5E /* mini-snow@2x.png */; };
-		70CFAFC214BCA0E2004D6C5E /* mini-sun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB214BCA0E2004D6C5E /* mini-sun@2x.png */; };
-		70CFAFC314BCA0E2004D6C5E /* mini-suncloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB314BCA0E2004D6C5E /* mini-suncloud@2x.png */; };
-		70CFAFC414BCA0E2004D6C5E /* mini-sunhaze@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB414BCA0E2004D6C5E /* mini-sunhaze@2x.png */; };
-		70CFAFC514BCA0E2004D6C5E /* mini-sunrain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB514BCA0E2004D6C5E /* mini-sunrain@2x.png */; };
-		70CFAFC614BCA0E2004D6C5E /* mini-wind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB614BCA0E2004D6C5E /* mini-wind@2x.png */; };
-		70CFAFC814BCA1A0004D6C5E /* mini-overcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFC714BCA1A0004D6C5E /* mini-overcast@2x.png */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -89,6 +52,11 @@
 		921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 921B424314A32E640021C4CD /* OpenGLES.framework */; };
 		928A9B1A14ADB9A6004F8817 /* libextThree20JSON+YAJL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 928A9B1514ADB6F1004F8817 /* libextThree20JSON+YAJL.a */; };
 		928A9BA114AEAEEE004F8817 /* MovieInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 928A9BA014AEAEEE004F8817 /* MovieInfo.m */; };
+		92B4C71514BAACE9006E656A /* MovieInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B4C71314BAACE8006E656A /* MovieInfoController.m */; };
+		92B4C71614BAACE9006E656A /* MovieInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B4C71414BAACE8006E656A /* MovieInfoController.xib */; };
+		92B4C72014BBD629006E656A /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92B4C71F14BBD629006E656A /* MediaPlayer.framework */; };
+		92B4C74B14BD6E89006E656A /* CinemaDetailInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B4C74914BD6E88006E656A /* CinemaDetailInfoController.m */; };
+		92B4C74C14BD6E89006E656A /* CinemaDetailInfoController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 92B4C74A14BD6E89006E656A /* CinemaDetailInfoController.xib */; };
 		92B6486514B1C29500C7A786 /* default_movie_post.png in Resources */ = {isa = PBXBuildFile; fileRef = 92B6486414B1C29500C7A786 /* default_movie_post.png */; };
 		92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BA4DD514B43B6D009126AD /* CinemaInfo.m */; };
 		92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */; };
@@ -285,7 +253,6 @@
 		320F2C48872C2E2C4DF86200 /* Three20UI.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20UI.xcodeproj; path = ../three20/src/Three20UI/Three20UI.xcodeproj; sourceTree = SOURCE_ROOT; };
 		700C1F9D14BDE95100F70202 /* MovieInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfoController.h; sourceTree = "<group>"; };
 		700C1F9E14BDE95100F70202 /* MovieInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfoController.m; sourceTree = "<group>"; };
-		700C1F9F14BDE95100F70202 /* MovieInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieInfoController.xib; path = wirelessDemo/MovieInfoController.xib; sourceTree = "<group>"; };
 		703E9A64147B386400489DB1 /* LauncherViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController.h; sourceTree = "<group>"; };
 		703E9A65147B386400489DB1 /* LauncherViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController.m; sourceTree = "<group>"; };
 		705D9EC014B204600023732D /* cupertino.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cupertino.PNG; sourceTree = "<group>"; };
@@ -376,6 +343,13 @@
 		928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = extThree20JSON.xcodeproj; path = ../three20/src/extThree20JSON/extThree20JSON.xcodeproj; sourceTree = "<group>"; };
 		928A9B9F14AEAEEE004F8817 /* MovieInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfo.h; sourceTree = "<group>"; };
 		928A9BA014AEAEEE004F8817 /* MovieInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfo.m; sourceTree = "<group>"; };
+		92B4C71214BAACE8006E656A /* MovieInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieInfoController.h; sourceTree = "<group>"; };
+		92B4C71314BAACE8006E656A /* MovieInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieInfoController.m; sourceTree = "<group>"; };
+		92B4C71414BAACE8006E656A /* MovieInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MovieInfoController.xib; path = wirelessDemo/MovieInfoController.xib; sourceTree = "<group>"; };
+		92B4C71F14BBD629006E656A /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		92B4C74814BD6E88006E656A /* CinemaDetailInfoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaDetailInfoController.h; sourceTree = "<group>"; };
+		92B4C74914BD6E88006E656A /* CinemaDetailInfoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaDetailInfoController.m; sourceTree = "<group>"; };
+		92B4C74A14BD6E89006E656A /* CinemaDetailInfoController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CinemaDetailInfoController.xib; path = wirelessDemo/CinemaDetailInfoController.xib; sourceTree = "<group>"; };
 		92B6486414B1C29500C7A786 /* default_movie_post.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default_movie_post.png; sourceTree = "<group>"; };
 		92BA4DD414B43B6D009126AD /* CinemaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CinemaInfo.h; sourceTree = "<group>"; };
 		92BA4DD514B43B6D009126AD /* CinemaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CinemaInfo.m; sourceTree = "<group>"; };
@@ -389,6 +363,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92B4C72014BBD629006E656A /* MediaPlayer.framework in Frameworks */,
 				928A9B1A14ADB9A6004F8817 /* libextThree20JSON+YAJL.a in Frameworks */,
 				921B424414A32E640021C4CD /* OpenGLES.framework in Frameworks */,
 				3201088596B4756681693705 /* libThree20UICommon.a in Frameworks */,
@@ -558,6 +533,7 @@
 		9206284E147642540060928E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92B4C71F14BBD629006E656A /* MediaPlayer.framework */,
 				928A9B0614ADB6F0004F8817 /* extThree20JSON.xcodeproj */,
 				921B424314A32E640021C4CD /* OpenGLES.framework */,
 				3201088596B4756681693700 /* Three20UICommon.xcodeproj */,
@@ -633,8 +609,9 @@
 				921B430614AB01FA0021C4CD /* Images */,
 				920628991476466D0060928E /* Icon.png */,
 				92BC3C1214B6E0B7002BB9D5 /* MovieScheduleController.xib */,
+				92B4C71414BAACE8006E656A /* MovieInfoController.xib */,
 				9208BFA414B92D1C00E04190 /* MovieScheduleDetailsController.xib */,
-				700C1F9F14BDE95100F70202 /* MovieInfoController.xib */,
+				92B4C74A14BD6E89006E656A /* CinemaDetailInfoController.xib */,
 				70B5D2CB14B13B8800E95DC3 /* WeatherSummaryController.xib */,
 				70B5D2D414B14E7800E95DC3 /* WeatherViewController.xib */,
 				921B423914A3283B0021C4CD /* MovieSummaryController.xib */,
@@ -670,6 +647,10 @@
 				92BC3C1114B6E0B7002BB9D5 /* MovieScheduleController.m */,
 				9208BFA214B92D1C00E04190 /* MovieScheduleDetailsController.h */,
 				9208BFA314B92D1C00E04190 /* MovieScheduleDetailsController.m */,
+				92B4C71214BAACE8006E656A /* MovieInfoController.h */,
+				92B4C71314BAACE8006E656A /* MovieInfoController.m */,
+				92B4C74814BD6E88006E656A /* CinemaDetailInfoController.h */,
+				92B4C74914BD6E88006E656A /* CinemaDetailInfoController.m */,
 			);
 			name = Movie;
 			sourceTree = "<group>";
@@ -926,42 +907,8 @@
 				70CFAE9C14B6D0F2004D6C5E /* OTBqAzFm1Zk33uM.png in Resources */,
 				92BC3C1414B6E0B7002BB9D5 /* MovieScheduleController.xib in Resources */,
 				9208BFA614B92D1C00E04190 /* MovieScheduleDetailsController.xib in Resources */,
-				70CFAF9414BC0F8E004D6C5E /* cloudovercast.png in Resources */,
-				70CFAF9514BC0F8E004D6C5E /* fog.png in Resources */,
-				70CFAF9614BC0F8E004D6C5E /* lightening.png in Resources */,
-				70CFAF9714BC0F8E004D6C5E /* overcastdust.png in Resources */,
-				70CFAF9814BC0F8E004D6C5E /* rainbig.png in Resources */,
-				70CFAF9914BC0F8E004D6C5E /* rainovercast.png in Resources */,
-				70CFAF9A14BC0F8E004D6C5E /* rainovercastbig.png in Resources */,
-				70CFAF9B14BC0F8E004D6C5E /* rainsmall.png in Resources */,
-				70CFAF9C14BC0F8E004D6C5E /* snow.png in Resources */,
-				70CFAF9D14BC0F8E004D6C5E /* sun.png in Resources */,
-				70CFAF9E14BC0F8E004D6C5E /* suncloud.png in Resources */,
-				70CFAF9F14BC0F8E004D6C5E /* suncloudsmall.png in Resources */,
-				70CFAFA014BC0F8E004D6C5E /* sundust.png in Resources */,
-				70CFAFA114BC0F8E004D6C5E /* sunlightening.png in Resources */,
-				70CFAFA214BC0F8E004D6C5E /* sunrainbig.png in Resources */,
-				70CFAFA314BC0F8E004D6C5E /* sunrainsmall.png in Resources */,
-				70CFAFA414BC0F8E004D6C5E /* unknown.png in Resources */,
-				70CFAFA614BC990F004D6C5E /* overcast.png in Resources */,
-				70CFAFB714BCA0E2004D6C5E /* mini-clearnight@2x.png in Resources */,
-				70CFAFB814BCA0E2004D6C5E /* mini-cloud@2x.png in Resources */,
-				70CFAFB914BCA0E2004D6C5E /* mini-flurries@2x.png in Resources */,
-				70CFAFBA14BCA0E2004D6C5E /* mini-fog@2x.png in Resources */,
-				70CFAFBB14BCA0E2004D6C5E /* mini-hail@2x.png in Resources */,
-				70CFAFBC14BCA0E2004D6C5E /* mini-ice@2x.png in Resources */,
-				70CFAFBD14BCA0E2004D6C5E /* mini-lightening@2x.png in Resources */,
-				70CFAFBE14BCA0E2004D6C5E /* mini-rain@2x.png in Resources */,
-				70CFAFBF14BCA0E2004D6C5E /* mini-raincloud@2x.png in Resources */,
-				70CFAFC014BCA0E2004D6C5E /* mini-rainsnow@2x.png in Resources */,
-				70CFAFC114BCA0E2004D6C5E /* mini-snow@2x.png in Resources */,
-				70CFAFC214BCA0E2004D6C5E /* mini-sun@2x.png in Resources */,
-				70CFAFC314BCA0E2004D6C5E /* mini-suncloud@2x.png in Resources */,
-				70CFAFC414BCA0E2004D6C5E /* mini-sunhaze@2x.png in Resources */,
-				70CFAFC514BCA0E2004D6C5E /* mini-sunrain@2x.png in Resources */,
-				70CFAFC614BCA0E2004D6C5E /* mini-wind@2x.png in Resources */,
-				70CFAFC814BCA1A0004D6C5E /* mini-overcast@2x.png in Resources */,
-				700C1FA114BDE95100F70202 /* MovieInfoController.xib in Resources */,
+				92B4C71614BAACE9006E656A /* MovieInfoController.xib in Resources */,
+				92B4C74C14BD6E89006E656A /* CinemaDetailInfoController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -988,7 +935,8 @@
 				92BA4DD614B43B6D009126AD /* CinemaInfo.m in Sources */,
 				92BC3C1314B6E0B7002BB9D5 /* MovieScheduleController.m in Sources */,
 				9208BFA514B92D1C00E04190 /* MovieScheduleDetailsController.m in Sources */,
-				700C1FA014BDE95100F70202 /* MovieInfoController.m in Sources */,
+				92B4C71514BAACE9006E656A /* MovieInfoController.m in Sources */,
+				92B4C74B14BD6E89006E656A /* CinemaDetailInfoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -148,11 +148,6 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
     
 }
 
-- (void) OpenMovieSchedule:(MovieInfo *) pmovieinfo
-{
-    
-}
-
 - (IBAction)viewCinema
 {
     if([DataStore SharedDataStore].movie_info_array != nil && [[DataStore SharedDataStore].movie_info_array count] != 0)

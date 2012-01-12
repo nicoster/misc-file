@@ -44,7 +44,6 @@
 @property(nonatomic,retain) IBOutlet UILabel * movie_startDate;
 
 - (void) UpdateUI;
-- (void) OpenMovieSchedule:(MovieInfo *) pmovieinfo;
 
 - (IBAction)viewCinema;
 
