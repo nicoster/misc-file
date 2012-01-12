@@ -13,8 +13,6 @@
 
 - (NSComparisonResult) compareTime:(ScheduleInfo *)other {
     
-    
-    
     NSComparisonResult i = [[self movietime] compare:[other movietime]];
 //    NSLog(@"%@-%@:%d", self.movietime, other.movietime, i);
     return i;
@@ -27,6 +25,9 @@
 @synthesize moviescheduletable = _moviescheduletable;
 @synthesize datesegmented = _datesegmented;
 @synthesize movieschedule_array = _movieschedule_array;
+
+@synthesize mybutton = _button;
+@synthesize cinemainfoController = _cinemainfoController;
 
 -(void)sendRequest: (NSInteger)day movieid:(NSInteger )id
 {
@@ -83,6 +84,18 @@
     {
         [self sendRequest:0 movieid:[_movieschedule.movieid intValue]];        
     }
+    
+    self.cinemainfoController = [[(CinemaDetailInfoController*)[CinemaDetailInfoController alloc]initWithCinemaId:_movieschedule.cinemaid] autorelease];
+    
+    [[self view] addSubview:_cinemainfoController.view ];
+    
+    
+    CGRect theFrame = [_cinemainfoController.view frame];
+    theFrame.origin.y = -460.0f;
+    _cinemainfoController.view.frame = theFrame;
+    
+    [self.view bringSubviewToFront:_button];
+    [self.view bringSubviewToFront:self.navigationController.navigationBar];
 }
 
 - (void)viewDidUnload
@@ -147,6 +160,75 @@
     
     [request send];
 }
+
+/////
+-(void)animationDidStop:(NSString *) url
+{
+    NSLog(@"%@",url);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [UIView beginAnimations:@"Curl" context:context];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationDuration:0.5];
+    CGRect rect1=[_button frame];
+    if([url isEqualToString:@"Curl1"])
+    {
+        [_button setTitle:@"收起" forState:UIControlStateNormal & UIControlStateHighlighted & UIControlStateSelected];
+        rect1.origin.y = 416.0f - rect1.size.height;
+    }
+    else if( [url isEqualToString:@"Curl2"])
+    {
+        
+        [_button setTitle:@"影院详情" forState:UIControlStateNormal & UIControlStateHighlighted & UIControlStateSelected];
+        rect1.origin.y = 0.0f;
+    }
+    
+    [_button setFrame:rect1];
+    [UIView commitAnimations];
+    
+}
+
+
+-(IBAction)showcinemainfo:(id)sender
+{
+	CGContextRef context = UIGraphicsGetCurrentContext();
+    if([_cinemainfoController.view frame].origin.y< -450.0f)
+    {
+        [UIView beginAnimations:@"Curl1" context:context];
+    }
+    else
+    {
+        [UIView beginAnimations:@"Curl2" context:context];
+    }
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:1.0f];
+    [UIView setAnimationDelegate:self];
+	CGRect rect = [_cinemainfoController.view frame];
+	CGRect rect1=[_button frame];
+    CGRect rect2 = [self.navigationController.navigationBar frame];
+    if(rect.origin.y < -450.0f)
+    {
+        rect.origin.y = -44.0f;
+        rect1.origin.y = 416.0f;
+        rect2.origin.y = -24.0f;
+        
+    }
+    else
+    {
+        rect.origin.y = -460.0f;
+        rect1.origin.y = -44.0f;
+        rect2.origin.y = 20.0f;
+    }
+    
+    [_button setFrame:rect1];
+    [_cinemainfoController.view setFrame:rect];
+    [self.navigationController.navigationBar setFrame:rect2];
+    [UIView commitAnimations];
+    
+}
+
+/////
+
 
 #pragma mark - Table view data source
 
@@ -312,6 +394,11 @@
     [_movieschedule_array sortUsingSelector:@selector(compareTime:)];
     
     [self.moviescheduletable reloadData];
+}
+
+- (void)dealloc {
+    [_button release];
+    [super dealloc];
 }
 
 @end

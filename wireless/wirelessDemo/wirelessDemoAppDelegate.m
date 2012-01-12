@@ -26,12 +26,23 @@
     [map from:@"tt://nib/(loadFromNib:)" toSharedViewController:self];
     [map from:@"tt://obj/(initwithobj:)" toViewController:self];
     [map from:@"tt://moviedetail/(initwithdetail:)" toViewController:self];
+    [map from:@"tt://cinemadetail/(initwithcinemaid:)" toSharedViewController:self];
 
     
 	[navigator openURLAction:
 		 [TTURLAction actionWithURLPath:@"tt://launcher"]];
 }
 
+
+- (UIViewController*)initwithcinemaid:(NSString *)className query:(NSDictionary *)obj 
+{
+    
+    NSNumber *p = [obj objectForKey:@"cinemaid"];
+    
+    UIViewController* newController = (UIViewController *)[[NSClassFromString(className) alloc] initWithCinemaId:p];
+    [newController autorelease];
+    return newController;
+}
 
 - (UIViewController*)initwithobj:(NSString *)className query:(NSDictionary *)obj 
 {

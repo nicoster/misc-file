@@ -50,13 +50,14 @@ static NSString* moviescheduleRequestURLPath = @"http://res.88bx.com:8080/wirele
 @property(nonatomic, retain) NSMutableArray * cinematable_array;
 
 @property(nonatomic, retain) IBOutlet UIButton * mybutton;
+@property(nonatomic, retain) MovieInfoController *movieinfoController;
 
 -(void)sendRequest: (NSInteger)day movieid:(NSInteger )id;
 
 - (IBAction)segmentControlAction:(id)sender;
 -(IBAction)buttonSwitch:(id)sender;
 
-@property(nonatomic, retain) MovieInfoController *movieinfoController;
+
 
 @end
 
