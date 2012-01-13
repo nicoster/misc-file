@@ -210,6 +210,7 @@
         [UIView beginAnimations:@"Curl2" context:context];
     }
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    
 	[UIView setAnimationDuration:1.0f];
     [UIView setAnimationDelegate:self];
 	CGRect rect = [_movieinfoController.view frame];

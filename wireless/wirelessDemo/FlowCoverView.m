@@ -578,7 +578,7 @@ static void *GData = NULL;
 	 *	Adjust speed to make this land on an even location
 	 */
 	
-//	NSLog(@"speed: %lf",speed);
+	NSLog(@"speed: %lf",speed);
 	double delta = speed * speed / (FRICTION * 2);
 	if (speed < 0) delta = -delta;
 	double nearest = startOff + delta;
@@ -589,8 +589,8 @@ static void *GData = NULL;
 	runDelta = fabs(startSpeed / FRICTION);
 	startTime = CACurrentMediaTime();
 	
-//	NSLog(@"startSpeed: %lf",startSpeed);
-//	NSLog(@"runDelta: %lf",runDelta);
+	NSLog(@"startSpeed: %lf",startSpeed);
+	NSLog(@"runDelta: %lf",runDelta);
 	timer = [NSTimer scheduledTimerWithTimeInterval:0.03
 					target:self
 					selector:@selector(driveAnimation)

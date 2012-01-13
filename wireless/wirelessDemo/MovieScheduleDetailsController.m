@@ -14,7 +14,6 @@
 - (NSComparisonResult) compareTime:(ScheduleInfo *)other {
     
     NSComparisonResult i = [[self movietime] compare:[other movietime]];
-//    NSLog(@"%@-%@:%d", self.movietime, other.movietime, i);
     return i;
     
 }

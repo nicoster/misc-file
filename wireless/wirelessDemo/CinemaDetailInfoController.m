@@ -55,6 +55,8 @@
 - (void)viewDidUnload
 {
     [self setCinemaname:nil];
+    [self setCinemaid:nil];
+    [self setCinemaDetailtable:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -68,6 +70,8 @@
 
 - (void)dealloc {
     [_cinemaname release];
+    [_cinemaDetailtable release];
+    [_cinemaid release];
     [super dealloc];
 }
 
