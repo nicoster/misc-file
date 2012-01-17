@@ -34,6 +34,41 @@
 		70CFAE8A14B6D0F2004D6C5E /* LwlonlEtZSZSMkL.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAE6114B6D0F1004D6C5E /* LwlonlEtZSZSMkL.png */; };
 		70CFAE9C14B6D0F2004D6C5E /* OTBqAzFm1Zk33uM.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAE7314B6D0F1004D6C5E /* OTBqAzFm1Zk33uM.png */; };
 		70CFAEAA14B82F2C004D6C5E /* WeatherDataMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 70CFAEA914B82F2C004D6C5E /* WeatherDataMgr.m */; };
+		70D9D35114C5C11E005E5DD0 /* mini-clearnight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA714BCA0E2004D6C5E /* mini-clearnight@2x.png */; };
+		70D9D35214C5C11E005E5DD0 /* mini-cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA814BCA0E2004D6C5E /* mini-cloud@2x.png */; };
+		70D9D35314C5C11E005E5DD0 /* mini-flurries@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA914BCA0E2004D6C5E /* mini-flurries@2x.png */; };
+		70D9D35414C5C11E005E5DD0 /* mini-fog@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAA14BCA0E2004D6C5E /* mini-fog@2x.png */; };
+		70D9D35514C5C11E005E5DD0 /* mini-hail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAB14BCA0E2004D6C5E /* mini-hail@2x.png */; };
+		70D9D35614C5C11E005E5DD0 /* mini-ice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAC14BCA0E2004D6C5E /* mini-ice@2x.png */; };
+		70D9D35714C5C11E005E5DD0 /* mini-lightening@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAD14BCA0E2004D6C5E /* mini-lightening@2x.png */; };
+		70D9D35814C5C11E005E5DD0 /* mini-rain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAE14BCA0E2004D6C5E /* mini-rain@2x.png */; };
+		70D9D35914C5C11E005E5DD0 /* mini-raincloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFAF14BCA0E2004D6C5E /* mini-raincloud@2x.png */; };
+		70D9D35A14C5C11E005E5DD0 /* mini-overcast@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFC714BCA1A0004D6C5E /* mini-overcast@2x.png */; };
+		70D9D35B14C5C11E005E5DD0 /* mini-rainsnow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB014BCA0E2004D6C5E /* mini-rainsnow@2x.png */; };
+		70D9D35C14C5C11E005E5DD0 /* mini-snow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB114BCA0E2004D6C5E /* mini-snow@2x.png */; };
+		70D9D35D14C5C11E005E5DD0 /* mini-sun@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB214BCA0E2004D6C5E /* mini-sun@2x.png */; };
+		70D9D35E14C5C11E005E5DD0 /* mini-suncloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB314BCA0E2004D6C5E /* mini-suncloud@2x.png */; };
+		70D9D35F14C5C11E005E5DD0 /* mini-sunhaze@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB414BCA0E2004D6C5E /* mini-sunhaze@2x.png */; };
+		70D9D36014C5C11E005E5DD0 /* mini-sunrain@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB514BCA0E2004D6C5E /* mini-sunrain@2x.png */; };
+		70D9D36114C5C11E005E5DD0 /* mini-wind@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFB614BCA0E2004D6C5E /* mini-wind@2x.png */; };
+		70D9D36214C5C11E005E5DD0 /* overcast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAFA514BC990F004D6C5E /* overcast.png */; };
+		70D9D36314C5C11E005E5DD0 /* cloudovercast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5A14BC0F8E004D6C5E /* cloudovercast.png */; };
+		70D9D36414C5C11E005E5DD0 /* fog.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5B14BC0F8E004D6C5E /* fog.png */; };
+		70D9D36514C5C11E005E5DD0 /* lightening.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5C14BC0F8E004D6C5E /* lightening.png */; };
+		70D9D36614C5C11E005E5DD0 /* overcastdust.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5D14BC0F8E004D6C5E /* overcastdust.png */; };
+		70D9D36714C5C11E005E5DD0 /* rainbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5E14BC0F8E004D6C5E /* rainbig.png */; };
+		70D9D36814C5C11E005E5DD0 /* rainovercast.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF5F14BC0F8E004D6C5E /* rainovercast.png */; };
+		70D9D36914C5C11E005E5DD0 /* rainovercastbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6014BC0F8E004D6C5E /* rainovercastbig.png */; };
+		70D9D36A14C5C11E005E5DD0 /* rainsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6114BC0F8E004D6C5E /* rainsmall.png */; };
+		70D9D36B14C5C11E005E5DD0 /* snow.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6214BC0F8E004D6C5E /* snow.png */; };
+		70D9D36C14C5C11E005E5DD0 /* sun.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6314BC0F8E004D6C5E /* sun.png */; };
+		70D9D36D14C5C11E005E5DD0 /* suncloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6414BC0F8E004D6C5E /* suncloud.png */; };
+		70D9D36E14C5C11E005E5DD0 /* suncloudsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6514BC0F8E004D6C5E /* suncloudsmall.png */; };
+		70D9D36F14C5C11E005E5DD0 /* sundust.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6614BC0F8E004D6C5E /* sundust.png */; };
+		70D9D37014C5C11E005E5DD0 /* sunlightening.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6714BC0F8E004D6C5E /* sunlightening.png */; };
+		70D9D37114C5C11E005E5DD0 /* sunrainbig.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6814BC0F8E004D6C5E /* sunrainbig.png */; };
+		70D9D37214C5C11E005E5DD0 /* sunrainsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6914BC0F8E004D6C5E /* sunrainsmall.png */; };
+		70D9D37314C5C11E005E5DD0 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = 70CFAF6A14BC0F8E004D6C5E /* unknown.png */; };
 		92062850147642540060928E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9206284F147642540060928E /* UIKit.framework */; };
 		92062852147642540060928E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062851147642540060928E /* Foundation.framework */; };
 		92062854147642540060928E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92062853147642540060928E /* CoreGraphics.framework */; };
@@ -890,6 +925,41 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70D9D35114C5C11E005E5DD0 /* mini-clearnight@2x.png in Resources */,
+				70D9D35214C5C11E005E5DD0 /* mini-cloud@2x.png in Resources */,
+				70D9D35314C5C11E005E5DD0 /* mini-flurries@2x.png in Resources */,
+				70D9D35414C5C11E005E5DD0 /* mini-fog@2x.png in Resources */,
+				70D9D35514C5C11E005E5DD0 /* mini-hail@2x.png in Resources */,
+				70D9D35614C5C11E005E5DD0 /* mini-ice@2x.png in Resources */,
+				70D9D35714C5C11E005E5DD0 /* mini-lightening@2x.png in Resources */,
+				70D9D35814C5C11E005E5DD0 /* mini-rain@2x.png in Resources */,
+				70D9D35914C5C11E005E5DD0 /* mini-raincloud@2x.png in Resources */,
+				70D9D35A14C5C11E005E5DD0 /* mini-overcast@2x.png in Resources */,
+				70D9D35B14C5C11E005E5DD0 /* mini-rainsnow@2x.png in Resources */,
+				70D9D35C14C5C11E005E5DD0 /* mini-snow@2x.png in Resources */,
+				70D9D35D14C5C11E005E5DD0 /* mini-sun@2x.png in Resources */,
+				70D9D35E14C5C11E005E5DD0 /* mini-suncloud@2x.png in Resources */,
+				70D9D35F14C5C11E005E5DD0 /* mini-sunhaze@2x.png in Resources */,
+				70D9D36014C5C11E005E5DD0 /* mini-sunrain@2x.png in Resources */,
+				70D9D36114C5C11E005E5DD0 /* mini-wind@2x.png in Resources */,
+				70D9D36214C5C11E005E5DD0 /* overcast.png in Resources */,
+				70D9D36314C5C11E005E5DD0 /* cloudovercast.png in Resources */,
+				70D9D36414C5C11E005E5DD0 /* fog.png in Resources */,
+				70D9D36514C5C11E005E5DD0 /* lightening.png in Resources */,
+				70D9D36614C5C11E005E5DD0 /* overcastdust.png in Resources */,
+				70D9D36714C5C11E005E5DD0 /* rainbig.png in Resources */,
+				70D9D36814C5C11E005E5DD0 /* rainovercast.png in Resources */,
+				70D9D36914C5C11E005E5DD0 /* rainovercastbig.png in Resources */,
+				70D9D36A14C5C11E005E5DD0 /* rainsmall.png in Resources */,
+				70D9D36B14C5C11E005E5DD0 /* snow.png in Resources */,
+				70D9D36C14C5C11E005E5DD0 /* sun.png in Resources */,
+				70D9D36D14C5C11E005E5DD0 /* suncloud.png in Resources */,
+				70D9D36E14C5C11E005E5DD0 /* suncloudsmall.png in Resources */,
+				70D9D36F14C5C11E005E5DD0 /* sundust.png in Resources */,
+				70D9D37014C5C11E005E5DD0 /* sunlightening.png in Resources */,
+				70D9D37114C5C11E005E5DD0 /* sunrainbig.png in Resources */,
+				70D9D37214C5C11E005E5DD0 /* sunrainsmall.png in Resources */,
+				70D9D37314C5C11E005E5DD0 /* unknown.png in Resources */,
 				705D9EC214B209DE0023732D /* WeatherSummaryController.xib in Resources */,
 				705D9EC314B209DE0023732D /* WeatherCell.xib in Resources */,
 				705D9EC414B209DE0023732D /* WeatherViewController.xib in Resources */,
