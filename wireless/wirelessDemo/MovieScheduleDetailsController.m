@@ -270,9 +270,12 @@
     {
         cell.textLabel.textColor =  [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:0.8f];
     }
+    else
+    {
+        cell.textLabel.textColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0f];
+    }
     
     [dateFormatter setDateFormat:@"HH:mm"];
-    //[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     
     NSString *destDateString = [dateFormatter stringFromDate:now];
     
