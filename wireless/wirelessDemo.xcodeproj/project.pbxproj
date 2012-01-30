@@ -1144,6 +1144,7 @@
 					../three20/Build/Products/three20,
 				);
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = wireless;
 				PROVISIONING_PROFILE = "D19B34B0-3C12-4CDD-A773-502E1D00983A";
 				WRAPPER_EXTENSION = app;
@@ -1157,6 +1158,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "wirelessDemo/wirelessDemo-Prefix.pch";
 				INFOPLIST_FILE = "wirelessDemo/wirelessDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				PRODUCT_NAME = wireless;
 				PROVISIONING_PROFILE = "D19B34B0-3C12-4CDD-A773-502E1D00983A";
 				WRAPPER_EXTENSION = app;

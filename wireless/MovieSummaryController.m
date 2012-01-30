@@ -351,6 +351,8 @@ static NSString* cinemainfoRequestURLPath  = @"http://res.88bx.com:8080/wireless
         _controller = (MovieSummaryController*)controller;
     }
     
+    [[TTURLRequestQueue mainQueue] setMaxContentLength:0];
+
     return self;
 }
 
