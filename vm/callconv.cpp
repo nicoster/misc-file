@@ -1,4 +1,4 @@
-void main(){}
+int main(){}
 
 void foo_int_no_ret(int){}
 int foo_int(int){return 0;}

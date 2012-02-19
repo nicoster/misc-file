@@ -11,15 +11,15 @@ struct bar
 {
 	int get_n()
 	{
-	//	T* pThis = this;
-	//	return pThis->n;
+		T* pThis = this;
+		return pThis->n;
 		return 0;
 	}
 };
 
 //class zoo : foo<
 
-void main()
+int main()
 {
 	foo<bar<foo<dummy> > > f;
 	f.get_n();

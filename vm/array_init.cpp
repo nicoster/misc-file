@@ -1,4 +1,4 @@
-void main()
+int main()
 {
 	_asm int 3;
 	char a[] = "abcde";

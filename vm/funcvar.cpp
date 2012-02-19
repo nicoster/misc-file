@@ -1,7 +1,7 @@
 int a = 0;
 int foo(a);
 
-void main(void)
-{
+int main(void)
+{b
 	foo = 2;
 }

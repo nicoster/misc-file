@@ -1,11 +1,12 @@
 #include <iostream>
 using namespace std;
 
-void main(void)
+int main(void)
 {
 	string str;
-	int n;
+	int n;q
 	cin>>n;
 	cout<<"to cout, "<<n<<endl;
 	cerr<<"to cerr"<<endl;
+	return 0;
 }
