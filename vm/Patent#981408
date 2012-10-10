@@ -25,7 +25,10 @@ Sea Sun (sesun)	Phone:+86 512 8777 4216	Manager:Roger Zhao	Dept:WebEx - Client A
 Type:Regular	Division:CTG	Site:	Info:Cisco Directory
 Sunny Zhang (yaqizhan)	Phone:+86 512 8777 4143	Manager:David Ye	Dept:WebEx - Platform Eng - Suzhou 500.505.5050
 Type:Contingent Worker	Division:CTG	Site:	Info:Cisco Directory
-Problem to Solve:To share desktop, there are many solutions. One solution is following these steps.
+
+Problem to Solve:
+
+To share desktop, there are many solutions. One solution is following these steps.
 1. Capture screen with a timer in host side
 2. Image process to judge whether region is updated
 3. Send the updated-region to attendee side
@@ -35,14 +38,20 @@ About step1 capturing screen, current solution is to capture all screen and send
 1. Increase the image process time, decrease the performance
 2. If the data is transfered to server, it wastes more network bandwidth.
 3. To avoid network bandwidth issue, the step1 capture-timer often need to set large to avoid server heavy-load. But this affects the real-time response user experience of desktop-share. 
-Possible Prior Art:For the solution described in the "Problem to solve", the usual way is to use API in the specific OS to capture full-screen image and send it.
+
+Possible Prior Art:
+
+For the solution described in the "Problem to solve", the usual way is to use API in the specific OS to capture full-screen image and send it.
 But this will cause the 3 drawbacks written in "Problem to solve".
 
 The other solution is from video-card driver level to capture every system-draw cmd, then to execute the same one in other side. 
 Our invention is different from this. The points are
 1. Capture the message from OS level, not from driver
 2. Only focus on the update-region, not about the update content.
-Detailed Description:1. In most OS, generally, it drives with message-mechanism and windows management. The below image demonstrates the process, all kinds of events come from external, windows constructs the message queue to collect it and create some system-defined internal messages, such as PAINT screen. Application can handle all these messages.
+
+Detailed Description:
+
+1. In most OS, generally, it drives with message-mechanism and windows management. The below image demonstrates the process, all kinds of events come from external, windows constructs the message queue to collect it and create some system-defined internal messages, such as PAINT screen. Application can handle all these messages.
 
 
 2. In those messages, one is responsible for rendering the screen. For example, in Microsoft Windows, that's WM_PAINT. When triggered, the message's parameter provides the invalidate rectangle. Monitor application collects the rectangles together during a timer, then sectional digging out the part of image, this will decrease the transfered image size and data capacity.
@@ -51,15 +60,11 @@ Detailed Description:1. In most OS, generally, it drives with message-mechanism 
 
 The below image explain the 2nd & 3rd points.
 
-
-
-
-
-
 4. Now the CPU has evolved to 64 bits. In 64 bits OS, 32 bits / 64 bits application can also run in this. But Hook mechanism also supports capture messages in the same bits type application. To consider this point, the invention builds two applications(32/64 bits) to handle corresponding type application. Then to collect the rectangles from both, with the next step as point 2, even in 64 bits OS, the invention can work fine.
 
 
 5. In the demo(see in the "Working Model" ), there is an application to demo and verify the idea. 
+
 Usage: Execute the "Release\ViewPaint.exe" in the Windows platform, choose the "File->Hook" menu, then it will hook the update-rectangle and draw it on the screen.
 Notes: This application is only build win32 version. Using the attachment code, it's convenient to  build 64 bits one.
 
@@ -67,8 +72,12 @@ The below image is the demo UI. The blank white-region presents the desktop regi
 
 
 
-Restatement:The invention provides a solution to capture desktop update-region through hooking the message. With this, in one of current DS(desktop share) solution, it can decrease the image size in the startup step, this will improve the next steps performance. 
-Advantages:Through this invention, in the desktop share, decreases the area region in capture-image. This improves the image process performance with this first-stage filter. With this, it also decrease the network width consume. The final result is to raise user experience in real-time response.
+Restatement:
+
+The invention provides a solution to capture desktop update-region through hooking the message. With this, in one of current DS(desktop share) solution, it can decrease the image size in the startup step, this will improve the next steps performance. 
+
+Advantages:
+Through this invention, in the desktop share, decreases the area region in capture-image. This improves the image process performance with this first-stage filter. With this, it also decrease the network width consume. The final result is to raise user experience in real-time response.
 Cisco Use:Could be Used in Cisco Product
 ---
 Working Model:A Working Model has been made. Details regarding the the date the model was made, the location of the model and any other information the inventors wanted to convey:Attachment is a prototype to verify the feasibility of the invention. It's only the 32 bit application. It draws the update region in the screen after starting the capturing process.
@@ -86,6 +95,7 @@ If the application calls the SetWindowsHookEx(WH_CALLWNDPROC, CallWndProc, hInst
 and checks the message of WM_PAINT and gets the updating rectangle by calling GetUpdateRect() in the CallWndProc, then it could be concluded that the application is using the same technology described in this invention.
 
 All this checking could be performed by using some sort of reverse engineering tools, like WinDbg on Windows.
+
 Standards:This invention is not necessary to implement a standard.
 Description of standards to which the invention may be related:
 ---
