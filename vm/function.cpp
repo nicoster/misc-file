@@ -23,9 +23,10 @@ struct demo_class
 int main(){
 	demo_class sc;
 	function<int (int, int)> func1;
-	function<int (int, int)> func2;
+	function<int (demo_class&, int, int)> func2;
 	
 	func1 = bind(&demo_class::add, &sc,_1,_2);
+	std::wcout << 1;
 	func2 = &demo_class::add;
-//	std::cout << func1(10,20) << func2(&sc,10, 20) << std::endl;
+	std::cout << func1(10,20) << func2(sc,10, 20) << std::endl;
 }

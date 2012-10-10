@@ -1,10 +1,13 @@
-#include "common.h"
+#include <sstream> //"common.h"
+#include <iostream>
+using namespace std;
 
-void main()
+int main()
 {
 	stringstream s;
-	s << "";
+	s << "3";
 	int n = 1;
 	s >> n;
 	cout << n << endl;
+	return 0;
 }
